@@ -856,11 +856,12 @@ function check(q,input){ const n=norm(input); if(!n) return null; parse(q); cons
   const hit=map.get(n); if(hit) return {a:hit,exact:true};
   // «Mente du …?»: små skrivefeil. Store lister er strengere (lengre ord kreves, og første bokstav må stemme)
   // for å unngå at et feil svar godkjennes fordi det ligner et gyldig svar.
-  const big=map.size>3000; let best=null,bd=99;
+  // Toleranse etter listestørrelse: svært store lister (f.eks. 225 000 fotballspillere) er strengest
+  const huge=map.size>60000, big=map.size>3000; let best=null,bd=99;
   for(let L=n.length-2;L<=n.length+2;L++){ const b=q._byLen.get(L); if(!b) continue;
-    for(const k of b){ const tol=big?(k.length>=11?2:k.length>=7?1:0):(k.length>=9?2:k.length>=5?1:0); if(!tol) continue;
+    for(const k of b){ const tol=huge?(k.length>=11?2:k.length>=7?1:0):big?(k.length>=10?2:k.length>=5?1:0):(k.length>=9?2:k.length>=4?1:0); if(!tol) continue;
       if(big&&k[0]!==n[0]) continue; const d=lev(n,k); if(d<=tol&&d<bd){bd=d;best=map.get(k);} } }
-  return best?{a:best,exact:false}:null; }
+  return best?{a:best,exact:false,d:bd}:null; }
 /* Datasett fra innsamlingssystemet (data/index.json). Lastes først når spørsmålet trengs. */
 async function loadDatasets(){ try{ const r=await fetch("data/index.json",{cache:"no-cache"}); if(!r.ok) return;
     const idx=await r.json(); for(const d of idx.datasets||[]){ if(QUESTIONS.some(q=>q.id===d.id)) continue;
@@ -1181,8 +1182,9 @@ $("bar").onsubmit=e=>{ e.preventDefault(); if(answered) return;
   const r=check(curQ(),v);
   if(!r){ tried.push(v); pending=null; shake(); SFX.wrong(); if(SET.clear) inp.value=""; else inp.select();
     renderMsg(`<div class="pill bad">«${esc(v)}» ble ikke godkjent – prøv igjen!</div>`); return; }
-  if(!r.exact && SET.corr && pending!==norm(v)){ pending=norm(v);
-    renderMsg(`<div class="pill sug" id="sug">«${esc(v)}» → <b>${esc(r.a.label)}</b>?<small>Trykk Dykk igjen for å bekrefte, eller rett svaret</small></div>`);
+  // Én bokstav feil i et langt svar godtas direkte; ellers spør vi «mente du …?» og Enter én gang til bekrefter
+  if(!r.exact && SET.corr && pending!==norm(v) && !(r.d<=1&&norm(v).length>=6)){ pending=norm(v);
+    renderMsg(`<div class="pill sug" id="sug">«${esc(v)}» → <b>${esc(r.a.label)}</b>?<small>Trykk Enter eller Dykk igjen for å bekrefte – eller rett svaret</small></div>`);
     $("sug").onclick=()=>accept(r.a); SFX.count(); return; }
   accept(r.a);
 };
@@ -2227,7 +2229,10 @@ function bbSubmit(v,from){ if(!BB||BB.phase!=="play") return; v=String(v||"").tr
   const cur=bbCur(); if(from!==cur.id) return;
   const r=check(BB.q,v), say=m=>{ cur.last={bad:true,msg:m,label:v}; bbEv({k:"bad",id:cur.id,msg:m}); bbSync(); };
   if(!r) return say(`«${v}» ble ikke godkjent`);
-  if(!r.exact&&SET.corr!==false) return say(`Mente du «${r.a.label}»?`);
+  // Små skrivefeil (én bokstav i et langt ord) godtas direkte – her går det fort. Ellers: «Mente du …?», og Enter én gang til bekrefter.
+  if(!r.exact&&SET.corr!==false&&!(r.d<=1&&norm(v).length>=6)){
+    const key=norm(v); if(cur._pend!==key){ cur._pend=key; cur.last={bad:true,sug:true,msg:`Mente du «${r.a.label}»? Trykk Enter igjen`,label:v}; bbEv({k:"sug",id:cur.id}); bbSync(); return; } }
+  cur._pend=null;
   if(BB.used.includes(r.a.label)) return say(`«${r.a.label}» er allerede sagt`);
   const t=r.a.tier; BB.used.push(r.a.label); BB.answers.push([r.a.label,t,cur.n]);
   cur.last={label:r.a.label,tier:t}; cur.typing=""; cur.ans++; if(t>=4) cur.rare++;
@@ -2359,6 +2364,7 @@ function bbEffects(s){ for(const e of s.ev){ if(e.id<=bbEvSeen) continue; bbEvSe
     else if(e.k==="bad"){ if(bbMeIds(s).includes(e.id)){ BBS.bad(); const f=$("bbForm"); if(f) f.animate([{transform:"translateX(-8px)"},{transform:"translateX(8px)"},{transform:"translateX(-5px)"},{transform:"none"}],{duration:300}); const i=$("bbInp"); if(i){ i.value=""; bbLocalTyping=""; } } }
     else if(e.k==="pop"){ BBS.pop(); fx.flash("#ff5d7a",.55,700); fx.shake(16,650); bbShards(); bbFxAt(e.id,"−1 ♥","bbplus",1400)?.animate([{transform:"translate(-50%,-60px)",opacity:1},{transform:"translate(-50%,-110px)",opacity:0}],{duration:1400}); }
     else if(e.k==="plus"){ BBS.plus(); const el=bbFxAt(e.id,"+1 ♥","bbplus",1400); el&&el.animate([{transform:"translate(-50%,-60px) scale(.6)",opacity:0},{transform:"translate(-50%,-90px) scale(1.3)",opacity:1},{transform:"translate(-50%,-130px)",opacity:0}],{duration:1400}); }
+    else if(e.k==="sug"){ if(bbMeIds(s).includes(e.id)) SFX.count(); }
     else if(e.k==="turn"){ if(bbMeIds(s).includes(e.id)){ SFX.bubble(); const i=$("bbInp"); if(i){ i.value=""; bbLocalTyping=""; setTimeout(()=>i.focus(),30); } } }
     else if(e.k==="end"){ BBS.win(); } } }
 function bbDraw(s){ if(!$("bbArena")) bbRenderArena(); const prev=bbLast; bbLast=s;
@@ -2375,7 +2381,7 @@ function bbDraw(s){ if(!$("bbArena")) bbRenderArena(); const prev=bbLast; bbLast
     let say="";
     if(isCur&&pl.typing) say=`<div class="bbsay typ" style="top:${off}px;${side}">${esc(pl.typing)}</div>`;
     else if(pl.last&&!pl.last.bad) say=`<div class="bbsay${bbChanged(pl)?" pop":""}" style="top:${off}px;${side};color:${TIERS[pl.last.tier].color};border-color:${TIERS[pl.last.tier].color}66"><span class="tl" style="color:${TIERS[pl.last.tier].color}">▸ ${TIERS[pl.last.tier].name.toUpperCase()}</span>${esc(pl.last.label)}</div>`;
-    const bad=pl.last&&pl.last.bad&&isCur?`<div class="bbbad" style="top:${off+34}px;${side}">${esc(pl.last.msg)}</div>`:"";
+    const bad=pl.last&&pl.last.bad&&isCur?`<div class="bbbad" style="top:${off+34}px;${side}${pl.last.sug?";color:#5ef2d6":""}">${esc(pl.last.msg)}</div>`:"";
     el.innerHTML=`<div class="av">${bbAvatar(pl,i)}</div><div class="rock"></div><div class="nm">${pl.bot?"🤖 ":""}${esc(pl.n)}${(!BB||BB.net)&&meIds.includes(pl.id)?" (deg)":""}</div><div class="hp">${pl.gone?'<span class="e">frakoblet</span>':hearts}</div><div class="prog">${prog}</div>${say}${bad}`; });
   // kategori
   const cat=$("bbCat"); if(s.cat&&s.phase!=="end"){ cat.style.display=""; cat.innerHTML=`<small>KATEGORI ${s.cat}</small><b>${esc(s.qText)}</b><i>▼ alle godkjente svar sender boblen videre ▼</i>`; } else cat.style.display="none";
