@@ -24,7 +24,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Dypdykk","alternateName":"Dypdykk quiz","url":"https://dypdykk.net/","description":"Dypdykk er et gratis norsk quizspill der sjeldne svar tar deg dypere. Sju nye spørsmål hver dag, mange riktige svar.","applicationCategory":"GameApplication","genre":"Quiz","inLanguage":"nb","operatingSystem":"Alle (nettleser)","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"NOK"}}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;600;700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#eaf6fb; --muted:#8db4c6; --cyan:#5ef2d6; --blue:#36b7ff; --warn:#ff7a6b;
@@ -401,6 +401,60 @@ body.s-page #mute{display:none}
 }
 @media (max-width:520px){#start .top{margin-top:34px}}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+
+/* ============================================================
+   DYKKERLOGG-STIL: pikselskrift, hard kontur og skygge, korn og skannelinjer
+   ============================================================ */
+:root{ --head:'Pixelify Sans','IBM Plex Mono',monospace; --mono:'IBM Plex Mono',ui-monospace,monospace; --ink:#eaf4f0; --muted:#8fb0b8;
+  --line:#04111b; --paper:#efe4c8; --coral:#ff6b5b; --brass:#e8c26a; --panel:rgba(6,21,34,.9); }
+html,body{font-family:'IBM Plex Mono',ui-monospace,monospace;letter-spacing:-.01em}
+svg[shape-rendering="crispEdges"]{image-rendering:pixelated}
+/* korn og svake skannelinjer over alt – gir «skjerm i en dykkerbåt»-følelse */
+body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.5;mix-blend-mode:overlay;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E")}
+/* paneler: mørk logg-plate med lys innerkant, mørk ytterkant og hard skygge */
+.glass{background:var(--panel);border:2px solid var(--line);border-radius:6px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  box-shadow:inset 0 0 0 1px rgba(150,220,235,.16), inset 0 2px 0 rgba(255,255,255,.05), 5px 6px 0 rgba(1,8,14,.55)}
+.panel h3,.sect{font-family:var(--head);font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:none;color:var(--brass)}
+.panel h3{border-bottom:1px dashed rgba(232,194,106,.25);padding-bottom:8px;margin-bottom:14px}
+/* knapper: hevet «plastknapp» som trykkes ned */
+.btn{font-family:var(--head);font-weight:700;letter-spacing:.04em;border-radius:6px;border:2px solid var(--line);padding:14px 30px;font-size:19px;
+  transition:transform .12s var(--ease), box-shadow .12s var(--ease), filter .2s}
+.btn-primary{background:var(--cyan);color:#05222c;box-shadow:inset 0 -4px 0 rgba(0,60,70,.35), inset 0 2px 0 rgba(255,255,255,.55), 0 5px 0 var(--line), 0 10px 24px rgba(94,242,214,.25)}
+.btn-primary:hover{transform:translateY(-1px);filter:brightness(1.06);box-shadow:inset 0 -4px 0 rgba(0,60,70,.35), inset 0 2px 0 rgba(255,255,255,.55), 0 6px 0 var(--line), 0 14px 30px rgba(94,242,214,.32)}
+.btn-primary:active{transform:translateY(4px);box-shadow:inset 0 -2px 0 rgba(0,60,70,.35), 0 1px 0 var(--line)}
+.btn-ghost{background:rgba(8,28,44,.85);border:2px solid var(--line);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(150,220,235,.18), 0 4px 0 var(--line)}
+.btn-ghost:hover{background:rgba(14,42,62,.92)}
+.btn-ghost:active{transform:translateY(3px);box-shadow:inset 0 0 0 1px rgba(150,220,235,.18), 0 1px 0 var(--line)}
+/* tittel: pikselskrift med hard, todelt skygge */
+.title{font-family:var(--head);font-weight:700;letter-spacing:.06em;color:#eafffb;background:none;-webkit-text-fill-color:currentColor;
+  text-shadow:0 4px 0 #0b3a4a, 0 8px 0 var(--line), -3px 0 0 rgba(255,107,91,.55), 3px 0 0 rgba(94,242,214,.55)}
+.kicker{font-family:var(--head);letter-spacing:.14em;color:var(--paper)}
+.ptitle,.tname,#qcard h2{font-family:var(--head);letter-spacing:.03em}
+.tname{text-shadow:0 3px 0 var(--line), 0 0 24px color-mix(in srgb,var(--tc) 45%,transparent)}
+#qcard .qn{font-family:var(--head);letter-spacing:.12em;color:var(--brass)}
+/* svarfeltet */
+.barrow{border-radius:8px}
+#inp{font-family:var(--mono)}
+.field{font-family:var(--mono);border-radius:6px;border:2px solid var(--line);box-shadow:inset 0 0 0 1px rgba(150,220,235,.14)}
+.chip{border-radius:4px;font-family:var(--mono);border:1px solid rgba(150,220,235,.22)}
+.tile{border-radius:6px;border:2px solid var(--line);background:rgba(8,28,44,.86);box-shadow:inset 0 0 0 1px rgba(150,220,235,.14), 0 4px 0 var(--line);transition:transform .12s var(--ease), background .2s}
+.tile:active{transform:translateY(3px)}
+.tile b{font-family:var(--head);font-size:16px;letter-spacing:.03em}
+.tierrow b{font-family:var(--head);font-size:12.5px;letter-spacing:.02em}
+.tierrow svg{filter:drop-shadow(2px 2px 0 rgba(0,0,0,.45))}
+.ricon svg{filter:drop-shadow(3px 3px 0 rgba(0,0,0,.45))}
+#diver svg{filter:drop-shadow(3px 4px 0 rgba(0,0,0,.35))}
+/* «Mente du dette?» som en tydelig boble */
+.pill.sug{display:inline-block;font-family:var(--mono);background:var(--paper);color:#1d2a30;border:2px solid var(--line);border-radius:6px;
+  box-shadow:4px 5px 0 rgba(1,8,14,.6);padding:10px 14px 9px;text-align:left;animation:sugpop .38s var(--spring)}
+.pill.sug b{color:#b23a2c;font-family:var(--head);font-size:18px}
+.pill.sug small{display:block;margin-top:4px;color:#4c5d64;font-size:11.5px}
+.pill.sug .q{display:block;font-size:12px;color:#4c5d64;margin-bottom:2px}
+@keyframes sugpop{0%{transform:translateY(10px) scale(.85) rotate(-2deg);opacity:0}60%{transform:translateY(-2px) scale(1.04) rotate(.6deg);opacity:1}100%{transform:none}}
+@media (max-width:520px){.tile b{font-size:14px;letter-spacing:0;overflow-wrap:anywhere}#start .bottom{gap:9px}#start .bottom .btn{padding-top:11px;padding-bottom:11px}#start .sub{text-shadow:0 2px 0 rgba(10,20,40,.55)}}
+@media (max-width:520px) and (max-height:820px){#start .bottom .btn.sec{font-size:15px}}
 </style>
 </head>
 <body class="s-start">
@@ -709,96 +763,248 @@ Q_EKSTRA2.forEach(q=>q.from=19); // med i dagens dykk fra 19. november (dagens s
 QUESTIONS.push(...Q_EKSTRA2);
 
 
-const ICONS = [
-/* 0 Tare */
-`<svg viewBox="0 0 64 64" fill="none" stroke-linecap="round">
-  <path d="M24 62C18 50 30 42 24 30C19 20 26 12 27 4" stroke="#6fbf73" stroke-width="5"/>
-  <path d="M38 62C44 52 34 44 40 34C45 26 39 18 41 10" stroke="#4e9e5a" stroke-width="5"/>
-  <ellipse cx="17" cy="38" rx="7" ry="3.5" fill="#6fbf73" transform="rotate(-35 17 38)"/>
-  <ellipse cx="31" cy="20" rx="7" ry="3.5" fill="#6fbf73" transform="rotate(30 31 20)"/>
-  <ellipse cx="47" cy="44" rx="7" ry="3.5" fill="#4e9e5a" transform="rotate(35 47 44)"/>
-  <ellipse cx="34" cy="28" rx="6" ry="3" fill="#4e9e5a" transform="rotate(-30 34 28)"/>
-</svg>`,
-/* 1 Reke */
-`<svg viewBox="0 0 64 64" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M46 8C38 4 26 6 16 12" stroke="#ffb38a" stroke-width="1.6"/>
-  <path d="M47 11C40 9 30 12 22 18" stroke="#ffb38a" stroke-width="1.6"/>
-  <path d="M44 18C55 26 54 42 42 48C34 52 25 50 20 44" stroke="#ff8f5a" stroke-width="11"/>
-  <path d="M48 26L41 29M50 35L42 36M46 43L39 41M36 48L34 42" stroke="#d9663a" stroke-width="2"/>
-  <path d="M21 44L9 38L12 46L8 53L21 47Z" fill="#ff8f5a"/>
-  <path d="M36 34l-6 6M40 40l-5 7" stroke="#ffb38a" stroke-width="2"/>
-  <circle cx="45" cy="17" r="2.6" fill="#14202a"/>
-</svg>`,
-/* 2 Makrell */
-`<svg viewBox="0 0 64 64" fill="none" stroke-linecap="round">
-  <path d="M50 32L61 21L58 32L61 43Z" fill="#3e8fc4"/>
-  <path d="M6 32C16 18 40 17 51 32C40 47 16 46 6 32Z" fill="#7fd1ff"/>
-  <path d="M8 31C18 19 40 18 50 31" fill="#2f6f9e"/>
-  <path d="M20 22c3 3 0 6 3 9M28 20c3 3 0 6 3 9M36 21c3 3 0 6 3 9M43 24c2 3 0 5 2 7" stroke="#163f5c" stroke-width="2"/>
-  <path d="M22 36C30 39 40 38 46 34" stroke="#d8f2ff" stroke-width="1.6"/>
-  <circle cx="15" cy="31" r="2.6" fill="#0b1c28"/>
-  <circle cx="15.8" cy="30.2" r=".8" fill="#fff"/>
-</svg>`,
-/* 3 Blekksprut */
-`<svg viewBox="0 0 64 64" fill="none" stroke-linecap="round">
-  <g stroke="#a46be0" stroke-width="5">
-    <path d="M22 34C14 40 18 50 10 54"/><path d="M27 36C24 46 28 54 22 60"/>
-    <path d="M37 36C40 46 36 54 42 60"/><path d="M42 34C50 40 46 50 54 54"/>
-    <path d="M32 37C32 48 30 54 32 60"/>
-  </g>
-  <ellipse cx="32" cy="24" rx="16" ry="15" fill="#c79bff"/>
-  <ellipse cx="27" cy="16" rx="5" ry="3" fill="#e2ccff" opacity=".7"/>
-  <circle cx="26" cy="27" r="3.4" fill="#fff"/><circle cx="38" cy="27" r="3.4" fill="#fff"/>
-  <circle cx="26.6" cy="27.6" r="1.8" fill="#1d0f2e"/><circle cx="38.6" cy="27.6" r="1.8" fill="#1d0f2e"/>
-</svg>`,
-/* 4 Breiflabb */
-`<svg viewBox="0 0 64 64" fill="none" stroke-linecap="round">
-  <path d="M28 20C28 8 42 4 48 12" stroke="#b08a3a" stroke-width="2.2"/>
-  <circle cx="49" cy="14" r="7" fill="#ffd36b" opacity=".25"/>
-  <circle cx="49" cy="14" r="4" fill="#ffe9a8"/>
-  <path d="M52 40L62 32L60 42L62 52Z" fill="#8a6a2a"/>
-  <circle cx="30" cy="38" r="21" fill="#b8913f"/>
-  <path d="M10 40C16 50 30 52 42 44L12 34Z" fill="#2a1a08"/>
-  <path d="M13 36l3 5 2-5 3 6 2-6 3 6 2-6 3 6 2-6 3 5 2-5" stroke="#fff6dd" stroke-width="1.6" stroke-linejoin="round"/>
-  <path d="M16 46l3-4 3 5 3-5 3 5 3-5 3 4" stroke="#fff6dd" stroke-width="1.6" stroke-linejoin="round"/>
-  <circle cx="24" cy="27" r="4" fill="#fff"/><circle cx="23.4" cy="27.4" r="2.2" fill="#0e0a04"/>
-</svg>`,
-/* 5 Kjempeblekksprut */
-`<svg viewBox="0 0 64 64" fill="none" stroke-linecap="round">
-  <g stroke="#2fb8a3" stroke-width="2.6">
-    <path d="M27 38C24 46 28 52 24 58"/><path d="M30 38C30 46 28 52 30 58"/>
-    <path d="M34 38C34 46 36 52 34 58"/><path d="M37 38C40 46 36 52 40 58"/>
-  </g>
-  <path d="M25 38C18 48 22 56 12 62" stroke="#5ee6d0" stroke-width="2.2"/>
-  <path d="M39 38C46 48 42 56 52 62" stroke="#5ee6d0" stroke-width="2.2"/>
-  <ellipse cx="12" cy="61" rx="3.5" ry="2" fill="#5ee6d0"/><ellipse cx="52" cy="61" rx="3.5" ry="2" fill="#5ee6d0"/>
-  <path d="M32 2C43 13 43 28 39 39L25 39C21 28 21 13 32 2Z" fill="#5ee6d0"/>
-  <path d="M32 6L22 16L26 20Z M32 6L42 16L38 20Z" fill="#2fb8a3"/>
-  <path d="M29 12C28 18 28 26 29 32" stroke="#b9fff3" stroke-width="1.6" opacity=".7"/>
-  <circle cx="27.5" cy="33" r="3" fill="#fff"/><circle cx="36.5" cy="33" r="3" fill="#fff"/>
-  <circle cx="27.8" cy="33.5" r="1.6" fill="#03201c"/><circle cx="36.8" cy="33.5" r="1.6" fill="#03201c"/>
-</svg>`
-];
-/* Dykkeren */
-const DIVER = `<svg viewBox="0 0 64 80" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <circle cx="50" cy="8" r="3" stroke="#cdeef7" stroke-width="1.4"/>
-  <circle cx="55" cy="16" r="2" stroke="#cdeef7" stroke-width="1.2"/>
-  <rect x="35" y="27" width="11" height="24" rx="5" fill="#9fb3bf"/>
-  <rect x="37" y="30" width="3" height="18" rx="1.5" fill="#d4e2e9"/>
-  <path d="M22 34L12 44M40 34L48 42" stroke="#ff8a3d" stroke-width="6"/>
-  <circle cx="11" cy="45" r="3.4" fill="#ffd36b"/>
-  <rect x="20" y="27" width="22" height="26" rx="10" fill="#ff8a3d"/>
-  <path d="M21 40H41" stroke="#14303f" stroke-width="3"/>
-  <path d="M25 51L23 66M37 51L39 66" stroke="#ff8a3d" stroke-width="7"/>
-  <path d="M17 66C17 74 27 76 28 66Z" fill="#ffd36b"/>
-  <path d="M34 66C35 76 45 74 45 66Z" fill="#ffd36b"/>
-  <circle cx="31" cy="17" r="11" fill="#f1c39b"/>
-  <path d="M20 14C21 5 41 5 42 14C38 10 24 10 20 14Z" fill="#14303f"/>
-  <rect x="22" y="13" width="18" height="10" rx="5" fill="#7fd1ff" stroke="#14303f" stroke-width="2.4"/>
-  <path d="M25 16C26 15 28 15 29 16" stroke="#e8f8ff" stroke-width="1.4"/>
-  <path d="M42 22V6" stroke="#ffd36b" stroke-width="3"/>
-  <path d="M31 26C34 26 38 25 42 22" stroke="#14303f" stroke-width="2"/>
-</svg>`;
+/* ============================================================
+   PIKSELKUNST – alle figurer tegnes fra små piksel-kart.
+   Hvert tegn i kartet er én piksel; «.» er gjennomsiktig. Fargene står i pal.
+   ============================================================ */
+function pxSvg(map,pal,extra){ const h=map.length, w=Math.max(...map.map(r=>r.length)); let rects="";
+  map.forEach((row,y)=>{ let x=0; while(x<row.length){ const c=row[x]; if(c==="."||!pal[c]){ x++; continue; } let n=1; while(row[x+n]===c) n++;
+      rects+=`<rect x="${x}" y="${y}" width="${n}" height="1" fill="${pal[c]}"/>`; x+=n; } });
+  return `<svg viewBox="0 0 ${w} ${h}" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">${extra||""}${rects}</svg>`; }
+// Tegner kartet på et lite lerret (for havscenen); skaleres opp uten utjevning
+function pxCanvas(map,pal){ const h=map.length, w=Math.max(...map.map(r=>r.length)), c=document.createElement("canvas"); c.width=w; c.height=h;
+  const x=c.getContext("2d"); map.forEach((row,yy)=>{ for(let xx=0;xx<row.length;xx++){ const ch=row[xx]; if(ch!=="."&&pal[ch]){ x.fillStyle=pal[ch]; x.fillRect(xx,yy,1,1); } } }); return c; }
+
+const PX={
+ tare:{pal:{o:"#123d22",g:"#2f8a45",G:"#4fbf62",l:"#a6ec7e",b:"#e3b343",B:"#a97a1e"},map:[
+  "....o...........",
+  "...oGo....o.....",
+  "...oGlo..oGo....",
+  "..oGlo...oGlo...",
+  "..oGo...oGlo....",
+  ".obBo...oGo.....",
+  "..oGo..oGlo.....",
+  "...oGo.oGo.obo..",
+  "...oGlooGo.oBo..",
+  "..oGlo.oGlo.o...",
+  "..oGo...oGo.....",
+  ".oGlo...oGlo....",
+  ".oGo...oGlo.....",
+  "..oGo..oGo......",
+  ".ogggooggggo....",
+  "oooooooooooooo.."]},
+ reke:{pal:{o:"#4a1414",r:"#e8553f",R:"#b23426",p:"#ff9a7a",w:"#ffd9c8",k:"#1a0b0b",a:"#ffb59c"},map:[
+  "..a.............",
+  "...a....a.......",
+  "....a..a........",
+  ".....aoooo......",
+  "....oorrrroo....",
+  "...okwrppprro...",
+  "...orrpppppro...",
+  "....oRrrppppro..",
+  ".....ooRrpppro..",
+  "......o.oRrrpo..",
+  ".......o..oRro..",
+  "......orro.oro..",
+  ".....orppro.o...",
+  ".....oRrrRo.....",
+  "......oooo......",
+  "................"]},
+ makrell:{pal:{o:"#071a24",b:"#2f9cc0",d:"#17607c",k:"#0b2f40",s:"#d9eef4",S:"#9fc2cc",w:"#ffffff",e:"#071a24",y:"#e4c75a"},map:[
+  "................",
+  "................",
+  "................",
+  "......o.o.......",
+  ".....odoko......",
+  "...oodkdkdoo..o.",
+  "..odbkbbkbbdoodo",
+  ".obwebkbbkbbbddo",
+  "oybbbbbbbbbbbbdo",
+  ".oSssssssssSSodo",
+  "..ooSsssssSoooso",
+  "....ooooooo...o.",
+  "......o.o.......",
+  "................",
+  "................",
+  "................"]},
+ torsk:{pal:{o:"#1d1a0c",t:"#8d8f4f",T:"#666a33",s:"#4c4f26",y:"#d8d3a0",l:"#f1ecc8",w:"#ffffff",e:"#1d1a0c",b:"#b9b27a"},map:[
+  "................",
+  "................",
+  ".....o..o..o....",
+  "....oto.oto.oo..",
+  "..ooTttotttottoo",
+  ".otttsttttstttTo",
+  "otwettttsttttttTo",
+  "ottttlllllllltTo.",
+  "otyyyyyyyyyyytTo",
+  ".oyyyyyyyyyyyoTo",
+  "..oobyyyyyyoo.oo",
+  "...oo.oooooo....",
+  "...o............",
+  "................",
+  "................",
+  "................"]},
+ kveite:{pal:{o:"#22170c",h:"#7d5a38",H:"#5a3f24",p:"#a98058",w:"#ffffff",e:"#22170c",f:"#94704a"},map:[
+  "................",
+  ".....ooooo......",
+  "...oofhfhfoo....",
+  "..ohhhhhhhhhoo..",
+  ".ohwehwehhphhho.",
+  ".ohhhhhhhhhhhhho",
+  "ohhhphhhhhphhhho",
+  "ohhhhhhhhhhhhhHo",
+  "ohhhhhhphhhhhHHo",
+  ".ohhhhhhhhhhhHo.",
+  ".oohhhhhhhhHHo..",
+  "...oofhfhfHoo...",
+  ".....ooooo......",
+  ".......ooo......",
+  "......oHfHo.....",
+  ".....oo...oo...."]},
+ squid:{pal:{o:"#2a0710",r:"#e3425a",R:"#a82a3f",p:"#ff8c9d",w:"#ffffff",k:"#2a0710",c:"#5ef2d6"},map:[
+  ".......oo.......",
+  "......orro......",
+  ".....orpprro....",
+  "....orpprrro....",
+  "....orprrrRo....",
+  "....orrrrrRo....",
+  "...owkrrrkwRo...",
+  "...oorrrrrrRo...",
+  "....orRrRrRo....",
+  "...or.r.r.r.ro..",
+  "..or.r.r.r.r.ro.",
+  "..o..r.r.r.r..o.",
+  ".or..r..r..r..ro",
+  ".r..r...r...r..r",
+  "c...r...r...r..c",
+  "...r....r....r.."]},
+ diver:{pal:{o:"#1a0f08",s:"#ff8a2a",S:"#d0601a",h:"#ffd27a",g:"#8ff5ff",G:"#2bb7d6",m:"#c9d6df",M:"#7d8c98",y:"#f2c230",k:"#1a0f08",b:"#3a2a1e"},map:[
+  ".....oooooo.....",
+  "....ommmmmmo....",
+  "...omMggggMmo...",
+  "...omgGggGgmo.y.",
+  "...omggggggmooy.",
+  "...oMmMggMmMoyo.",
+  "....oommmmoo.y..",
+  "...osssyysssoy..",
+  "..ossssyysssso..",
+  ".ossosssssssoso.",
+  ".oho.ossSsso.oho",
+  ".oo..ossSsso..oo",
+  ".....osssSso....",
+  ".....ossoSso....",
+  ".....oSso.oSo...",
+  "....obbbo.obbbo.",
+  "...obbbbo.obbbbo",
+  "...oooooo.oooooo"]},
+ star:{pal:{o:"#3b0d26",p:"#ff8fa3",P:"#d9566f",w:"#ffd0d9"},map:[
+  ".......oo.......",
+  "......oppo......",
+  "......oppo......",
+  ".....owppPo.....",
+  "ooooooppppoooooo",
+  "opppppopopppppPo",
+  ".oppppppppppPPo.",
+  "..oppPpppPpPPo..",
+  "...oPpppppPPo...",
+  "...oppPppPpPo...",
+  "..oppPoooPpPPo..",
+  "..opPo...oPPPo..",
+  ".oPPo.....oPPo..",
+  ".ooo.......ooo..",
+  "................",
+  "................"]},
+ whale:{pal:{o:"#0b1c38",b:"#4b7bd6",B:"#3159a8",w:"#cfe0ff",k:"#0b1c38",s:"#9fd8ff"},map:[
+  "......s..s......",
+  ".......ss.......",
+  "................",
+  "....oooooo......",
+  "..oobbbbbboo....",
+  ".obbbbbbbbbboo.o",
+  "obkbbbbbbbbbbbob",
+  "obbbbbbbbbbbbbbo",
+  "owwwwbbbbbbbbbo.",
+  ".owwwwwwwbbbBBo.",
+  "..oowwwwwwBBoo..",
+  "....oooooooo....",
+  "................",
+  "................",
+  "................",
+  "................"]}
+};
+const ICON_KEYS=["tare","reke","makrell","torsk","kveite","squid"];
+const ICONS=ICON_KEYS.map(k=>pxSvg(PX[k].map,PX[k].pal));
+const DIVER=pxSvg(PX.diver.map,PX.diver.pal);
+const PX_STAR=pxSvg(PX.star.map,PX.star.pal), PX_WHALE=pxSvg(PX.whale.map,PX.whale.pal);
+
+/* Rekvisitter i havet (tegnes på lerretet, dypere = andre ting) */
+const PXS={
+ kelp:{pal:{o:"#0d3a20",g:"#2c8a45",G:"#4dbb5f",b:"#d9a940"},map:[
+  "..o...",".oGo..","..oGo.",".oGo..","oGo...",".oGob.","..oGo.","..oGo.",".oGo..","oGo...",".oGo..","..oGo.",".bGo..",".oGo..","..oGo.","..oGo.",".oGo..","oGo...","oGo...",".oGo..","..oGo.","..oGo.",".oGo..",".oGo..","oggoo.","ooooo."]},
+ fish:{pal:{o:"#082334",b:"#3d8fb0",s:"#a9d4e0",e:"#082334"},map:[
+  "..oo....",".obbo.oo","obebbbbo","osssss.o",".ooooo.."]},
+ turtle:{pal:{o:"#13280f",g:"#4f8a3a",G:"#2f5e24",y:"#c7b56a",k:"#13280f",l:"#8fc46a"},map:[
+  "..........oo..........",
+  "......oooogGoooo......",
+  "....ooGgGgGgGgGGoo..oo",
+  "..ooGgGgGgGgGgGgGGoollo",
+  ".oyyyyyyyyyyyyyyyyykllo",
+  "oll.oyyyyyyyyyyyyyolloo.",
+  "oll..oooooooooooooo.oo..",
+  ".oo...ol.......ol.......",
+  "......oo.......oo......."]},
+ wreck:{pal:{o:"#0a1820",h:"#3a4a52",H:"#26343b",r:"#7a4a2e",w:"#1a2a30",y:"#c9a85a"},map:[
+  "..............o.................",
+  "..............o.................",
+  ".............ooo................",
+  "..............o........o........",
+  ".............oho.......o........",
+  "..........ooohhooo....ooo.......",
+  ".........ohhhhhhhho....o........",
+  "ooo.....ohhwhhwhhho...oho.......",
+  "ohhooooohhhhhhhhhhooooohhoooo...",
+  "ohhhhhhhhhhhhhhhhhhhhhhhhhhhhoo.",
+  ".ohhhywhhhwhhhwhhhwhhhwhhhHHHo..",
+  "..oHHhhhhhhhhhhhhhhhhhhhHHHHo...",
+  "...oHHHHHHrrHHHHHHHHHHHHHHoo....",
+  "....ooooooooooooooooooooooo....."]},
+ whale:{pal:{o:"#04101e",b:"#1e3a5a",B:"#152b44",w:"#3e6488",k:"#04101e"},map:[
+  "...............................o..o.",
+  "..............................obbobo",
+  ".......ooooooooooooooooooo....obbbo.",
+  "....oobbbbbbbbbbbbbbbbbbbbooooobbo..",
+  "..oobbbbbbbbbbbbbbbbbbbbbbbbbbbbo...",
+  ".obkbbbbbbbbbbbbbbbbbbbbbbbbBBo.....",
+  "obbbbbbbbbbbbbbbbbbbbbbbbbBBo.......",
+  "owwwwwbbbbbbbbbbbbbbbbbBBBo.........",
+  ".owwwwwwwbbbbbBBBBBBBBBoo...........",
+  "..oooooooooooooooooooo.............."]},
+ jelly:{pal:{p:"#ff9de2",P:"#c55fb8",w:"#ffe1f6",t:"#ff9de2"},map:[
+  "...pppp...","..pwwppp..",".pwppppPp.","pppppppPPp","pPpPpPpPpP","..t.t.t.t.",".t..t.t..t",".t.t..t.t.","..t.t..t..",".t...t..t.","t...t...t."]},
+ angler:{pal:{o:"#04070c",b:"#2a2f3a",B:"#1a1e27",l:"#fff3a8",w:"#e8eef5",t:"#5a6070"},map:[
+  ".......ttt........",
+  "......t...l.......",
+  ".....t...lll......",
+  "....oooo..l.......",
+  "..oobbbbooo.......",
+  ".obbwbbbbbbo...o..",
+  "obbbbbbbbbbbooobo.",
+  "owowowbbbbbbbbbbo.",
+  ".owowobbbbbBBBbo..",
+  "..oooobbbBBBoobo..",
+  "......ooooo...o...."]},
+ vent:{pal:{o:"#05080c",r:"#2b2f36",R:"#1b1e24",y:"#ffb347",k:"#3a3f48"},map:[
+  "...............kk...........",
+  "..............k..k..........",
+  ".............ooyyoo.........",
+  "............orryyrro........",
+  "...........orrRrrRrro.......",
+  "..oo......orrRrrrrRrro...oo.",
+  ".orro....orrrRrrRrrrrro.orro",
+  "orrRroooorrRrrrrrRrrRrrorrRo",
+  "rrRrrrrRrrrrrRrrrrrrrrRrrrrr"]}
+};
+
 
 /* ============================================================
    INNSTILLINGER
@@ -807,8 +1013,8 @@ const TIERS = [
   {name:"Tare", m:50,             pts:10,  color:"#9fd18b", desc:"Veldig vanlig",            flavor:"Tare og tang i strandkanten. Her svarer nesten alle."},
   {name:"Reke", m:150,             pts:25,  color:"#ffab7a", desc:"Vanlig",              flavor:"Du svømmer med stimen. Trygt, men grunt."},
   {name:"Makrell", m:350,          pts:40,  color:"#6cc8ff", desc:"Litt uvanlig",               flavor:"Under overflaten. Pent levert!"},
-  {name:"Blekksprut", m:650,       pts:60,  color:"#c79bff", desc:"Uvanlig",                    flavor:"Godt under springlaget. Sterkt!"},
-  {name:"Breiflabb", m:1050,        pts:80,  color:"#ffd36b", desc:"Sjeldent",                   flavor:"Her nede lyser bare dyrene selv. Sjeldent godt."},
+  {name:"Torsk", m:650,            pts:60,  color:"#c79bff", desc:"Uvanlig",                    flavor:"Ned blant torsken på dypt vann. Sterkt!"},
+  {name:"Kveite", m:1050,           pts:80,  color:"#ffd36b", desc:"Sjeldent",                   flavor:"Helt nede ved kveita på bunnen. Sjeldent godt."},
   {name:"Kjempeblekksprut", m:1570, pts:100, color:"#5ef2d6", desc:"Ekstremt sjeldent",  flavor:"Legendarisk. Nesten ingen har vært så dypt."}
 ];
 const ROUNDS=7, SECONDS=30, BASE=14;
@@ -958,10 +1164,11 @@ drawMute();
 const cv=$("scene"), ctx=cv.getContext("2d");
 let W=0,H=0,DPR=1; const PPM=1.35;           // piksler per meter
 const cam={d:0,from:0,to:0,t0:0,dur:1};       // kameradybde (følger dykkeren)
-const dy={v:.6,from:.6,to:.6,t0:0,dur:1};    // dykkerens høyde på skjermen (andel av H)
+const dy={v:.6,from:.6,to:(innerWidth<560&&innerHeight>innerWidth?.5:.6),t0:0,dur:1};    // dykkerens høyde på skjermen (andel av H)
 function diveTo(d,ms,ez){cam.from=cam.d;cam.to=d;cam.t0=performance.now();cam.dur=ms;cam.ez=ez||ease;}
 const easeBack=t=>{const c1=1.25,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2);};
 const easeDive=t=>1-Math.pow(1-t,3);
+const startY=()=>innerWidth<560&&innerHeight>innerWidth?.5:.6;
 function diverYTo(v,ms){dy.from=dy.v;dy.to=v;dy.t0=performance.now();dy.dur=ms;}
 function resize(){DPR=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);buildMountains();}
 addEventListener("resize",resize);
@@ -990,6 +1197,16 @@ const fishes=Array.from({length:7},(_,i)=>({d:25+i*55+Math.random()*30,x:Math.ra
 const jellies=Array.from({length:14},()=>({d:1200+Math.random()*5600,x:Math.random(),ph:Math.random()*6.28,s:.6+Math.random()*.9,hue:[290,190,330,170][Math.floor(Math.random()*4)]}));
 const lures=Array.from({length:10},()=>({d:3500+Math.random()*3400,x:Math.random(),ph:Math.random()*6.28}));
 
+// Pikselfigurer i havet. Hver har en fast dybde (meter) og side; man ser andre ting jo dypere man kommer.
+const SPR={}; for(const k in PXS) SPR[k]=pxCanvas(PXS[k].map,PXS[k].pal);
+const PROPS=[
+  {k:"kelp",d:14,x:.06,s:4,sway:1},{k:"kelp",d:22,x:.11,s:3,sway:1},{k:"kelp",d:18,x:.92,s:4,sway:1},{k:"kelp",d:28,x:.87,s:3,sway:1},
+  {k:"turtle",d:130,x:.2,s:3,v:.006},
+  {k:"wreck",d:420,x:.8,s:4},
+  {k:"whale",d:900,x:.25,s:4,v:-.004},
+  {k:"jelly",d:1500,x:.15,s:3,glow:"#ff9de2"},{k:"jelly",d:1900,x:.82,s:4,glow:"#ff9de2"},{k:"jelly",d:2600,x:.3,s:3,glow:"#ff9de2"},
+  {k:"angler",d:3800,x:.78,s:4,lure:[10,2]},{k:"angler",d:5200,x:.18,s:3,lure:[10,2]},{k:"angler",d:7400,x:.7,s:4,lure:[10,2]},
+  {k:"vent",d:10600,x:.22,s:5,smoke:1},{k:"vent",d:10900,x:.75,s:6,smoke:1}];
 let lastT=performance.now(), lastCam=0;
 function frame(now){
   const dt=Math.min(.05,(now-lastT)/1000); lastT=now;
@@ -1017,7 +1234,7 @@ function frame(now){
     for(let i=0;i<40;i++){const sx=(i*137.5%100)/100*W, sy=((i*61.8)%45)/100*surfY; const a=.3+.3*Math.sin(t*1.3+i);
       ctx.globalAlpha=a*clamp(1-sy/(surfY*.5),0,1); ctx.fillRect(sx,sy,1.4,1.4);} ctx.globalAlpha=1;
     // sol
-    const sx=W*.72, sy=surfY-Math.min(H*.3,270), sr=Math.max(28,W*.035);
+    const sx=W*.72, sy=surfY-Math.min(H*(W<560?.17:.3),270), sr=Math.max(28,W*.035);
     const sg=ctx.createRadialGradient(sx,sy,0,sx,sy,sr*5); sg.addColorStop(0,"rgba(255,226,170,.9)");sg.addColorStop(.18,"rgba(255,190,140,.45)");sg.addColorStop(1,"rgba(255,160,120,0)");
     ctx.fillStyle=sg; ctx.beginPath(); ctx.arc(sx,sy,sr*5,0,7); ctx.fill();
     ctx.fillStyle="#fff1d6"; ctx.beginPath(); ctx.arc(sx,sy,sr,0,7); ctx.fill();
@@ -1056,9 +1273,10 @@ function frame(now){
   // --- Fisk (grunt vann) ---
   if(!SET.lite) fishes.forEach(f=>{f.x+=f.v*dt; if(f.x>1.2)f.x=-.2; if(f.x<-.2)f.x=1.2;
     const y=surfY+f.d*PPM; if(y<-40||y>H+40)return; const a=clamp(1-f.d/500,0,1)*.55;
-    ctx.fillStyle=`rgba(5,25,45,${a})`;
-    for(let k=0;k<f.n;k++){const fx=f.x*W+((k*37)%60-30)*f.s*1.4, fy=y+((k*23)%30-15)*f.s+Math.sin(t*2+k)*2, dir=Math.sign(f.v), s=7*f.s;
-      ctx.beginPath();ctx.ellipse(fx,fy,s,s*.38,0,0,7);ctx.fill();ctx.beginPath();ctx.moveTo(fx-dir*s*.8,fy);ctx.lineTo(fx-dir*s*1.6,fy-s*.4);ctx.lineTo(fx-dir*s*1.6,fy+s*.4);ctx.fill();}});
+    ctx.save(); ctx.imageSmoothingEnabled=false; ctx.globalAlpha=a*1.5; const sp=SPR.fish, sc=Math.round(2*f.s)||2;
+    for(let k=0;k<f.n;k++){const fx=Math.round(f.x*W+((k*37)%60-30)*f.s*1.4), fy=Math.round(y+((k*23)%30-15)*f.s+Math.sin(t*2+k)*2), dir=Math.sign(f.v);
+      ctx.save(); ctx.translate(fx,fy); if(dir<0) ctx.scale(-1,1); ctx.drawImage(sp,-sp.width*sc/2,-sp.height*sc/2,sp.width*sc,sp.height*sc); ctx.restore();}
+    ctx.restore();});
 
   // --- Havsnø og selvlysende prikker ---
   ctx.save(); ctx.globalCompositeOperation="lighter";
@@ -1069,17 +1287,20 @@ function frame(now){
       const r=s.r*2.6; const gg=ctx.createRadialGradient(s.x*W,y,0,s.x*W,y,r*4); gg.addColorStop(0,`hsla(${s.hue},100%,70%,${a})`);gg.addColorStop(1,`hsla(${s.hue},100%,60%,0)`);
       ctx.fillStyle=gg;ctx.beginPath();ctx.arc(s.x*W,y,r*4,0,7);ctx.fill();}
     else {ctx.fillStyle=`rgba(200,235,255,${.18+.22*s.p})`;ctx.fillRect(s.x*W,y,s.r,s.r); if(Math.abs(camMove)>2){ctx.fillRect(s.x*W,y,s.r*.7,clamp(-camMove*s.p*1.6,0,140));}}});
-  // maneter
-  if(!SET.lite) jellies.forEach(j=>{const y=surfY+j.d*PPM+Math.sin(t*.6+j.ph)*12; if(y<-80||y>H+80)return; const x=j.x*W+Math.sin(t*.25+j.ph)*30, s=18*j.s, pulse=1+.08*Math.sin(t*2.2+j.ph);
-    const jg=ctx.createRadialGradient(x,y,0,x,y,s*2.4);jg.addColorStop(0,`hsla(${j.hue},90%,70%,.45)`);jg.addColorStop(1,`hsla(${j.hue},90%,60%,0)`);
-    ctx.fillStyle=jg;ctx.beginPath();ctx.arc(x,y,s*2.4,0,7);ctx.fill();
-    ctx.fillStyle=`hsla(${j.hue},90%,78%,.55)`;ctx.beginPath();ctx.ellipse(x,y,s*pulse,s*.7/pulse,0,Math.PI,0);ctx.fill();
-    ctx.strokeStyle=`hsla(${j.hue},90%,75%,.35)`;ctx.lineWidth=1.2;
-    for(let k=-2;k<=2;k++){ctx.beginPath();ctx.moveTo(x+k*s*.3,y);for(let m=1;m<=6;m++)ctx.lineTo(x+k*s*.3+Math.sin(t*2+m+k+j.ph)*3,y+m*s*.35);ctx.stroke();}});
-  // lysende agn fra dyphavsfisk
-  if(!SET.lite) lures.forEach(l=>{const y=surfY+l.d*PPM; if(y<-30||y>H+30)return; const x=l.x*W+Math.sin(t*.5+l.ph)*16, a=.5+.5*Math.sin(t*3+l.ph);
-    const lg=ctx.createRadialGradient(x,y,0,x,y,16);lg.addColorStop(0,`rgba(255,240,170,${a})`);lg.addColorStop(1,"rgba(255,220,120,0)");
-    ctx.fillStyle=lg;ctx.beginPath();ctx.arc(x,y,16,0,7);ctx.fill();});
+  ctx.restore(); ctx.save();   // vanlig blanding (ikke «lighter») for figurene
+  // pikselrekvisitter per dybdesone (tare, skilpadde, vrak, hval, maneter, breiflabber, varme kilder)
+  ctx.imageSmoothingEnabled=false;
+  if(!SET.lite) for(const pr of PROPS){ const sp=SPR[pr.k], sc=pr.s*(W<520?.75:1), w=sp.width*sc, h=sp.height*sc;
+    const y=surfY+pr.d*PPM+Math.sin(t*.7+pr.d)*4; if(y<-h-40||y>H+h+40) continue;
+    if(pr.v){ pr.x+=pr.v*dt; if(pr.x>1.25) pr.x=-.25; if(pr.x<-.25) pr.x=1.25; }
+    const x=Math.round(pr.x*W), yy=Math.round(y);
+    if(pr.glow){ const gg=ctx.createRadialGradient(x,yy,0,x,yy,w*1.3); gg.addColorStop(0,pr.glow+"55"); gg.addColorStop(1,pr.glow+"00"); ctx.fillStyle=gg; ctx.beginPath(); ctx.arc(x,yy,w*1.3,0,7); ctx.fill(); }
+    ctx.save(); ctx.translate(x,yy); if(pr.v<0) ctx.scale(-1,1); if(pr.sway) ctx.transform(1,0,Math.sin(t*.9+pr.d)*.08,1,0,0);
+    ctx.globalAlpha=pr.d<60?.85:1; ctx.drawImage(sp,-w/2,-h/2,w,h); ctx.restore();
+    if(pr.lure){ const lx=x-w/2+pr.lure[0]*sc+sc/2, ly=yy-h/2+pr.lure[1]*sc+sc/2, a=.55+.45*Math.sin(t*3+pr.d);
+      const lg=ctx.createRadialGradient(lx,ly,0,lx,ly,26); lg.addColorStop(0,`rgba(255,243,168,${a})`); lg.addColorStop(1,"rgba(255,230,120,0)"); ctx.fillStyle=lg; ctx.beginPath(); ctx.arc(lx,ly,26,0,7); ctx.fill(); }
+    if(pr.smoke){ for(let k=0;k<6;k++){ const ph=(t*.35+k/6)%1, sx=x+Math.sin(ph*6+k)*6*sc/5, sy=yy-h/2-ph*90; ctx.fillStyle=`rgba(150,160,170,${.25*(1-ph)})`; const r=Math.round(4+ph*10); ctx.fillRect(Math.round(sx-r/2),Math.round(sy-r/2),r,r); } }
+  }
   ctx.restore();
 
   // --- Bobler fra dykkeren ---
@@ -1130,7 +1351,7 @@ let game=null, timerH=null, cdH=null;
 
 function startScreen(){
   clearInterval(timerH);clearInterval(cdH); if(typeof closeMenu==="function") closeMenu();
-  setState("start"); diverYTo(.6,1600); diveTo(0,2200); $("diver").classList.remove("dive");
+  setState("start"); diverYTo(startY(),1600); diveTo(0,2200); $("diver").classList.remove("dive");
   const d=new Date(); $("dayLabel").textContent="Dykk nr. "+dayNumber()+" · "+d.toLocaleDateString("nb-NO",{weekday:"long",day:"numeric",month:"long"});
   const done=store.get("dypdykk-"+todayKey()), st=store.get("dypdykk-stats")||{};
   $("startBottom").innerHTML=`
@@ -1210,7 +1431,7 @@ $("bar").onsubmit=e=>{ e.preventDefault(); if(answered) return;
     renderMsg(`<div class="pill bad">«${esc(v)}» ble ikke godkjent – prøv igjen!</div>`); return; }
   // Én bokstav feil i et langt svar godtas direkte; ellers spør vi «mente du …?» og Enter én gang til bekrefter
   if(!r.exact && SET.corr && pending!==norm(v) && !autoOK(r,v)){ pending=norm(v);
-    renderMsg(`<div class="pill sug" id="sug">«${esc(v)}» → <b>${esc(r.a.label)}</b>?<small>Trykk Enter eller Dykk igjen for å bekrefte – eller rett svaret</small></div>`);
+    renderMsg(`<div class="pill sug" id="sug" role="button" tabindex="0"><span class="q">Mente du dette:</span><b>«${esc(r.a.label)}»?</b><small>Enter eller trykk her = ja · skriv videre for å rette</small></div>`);
     $("sug").onclick=()=>accept(r.a); SFX.count(); return; }
   accept(r.a);
 };
@@ -1438,11 +1659,11 @@ const PACKS=[
   <path d="M110 40 L122 56 L98 56Z M270 50 L280 62 L260 62Z" fill="#eef2fb"/><path d="M0 120 L60 92 L120 118 L180 96 L240 116 L300 100 L300 140 L0 140Z" fill="#1a2644"/><rect y="124" width="300" height="16" fill="#2a8fb5"/>
   <g transform="translate(222 18)"><path d="M0 0v52" stroke="#e8f4fb" stroke-width="2"/><rect x="1" y="2" width="44" height="30" fill="#ba0c2f"/><rect x="13" y="2" width="8" height="30" fill="#fff"/><rect x="1" y="13" width="44" height="8" fill="#fff"/><rect x="15" y="2" width="4" height="30" fill="#00205b"/><rect x="1" y="15" width="44" height="4" fill="#00205b"/></g></svg>`}
 ];
-const STAR=`<svg viewBox="0 0 64 64"><path d="M32 6l7 16 17 2-13 11 4 17-15-9-15 9 4-17L8 24l17-2z" fill="#ff8fa3"/><circle cx="27" cy="28" r="2.4" fill="#3b0d26"/><circle cx="37" cy="28" r="2.4" fill="#3b0d26"/><path d="M28 35q4 3 8 0" stroke="#3b0d26" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`;
-const WHALE=`<svg viewBox="0 0 64 64"><path d="M6 36c0-12 14-20 28-18s22 10 22 18c0 6-6 12-20 12H18C10 48 6 42 6 36z" fill="#4b7bd6"/><path d="M56 34l6-8-1 10 2 8-7-6z" fill="#4b7bd6"/><path d="M10 40c8 6 26 6 40 0" stroke="#bcd3ff" stroke-width="3" fill="none"/><circle cx="18" cy="32" r="2.6" fill="#0b1c38"/><path d="M26 14c0-6 4-8 4-8M30 14c2-5 6-6 6-6" stroke="#9fd8ff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`;
+const STAR=PX_STAR;
+const WHALE=PX_WHALE;
 const BUDDIES=[
  {name:"Dykkeren",days:0,art:()=>DIVER},{name:"Reka",days:5,art:()=>ICONS[1]},{name:"Sjøstjerna",days:10,art:()=>STAR},
- {name:"Makrellen",days:14,art:()=>ICONS[2]},{name:"Blekkspruten",days:30,art:()=>ICONS[3]},{name:"Breiflabben",days:60,art:()=>ICONS[4]},
+ {name:"Makrellen",days:14,art:()=>ICONS[2]},{name:"Torsken",days:30,art:()=>ICONS[3]},{name:"Kveita",days:60,art:()=>ICONS[4]},
  {name:"Hvalen",days:75,art:()=>WHALE},{name:"Kjempeblekkspruten",days:100,art:()=>ICONS[5]},{name:"Tarekongen",days:150,art:()=>ICONS[0]}
 ];
 const BOMB=`<svg viewBox="0 0 160 160"><defs><radialGradient id="bb" cx=".38" cy=".35"><stop offset="0" stop-color="#bff8ff"/><stop offset=".55" stop-color="#4fc3e8"/><stop offset="1" stop-color="#1b5e8a"/></radialGradient>
@@ -1504,7 +1725,7 @@ function route(){
   if(!h){ if(document.body.classList.contains("s-page")&&!window.__starting) startScreen(); return; }
   if(inGame()) return; closeMenu();
   const r=PAGES[h.startsWith("pakke-")?"pakke":h]; if(!r) return;
-  clearInterval(timerH); diverYTo(.6,1400); diveTo(0,1800);
+  clearInterval(timerH); diverYTo(startY(),1400); diveTo(0,1800);
   $("page").innerHTML=r(h); setState("page"); $("page").scrollTop=0;
   $("page").querySelectorAll("[data-back]").forEach(b=>b.onclick=()=>{location.hash="";});
   if(PAGE_INIT[h.startsWith("pakke-")?"pakke":h]) PAGE_INIT[h.startsWith("pakke-")?"pakke":h](h);
@@ -2257,7 +2478,7 @@ function bbSubmit(v,from){ if(!BB||BB.phase!=="play") return; v=String(v||"").tr
   if(!r) return say(`«${v}» ble ikke godkjent`);
   // Små skrivefeil (én bokstav i et langt ord) godtas direkte – her går det fort. Ellers: «Mente du …?», og Enter én gang til bekrefter.
   if(!r.exact&&SET.corr!==false&&!autoOK(r,v)){
-    const key=norm(v); if(cur._pend!==key){ cur._pend=key; cur.last={bad:true,sug:true,msg:`Mente du «${r.a.label}»? Trykk Enter igjen`,label:v}; bbEv({k:"sug",id:cur.id}); bbSync(); return; } }
+    const key=norm(v); if(cur._pend!==key){ cur._pend=key; cur.last={bad:true,sug:true,t:Date.now(),msg:`Mente du dette: «${r.a.label}»? Enter = ja`,label:v}; bbEv({k:"sug",id:cur.id}); bbSync(); return; } }
   cur._pend=null;
   if(BB.used.includes(r.a.label)) return say(`«${r.a.label}» er allerede sagt`);
   const t=r.a.tier; BB.used.push(r.a.label); BB.answers.push([r.a.label,t,cur.n]);
@@ -2309,6 +2530,8 @@ const BB_CSS=`
 .bbsay.typ{border-color:#ff7aa0}.bbsay.typ:after{content:"";display:inline-block;width:2px;height:14px;background:#ff7aa0;margin-left:2px;vertical-align:-2px;animation:bbblink .8s steps(1) infinite}
 .bbsay .tl{position:absolute;left:50%;top:-16px;transform:translateX(-50%);font-size:10px;letter-spacing:.14em;white-space:nowrap}
 .bbbad{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;font:600 12px var(--mono,monospace);color:#ffb35c;z-index:4}
+.bbbad.sug{background:var(--paper,#efe4c8);color:#1d2a30!important;border:2px solid #04111b;border-radius:5px;padding:5px 9px;box-shadow:3px 4px 0 rgba(1,8,14,.6)}
+.bbbad.sug.anim{animation:sugpop .38s cubic-bezier(.34,1.4,.5,1)}
 @keyframes bbblink{50%{opacity:0}}
 @keyframes bbpopin{0%{transform:translateX(-50%) scale(.4);opacity:0}60%{transform:translateX(-50%) scale(1.12)}100%{transform:translateX(-50%) scale(1);opacity:1}}
 .bbsay.pop{animation:bbpopin .35s ease-out}
@@ -2407,7 +2630,7 @@ function bbDraw(s){ if(!$("bbArena")) bbRenderArena(); const prev=bbLast; bbLast
     let say="";
     if(isCur&&pl.typing) say=`<div class="bbsay typ" style="top:${off}px;${side}">${esc(pl.typing)}</div>`;
     else if(pl.last&&!pl.last.bad) say=`<div class="bbsay${bbChanged(pl)?" pop":""}" style="top:${off}px;${side};color:${TIERS[pl.last.tier].color};border-color:${TIERS[pl.last.tier].color}66"><span class="tl" style="color:${TIERS[pl.last.tier].color}">▸ ${TIERS[pl.last.tier].name.toUpperCase()}</span>${esc(pl.last.label)}</div>`;
-    const bad=pl.last&&pl.last.bad&&isCur?`<div class="bbbad" style="top:${off+34}px;${side}${pl.last.sug?";color:#5ef2d6":""}">${esc(pl.last.msg)}</div>`:"";
+    const bad=pl.last&&pl.last.bad&&isCur?`<div class="bbbad${pl.last.sug?" sug"+(Date.now()-(pl.last.t||0)<380?" anim":""):""}" style="top:${off+34}px;${side}">${esc(pl.last.msg)}</div>`:"";
     el.innerHTML=`<div class="av">${bbAvatar(pl,i)}</div><div class="rock"></div><div class="nm">${pl.bot?"🤖 ":""}${esc(pl.n)}${(!BB||BB.net)&&meIds.includes(pl.id)?" (deg)":""}</div><div class="hp">${pl.gone?'<span class="e">frakoblet</span>':hearts}</div><div class="prog">${prog}</div>${say}${bad}`; });
   // kategori
   const cat=$("bbCat"); if(s.cat&&s.phase!=="end"){ cat.style.display=""; cat.innerHTML=`<small>KATEGORI ${s.cat}</small><b>${esc(s.qText)}</b><i>▼ alle godkjente svar sender boblen videre ▼</i>`; } else cat.style.display="none";
