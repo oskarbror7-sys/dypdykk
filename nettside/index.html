@@ -1233,7 +1233,9 @@ function check(q,input){ const n=norm(input); if(!n) return null; parse(q); cons
 function autoOK(r,v){ const L=norm(v).length; return r&&!r.exact&&r.f!==false&&(r.d<=1&&L>=4||r.d<=2&&L>=9); }   // første bokstav må stemme for å godta uten å spørre
 /* Datasett fra innsamlingssystemet (data/index.json). Lastes først når spørsmålet trengs. */
 async function loadDatasets(){ try{ const r=await fetch("data/index.json",{cache:"no-cache"}); if(!r.ok) return;
-    const idx=await r.json(); for(const d of idx.datasets||[]){ if(QUESTIONS.some(q=>q.id===d.id)) continue;
+    const idx=await r.json(); for(const d of idx.datasets||[]){ const same=QUESTIONS.find(q=>q.id===d.id);
+      // Samme id som et innebygd spørsmål: bruk den store importerte listen, men behold plassen i kalenderen
+      if(same){ if(!same.src){ Object.assign(same,{q:d.q,src:d.file,v:d.v,n:d.n,attr:d.src}); same._p=null; same._loose=null; } continue; }
       QUESTIONS.push({id:d.id,q:d.q,norsk:!!d.norsk,src:d.file,v:d.v,n:d.n,attr:d.src,from:d.from||1}); } }catch(e){} }
 async function ensureLoaded(q){ if(!q.src||q._data) return true; try{
     const r=await fetch(q.src+"?v="+q.v); q._data=await r.json(); q._p=null; parse(q); setTimeout(()=>buildLoose(q),50); return true; }catch(e){ return false; } }
