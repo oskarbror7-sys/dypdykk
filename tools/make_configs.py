@@ -657,7 +657,7 @@ def make():
             cfg["derive"] = {"surname": {"top": 2000, "min_len": 4, "dominance": 1.5, "metric": "sitelinks"}}
         # Hva nordmenn kjenner: lesing av artikkelen på norsk Wikipedia veier tyngre enn antall språkutgaver.
         # Gjelder alle kategorier (spillet er norsk).
-        cfg["source"]["pageviews"] = {"top": 3000 if (norsk or qid in PV_EXTRA) else 2000}
+        cfg["source"]["pageviews"] = {"top": 2500 if (norsk or qid in PV_EXTRA) else 1200}
         cfg["rarity"]["weights"] = {"sitelinks": 0.45, "nowiki_views": 0.55}
         # Samme nivåskala for alle: små lister deles etter andel, store får faste tak (se rarity.auto_cuts)
         cfg["rarity"]["cuts"] = AUTO
