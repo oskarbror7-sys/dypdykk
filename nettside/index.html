@@ -1202,12 +1202,13 @@ function lev(a,b){ if(Math.abs(a.length-b.length)>2) return 9;
     d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
   return d[a.length][b.length]; }
 function parse(q){ if(q._p) return q._p; const out=[];
-  if(q.src){ const pre=q._data&&q._data.k; (q._data?q._data.e:[]).forEach(r=>out.push({label:r[0],tier:Math.max(0,Math.min(5,r[1]|0)),keys:pre?null:[r[0],...r.slice(2)].map(norm)}));
-    if(q._data&&q._data.x) q._data.x.forEach(i=>{ if(out[i]) out[i].odd=true; });
-    if(q._data&&q._data.h) q._data.h.forEach(i=>{ if(out[i]) out[i].hide=true; }); }
-  else q.a.split("|").forEach((g,ti)=>g.split(",").forEach(it=>{const n=it.split("/").map(s=>s.trim()).filter(Boolean);
-    if(n.length) out.push({label:n[0],tier:Math.min(ti,5),keys:n.map(norm)});}));
-  if(q.src&&!q._data) return out;
+  const emb=[]; if(q.a) q.a.split("|").forEach((g,ti)=>g.split(",").forEach(it=>{const n=it.split("/").map(s=>s.trim()).filter(Boolean);
+    if(n.length) emb.push({label:n[0],tier:Math.min(ti,5),keys:n.map(norm)});}));
+  if(q.src){ if(!q._data) return emb;
+    const pre=q._data.k; q._data.e.forEach(r=>out.push({label:r[0],tier:Math.max(0,Math.min(5,r[1]|0)),keys:pre?null:[r[0],...r.slice(2)].map(norm)}));
+    if(q._data.x) q._data.x.forEach(i=>{ if(out[i]) out[i].odd=true; });
+    if(q._data.h) q._data.h.forEach(i=>{ if(out[i]) out[i].hide=true; }); }
+  else out.push(...emb);
   // Oppslagstabell: nøkkel -> svar (første forekomst vinner; listen er sortert fra mest til minst kjent)
   const map=new Map(), byLen=new Map();
   const add=(k,a)=>{ if(!k||map.has(k)) return; map.set(k,a); let b=byLen.get(k.length); if(!b) byLen.set(k.length,b=[]); b.push(k); };
@@ -1215,6 +1216,9 @@ function parse(q){ if(q._p) return q._p; const out=[];
     const L=q._data.k.split("\n"); for(let i=0;i<L.length;i++){ const a=out[i], ks=L[i].split("\t"); for(let j=0;j<ks.length;j++) add(ks[j],a); }
     q._data.k=null; }
   else for(const a of out) for(const k of a.keys) add(k,a);
+  // Innebygd håndliste + importert liste: håndlistens svar og stavemåter kommer i tillegg
+  if(q.src) for(const a of emb){ const hit=a.keys.map(k=>map.get(k)).find(Boolean);
+    if(hit){ for(const k of a.keys) add(k,hit); } else { out.push(a); for(const k of a.keys) add(k,a); } }
   q._map=map; q._byLen=byLen; return q._p=out; }
 // «Løs» stavemåte: fanger lydlike skrivefeil (dobbelkonsonant, ph/f, th/t, w/v, c/k, z/s, y/i, ck/k, aa/a, sch/sj)
 function loose(k){ return k.replace(/sch/g,"sj").replace(/ph/g,"f").replace(/th/g,"t").replace(/ck/g,"k").replace(/w/g,"v").replace(/c/g,"k").replace(/z/g,"s").replace(/y/g,"i").replace(/q/g,"k").replace(/x/g,"ks").replace(/h(?=[^aeiou]|$)/g,"").replace(/(.)\1+/g,"$1"); }
@@ -1242,10 +1246,15 @@ function check(q,input){ const n=norm(input); if(!n) return null; parse(q); cons
 // Godtas uten «Mente du …?»: ett tegn feil (fra 4 bokstaver) eller to tegn feil i lange svar (fra 9 bokstaver)
 function autoOK(r,v){ const L=norm(v).length; return r&&!r.exact&&r.f!==false&&(r.d<=1&&L>=4||r.d<=2&&L>=9); }   // første bokstav må stemme for å godta uten å spørre
 /* Datasett fra innsamlingssystemet (data/index.json). Lastes først når spørsmålet trengs. */
+const EMB_SRC={bil:"bilmerker",programmering:"programmeringssprak",sjanger:"musikksjangere",ost:"oster-verden",grunnstoff:"grunnstoffer",
+  usa:"delstater-usa",fylke:"fylker",afrika:"land-afrika",asia:"land-asia",europa:"land-europa",soramerika:"land-sor-amerika",
+  "g-landsby":"italienske-byer","tysk-by":"tyske-byer","spansk-by":"spanske-byer","maleri-kunstner":"malere",fjorder:"norske-fjorder",sosiale:"sosiale-medier"};
 async function loadDatasets(){ try{ const r=await fetch("data/index.json",{cache:"no-cache"}); if(!r.ok) return;
     const idx=await r.json(); for(const d of idx.datasets||[]){ const same=QUESTIONS.find(q=>q.id===d.id);
       // Samme id som et innebygd spørsmål: bruk den store importerte listen, men behold plassen i kalenderen
       if(same){ if(!same.src){ Object.assign(same,{q:d.q,src:d.file,v:d.v,n:d.n,attr:d.src}); same._p=null; same._loose=null; } continue; }
+      // Innebygde spørsmål med samme innhold som et importert datasett får den store listen i tillegg
+      for(const e of QUESTIONS) if(!e.src&&EMB_SRC[e.id]===d.id){ Object.assign(e,{src:d.file,v:d.v,n:d.n,attr:d.src}); e._p=null; e._loose=null; }
       QUESTIONS.push({id:d.id,q:d.q,norsk:!!d.norsk,src:d.file,v:d.v,n:d.n,attr:d.src,from:d.from||1}); } }catch(e){} }
 async function ensureLoaded(q){ if(!q.src||q._data) return true; try{
     const r=await fetch(q.src+"?v="+q.v); q._data=await r.json(); q._p=null; parse(q); setTimeout(()=>buildLoose(q),50); return true; }catch(e){ return false; } }
