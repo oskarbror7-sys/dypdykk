@@ -357,7 +357,7 @@ body.s-summary #menuBtn,body.s-page #menuBtn{z-index:12}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .tile{position:relative;text-align:left;padding:14px 14px 13px;background:var(--plate);min-height:96px;display:flex;flex-direction:column;gap:8px;overflow:hidden;
   box-shadow:var(--px-edge),inset 0 0 0 3px var(--plate),inset 0 0 0 4px var(--faint),0 5px 0 var(--line);transition:transform .1s var(--ease),background .2s}
-.tile:hover{transform:translateY(-2px);background:var(--plate-hi)}
+.tile:hover{background:var(--plate-hi)}
 .tile:active{transform:translateY(4px)}
 .tile svg.ti{width:24px;height:24px;color:var(--sea)}
 .tile b{font-family:var(--display);font-size:16px;font-weight:600;overflow-wrap:anywhere}
@@ -389,9 +389,9 @@ body.s-page #page{opacity:1;pointer-events:auto}
 /* Temapakker */
 .packs{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
 .pack{text-align:left;overflow:hidden;background:var(--plate);position:relative;box-shadow:var(--px-edge),0 7px 0 var(--line);transition:transform .15s var(--ease)}
-.pack:hover{transform:translateY(-3px) rotate(-.4deg)}
+.pack:hover{transform:rotate(-.4deg)}
 .pack .art{height:140px;position:relative;border-bottom:3px solid var(--line)}
-.pack .art svg{width:100%;height:100%;display:block}
+.pack .art svg{width:100%;height:100%;display:block;filter:url(#pxl)}
 .pack .body{padding:14px 16px 16px}
 .pack .tag2{font-family:var(--gauge);font-size:9px;color:var(--pc)}
 .pack b{display:block;font-family:var(--display);font-size:21px;margin:4px 0 2px}
@@ -407,6 +407,7 @@ body.s-page #page{opacity:1;pointer-events:auto}
 .party .panel{margin:0}
 .party .full{grid-column:span 2}
 .bomb{display:grid;place-items:center;padding:12px 0 4px}
+.promo svg,.bbbubble svg{filter:url(#pxl3)}
 .bomb svg{width:auto;height:100%;max-height:150px;animation:wob 2.4s ease-in-out infinite}
 @keyframes wob{50%{transform:scale(1.06) rotate(3deg)}}
 .chipsel{display:flex;gap:10px;flex-wrap:wrap}
@@ -491,6 +492,11 @@ details.acc summary .qq small{display:block;font-weight:700;font-size:14.5px}
 
 body.s-page #hud,body.s-summary #hud{opacity:0;pointer-events:none}
 
+
+/* Løft ved hover uten «flimmer»: et usynlig område under elementet gjør at musa ikke mister hover når det løftes */
+.btn::after,.mode::after,.cal button.day::after{content:"";position:absolute;left:0;right:0;top:0;bottom:-6px}
+.cal button.day,.mode{position:relative}
+
 /* ---------- Mobil ---------- */
 @media (max-width:600px){.party{grid-template-columns:1fr}.party .full{grid-column:auto}.records{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:520px){
@@ -511,6 +517,19 @@ body.s-page #hud,body.s-summary #hud{opacity:0;pointer-events:none}
   #qcard h2{font-size:22px}
 }
 @media (max-width:380px){.modes{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){#zoneBanner{top:calc(max(14px,env(safe-area-inset-top)) + 86px)}}
+@media (max-height:600px) and (max-width:520px){.sub{display:none}}
+/* Liggende mobil og andre lave skjermer */
+@media (max-height:520px){
+  #start .top{top:10px;margin-top:0} .title{width:min(380px,48vw);margin:6px auto 4px} .sub,.tierrow,.stats{display:none}
+  #start .bottom{bottom:10px;gap:10px} .cta-wrap .btn{font-size:18px;padding:13px 22px}
+  .modes{width:min(560px,100%)} .mode{flex-direction:row;justify-content:center;padding:9px 6px} .mode svg{width:18px;height:18px}
+  body.s-start #diver{opacity:0}
+  .pips{display:none}
+  #qcard{top:10px;width:min(560px,calc(100vw - 280px));padding:10px 16px 12px} #qcard h2{font-size:19px;margin:4px 0 0} #qcard .hint{display:none}
+  #bar{bottom:8px} .skip{display:none}
+  #reveal{padding-top:12px} .ricon{width:52px;height:52px} .ricon svg{width:52px;height:52px} .flavor{display:none}
+}
 @media (max-height:700px) and (max-width:520px){.tierrow{display:none}}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important;transition-duration:.01s!important}}
 </style>
@@ -522,6 +541,11 @@ body.s-page #hud,body.s-summary #hud{opacity:0;pointer-events:none}
 <p>Spillet har også uendelig dykk, arkiv, temapakker og Boblebomben, som kan spilles med venner over nettet med en lobbykode.</p>
 <p>Slå på JavaScript for å spille.</p></div></noscript>
 <canvas id="scene"></canvas>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <!-- Gjør glatt vektorgrafikk om til piksler (4 px blokker), så alt følger samme pikselstil -->
+  <filter id="pxl" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB"><feFlood x="1.5" y="1.5" width="1" height="1"/><feComposite width="4" height="4"/><feTile result="t"/><feComposite in="SourceGraphic" in2="t" operator="in"/><feMorphology operator="dilate" radius="2"/></filter>
+  <filter id="pxl3" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB"><feFlood x="1" y="1" width="1" height="1"/><feComposite width="3" height="3"/><feTile result="t"/><feComposite in="SourceGraphic" in2="t" operator="in"/><feMorphology operator="dilate" radius="1.5"/></filter>
+</defs></svg>
 
 <div id="diver"><div id="tag"></div><div class="rot"><div class="bob" id="diverArt"></div></div></div>
 
@@ -1253,12 +1277,14 @@ drawMute();
 const cv=$("scene"), ctx=cv.getContext("2d");
 let W=0,H=0,DPR=1; const PPM=1.35;           // piksler per meter
 const cam={d:0,from:0,to:0,t0:0,dur:1};       // kameradybde (følger dykkeren)
-const dy={v:.6,from:.6,to:(innerWidth<560&&innerHeight>innerWidth?.5:.6),t0:0,dur:1};    // dykkerens høyde på skjermen (andel av H)
+const dy={v:.6,from:.6,to:(innerWidth<560&&innerHeight>innerWidth?.5:innerHeight<820?.56:.6),t0:0,dur:1};    // dykkerens høyde på skjermen (andel av H)
 function diveTo(d,ms,ez){cam.from=cam.d;cam.to=d;cam.t0=performance.now();cam.dur=ms;cam.ez=ez||ease;}
 const easeBack=t=>{const c1=1.25,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2);};
 const easeDive=t=>1-Math.pow(1-t,3);
-const playY=()=>innerWidth<560&&innerHeight>innerWidth?.43:.34;
-const startY=()=>innerWidth<560&&innerHeight>innerWidth?.5:.6;
+const playBase=()=>innerHeight<520?.2:innerWidth<560&&innerHeight>innerWidth?.43:.34;
+// Under spørsmålet skal dykkeren alltid synes: plasser den rett under spørsmålskortet (lave skjermer, lange spørsmål)
+const playY=()=>{ const q=$("qcard"); let v=playBase(); if(q&&q.offsetHeight>40) v=Math.max(v,(q.offsetTop+q.offsetHeight+46)/innerHeight); return Math.min(v,.58); };
+const startY=()=>innerWidth<560&&innerHeight>innerWidth?.5:innerHeight<820?.56:.6;
 function diverYTo(v,ms){dy.from=dy.v;dy.to=v;dy.t0=performance.now();dy.dur=ms;}
 function resize(){DPR=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);buildMountains();}
 addEventListener("resize",resize);
@@ -1497,6 +1523,7 @@ function curQ(){return QUESTIONS.find(x=>x.id===game.qs[game.i]);}
 function nextQ(){
   const q=curQ(); renderPips();
   $("qcard").innerHTML=`<div class="qn">${game.mode==="endless"?`Uendelig dykk · spørsmål ${game.i+1} · ${"♥".repeat(game.lives)}`:`Spørsmål ${game.i+1} / ${game.rounds}`}${game.mode==="pack"?" · Kapittel "+game.chapter:""}${q.norsk?" · 🇳🇴 Norge":""}</div><h2>${esc(q.q)}</h2><div class="hint">▼ sjeldnere svar synker dypere</div>`;
+  diverYTo(playY(),600);
   $("msg").innerHTML=""; $("inp").value="";
   setState("countdown"); let n=3; $("cd").textContent=n; SFX.count();
   clearInterval(cdH); cdH=setInterval(()=>{n--; if(n>0){$("cd").textContent=n;SFX.count();} else {clearInterval(cdH);startAnswer();}},750);
@@ -1514,7 +1541,7 @@ function tickTimer(){
   $("ringfg").style.strokeDashoffset=138.2*(1-left/(SECONDS*1000)); $("secs").textContent=s;
   if(s<=5){$("ring").classList.add("low"); if(s!==lastSec&&s>0)SFX.tick();} lastSec=s;
   if(left<=0){ clearInterval(timerH); const v=$("inp").value.trim(), r=v?check(curQ(),v):null;
-    if(r&&(r.exact||pending===norm(v))) accept(r.a); else { if(v) tried.push(v); accept(null,"time"); } }
+    if(r&&(r.exact||pending===norm(v)||autoOK(r,v)||!SET.corr)) accept(r.a); /* tiden ute: et tydelig riktig svar i feltet teller */ else { if(v) tried.push(v); accept(null,"time"); } }
 }
 function renderMsg(html){ $("msg").innerHTML=html+(tried.length?`<div class="tried">${tried.map(t=>`<span>${esc(t)}</span>`).join("")}</div>`:""); }
 $("bar").onsubmit=e=>{ e.preventDefault(); if(answered) return;
@@ -1527,7 +1554,7 @@ $("bar").onsubmit=e=>{ e.preventDefault(); if(answered) return;
   // Én bokstav feil i et langt svar godtas direkte; ellers spør vi «mente du …?» og Enter én gang til bekrefter
   if(!r.exact && SET.corr && pending!==norm(v) && !autoOK(r,v)){ pending=norm(v);
     renderMsg(`<div class="pill sug" id="sug" role="button" tabindex="0"><span class="q">Mente du dette:</span><b>«${esc(r.a.label)}»?</b><small>Enter eller trykk her = ja · skriv videre for å rette</small></div>`);
-    $("sug").onclick=()=>accept(r.a); SFX.count(); return; }
+    $("sug").onclick=()=>accept(r.a); $("sug").onkeydown=e=>{ if(e.key===" "||e.key==="Enter"){ e.preventDefault(); accept(r.a); } }; SFX.count(); return; }
   accept(r.a);
 };
 $("inp").addEventListener("input",()=>{ if(pending&&norm($("inp").value)!==pending){pending=null;renderMsg("");} $("barrow").classList.remove("err"); });
@@ -1586,7 +1613,7 @@ function showReveal(){
   if(r.tier>=3&&!matchMedia("(prefers-reduced-motion:reduce)").matches){ const ic=rv.querySelector(".ricon"); const n=r.tier===5?18:r.tier===4?12:7;
     for(let k=0;k<n;k++){ const sp=document.createElement("i"); sp.className="spark"; const a=k/n*6.283+Math.random()*.4, d=60+Math.random()*(r.tier*18);
       sp.style.cssText=`left:50%;top:44%;--sx:${Math.cos(a)*d}px;--sy:${Math.sin(a)*d}px;animation-delay:${.15+Math.random()*.15}s`; ic.appendChild(sp); } }
-  renderPips(); setState("reveal");
+  renderPips(); setState("reveal"); if(Math.abs(dy.to-playBase())>.01) diverYTo(playBase(),500);
   const nx=$("next"); $("reveal").scrollTop=0; setTimeout(()=>nx.focus({preventScroll:true}),300);
   // Uendelig: hent neste spørsmål i bakgrunnen mens spilleren leser resultatet, så «Dykk videre» svarer med en gang
   if(!last&&game.mode==="endless"&&game.i+1>=game.qs.length&&!game._next){
@@ -2734,7 +2761,7 @@ function bbShards(){ const b=$("bbBubble"), fxl=$("bbFx"); if(!b||!fxl) return; 
     const a=i/22*Math.PI*2, d=90+Math.random()*90; s.animate([{transform:`translate(-50%,-50%) rotate(${a}rad)`,opacity:1},{transform:`translate(calc(-50% + ${Math.cos(a)*d}px),calc(-50% + ${Math.sin(a)*d}px)) rotate(${a+3}rad)`,opacity:0}],{duration:900+Math.random()*400,easing:"cubic-bezier(.1,.8,.3,1)"}); setTimeout(()=>s.remove(),1400); } }
 function bbEffects(s){ for(const e of s.ev){ if(e.eid<=bbEvSeen) continue; bbEvSeen=e.eid;
     if(e.k==="count"){ BBS.count(e.n); }
-    else if(e.k==="cat"){ SFX.go(); const c=$("bbCat"); if(c) c.animate([{transform:"translateX(-50%) translateY(-20px)",opacity:0},{transform:"translateX(-50%)",opacity:1}],{duration:450,easing:"ease-out"}); }
+    else if(e.k==="cat"){ SFX.go(); { const i=$("bbInp"); if(i) i.value=""; bbSugFor=null; const f=$("bbFb"); if(f) f.className="bbfb"; } const c=$("bbCat"); if(c) c.animate([{transform:"translateX(-50%) translateY(-20px)",opacity:0},{transform:"translateX(-50%)",opacity:1}],{duration:450,easing:"ease-out"}); }
     else if(e.k==="ok"){ BBS.ok(e.tier); if(bbMeIds(s).includes(e.id)){ bbSugFor=null; bbFb(`✓ ${esc(e.label)} <span style="color:${TIERS[e.tier].color}">${TIERS[e.tier].name}</span> – boblen gikk videre`,"ok"); } if(e.tier>=4){ fx.flash(TIERS[e.tier].color,.18,450); } }
     else if(e.k==="bad"){ if(bbMeIds(s).includes(e.id)){ BBS.bad(); const f=$("bbForm"); if(f) f.animate([{transform:"translateX(-8px)"},{transform:"translateX(8px)"},{transform:"translateX(-5px)"},{transform:"none"}],{duration:300}); bbSugFor=null; bbFb(`✗ ${esc(e.msg||"Ikke godkjent")} – prøv et annet`,"bad"); } }
     else if(e.k==="pop"){ BBS.pop(); fx.flash("#ff5d7a",.55,700); fx.shake(16,650); bbShards(); bbFxAt(e.id,"−1 ♥","bbplus",1400)?.animate([{transform:"translate(-50%,-60px)",opacity:1},{transform:"translate(-50%,-110px)",opacity:0}],{duration:1400}); }
