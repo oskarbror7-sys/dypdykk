@@ -123,6 +123,52 @@
     "Tigger"
    ],
    "tier": 2
+  },
+  {
+   "id": "manuell:darth-vader",
+   "label": "Darth Vader",
+   "aliases": [
+    "Vader"
+   ],
+   "tier": 5,
+   "smutthull": true
+  },
+  {
+   "id": "manuell:yoda",
+   "label": "Yoda",
+   "aliases": [],
+   "tier": 5,
+   "smutthull": true
+  },
+  {
+   "id": "manuell:grogu",
+   "label": "Grogu",
+   "aliases": [
+    "Baby Yoda"
+   ],
+   "tier": 5,
+   "smutthull": true
+  },
+  {
+   "id": "manuell:iron-man",
+   "label": "Iron Man",
+   "aliases": [
+    "Tony Stark"
+   ],
+   "tier": 5,
+   "smutthull": true
+  },
+  {
+   "id": "manuell:spider-man",
+   "label": "Spider-Man",
+   "aliases": [
+    "Edderkoppmannen"
+   ],
+   "tier": 5,
+   "smutthull": true
   }
- ]
+ ],
+ "smutthull": {
+  "Kermit the Frog": 5
+ }
 }

@@ -19,5 +19,29 @@
  "_note": "Lydutstyr og stemmetyper er ikke instrumenter",
  "tier_labels": {
   "Snurrebass": 5
+ },
+ "add": [
+  {
+   "id": "manuell:vaskebrett",
+   "label": "Vaskebrett",
+   "aliases": [
+    "Washboard"
+   ],
+   "tier": 5,
+   "smutthull": true
+  },
+  {
+   "id": "manuell:skjeer",
+   "label": "Skjeer",
+   "aliases": [
+    "Skjeer (instrument)",
+    "Spoons"
+   ],
+   "tier": 5,
+   "smutthull": true
+  }
+ ],
+ "smutthull": {
+  "Musikalsk sag": 5
  }
 }

@@ -119,6 +119,16 @@ def _apply_overrides(entities, ov, log):
     entities = [e for e in entities if not ns.match(e.get("label") or "")]
     if len(entities) < before:
         log(f"Fjernet {before - len(entities)} wikisider (Category:, Template: …)")
+    # Svar som faktisk er kjent for nettopp dette (Marconi som oppfinner): opphev automatisk «kjent for noe annet»
+    if ov.get("ikke_smutthull"):
+        keep = {norm(x) for x in ov["ikke_smutthull"]}
+        n = 0
+        for e in entities:
+            if e.get("note") and _lk(e["label"]) & keep:
+                e.pop("note", None)
+                e.pop("pinned_tier", None)
+                n += 1
+        log(f"Overstyring: {n} automatiske smutthull opphevet")
     removed = set(ov.get("remove", []))
     if removed:
         before = len(entities)
@@ -147,6 +157,8 @@ def _apply_overrides(entities, ov, log):
             for k in _lk(e["label"]) | _lk(e.get("orig_label")):
                 if k in tl:
                     e["pinned_tier"] = tl[k]
+                    if tl[k] <= 3:      # bevisst satt som vanlig/middels: ikke et smutthull
+                        e.pop("note", None)
                     break
     if ov.get("alias_labels"):
         al = {norm(k): v for k, v in ov["alias_labels"].items()}
@@ -164,7 +176,26 @@ def _apply_overrides(entities, ov, log):
                         e["aliases"] = list(e["aliases"]) + [alt]
     for add in ov.get("add", []):
         entities.append({"id": add["id"], "label": add["label"], "aliases": add.get("aliases", []),
-                         "metrics": add.get("metrics", {}), "source": "manuell", "pinned_tier": add.get("tier")})
+                         "metrics": add.get("metrics", {}), "source": "manuell", "pinned_tier": add.get("tier"),
+                         **({"note": "kjent for noe annet"} if add.get("smutthull") else {})})
+    # «Smutthull»: svar som stemmer, men som personen/tingen ikke er kjent for (Martin Lepperød som artist).
+    # Låses som sjeldne og merkes, så spillet kan vise «Kjent for noe annet».
+    if ov.get("smutthull"):
+        sm = ov["smutthull"]
+        sm = {norm(k): v for k, v in (sm.items() if isinstance(sm, dict) else ((x, 5) for x in sm))}
+        for e in entities:
+            for k in _lk(e["label"]) | _lk(e.get("orig_label")):
+                if k in sm:
+                    e["pinned_tier"] = sm[k]
+                    e["note"] = "kjent for noe annet"
+                    break
+    # Gyldige svar som ikke skal vises som forslag eller merkes som morsomme smutthull (f.eks. diktatorer)
+    if ov.get("skjul_forslag"):
+        hide = {norm(x) for x in ov["skjul_forslag"]}
+        for e in entities:
+            if _lk(e["label"]) & hide:
+                e["hide"] = True
+                e.pop("note", None)
     by_id = {e["id"]: e for e in entities}
     for eid, al in ov.get("aliases", {}).items():
         if eid in by_id:
@@ -367,7 +398,8 @@ def build(qid, offline=False, refresh=False, quiet=False):
         "as_of": raw.get("date") if isinstance(raw, dict) and "date" in raw else None,
         "count": len(ordered), "keys": len(owner), "tiers": dist, "problems": problems,
         "entries": [{"id": e["id"], "label": e["label"], "aliases": e["aliases"], "tier": e["tier"],
-                     "rank": e["rank"], "score": e["score"], "metrics": e["metrics"], "source": e["source"]}
+                     "rank": e["rank"], "score": e["score"], "metrics": e["metrics"], "source": e["source"],
+                     **({"note": e["note"]} if e.get("note") else {}), **({"hide": True} if e.get("hide") else {})}
                     for e in ordered],
     }
     save_json(p("staging", qid + ".json"), result)
@@ -439,8 +471,15 @@ def publish(qid, force=False, quiet=False):
     compact["k"] = "\n".join(lines)
     # Med ferdige nøkler trenger spillet bare visningsnavn og nivå; alias ligger i nøklene.
     compact["e"] = [[e["label"], e["tier"]] for e in st["entries"]]
+    # Indekser for «smutthull»-svar (gyldige, men kjent for noe annet), så spillet kan merke dem
+    sm = [i for i, e in enumerate(st["entries"]) if e.get("note") == "kjent for noe annet"]
+    if sm:
+        compact["x"] = sm
+    hd = [i for i, e in enumerate(st["entries"]) if e.get("hide")]
+    if hd:
+        compact["h"] = hd
     # Uendret innhold: ikke skriv filen på nytt (da blir det heller ingen ny publisering av nettsiden)
-    if prev and not force and all(prev.get(f) == compact.get(f) for f in ("q", "norsk", "n", "src", "cat", "modes", "diff", "status", "e", "k")):
+    if prev and not force and all(prev.get(f) == compact.get(f) for f in ("q", "norsk", "n", "src", "cat", "modes", "diff", "status", "e", "k", "x", "h")):
         log(f"Uendret: {qid} ({st['count']} svar) – ingen ny versjon")
         return True
     if prev:

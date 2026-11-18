@@ -1,8 +1,4 @@
 {
- "tier_labels": {
-  "Fridtjof Nansen": 5,
-  "Marianne Vos": 5
- },
  "add": [
   {
    "id": "manuell:sonja-henie",
@@ -10,5 +6,70 @@
    "aliases": [],
    "tier": 1
   }
+ ],
+ "smutthull": {
+  "Bertil av Sverige": 5,
+  "Fridtjof Nansen": 5,
+  "Marianne Vos": 5,
+  "Marie Marvingt": 5
+ },
+ "remove_labels": [
+  "Alexander Sørloth",
+  "Simen Agdestein"
+ ],
+ "ikke_smutthull": [
+  "Anni Friesinger-Postma",
+  "Ans Schut",
+  "Antoinette Rijpma-de Jong",
+  "Ard Schenk",
+  "Axel Paulsen",
+  "Bart Swings",
+  "Bonnie Blair",
+  "Carlijn Achtereekte",
+  "Catriona Le May Doan",
+  "Christa Luding",
+  "Christine Nesbitt",
+  "Cindy Klassen",
+  "Clara Hughes",
+  "Clas Thunberg",
+  "Claudia Pechstein",
+  "Ellen van Dijk",
+  "Eric Heiden",
+  "Francesca Lollobrigida",
+  "Gaétan Boucher",
+  "Gunda Niemann-Stirnemann",
+  "Hjalmar Andersen",
+  "Igor Zjelezovskij",
+  "Ireen Wüst",
+  "Irene Schouten",
+  "Ivar Ballangrud",
+  "Jan Bos",
+  "Jan Smeekens",
+  "Jevgenij Grisjin",
+  "Johann Olav Koss",
+  "Jorien ter Mors",
+  "Jorrit Bergsma",
+  "Jutta Leerdam",
+  "Kjeld Nuis",
+  "Lee Sang-hwa",
+  "Lee Seung-hoon",
+  "Lidija Skoblikova",
+  "Margot Boer",
+  "Marianne Timmer",
+  "Mark Tuitert",
+  "Martina Sáblíková",
+  "Michel Mulder",
+  "Miho Takagi",
+  "Mo Tae-bum",
+  "Nao Kodaira",
+  "Nils van der Poel",
+  "Patrick Roest",
+  "Shani Davis",
+  "Stefan Groothuis",
+  "Stien Baas-Kaiser",
+  "Suzanne Schulting",
+  "Sven Kramer",
+  "Yvonne van Gennip",
+  "Zbigniew Bródka"
  ]
 }

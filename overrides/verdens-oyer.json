@@ -62,5 +62,10 @@
    "aliases": [],
    "tier": 2
   }
- ]
+ ],
+ "smutthull": {
+  "Manhattan": 5,
+  "Pulau Ujong": 5,
+  "Île de Montréal": 5
+ }
 }

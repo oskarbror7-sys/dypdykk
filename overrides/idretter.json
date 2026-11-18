@@ -69,6 +69,27 @@
     "Pool"
    ],
    "tier": 2
+  },
+  {
+   "id": "manuell:bridge",
+   "label": "Bridge",
+   "aliases": [
+    "Kontraktbridge"
+   ],
+   "tier": 5,
+   "smutthull": true
+  },
+  {
+   "id": "manuell:sjakkboksing",
+   "label": "Sjakkboksing",
+   "aliases": [],
+   "tier": 5,
+   "smutthull": true
   }
- ]
+ ],
+ "smutthull": {
+  "Quadball": 5,
+  "Sjakk": 4,
+  "Tautrekking": 5
+ }
 }

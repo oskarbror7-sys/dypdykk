@@ -52,6 +52,26 @@
    "label": "Bosnisk",
    "aliases": [],
    "tier": 2
+  },
+  {
+   "id": "manuell:valyriansk",
+   "label": "Valyriansk",
+   "aliases": [
+    "High Valyrian",
+    "Høyvalyriansk"
+   ],
+   "tier": 5,
+   "smutthull": true
   }
- ]
+ ],
+ "smutthull": {
+  "Dothraki": 5,
+  "Klingon": 5,
+  "Lojban": 5,
+  "Na'vi": 5,
+  "Quenya": 5,
+  "Sindarin": 5,
+  "Toki pona": 5,
+  "Volapük": 5
+ }
 }

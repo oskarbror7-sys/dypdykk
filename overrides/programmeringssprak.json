@@ -45,6 +45,33 @@
    "label": "Bash",
    "aliases": [],
    "tier": 2
+  },
+  {
+   "id": "manuell:shakespeare-programming-language",
+   "label": "Shakespeare Programming Language",
+   "aliases": [
+    "Shakespeare (programmeringsspråk)",
+    "SPL"
+   ],
+   "tier": 5,
+   "smutthull": true
+  },
+  {
+   "id": "manuell:chef",
+   "label": "Chef",
+   "aliases": [
+    "Chef (programmeringsspråk)"
+   ],
+   "tier": 5,
+   "smutthull": true
   }
- ]
+ ],
+ "smutthull": {
+  "Befunge": 5,
+  "Brainfuck": 5,
+  "LOLCODE": 5,
+  "Malbolge": 5,
+  "Piet": 5,
+  "Whitespace": 5
+ }
 }

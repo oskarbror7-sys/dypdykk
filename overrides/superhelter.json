@@ -62,6 +62,17 @@
    "label": "Ms. Marvel",
    "aliases": [],
    "tier": 3
+  },
+  {
+   "id": "manuell:stalanka",
+   "label": "Stålanka",
+   "aliases": [
+    "Paperinik",
+    "Duck Avenger",
+    "Superduck"
+   ],
+   "tier": 5,
+   "smutthull": true
   }
  ],
  "tier_labels": {

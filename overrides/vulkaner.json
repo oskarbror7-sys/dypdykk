@@ -21,6 +21,36 @@
     "Thera"
    ],
    "tier": 2
+  },
+  {
+   "id": "manuell:elbrus",
+   "label": "Elbrus",
+   "aliases": [
+    "Mount Elbrus"
+   ],
+   "tier": 5,
+   "smutthull": true
+  },
+  {
+   "id": "manuell:arthur-s-seat",
+   "label": "Arthur's Seat",
+   "aliases": [],
+   "tier": 5,
+   "smutthull": true
+  },
+  {
+   "id": "manuell:mount-kenya",
+   "label": "Mount Kenya",
+   "aliases": [
+    "Kenyafjellet"
+   ],
+   "tier": 5,
+   "smutthull": true
   }
- ]
+ ],
+ "smutthull": {
+  "Ararat": 5,
+  "Kilimanjaro": 3,
+  "Olympus Mons": 5
+ }
 }
