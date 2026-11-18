@@ -368,11 +368,32 @@ body.s-summary #menuBtn,body.s-page #menuBtn{z-index:12}
 .tile.wide{grid-column:span 2;flex-direction:row;align-items:center;min-height:0}
 .soon{position:absolute;top:9px;right:9px;font-family:var(--gauge);font-size:11px;padding:3px 6px;background:var(--brass);color:var(--line)}
 .soon.inline{position:static;display:inline-block;vertical-align:middle;margin-left:6px}
-.mlinks{display:flex;flex-direction:column;gap:12px}
-.mlinks button{display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px;background:var(--plate);box-shadow:var(--px-edge)}
-.mlinks button:hover{background:var(--plate-hi)}
-.mlinks svg{width:18px;height:18px;color:var(--muted);flex:none}
-.mlinks span{flex:1;font-size:14.5px;font-weight:600}.mlinks span.soon{flex:none;font-size:11px}.mlinks small{display:block;color:var(--muted);font-size:12px;font-weight:500}
+/* Meny: dagens dykk som statuskort, resten som liste */
+.mday{display:block;width:100%;text-align:left;padding:16px 16px 14px;background:var(--plate-hi);box-shadow:var(--px-edge),inset 4px 0 0 var(--signal);margin:0 0 6px;transition:background .15s}
+.mday:hover{background:#1d3950}.mday:active{transform:translateY(3px)}
+.mday.done{box-shadow:var(--px-edge),inset 4px 0 0 var(--sea)}
+.mday-top{display:flex;justify-content:space-between;gap:10px;font-family:var(--gauge);font-size:11px;color:var(--muted)}
+.mday-nr{color:var(--brass)}
+.mday>b{display:block;font-family:var(--display);font-size:25px;font-weight:600;line-height:1.1;margin:10px 0 6px;color:var(--bone)}
+.mday-sub{display:block;font-size:13.5px;line-height:1.35;color:var(--muted);font-weight:500}
+.mday-foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+.mstreak{font-family:var(--gauge);font-size:11px;color:var(--abyss);background:var(--brass);padding:4px 7px}
+.mgo{font-family:var(--gauge);font-size:12px;color:var(--signal);display:inline-flex;align-items:center;gap:8px}
+.mgo::after{content:"";width:7px;height:10px;background:currentColor;clip-path:polygon(0 0,100% 50%,0 100%)}
+.mday.done .mgo{color:var(--sea)}
+.mlist{background:var(--plate);box-shadow:var(--px-edge)}
+.mrow{display:flex;align-items:center;gap:13px;width:100%;text-align:left;padding:11px 14px 11px 12px;border-top:1px solid rgba(241,231,207,.07)}
+.mrow:first-child{border-top:0}
+.mrow:hover{background:var(--plate-hi)}.mrow:hover .chev{transform:translateX(3px);background:var(--bone)}
+.mi{width:34px;height:34px;flex:none;display:grid;place-items:center;background:var(--abyss);box-shadow:inset 0 0 0 2px var(--line)}
+.mi svg{width:18px;height:18px;color:var(--sea)}
+.mt{flex:1;min-width:0}.mt b{display:block;font-size:15px;font-weight:700;line-height:1.2}.mt small{display:block;font-size:12.5px;color:var(--muted);font-weight:500;margin-top:2px}
+.chev{width:6px;height:10px;flex:none;background:var(--muted);clip-path:polygon(0 0,100% 50%,0 100%);transition:transform .15s}
+.mfootrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.mfootrow button{display:flex;align-items:center;justify-content:center;gap:8px;padding:11px 8px;box-shadow:inset 0 0 0 2px var(--line);color:var(--muted);font-size:13.5px;font-weight:600}
+.mfootrow button:hover{color:var(--bone);background:var(--plate)}
+.mfootrow svg{width:16px;height:16px}
+#menuWrap.open .mday{animation:tilein .4s var(--ease) .05s both}
 .mfoot{margin-top:20px;font-family:var(--gauge);font-size:11px;color:var(--muted);text-align:center;opacity:.7}
 
 /* ---------- Sider ---------- */
@@ -536,6 +557,11 @@ body.s-page #hud,body.s-summary #hud{opacity:0;pointer-events:none}
 /* Når tastaturet er oppe: tett inntil tastaturet, og «Hopp over» skjules så svarfeltet får plass */
 body.kbopen #bar{bottom:calc(8px + var(--kb,0px))} body.kbopen .skip{display:none}
 .gainchip{position:fixed;z-index:8;pointer-events:none;font-family:var(--num);font-size:14px;padding:5px 9px;background:var(--abyss);box-shadow:var(--px-edge);white-space:nowrap}
+
+/* Lesbarhet: ingen tekst under 12 px */
+.tierrow .tm{white-space:nowrap;letter-spacing:-.04em}
+@media (max-width:380px){.tierrow .tm{font-size:11px!important}}
+.tierrow b,.tierrow .tm,.kicker,#countdown,#zoneBanner small,.hbox .lbl,.skip,.hbox .zone,#bigDepth .bd-l,.cta-no,.mday-top,.mstreak,.mgo,.mhead small{font-size:12px}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important;transition-duration:.01s!important}}
 </style>
 </head>
@@ -1577,7 +1603,7 @@ function startAnswer(){
 }
 function tickTimer(){
   const left=Math.max(0,deadline-performance.now()), s=Math.ceil(left/1000);
-  $("ringfg").style.strokeDashoffset=138.2*(1-left/(SECONDS*1000)); $("secs").textContent=s;
+  $("ringfg").style.strokeDashoffset=(138.2*(1-left/(SECONDS*1000))).toFixed(1); if(s!==lastSec) $("secs").textContent=s;
   if(s<=5){$("ring").classList.add("low"); if(s!==lastSec&&s>0)SFX.tick();} lastSec=s;
   if(left<=0){ clearInterval(timerH); const v=$("inp").value.trim(), r=v?check(curQ(),v):null;
     if(r&&(r.exact||pending===norm(v)||autoOK(r,v)||!SET.corr)) accept(r.a); /* tiden ute: et tydelig riktig svar i feltet teller */ else { if(v) tried.push(v); accept(null,"time"); } }
@@ -1856,26 +1882,31 @@ const soonInline=`<span class="soon inline">Kommer snart</span>`;
    MENY
    ============================================================ */
 function renderMenu(){
-  const tiles=[
-    ["dagens",UI.dive,"Dagens dykk","Sju nye spørsmål hver dag",false,true],
-    ["ovelse",UI.inf,"Uendelig dykk","Øv så mye du vil",false,false],
-    ["boblebomben",UI.party,"Boblebomben","Flerspiller: send boblen videre",true],
-    ["arkiv",UI.archive,"Arkiv","Ta tidligere dykk",true],
-    ["temapakker",UI.packs,"Temapakker","Film, sport, geografi …",true],
-    ["mitt-dypdykk",UI.user,"Mitt Dypdykk","Statistikk og kompiser",false],
-    ["venner",UI.friends,"Venner","Sammenlign dagens poeng",true],
-    ["innstillinger",UI.gear,"Innstillinger","Lyd, grafikk og svar",false]
-  ];
+  const done=store.get("dypdykk-"+todayKey()), st=store.get("dypdykk-stats")||{}, streak=st.streak||0;
+  const dd=new Date(), dstr=dd.toLocaleDateString("nb-NO",{weekday:"long",day:"numeric",month:"long"});
+  const row=(id,ic,n,s)=>`<button class="mrow" data-go="${id}"><span class="mi">${ic}</span><span class="mt"><b>${n}</b><small>${s}</small></span><i class="chev"></i></button>`;
   $("menu").innerHTML=`
     <div class="mhead"><div class="mlogo">${DIVER}</div><div><b>${logoSVG()}</b><small>Det daglige dykket</small></div><button class="x" id="mClose" aria-label="Lukk meny">${UI.x}</button></div>
-    <div class="mlabel">Dykk inn</div>
-    <div class="tiles">${tiles.map(([id,ic,n,s,soon,act])=>`<button class="tile${act?" active":""}" data-go="${id}">${soon?SOON:""}${ic}<b>${n}</b><small>${s}</small></button>`).join("")}
-      <button class="tile wide" data-go="hjelp">${UI.help}<div><b>Hvordan spille</b><br><small>Regler, sjeldenhet og svar som ikke godkjennes</small></div></button></div>
-    <div class="mlabel">Mer</div>
-    <div class="mlinks">
-      <button data-go="garderobe">${UI.shirt}<span>Garderobe<small>Velg dykkekompis</small></span>${soonInline}</button>
+    <button class="mday${done?" done":""}" data-go="dagens">
+      <span class="mday-top"><span class="mday-nr">Nr. ${dayNumber()}</span><span class="mday-date">${dstr}</span></span>
+      <b>${done?"Dagens dykk er tatt":"Dagens dykk"}</b>
+      <span class="mday-sub">${done?`${fmt(done.score)} p · ${fmt(depthOf(done))} m dypt · se fangsten`:"Sju nye spørsmål venter. Nytt dykk hver midnatt."}</span>
+      <span class="mday-foot">${streak?`<span class="mstreak">${streak} ${streak===1?"dag":"dager"} på rad</span>`:"<span></span>"}<span class="mgo">${done?"Se resultatet":"Start dykket"}</span></span>
+    </button>
+    <div class="mlabel">Flere måter å dykke på</div>
+    <div class="mlist">
+      ${row("uendelig",UI.inf,"Uendelig dykk","Tre liv – hvor langt kommer du?")}
+      ${row("boblebomben",UI.party,"Boblebomben","Flerspiller – lokalt eller med kode")}
+      ${row("temapakker",UI.packs,"Temapakker","Kapitler med film, sport, Norge …")}
+      ${row("arkiv",UI.archive,"Arkiv","Ta dykk du har gått glipp av")}
+      ${row("ovelse",UI.dive,"Øving","Tilfeldige spørsmål, ingen poengtavle")}
     </div>
-    <div class="mfoot">Sjeldne svar tar deg dypere</div>`;
+    <div class="mlabel">Deg</div>
+    <div class="mlist mlinks">
+      ${row("mitt-dypdykk",UI.user,"Mitt Dypdykk","Rekker, rekorder og dykkekompiser")}
+      ${row("venner",UI.friends,"Venner","Sammenlign dagens poeng med en lenke")}
+    </div>
+    <div class="mfootrow"><button data-go="innstillinger">${UI.gear}<span>Innstillinger</span></button><button data-go="hjelp">${UI.help}<span>Hvordan spille</span></button></div>`;
   $("mClose").onclick=closeMenu;
   $("menu").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{closeMenu();go(b.dataset.go);});
 }
@@ -1892,6 +1923,7 @@ function inGame(){return /s-(intro|countdown|answer|diving|reveal)/.test(documen
 function go(id){
   if(id==="dagens"){ location.hash=""; const done=store.get("dypdykk-"+todayKey()); if(done){game=done;showSummary(true);} else begin(true); return; }
   if(id==="ovelse"){ location.hash=""; begin(false); return; }
+  if(id==="uendelig"){ location.hash=""; begin("endless"); return; }
   if(id==="foresla"){ go("hjelp"); setTimeout(()=>{const el=$("forslag");if(el)el.scrollIntoView({behavior:"smooth"});},400); return; }
   if(id==="garderobe"){ go("mitt-dypdykk"); return; }
   if(location.hash!=="#"+id) location.hash=id; else route();
@@ -2294,12 +2326,6 @@ function partyEnd(winner){ const ps=[...pg.players].sort((a,b)=>b.lives-a.lives|
   $("pBack").onclick=()=>{ pg=null; if(net&&NET.peer) return netLobbySync(), netLobbyRender(); route(); }; }
 
 /* ---------- Menyen: oppdatert status ---------- */
-const _renderMenu=renderMenu;
-renderMenu=function(){ _renderMenu();
-  const set=(id,sub)=>{ const t=$("menu").querySelector(`[data-go="${id}"]`); if(!t) return; const s=t.querySelector(".soon"); if(s) s.remove(); if(sub) t.querySelector("small").textContent=sub; };
-  set("boblebomben","Flerspiller – lokalt eller med kode"); set("arkiv","Ta tidligere dykk"); set("temapakker","Kapitler med temaer"); set("venner","Sammenlign med lenke");
-  const g=$("menu").querySelector('[data-go="garderobe"]'); if(g){ const s=g.querySelector(".soon"); if(s) s.remove(); }
-};
 renderBuddy();
 
 /* ---------- Boblebomben over nettet: lobby med kode ----------
@@ -2568,8 +2594,9 @@ PAGES["mitt-dypdykk"]=()=>{ const a=auth(); return _profileK().replace(/<div cla
 /* Menyen: konto og tidligere resultater */
 const _renderMenuK=renderMenu;
 renderMenu=function(){ _renderMenuK(); const a=auth(), links=$("menu").querySelector(".mlinks"); if(!links) return;
-  links.insertAdjacentHTML("afterbegin",`<button data-go="konto">${UI.user}<span>${a?esc(shownName(a)):"Logg inn"}<small>${a?"Dykkene dine lagres":"Lagre dykk og se tidligere resultater"}</small></span></button>
-    <button data-go="resultater">${UI.archive}<span>Tidligere resultater<small>Alle dykkene dine</small></span></button>`);
+  const r=(id,ic,n,sub)=>`<button class="mrow" data-go="${id}"><span class="mi">${ic}</span><span class="mt"><b>${n}</b><small>${sub}</small></span><i class="chev"></i></button>`;
+  links.insertAdjacentHTML("afterbegin",r("konto",UI.lock,a?esc(shownName(a)):"Logg inn",a?"Dykkene dine lagres":"Lagre dykk og ta dem med mellom enheter")+
+    r("resultater",UI.archive,"Tidligere resultater","Alle dykkene dine"));
   links.querySelectorAll('[data-go="konto"],[data-go="resultater"]').forEach(b=>b.onclick=()=>{ closeMenu(); go(b.dataset.go); }); };
 if(auth()) setTimeout(()=>syncNow(true),1500);
 
