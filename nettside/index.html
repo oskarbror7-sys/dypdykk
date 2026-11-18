@@ -1765,14 +1765,14 @@ let pg=null, pgTimer=null;
 function partyQuestions(){ return QUESTIONS.filter(q=>(!q.modes||q.modes.includes("party"))&&(q.src?q.n>=60:q.a.split(/[,|]/).length>=25)); }
 PAGES.boblebomben=()=>{ const names=store.get("dypdykk-party-names")||[myName()||"Spiller 1","Spiller 2"];
   return head("Boblebomben","Send boblen videre før den sprekker! Svar på kategorien og gi boblen til neste spiller. Sjeldne svar slipper ut mer luft.")+
-   `<div class="party"><div class="panel glass"><h3>Hvem spiller</h3><div class="bomb">${BOMB}</div>
+   `<div class="party">${typeof onlinePanel==="function"?onlinePanel():""}<div class="panel glass"><h3>Hvem spiller (på denne enheten)</h3><div class="bomb">${BOMB}</div>
        <div id="pNames">${names.map((n,i)=>`<div class="rowf" style="margin-bottom:8px"><input class="field pn" maxlength="16" value="${esc(n)}" placeholder="Navn"><button class="btn btn-ghost pdel" style="padding:10px 14px" data-i="${i}">✕</button></div>`).join("")}</div>
        <button class="btn btn-ghost" id="pAdd" style="width:100%">+ Legg til spiller</button></div>
      <div class="panel glass"><h3>Oppsett</h3>
        <div class="sect" style="text-align:left;margin-top:0">Datamotstandere</div><div class="chipsel" id="pBots">${[0,1,2,3].map(n=>`<span data-b="${n}" class="${n===PARTY.bots?"on":""}" style="cursor:pointer">${n}</span>`).join("")}</div>
        <div class="sect" style="text-align:left">Liv per spiller</div><div class="chipsel" id="pLives">${[1,2,3,5].map(n=>`<span data-l="${n}" class="${n===PARTY.lives?"on":""}" style="cursor:pointer">${n}</span>`).join("")}</div>
        <button class="btn btn-primary" id="pStart" style="width:100%;margin-top:18px">Start Boblebomben</button>
-       <p class="psub" style="font-size:12px;margin:10px 0 0">Spill på samme enhet: send mobilen eller tastaturet videre. Online-rom med kode kommer når spillet får en server.</p></div>
+       <p class="psub" style="font-size:12px;margin:10px 0 0">Spill på samme enhet: send mobilen eller tastaturet videre.</p></div>
      <div class="panel glass full"><h3>Regler</h3><ol class="steps">
        <li>Alle får samme kategori. Den som har boblen, skriver et svar som ikke er brukt i runden.</li>
        <li>Boblen fylles hele tiden og sprekker på et skjult, tilfeldig tidspunkt.</li>
@@ -1784,14 +1784,15 @@ PAGE_INIT.boblebomben=()=>{
   document.querySelectorAll(".pdel").forEach(b=>b.onclick=()=>{ save(); const l=store.get("dypdykk-party-names")||[]; l.splice(+b.dataset.i,1); store.set("dypdykk-party-names",l); route(); });
   document.querySelectorAll("#pBots span").forEach(s=>s.onclick=()=>{ PARTY.bots=+s.dataset.b; save(); route(); });
   document.querySelectorAll("#pLives span").forEach(s=>s.onclick=()=>{ PARTY.lives=+s.dataset.l; save(); route(); });
+  if(typeof onlineInit==="function") onlineInit();
   $("pStart").onclick=async()=>{ save(); const names=store.get("dypdykk-party-names")||[];
     const players=[...names.map(n=>({n,bot:false})),...Array.from({length:PARTY.bots},(_,i)=>({n:"Dykkebot "+(i+1),bot:true}))];
     if(players.length<2){ toast("Dere må være minst to (legg til en datamotstander)"); return; }
     if(players.every(p=>p.bot)){ toast("Minst én spiller må være et menneske"); return; }
     ac(); await datasetsReady; partyStart(players); };
 };
-function partyStart(players){
-  pg={players:players.map(p=>({...p,lives:PARTY.lives,ans:0,rare:0})),turn:0,round:0,log:[]};
+function partyStart(players,net){
+  pg={players:players.map(p=>({...p,lives:PARTY.lives,ans:0,rare:0})),turn:0,round:0,log:[],net:!!net};
   partyRound(); }
 // Velger og laster et spørsmål. Neste runde hentes i bakgrunnen mens denne spilles, så det blir ingen pause mellom rundene.
 async function partyPick(avoid){ const pool=partyQuestions(); let q=null;
@@ -1811,23 +1812,28 @@ function partyRender(msg){
     <div class="kicker" style="color:var(--cyan)">Runde ${pg.round} · Boblebomben</div>
     <div class="ptitle" style="font-size:clamp(26px,6vw,40px)">${esc(pg.q.q)}</div>
     <div style="height:210px;display:grid;place-items:center"><div id="pBomb" style="width:150px;height:150px;transform:scale(${s});transition:transform .15s">${BOMB}</div></div>
-    <div class="banner" style="justify-content:center;background:rgba(94,242,214,.08);border-color:rgba(94,242,214,.35);color:#dffcf6">${cur.bot?"🤖 ":""}<b>${esc(cur.n)}</b>&nbsp;har boblen${cur.bot?" … tenker":""}</div>
-    ${cur.bot?"":`<form id="pForm" class="barrow glass" style="margin:0 auto 10px;max-width:520px" autocomplete="off"><input id="pInp" class="field" style="border:0;background:transparent;font-size:18px" placeholder="Skriv et svar …" autocapitalize="off" spellcheck="false"><button id="go" type="submit">SEND ▶</button></form>`}
+    <div class="banner" style="justify-content:center;background:rgba(94,242,214,.08);border-color:rgba(94,242,214,.35);color:#dffcf6">${cur.bot?"🤖 ":cur.id?"🌐 ":""}<b>${esc(cur.n)}</b>&nbsp;har boblen${cur.bot?" … tenker":cur.id?" … skriver":""}</div>
+    ${cur.bot||cur.id?"":`<form id="pForm" class="barrow glass" style="margin:0 auto 10px;max-width:520px" autocomplete="off"><input id="pInp" class="field" style="border:0;background:transparent;font-size:18px" placeholder="Skriv et svar …" autocapitalize="off" spellcheck="false"><button id="go" type="submit">SEND ▶</button></form>`}
     <div id="pMsg" style="min-height:24px;font-size:14px;color:#ffc2ba">${msg||""}</div>
-    <div class="panel glass" style="text-align:left"><h3>Spillere</h3><ul class="lb">${pg.players.map((p,i)=>`<li style="${i===pg.turn?"background:rgba(94,242,214,.08)":""}${p.lives<=0?";opacity:.35":""}"><span class="pos">${i===pg.turn?"▶":""}</span><span class="nm">${esc(p.n)}</span><span class="sc" style="color:#ff7a6b">${"♥".repeat(Math.max(0,p.lives))||"ute"}</span><span class="sc">${p.ans} svar</span></li>`).join("")}</ul></div>
+    <div class="panel glass" style="text-align:left"><h3>Spillere</h3><ul class="lb">${pg.players.map((p,i)=>`<li style="${i===pg.turn?"background:rgba(94,242,214,.08)":""}${p.lives<=0?";opacity:.35":""}"><span class="pos">${i===pg.turn?"▶":""}</span><span class="nm">${esc(p.n)}</span><span class="sc" style="color:#ff7a6b">${p.gone?"frakoblet":"♥".repeat(Math.max(0,p.lives))||"ute"}</span><span class="sc">${p.ans} svar</span></li>`).join("")}</ul></div>
     <div class="panel glass" style="text-align:left"><h3>Brukt denne runden (${pg.answers.length})</h3><div class="chips" style="justify-content:flex-start">${pg.answers.slice(-30).map(a=>`<span class="chip" style="border-color:${TIERS[a.tier].color}66;color:${TIERS[a.tier].color}">${esc(a.label)}</span>`).join("")||'<span style="color:var(--muted);font-size:13px">Ingen ennå</span>'}</div></div></div>`;
-  $("pQuit").onclick=()=>{ clearInterval(pgTimer); pg=null; location.hash="boblebomben"; route(); };
+  $("pQuit").onclick=()=>{ clearInterval(pgTimer); if(pg&&pg.net) NET.close(); pg=null; location.hash="boblebomben"; route(); };
+  if(pg.net) NET.state(msg);
   if($("pForm")){ const inp=$("pInp"); setTimeout(()=>inp.focus(),30);
     $("pForm").onsubmit=e=>{ e.preventDefault(); partySubmit(inp.value); }; }
 }
 function partyTick(){ if(!pg) return clearInterval(pgTimer); pg.pressure+=1; const b=$("pBomb");
   if(b) b.style.transform=`scale(${1+Math.min(pg.pressure/300,1)*.9}) rotate(${Math.sin(pg.pressure/3)*(pg.pressure/pg.fuse)*6}deg)`;
+  if(pg.net&&pg.pressure%3===0) NET.all({t:"p",p:pg.pressure,w:Math.round(pg.pressure/pg.fuse*100)/100});
   if(pg.pressure>=pg.fuse) partyPop(); }
-function partySubmit(v){ if(!pg) return; v=(v||"").trim(); if(!v) return;
+// «from» er nettverks-ID-en til en spiller i en online-lobby (tom for spillere på denne enheten og boter)
+function partySubmit(v,from){ if(!pg) return; v=(v||"").trim(); if(!v) return;
   const r=check(pg.q,v), cur=pg.players[pg.turn];
-  if(!r){ SFX.wrong(); return partyMsg(`«${esc(v)}» ble ikke godkjent`); }
-  if(!r.exact&&SET.corr!==false){ SFX.count(); return partyMsg(`Mente du «${esc(r.a.label)}»? Skriv det, så teller det.`); }
-  if(pg.used.has(r.a)){ SFX.wrong(); return partyMsg(`«${esc(r.a.label)}» er allerede brukt`); }
+  if((from||null)!==(cur.id||null)) return;   // bare den som har boblen kan svare
+  const say=m=>{ if(from) NET.to(from,{t:"msg",m}); else { SFX.wrong(); partyMsg(m); } };
+  if(!r) return say(`«${esc(v)}» ble ikke godkjent`);
+  if(!r.exact&&SET.corr!==false) return say(`Mente du «${esc(r.a.label)}»? Skriv det, så teller det.`);
+  if(pg.used.has(r.a)) return say(`«${esc(r.a.label)}» er allerede brukt`);
   pg.used.add(r.a); pg.answers.push(r.a); cur.ans++; if(r.a.tier>=4) cur.rare++;
   pg.pressure=Math.max(0,pg.pressure-(10+r.a.tier*9)); SFX.tier(r.a.tier);
   partyNext(); }
@@ -1841,6 +1847,7 @@ function partyTurnStart(){ const cur=pg.players[pg.turn]; if(!cur.bot) return;
     for(let i=0;i<all.length;i++){ x-=w[i]; if(x<=0){ pick=all[i]; break; } }
     partySubmit(pick.label); },delay); }
 function partyPop(){ clearInterval(pgTimer); const cur=pg.players[pg.turn]; cur.lives--; SFX.boom(); fx.flash("#ff7a6b",.6,700); fx.shake(14,600);
+  if(pg.net) NET.all({t:"pop",n:cur.n});
   const alive=partyAlive();
   const box=$("page").querySelector(".pg"); if(box) box.insertAdjacentHTML("afterbegin",`<div class="banner" style="justify-content:center;font-size:16px">💥 Boblen sprakk hos <b>&nbsp;${esc(cur.n)}</b>!</div>`);
   setTimeout(()=>{ if(!pg) return; if(alive.length<=1) partyEnd(alive[0]); else { pg.turn=(pg.turn+1)%pg.players.length; partyRound(); } },1800); }
@@ -1849,17 +1856,171 @@ function partyEnd(winner){ const ps=[...pg.players].sort((a,b)=>b.lives-a.lives|
     <div class="ptitle">🏆 ${esc(winner?winner.n:"Ingen")} vant!</div>
     <div class="panel glass" style="text-align:left"><h3>Resultat</h3><ul class="lb">${ps.map((p,i)=>`<li><span class="pos">${i+1}</span><span class="nm">${esc(p.n)}</span><span class="sc">${p.ans} svar</span><span class="sc" style="color:#ffd36b">${p.rare} sjeldne</span></li>`).join("")}</ul></div>
     <div class="btnrow"><button class="btn btn-primary" id="pAgain">Spill igjen</button><button class="btn btn-ghost" id="pBack">Til oppsett</button></div></div>`;
-  SFX.tier(5); const players=pg.players.map(p=>({n:p.n,bot:p.bot}));
-  $("pAgain").onclick=()=>partyStart(players); $("pBack").onclick=()=>{ pg=null; route(); }; }
+  SFX.tier(5); const players=pg.players.filter(p=>!p.gone).map(p=>({n:p.n,bot:p.bot,id:p.id}));
+  if(pg.net) NET.all({t:"end",w:winner?winner.n:"Ingen",round:pg.round,rows:ps.map(p=>[p.n,p.ans,p.rare])});
+  const net=pg.net;
+  $("pAgain").onclick=()=>{ if(net&&!NET.peer){ toast("Lobbyen er stengt"); return; } partyStart(players,net); };
+  if(net){ $("pBack").textContent="Til lobbyen"; $("pAgain").insertAdjacentHTML("afterend",'<button class="btn btn-ghost" id="pClose">Steng lobbyen</button>');
+    $("pClose").onclick=()=>{ NET.close(); pg=null; route(); }; }
+  $("pBack").onclick=()=>{ pg=null; if(net&&NET.peer) return netLobbySync(), netLobbyRender(); route(); }; }
 
 /* ---------- Menyen: oppdatert status ---------- */
 const _renderMenu=renderMenu;
 renderMenu=function(){ _renderMenu();
   const set=(id,sub)=>{ const t=$("menu").querySelector(`[data-go="${id}"]`); if(!t) return; const s=t.querySelector(".soon"); if(s) s.remove(); if(sub) t.querySelector("small").textContent=sub; };
-  set("boblebomben","Flerspiller på én enhet"); set("arkiv","Ta tidligere dykk"); set("temapakker","Kapitler med temaer"); set("venner","Sammenlign med lenke");
+  set("boblebomben","Flerspiller – lokalt eller med kode"); set("arkiv","Ta tidligere dykk"); set("temapakker","Kapitler med temaer"); set("venner","Sammenlign med lenke");
   const g=$("menu").querySelector('[data-go="garderobe"]'); if(g){ const s=g.querySelector(".soon"); if(s) s.remove(); }
 };
 renderBuddy();
+
+/* ---------- Boblebomben over nettet: lobby med kode ----------
+   Verten (den som lager lobbyen) kjører spillet og sjekker alle svar. De andre kobles direkte til verten
+   (WebRTC via PeerJS) og sender bare inn svar. Ingen egen server eller lagring trengs. */
+const NET={peer:null,conns:new Map(),host:false,code:"",hostConn:null,me:"",lobby:[],
+  all(m){ for(const c of this.conns.values()) if(c.open) c.send(m); },
+  to(id,m){ const c=this.conns.get(id); if(c&&c.open) c.send(m); },
+  state(msg){ if(!pg) return; const cur=pg.players[pg.turn];
+    this.all({t:"state",q:pg.q.q,round:pg.round,turn:pg.turn,turnId:cur.id||"",msg:msg||"",p:pg.pressure,
+      players:pg.players.map(p=>({n:p.n,lives:p.lives,ans:p.ans,bot:!!p.bot,gone:!!p.gone,id:p.id||""})),
+      answers:pg.answers.slice(-30).map(a=>[a.label,a.tier]),count:pg.answers.length}); },
+  close(){ try{ this.all({t:"bye"}); }catch(e){} try{ this.peer&&this.peer.destroy(); }catch(e){}
+    this.peer=null; this.conns.clear(); this.host=false; this.hostConn=null; this.lobby=[]; }
+};
+const NET_ABC="ABCDEFGHJKMNPQRSTUVWXYZ23456789", NET_PREFIX="dypdykk-boble-";
+function netCode(){ let s=""; for(let i=0;i<5;i++) s+=NET_ABC[Math.floor(Math.random()*NET_ABC.length)]; return s; }
+let _peerLib=null;
+function loadPeer(){ return _peerLib||(_peerLib=new Promise((ok,bad)=>{ if(window.Peer) return ok();
+  const s=document.createElement("script"); s.src="peerjs.min.js"; s.onload=()=>ok(); s.onerror=()=>{ _peerLib=null; bad(new Error("lib")); };
+  document.head.appendChild(s); })); }
+function netErr(e){ const t=(e&&e.type)||"";
+  return t==="peer-unavailable"?"Fant ingen lobby med den koden. Sjekk koden og at verten fortsatt har lobbyen åpen."
+    :t==="unavailable-id"?"Koden var opptatt – prøv igjen."
+    :t==="network"||t==="server-error"||t==="socket-error"?"Fikk ikke kontakt med koblingstjenesten. Sjekk nettet og prøv igjen."
+    :t==="browser-incompatible"?"Nettleseren støtter ikke direkte tilkobling."
+    :"Tilkoblingen feilet. Noen nettverk (f.eks. strenge bedriftsnett) stopper direkte tilkobling."; }
+
+function onlinePanel(){ const code=new URLSearchParams(location.search).get("bli")||"";
+  return `<div class="panel glass full" id="netPanel"><h3>🌐 Spill over nettet</h3>
+    <p class="psub" style="font-size:14px;margin:0 0 12px">Lag en lobby og del koden med vennene dine. De blir med fra sin egen mobil eller PC.</p>
+    <div class="rowf" style="margin-bottom:10px"><input class="field" id="netName" maxlength="16" placeholder="Ditt navn" value="${esc(myName()||store.get("dypdykk-net-name")||"")}"></div>
+    <div class="rowf" style="gap:10px;flex-wrap:wrap">
+      <button class="btn btn-primary" id="netHost" style="flex:1;min-width:160px">Lag lobby</button>
+      <input class="field" id="netCode" maxlength="5" placeholder="KODE" value="${esc(code.toUpperCase())}" style="flex:1;min-width:110px;text-transform:uppercase;letter-spacing:.25em;text-align:center;font-weight:700" autocapitalize="characters" autocomplete="off" spellcheck="false">
+      <button class="btn btn-ghost" id="netJoin" style="flex:1;min-width:120px">Bli med</button></div>
+    <div id="netMsg" style="min-height:20px;font-size:13px;color:#ffc2ba;margin-top:8px"></div></div>`; }
+
+function onlineInit(){ const nm=()=>{ const v=($("netName").value||"").trim().slice(0,16); if(v) store.set("dypdykk-net-name",v); return v; };
+  $("netHost").onclick=()=>{ const n=nm(); if(!n) return netSay("Skriv navnet ditt først"); netHostStart(n); };
+  $("netJoin").onclick=()=>{ const n=nm(), c=($("netCode").value||"").trim().toUpperCase();
+    if(!n) return netSay("Skriv navnet ditt først"); if(!/^[A-Z0-9]{5}$/.test(c)) return netSay("Koden har 5 tegn"); netJoin(c,n); };
+  if(new URLSearchParams(location.search).get("bli")) setTimeout(()=>$("netName")&&$("netName").focus(),100); }
+function netSay(m){ const e=$("netMsg"); if(e) e.textContent=m; else toast(m); }
+
+/* ----- Vert ----- */
+async function netHostStart(name,tries){ netSay("Lager lobby …");
+  try{ await loadPeer(); }catch(e){ return netSay("Kunne ikke laste tilkoblingsmodulen. Sjekk nettet."); }
+  NET.close(); const code=netCode(); const peer=new Peer(NET_PREFIX+code,Object.assign({debug:0},window.DYPDYKK_PEER||{}));
+  NET.peer=peer; NET.host=true; NET.code=code; NET.lobby=[{n:name,id:""}];
+  peer.on("open",()=>{ ac(); netLobbyRender(); });
+  peer.on("error",e=>{ if(e.type==="unavailable-id"&&(tries||0)<3) return netHostStart(name,(tries||0)+1);
+    if(e.type==="peer-unavailable") return; netSay(netErr(e)); if(!NET.lobby.length||!$("netLobby")) return; toast(netErr(e)); });
+  peer.on("disconnected",()=>{ try{ peer.reconnect(); }catch(e){} });   // mister bare koblingstjenesten; spillere er fortsatt tilkoblet
+  peer.on("connection",conn=>{
+    conn.on("open",()=>{ const n=String((conn.metadata&&conn.metadata.n)||"Gjest").slice(0,16);
+      if(pg){ conn.send({t:"full",m:"Spillet er allerede i gang. Vent til neste runde."}); setTimeout(()=>conn.close(),500); return; }
+      if(NET.lobby.length>=8){ conn.send({t:"full",m:"Lobbyen er full (8 spillere)."}); setTimeout(()=>conn.close(),500); return; }
+      let nn=n, k=2; while(NET.lobby.some(p=>p.n.toLowerCase()===nn.toLowerCase())) nn=n.slice(0,13)+" "+(k++);
+      NET.conns.set(conn.peer,conn); NET.lobby.push({n:nn,id:conn.peer}); SFX.bubble&&SFX.bubble(); netLobbySync(); });
+    conn.on("data",d=>netHostData(conn.peer,d));
+    conn.on("close",()=>netGone(conn.peer)); conn.on("error",()=>netGone(conn.peer)); }); }
+function netGone(id){ if(!NET.conns.has(id)) return; NET.conns.delete(id);
+  const i=NET.lobby.findIndex(p=>p.id===id); const who=i>=0?NET.lobby[i].n:"En spiller"; if(i>=0) NET.lobby.splice(i,1);
+  if(pg&&pg.net&&!$("pAgain")){ const p=pg.players.find(x=>x.id===id); if(p&&!p.gone){ p.gone=true; p.lives=0; toast(`${p.n} forlot spillet`);
+      const alive=partyAlive(); if(alive.length<=1){ clearInterval(pgTimer); partyEnd(alive[0]); }
+      else if(pg.players[pg.turn]===p) partyNext(); else partyRender(); } }
+  else if(!pg) netLobbySync(); }
+function netHostData(id,d){ if(!d||typeof d!=="object") return;
+  if(d.t==="ans"&&pg&&pg.net) partySubmit(String(d.v||"").slice(0,80),id); }
+function netLobbySync(){ NET.all({t:"lobby",code:NET.code,players:NET.lobby.map(p=>p.n),lives:PARTY.lives,bots:PARTY.bots}); if($("netLobby")) netLobbyRender(); }
+function netLobbyRender(){ if(pg) return; const link=location.origin+location.pathname+"?bli="+NET.code+"#boblebomben";
+  $("page").innerHTML=`<div class="pg narrow" style="text-align:center" id="netLobby"><button class="back" id="nlQuit">← Steng lobbyen</button>
+    <div class="kicker" style="color:var(--cyan)">Boblebomben · lobby</div>
+    <div class="ptitle" style="font-size:clamp(20px,5vw,28px)">Del koden med vennene dine</div>
+    <div style="font-size:clamp(46px,14vw,76px);font-weight:800;line-height:1.1;letter-spacing:.18em;margin:10px 0 8px;color:#dffcf6;text-shadow:0 0 30px rgba(94,242,214,.45)">${NET.code}</div>
+    <div class="btnrow" style="margin-bottom:14px"><button class="btn btn-ghost" id="nlCopy">Kopier invitasjonslenke</button></div>
+    <div class="panel glass" style="text-align:left"><h3>Spillere (${NET.lobby.length + PARTY.bots})</h3><ul class="lb">
+      ${NET.lobby.map((p,i)=>`<li><span class="pos">${i?"🌐":"👑"}</span><span class="nm">${esc(p.n)}</span><span class="sc">${i?"tilkoblet":"vert"}</span></li>`).join("")}
+      ${Array.from({length:PARTY.bots},(_,i)=>`<li><span class="pos">🤖</span><span class="nm">Dykkebot ${i+1}</span><span class="sc">datamotstander</span></li>`).join("")}</ul>
+      ${NET.lobby.length<2?'<p class="psub" style="font-size:13px;margin:8px 0 0">Venter på at noen blir med …</p>':""}</div>
+    <div class="panel glass" style="text-align:left"><h3>Oppsett</h3>
+      <div class="sect" style="text-align:left;margin-top:0">Datamotstandere</div><div class="chipsel" id="nlBots">${[0,1,2,3].map(n=>`<span data-b="${n}" class="${n===PARTY.bots?"on":""}" style="cursor:pointer">${n}</span>`).join("")}</div>
+      <div class="sect" style="text-align:left">Liv per spiller</div><div class="chipsel" id="nlLives">${[1,2,3,5].map(n=>`<span data-l="${n}" class="${n===PARTY.lives?"on":""}" style="cursor:pointer">${n}</span>`).join("")}</div></div>
+    <button class="btn btn-primary" id="nlStart" style="width:100%;max-width:420px">Start spillet</button></div>`;
+  $("nlQuit").onclick=()=>{ NET.close(); route(); };
+  $("nlCopy").onclick=async()=>{ try{ await navigator.clipboard.writeText(link); toast("Lenken er kopiert"); }catch(e){ prompt("Kopier lenken:",link); } };
+  document.querySelectorAll("#nlBots span").forEach(s=>s.onclick=()=>{ PARTY.bots=+s.dataset.b; netLobbySync(); });
+  document.querySelectorAll("#nlLives span").forEach(s=>s.onclick=()=>{ PARTY.lives=+s.dataset.l; netLobbySync(); });
+  $("nlStart").onclick=async()=>{ const players=[...NET.lobby.map(p=>({n:p.n,bot:false,id:p.id||undefined})),...Array.from({length:PARTY.bots},(_,i)=>({n:"Dykkebot "+(i+1),bot:true}))];
+    if(players.length<2) return toast("Dere må være minst to (vent på venner eller legg til en datamotstander)");
+    $("nlStart").disabled=true; $("nlStart").textContent="Laster …"; await datasetsReady; NET.all({t:"start"}); partyStart(players,true); }; }
+
+/* ----- Deltaker ----- */
+let netView=null;
+async function netJoin(code,name){ netSay("Kobler til …");
+  try{ await loadPeer(); }catch(e){ return netSay("Kunne ikke laste tilkoblingsmodulen. Sjekk nettet."); }
+  NET.close(); const peer=new Peer(Object.assign({debug:0},window.DYPDYKK_PEER||{})); NET.peer=peer; NET.code=code; NET.me=name;
+  const fail=e=>{ netSay(netErr(e)); if(!$("netPanel")) { toast(netErr(e)); } };
+  const timer=setTimeout(()=>{ if(!NET.hostConn||!NET.hostConn.open) fail({type:"timeout"}); },15000);
+  peer.on("error",fail);
+  peer.on("open",id=>{ NET.myId=id; const conn=peer.connect(NET_PREFIX+code,{metadata:{n:name},reliable:true}); NET.hostConn=conn;
+    conn.on("open",()=>{ clearTimeout(timer); ac(); });
+    conn.on("data",netClientData);
+    conn.on("close",()=>{ if(NET.peer===peer){ const ended=netView&&netView.ended; NET.close(); if(!ended){ toast("Verten avsluttet lobbyen"); netView=null; location.hash="boblebomben"; route(); } } }); }); }
+function netClientData(d){ if(!d||typeof d!=="object") return;
+  if(d.t==="full"){ netSay(d.m); toast(d.m); return; }
+  if(d.t==="lobby"){ netView={phase:"lobby",...d}; return netClientLobby(); }
+  if(d.t==="start"){ netView={phase:"game"}; return; }
+  if(d.t==="state"){ const prev=netView&&netView.phase==="game"&&netView.count; netView={...netView,phase:"game",...d};
+    if(prev!==undefined&&prev!==false&&d.count>prev&&d.answers.length) SFX.tier(d.answers[d.answers.length-1][1]);
+    return netClientGame(); }
+  if(d.t==="p"&&netView){ netView.p=d.p; const b=$("pBomb"); if(b) b.style.transform=`scale(${1+Math.min(d.p/300,1)*.9}) rotate(${Math.sin(d.p/3)*d.w*6}deg)`; return; }
+  if(d.t==="msg"){ SFX.wrong(); const el=$("pMsg"); if(el){ el.innerHTML=d.m; const f=$("pForm"); if(f){f.classList.remove("err");void f.offsetWidth;f.classList.add("err");} const i=$("pInp"); if(i){i.value="";i.focus();} } return; }
+  if(d.t==="pop"){ SFX.boom(); fx.flash("#ff7a6b",.6,700); fx.shake(14,600);
+    const box=$("page").querySelector(".pg"); if(box) box.insertAdjacentHTML("afterbegin",`<div class="banner" style="justify-content:center;font-size:16px">💥 Boblen sprakk hos <b>&nbsp;${esc(d.n)}</b>!</div>`); return; }
+  if(d.t==="end"){ netView={...netView,ended:true,phase:"end"}; SFX.tier(5);
+    $("page").innerHTML=`<div class="pg narrow" style="text-align:center"><div class="kicker" style="color:var(--cyan)">Boblebomben ferdig etter ${d.round} runder</div>
+      <div class="ptitle">🏆 ${esc(d.w)} vant!</div>
+      <div class="panel glass" style="text-align:left"><h3>Resultat</h3><ul class="lb">${d.rows.map((r,i)=>`<li><span class="pos">${i+1}</span><span class="nm">${esc(r[0])}</span><span class="sc">${r[1]} svar</span><span class="sc" style="color:#ffd36b">${r[2]} sjeldne</span></li>`).join("")}</ul></div>
+      <p class="psub">Venter på at verten starter et nytt spill …</p><div class="btnrow"><button class="btn btn-ghost" id="nLeave">Forlat lobbyen</button></div></div>`;
+    $("nLeave").onclick=()=>{ NET.close(); netView=null; route(); }; return; }
+  if(d.t==="bye"){ NET.close(); toast("Verten avsluttet lobbyen"); netView=null; location.hash="boblebomben"; route(); } }
+function netClientLobby(){ const v=netView;
+  $("page").innerHTML=`<div class="pg narrow" style="text-align:center" id="netLobby"><button class="back" id="nlQuit">← Forlat lobbyen</button>
+    <div class="kicker" style="color:var(--cyan)">Boblebomben · lobby ${esc(v.code)}</div>
+    <div class="ptitle" style="font-size:clamp(22px,5vw,32px)">Du er med! Venter på at verten starter …</div>
+    <div style="height:170px;display:grid;place-items:center"><div style="width:130px;height:130px">${BOMB}</div></div>
+    <div class="panel glass" style="text-align:left"><h3>Spillere</h3><ul class="lb">
+      ${v.players.map((n,i)=>`<li><span class="pos">${i?"🌐":"👑"}</span><span class="nm">${esc(n)}${n===NET.me?" (deg)":""}</span></li>`).join("")}
+      ${Array.from({length:v.bots},(_,i)=>`<li><span class="pos">🤖</span><span class="nm">Dykkebot ${i+1}</span></li>`).join("")}</ul>
+      <p class="psub" style="font-size:13px;margin:8px 0 0">${v.lives} liv per spiller</p></div></div>`;
+  $("nlQuit").onclick=()=>{ NET.close(); netView=null; route(); }; }
+function netClientGame(){ const v=netView, cur=v.players[v.turn], mine=cur&&cur.id===NET.myId, keep=$("pInp")&&mine?$("pInp").value:"";
+  $("page").innerHTML=`<div class="pg narrow" style="text-align:center"><button class="back" id="nQuit">← Forlat spillet</button>
+    <div class="kicker" style="color:var(--cyan)">Runde ${v.round} · Boblebomben · ${esc(NET.code)}</div>
+    <div class="ptitle" style="font-size:clamp(26px,6vw,40px)">${esc(v.q)}</div>
+    <div style="height:210px;display:grid;place-items:center"><div id="pBomb" style="width:150px;height:150px;transform:scale(${1+Math.min(v.p/300,1)*.9});transition:transform .15s">${BOMB}</div></div>
+    <div class="banner" style="justify-content:center;background:rgba(94,242,214,.08);border-color:rgba(94,242,214,.35);color:#dffcf6">${mine?"<b>Du</b>&nbsp;har boblen – skriv fort!":`${cur.bot?"🤖 ":""}<b>${esc(cur.n)}</b>&nbsp;har boblen`}</div>
+    ${mine?`<form id="pForm" class="barrow glass" style="margin:0 auto 10px;max-width:520px" autocomplete="off"><input id="pInp" class="field" style="border:0;background:transparent;font-size:18px" placeholder="Skriv et svar …" autocapitalize="off" spellcheck="false"><button id="go" type="submit">SEND ▶</button></form>`:""}
+    <div id="pMsg" style="min-height:24px;font-size:14px;color:#ffc2ba">${v.msg||""}</div>
+    <div class="panel glass" style="text-align:left"><h3>Spillere</h3><ul class="lb">${v.players.map((p,i)=>`<li style="${i===v.turn?"background:rgba(94,242,214,.08)":""}${p.lives<=0?";opacity:.35":""}"><span class="pos">${i===v.turn?"▶":""}</span><span class="nm">${esc(p.n)}${p.id&&p.id===NET.myId?" (deg)":""}</span><span class="sc" style="color:#ff7a6b">${p.gone?"frakoblet":"♥".repeat(Math.max(0,p.lives))||"ute"}</span><span class="sc">${p.ans} svar</span></li>`).join("")}</ul></div>
+    <div class="panel glass" style="text-align:left"><h3>Brukt denne runden (${v.count})</h3><div class="chips" style="justify-content:flex-start">${v.answers.map(a=>`<span class="chip" style="border-color:${TIERS[a[1]].color}66;color:${TIERS[a[1]].color}">${esc(a[0])}</span>`).join("")||'<span style="color:var(--muted);font-size:13px">Ingen ennå</span>'}</div></div></div>`;
+  $("nQuit").onclick=()=>{ NET.close(); netView=null; location.hash="boblebomben"; route(); };
+  if($("pForm")){ const inp=$("pInp"); inp.value=keep; setTimeout(()=>inp.focus(),30);
+    $("pForm").onsubmit=e=>{ e.preventDefault(); const val=inp.value.trim(); if(!val) return; NET.hostConn&&NET.hostConn.send({t:"ans",v:val}); }; } }
+
+/* Invitasjonslenke (?bli=KODE) åpner Boblebomben med koden ferdig utfylt */
+if(new URLSearchParams(location.search).get("bli")&&!location.hash) location.hash="boblebomben";
+addEventListener("beforeunload",()=>{ if(NET.peer) NET.close(); });
 
 startScreen(); route();
 </script>
