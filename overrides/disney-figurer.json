@@ -1,0 +1,32 @@
+{
+ "remove_labels": [
+  "Julenissen",
+  "Skipper'n",
+  "Olive Oyl",
+  "Sonic the Hedgehog",
+  "Dr. Eggman",
+  "Ryu",
+  "M. Bison",
+  "Ken Masters",
+  "Zangief",
+  "Kaptein Nemo",
+  "Huckleberry Finn",
+  "Badroulbadour"
+ ],
+ "tier_labels": {
+  "Luke Skywalker": 4,
+  "Prinsesse Leia": 4,
+  "Han Solo": 4,
+  "Chewbacca": 4,
+  "Kylo Ren": 4,
+  "Rey": 4,
+  "Finn": 4,
+  "Poe Dameron": 4,
+  "BB-8": 4,
+  "Snoke": 4,
+  "Armitage Hux": 4,
+  "Captain Phasma": 4,
+  "Maz Kanata": 4
+ },
+ "_note": "Figurer som bare dukker opp i Disney-filmer/-spill (Julenissen, Street Fighter) fjernes. Star Wars eies av Disney: gyldig, men sjeldent."
+}

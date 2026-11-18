@@ -1,0 +1,16 @@
+{
+ "add": [
+  {
+   "id": "manuell:halloumi",
+   "label": "Halloumi",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:manchego",
+   "label": "Manchego",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+{
+ "remove_labels": [
+  "Mikrofon",
+  "Høyttaler",
+  "Multimedia",
+  "Fonograf",
+  "Hodetelefoner",
+  "Stemmegaffel",
+  "Sopran",
+  "Tenor",
+  "Alt",
+  "Mezzosopran",
+  "Baryton",
+  "Fidget spinner",
+  "Grammofon",
+  "Streng",
+  "Beatboxing"
+ ],
+ "_note": "Lydutstyr og stemmetyper er ikke instrumenter"
+}

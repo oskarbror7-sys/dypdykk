@@ -96,7 +96,7 @@ KATALOG = [
      "?item wdt:P31 wd:Q11424 ; wdt:P577 ?d . FILTER(YEAR(?d) >= 1990 && YEAR(?d) <= 1999)", 3, "l", NB, rank(15000),
      ["Titanic", "Pulp Fiction", "Jurassic Park", "Forrest Gump"], ["Avatar", "Star Wars"], 2000),
     ("norske-filmer", "Nevn en norsk film", "Underholdning", True,
-     "?item wdt:P31 wd:Q11424 ; wdt:P495 wd:Q20 .", 0, "l", NB, PCT,
+     "?item wdt:P31 wd:Q11424 ; wdt:P495 wd:Q20 . FILTER(EXISTS { VALUES ?nl { wd:Q9043 wd:Q25167 wd:Q25164 } ?item wdt:P364 ?nl . } || NOT EXISTS { ?item wdt:P364 ?ol . })", 0, "l", NB, PCT,
      ["Kon-Tiki", "Max Manus", "Bølgen", "Flåklypa Grand Prix"], ["Titanic", "Norge"], 500),
     ("tv-serier", "Nevn en TV-serie", "Underholdning", False,
      "?item wdt:P31 wd:Q5398426 .", 3, "xl", NB, rank(30000),
@@ -110,12 +110,14 @@ KATALOG = [
     ("norske-skuespillere", "Nevn en norsk skuespiller", "Underholdning", True,
      "?item wdt:P106 wd:Q33999 ; wdt:P27 wd:Q20 .", 0, "l", NB, rank(6000),
      ["Aksel Hennie", "Liv Ullmann", "Kristoffer Joner"], ["Leonardo DiCaprio", "Erling Haaland"], 800),
+    # «Artist» på norsk er bredt: sangere, rappere, DJ-er og låtskrivere fra hele verden (minst 10 Wikipedia-utgaver),
+    # pluss alle norske musikere og komikere/underholdere uansett hvor kjente de er internasjonalt.
     ("artister", "Nevn en sanger eller artist", "Underholdning", False,
-     "?item wdt:P106 wd:Q177220 ; wdt:P31 wd:Q5 .", 10, "xl", NB, rank(40000),
-     ["Michael Jackson", "Taylor Swift", "Sissel Kyrkjebø", "Madonna"], ["Lionel Messi", "Norge"], 5000),
+     "VALUES ?occ { wd:Q177220 wd:Q2252262 wd:Q488205 wd:Q130857 } ?item wdt:P106 ?occ ; wdt:P31 wd:Q5 .", 10, "xl", NB, rank(40000),
+     ["Michael Jackson", "Taylor Swift", "Sissel Kyrkjebø", "Madonna", "Herman Flesvig", "Martin Lepperød"], ["Lionel Messi", "Norge"], 5000),
     ("norske-artister", "Nevn en norsk sanger eller artist", "Underholdning", True,
-     "?item wdt:P106 wd:Q177220 ; wdt:P27 wd:Q20 .", 0, "l", NB, rank(4000),
-     ["Sissel Kyrkjebø", "Alan Walker", "Sigrid", "Aurora"], ["Taylor Swift", "Erling Haaland"], 500),
+     "VALUES ?occ { wd:Q177220 wd:Q2252262 wd:Q488205 wd:Q130857 wd:Q639669 wd:Q753110 wd:Q855091 wd:Q245068 wd:Q18545066 } ?item wdt:P106 ?occ ; wdt:P27 wd:Q20 ; wdt:P31 wd:Q5 .", 0, "l", NB, rank(4000),
+     ["Sissel Kyrkjebø", "Alan Walker", "Sigrid", "Aurora", "Herman Flesvig", "Martin Lepperød"], ["Taylor Swift", "Erling Haaland"], 500),
     ("band", "Nevn et band eller en musikkgruppe", "Underholdning", False,
      "VALUES ?t { wd:Q215380 wd:Q5741069 } ?item wdt:P31 ?t .", 5, "xl", NB, rank(30000),
      ["The Beatles", "ABBA", "a-ha", "Queen"], ["Michael Jackson", "Norge"], 3000),
@@ -133,10 +135,10 @@ KATALOG = [
      "?item wdt:P31 wd:Q11344 ; wdt:P1086 ?z . FILTER(?z >= 1 && ?z <= 118)", 0, "s", NB, PCT,
      ["Oksygen", "Gull", "Jern", "Hydrogen"], ["Vann", "Stål"], 110),
     ("pattedyr", "Nevn et pattedyr", "Natur", False,
-     "?item wdt:P105 wd:Q7432 ; wdt:P171+ wd:Q7377 ; wdt:P1843 ?nb . FILTER(LANG(?nb) = \"nb\")", 0, "l", NB_ONLY, PCT,
+     "?item wdt:P105 wd:Q7432 ; wdt:P171+ wd:Q7377 . FILTER(EXISTS { ?item wdt:P1843 ?nb . FILTER(LANG(?nb) = \"nb\") } || EXISTS { ?item rdfs:label ?nl . FILTER(LANG(?nl) = \"nb\") })", 0, "l", NB_ONLY, PCT,
      ["Elg", "Ulv", "Isbjørn", "Blåhval"], ["Laks", "Ørn"], 300),
     ("fugler", "Nevn en fugl", "Natur", False,
-     "?item wdt:P105 wd:Q7432 ; wdt:P171+ wd:Q5113 ; wdt:P1843 ?nb . FILTER(LANG(?nb) = \"nb\")", 0, "l", NB_ONLY, PCT,
+     "?item wdt:P105 wd:Q7432 ; wdt:P171+ wd:Q5113 . FILTER(EXISTS { ?item wdt:P1843 ?nb . FILTER(LANG(?nb) = \"nb\") } || EXISTS { ?item rdfs:label ?nl . FILTER(LANG(?nl) = \"nb\") })", 0, "l", NB_ONLY, PCT,
      ["Kjøttmeis", "Gråspurv", "Havørn", "Pingvin"], ["Elg", "Laks"], 400),
     ("nobelprisvinnere", "Nevn en nobelprisvinner", "Vitenskap", False,
      "?item wdt:P166/wdt:P279* wd:Q7191 ; wdt:P31 wd:Q5 .", 0, "s", NB, PCT,
@@ -496,10 +498,112 @@ KATALOG = [
     ("cl-vinnere", "Nevn en klubb som har vunnet Champions League eller Europacupen", "Sport", False,
      "?s wdt:P3450 wd:Q18756 ; wdt:P1346 ?item .", 0, "s", NB, PCT,
      ["Liverpool"], ["Rosenborg", "Brann"], 20),
+    # --- Nye kategorier (november 2026) ---
+    ("norske-komikere", "Nevn en norsk komiker", "Underholdning", True,
+     "VALUES ?occ { wd:Q245068 wd:Q18545066 } ?item wdt:P106 ?occ ; wdt:P27 wd:Q20 ; wdt:P31 wd:Q5 .", 0, "s", NB, PCT,
+     ["Atle Antonsen", "Harald Eia", "Herman Flesvig"], ["Taylor Swift", "Erling Haaland"], 150),
+    ("land-europa", "Nevn et land i Europa", "Geografi", False,
+     "?item wdt:P31 wd:Q3624078 ; wdt:P30 wd:Q46 . FILTER NOT EXISTS { ?item wdt:P576 ?slutt . }", 0, "s", NB, PCT,
+     ["Norge", "Sverige", "Frankrike", "Moldova"], ["Japan", "Brasil"], 40),
+    ("land-afrika", "Nevn et land i Afrika", "Geografi", False,
+     "?item wdt:P31 wd:Q3624078 ; wdt:P30 wd:Q15 . FILTER NOT EXISTS { ?item wdt:P576 ?slutt . }", 0, "s", NB, PCT,
+     ["Egypt", "Nigeria", "Kenya", "Sør-Afrika"], ["Norge", "India"], 45),
+    ("land-asia", "Nevn et land i Asia", "Geografi", False,
+     "?item wdt:P31 wd:Q3624078 ; wdt:P30 wd:Q48 . FILTER NOT EXISTS { ?item wdt:P576 ?slutt . }", 0, "s", NB, PCT,
+     ["Japan", "Kina", "India", "Thailand"], ["Norge", "Brasil"], 40),
+    ("land-sor-amerika", "Nevn et land i Sør-Amerika", "Geografi", False,
+     "?item wdt:P31 wd:Q3624078 ; wdt:P30 wd:Q18 . FILTER NOT EXISTS { ?item wdt:P576 ?slutt . }", 0, "s", NB, PCT,
+     ["Brasil", "Argentina", "Chile", "Peru"], ["Mexico", "Spania"], 10),
+    ("norske-partier", "Nevn et norsk politisk parti", "Samfunn", True,
+     "?item wdt:P31/wdt:P279* wd:Q7278 ; wdt:P17 wd:Q20 . FILTER NOT EXISTS { ?item wdt:P576 ?slutt . }", 0, "s", NB, PCT,
+     ["Arbeiderpartiet", "Høyre", "Fremskrittspartiet", "Senterpartiet"], ["Demokratene i USA", "Erna Solberg"], 20),
     ("ballondor", "Nevn en vinner av Ballon d'Or", "Sport", False,
      "?item wdt:P166 wd:Q166177 ; wdt:P31 wd:Q5 .", 0, "s", NB, PCT,
      ["Lionel Messi"], ["Ole Gunnar Solskjær", "Petter Northug"], 40),
 ]
+
+
+# Kjente personer der kategorien ikke er det de er kjent for: gyldige svar, men legges på øverste nivå (sjeldne).
+# Regel: personen har også et av yrkene i «occupations», men ingen av kjennetegnene i «keep_props»/«keep_occupations»
+# på at de faktisk er kjent for kategorien. Eksempel: Charlie Chaplin står som sanger, men er kjent som filmskaper.
+# Kjennetegn: «P264» = har egenskapen, «P54:3» = minst 3 verdier, «^P86:15» = minst 15 verk peker hit, «P101=Q395» = fagfelt.
+ACT = ["Q33999", "Q10800557", "Q2405480", "Q2259451", "Q4610556", "Q488111"]
+POL = ["Q82955", "Q116", "Q2478141", "Q193391", "Q30461", "Q372436", "Q189290", "Q47064", "Q40348", "Q16533", "Q15253558", "Q15995642", "Q1234713"]
+WRI = ["Q36180", "Q49757", "Q6625963", "Q214917", "Q482980", "Q18814623", "Q1930187", "Q28389", "Q4853732"]
+LIT = ["Q49757", "Q6625963", "Q214917", "Q4853732"]          # skjønnlitterære forfattere
+SCI = ["Q901", "Q169470", "Q170790", "Q593644", "Q11063", "Q18805", "Q4964182", "Q201788", "Q81096", "Q205375"]
+ART = ["Q1028181", "Q1281618", "Q42973", "Q1114448", "Q2526255", "Q3282637"]
+MUS = ["Q177220", "Q639669", "Q36834", "Q855091", "Q1259917", "Q2252262"]
+BIZ = ["Q43845", "Q131524", "Q12362622"]
+EXP = ["Q11900058", "Q9149093", "Q11631", "Q12634815"]
+TV = ["Q947873", "Q2722764", "Q245068", "Q17125263"]
+SPORT = ["Q2066131", "Q937857", "Q3665646", "Q11774891", "Q10833314", "Q11338576", "Q10843402", "Q4144610", "Q13382608",
+         "Q13382603", "Q10866633", "Q13219587", "Q2309784", "Q378622", "Q11513337", "Q10873124", "Q13474373", "Q12840545",
+         "Q12299841", "Q19204627", "Q10871364", "Q14089670", "Q13381376"]
+
+
+def _no(lst, *own):
+    return [x for x in lst if x not in own]
+
+
+def dem(occ, keep=(), keep_occ=(), minsl=20, **kw):
+    d = {"occupations": list(dict.fromkeys(occ)), "min_sitelinks": minsl, "keep_props": list(keep), "tier": 5}
+    if keep_occ:
+        d["keep_occupations"] = list(keep_occ)
+    d.update(kw)
+    return d
+
+
+OTHER_THAN_SPORT = ACT + POL + WRI + SCI + ART + MUS + BIZ + EXP + TV
+DEMOTE = {
+    "artister": dem(ACT + POL + WRI + SCI + ART + BIZ + EXP + ["Q36834", "Q2066131", "Q937857"], keep=["P264", "P463", "P358"],
+                    minsl=30, base="?item wdt:P106 wd:Q177220 ."),
+    "rappere": dem(ACT + POL + SPORT + BIZ, keep=["P264", "P463", "P358"]),
+    "komponister": dem(["Q177220", "Q2252262"] + _no(WRI, "Q49757", "Q1930187") + ACT + POL + SCI + ["Q1028181", "Q2526255"] + BIZ + SPORT, keep=["^P86:15"]),
+    "forfattere": dem(POL + SCI + ART + MUS + ACT + BIZ + EXP + SPORT, keep_occ=LIT),
+    "norske-forfattere": dem(POL + SCI + ART + MUS + ACT + EXP + SPORT, keep_occ=LIT, minsl=8),
+    "norske-journalister": dem(LIT + POL + ART + MUS + ACT + EXP + SPORT, minsl=8),
+    "norske-politikere": dem(LIT + EXP + ["Q169470", "Q901", "Q1028181"] + SPORT, keep=["P39:3"], minsl=8),
+    "filosofer": dem(["Q169470", "Q170790", "Q11063", "Q18805", "Q205375", "Q593644"] + POL + LIT + ART + MUS + ACT,
+                     keep=["P101=Q5891"]),
+    "fysikere": dem(_no(SCI, "Q169470", "Q901", "Q1622272", "Q1650915") + POL + LIT + ART + MUS + BIZ + ["Q36180"], keep=["P101=Q413"]),
+    "kjemikere": dem(_no(SCI, "Q593644", "Q901", "Q1622272", "Q1650915") + POL + LIT + ART + MUS + BIZ, keep=["P101=Q2329"]),
+    "matematikere": dem(_no(SCI, "Q170790", "Q901", "Q1622272", "Q1650915") + POL + LIT + ART + MUS + BIZ, keep=["P101=Q395"]),
+    "malere": dem(POL + WRI + _no(SCI, "Q42973") + MUS + ACT + BIZ + EXP + ["Q2526255", "Q3282637"], keep=["^P170:12"]),
+    "arkitekter": dem(POL + WRI + SCI + MUS + ACT + ["Q1028181", "Q1281618"], keep=["^P84:3"]),
+    "regissorer": dem(WRI + MUS + _no(ART, "Q2526255", "Q3282637") + SCI + POL + EXP + SPORT + BIZ, keep=["^P57:3"]),
+    "skuespillere": dem(POL + WRI + _no(ART, "Q2526255", "Q3282637") + SCI + MUS + EXP + SPORT + BIZ, keep=["^P161:5"]),
+    "norske-skuespillere": dem(MUS + WRI + POL + SPORT + EXP + ART, keep=["^P161:4"], minsl=8),
+    "oppfinnere": dem(EXP + POL + ACT + ["Q3282637", "Q2526255", "Q1028181"] + LIT, keep=["^P61:1"]),
+    "oppdagelsesreisende": dem(POL + ["Q18805", "Q11631", "Q12634815", "Q169470"] + WRI + ART),
+    "youtubere": dem(ACT + POL + ["Q855091", "Q947873", "Q2526255", "Q1259917"] + SCI + WRI),
+    "norske-programledere": dem(SPORT, minsl=8),
+    "basketballspillere": dem(OTHER_THAN_SPORT + _no(SPORT, "Q3665646", "Q2066131"), keep=["P54:3"]),
+    "ishockeyspillere": dem(OTHER_THAN_SPORT + _no(SPORT, "Q11774891", "Q2066131"), keep=["P54:3", "P2481"]),
+    "handballspillere": dem(OTHER_THAN_SPORT + _no(SPORT, "Q12840545", "Q2066131"), keep=["P54:3"]),
+    "norske-handballspillere": dem(OTHER_THAN_SPORT + _no(SPORT, "Q12840545", "Q2066131"), keep=["P54:3"], minsl=8),
+    "norske-fotballspillere": dem(OTHER_THAN_SPORT + _no(SPORT, "Q937857", "Q2066131"), keep=["P54:3"], minsl=8),
+    "tennisspillere": dem(OTHER_THAN_SPORT + _no(SPORT, "Q10833314", "Q2066131"), keep=["P536", "P597"]),
+    "golfspillere": dem(OTHER_THAN_SPORT + _no(SPORT, "Q2066131"), keep=["P2811", "P8286"]),
+    "alpinister": dem(OTHER_THAN_SPORT + _no(SPORT, "Q4144610", "Q2066131", "Q13382608"), keep=["P2772"]),
+    "friidrettsutovere": dem(OTHER_THAN_SPORT + _no(SPORT, "Q11513337", "Q2066131", "Q13382460"), keep=["P1146", "P8286"]),
+    "svommere": dem(OTHER_THAN_SPORT + _no(SPORT, "Q10843402", "Q2066131"), keep=["P8286"]),
+    "skoyteloper": dem(OTHER_THAN_SPORT + _no(SPORT, "Q10866633", "Q13219587", "Q2066131"), keep=["P8286", "P2350"]),
+    "skihoppere": dem(OTHER_THAN_SPORT + _no(SPORT, "Q13382603", "Q13382608", "Q2066131"), keep=["P8286"]),
+    "boksere": dem(OTHER_THAN_SPORT + _no(SPORT, "Q11338576", "Q2066131", "Q13474373"), keep=["P1967"]),
+    # Figurer som også finnes i film/tegneserier (Mikke Mus, Darth Vader): gyldige, men ikke typiske spillfigurer
+    "spillfigurer": dem(["Q15773347", "Q15711870", "Q1114461", "Q15773317", "Q3658341", "Q15632617"],
+                        keep=["P31=Q1569167"], minsl=10, prop="P31"),
+}
+
+
+NORSKE_UTOVERE = ("VALUES ?occ { wd:Q177220 wd:Q2252262 wd:Q488205 wd:Q130857 wd:Q639669 wd:Q753110 wd:Q855091 wd:Q245068 wd:Q18545066 } "
+                  "?item wdt:P106 ?occ ; wdt:P27 wd:Q20 ; wdt:P31 wd:Q5 .")
+EXTRA = {
+    # Alle norske musikere og komikere, også de med få Wikipedia-utgaver (Herman Flesvig, Martin Lepperød)
+    "artister": [{"where": NORSKE_UTOVERE, "min_sitelinks": 0, "bands": [[0, 100000]]}],
+}
+CITY_POP = {"tyske-byer", "franske-byer", "italienske-byer", "usa-byer", "britiske-byer", "spanske-byer", "japanske-byer", "storbyer"}
 
 
 def make():
@@ -532,6 +636,15 @@ def make():
                                      "VfL", "TSG", "RC", "CF", "CD", "UD", "SD", "Sportsklubben", "Idrettslaget"]
         if "?item wdt:P31 wd:Q5" in where or "P106" in where:
             cfg["derive"] = {"surname": {"top": 2000, "min_len": 4, "dominance": 1.5, "metric": "sitelinks"}}
+        if qid in CITY_POP:
+            # Byer: små steder med mange bot-artikler (Siligo, Uetersen) skal ikke regnes som kjente.
+            # Folketall veier tyngst, Wikipedia-utgaver litt.
+            cfg["source"]["population"] = True
+            cfg["rarity"]["weights"] = {"sitelinks": 0.35, "population": 0.65}
+        if qid in EXTRA:
+            cfg["source"]["extra"] = EXTRA[qid]
+        if qid in DEMOTE:
+            cfg["source"]["demote"] = DEMOTE[qid]
         if qid in ("historiske-personer", "malerier", "pattedyr"):
             cfg["aktiv"] = False   # for tunge spørringer / for få svar; kjøres bare ved behov: queue <id>
         with open(os.path.join(OUT, qid + ".json"), "w", encoding="utf-8") as f:

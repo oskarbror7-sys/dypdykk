@@ -1,0 +1,37 @@
+{
+ "relabel": {
+  "Apple cider vinegar": "Eplecidereddik",
+  "Rice vinegar": "Riseddik",
+  "Sherry vinegar": "Sherryeddik",
+  "Wine vinegar": "Vineddik",
+  "Black vinegar": "Svart eddik",
+  "Malt vinegar": "Malteddik",
+  "White wine vinegar": "Hvitvinseddik",
+  "Red wine vinegar": "Rødvinseddik",
+  "Coconut vinegar": "Kokoseddik",
+  "Herb vinegar": "Urteeddik",
+  "Raspberry vinegar": "Bringebæreddik",
+  "Beer vinegar": "Øleddik",
+  "Onion vinegar": "Løkeddik",
+  "Rose vinegar": "Roseeddik",
+  "Tomato vinegar": "Tomateddik",
+  "Walnut vinegar": "Valnøtteddik",
+  "White balsamic vinegar": "Hvit balsamico",
+  "Four thieves vinegar": "Firetyveeddik",
+  "Nipa palm vinegar": "Nipapalmeeddik",
+  "Shanxi mature vinegar": "Shanxi-eddik",
+  "Duliu vinegar": "Duliu-eddik",
+  "Reims vinegar": "Reims-eddik",
+  "Xeres vinegars": "Xereseddik",
+  "Sea squill vinegar": "Strandløkeddik",
+  "Sweetened and flavor-enhanced vinegar": "Søtet eddik",
+  "Aceto Balsamico di Modena PGI": "Aceto Balsamico di Modena"
+ },
+ "aliases": {},
+ "alias_rules": [
+  [
+   "eddik",
+   " eddik"
+  ]
+ ]
+}

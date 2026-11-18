@@ -1,0 +1,12 @@
+{
+ "add": [
+  {
+   "id": "manuell:karpe",
+   "label": "Karpe",
+   "aliases": [
+    "Karpe Diem"
+   ],
+   "tier": 1
+  }
+ ]
+}

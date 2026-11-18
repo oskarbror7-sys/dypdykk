@@ -85,16 +85,20 @@ def collect(cfg, log, refresh=False, fixture=None):
         label_rows, alias_rows = fixture["labels"]["results"]["bindings"], fixture["aliases"]["results"]["bindings"]
     else:
         label_rows, alias_rows = [], []
-        for lo, hi in cfg["bands"]:
-            if hi < cfg.get("min_sitelinks", 0):
-                continue   # båndet ligger under minstekravet og ville gitt 0 treff
-            lo = max(lo, cfg.get("min_sitelinks", 0))
-            lr = _fetch_band(cfg, lo, hi, "label", log, refresh)
-            ar = _fetch_band(cfg, lo, hi, "alias", log, refresh)
-            log(f"Wikidata bånd sitelinks {lo}-{hi}: {len(lr)} etikettrader, {len(ar)} aliasrader")
-            label_rows += lr
-            alias_rows += ar
-    demote = collect_demote(cfg, log, refresh) if fixture is None else fixture.get("demote", {})
+        # «extra»: ekstra utvalg med egen spørring og eget minstekrav, f.eks. alle norske artister uansett hvor
+        # kjente de er internasjonalt, i tillegg til verdens artister med minst 10 Wikipedia-utgaver.
+        for sub in [cfg] + [dict(cfg, **x) for x in cfg.get("extra", [])]:
+            for lo, hi in sub["bands"]:
+                if hi < sub.get("min_sitelinks", 0):
+                    continue   # båndet ligger under minstekravet og ville gitt 0 treff
+                lo = max(lo, sub.get("min_sitelinks", 0))
+                lr = _fetch_band(sub, lo, hi, "label", log, refresh)
+                ar = _fetch_band(sub, lo, hi, "alias", log, refresh)
+                log(f"Wikidata bånd sitelinks {lo}-{hi}: {len(lr)} etikettrader, {len(ar)} aliasrader")
+                label_rows += lr
+                alias_rows += ar
+    d_cfg = cfg.get("demote") or {}
+    demote = (collect_demote(cfg, log, refresh) if not d_cfg.get("occupations") else {}) if fixture is None else fixture.get("demote", {})
     if fixture is not None:
         demote = fixture.get("demote", {})
     items = {}
@@ -113,6 +117,9 @@ def collect(cfg, log, refresh=False, fixture=None):
         qid = r["item"]["value"].rsplit("/", 1)[-1]
         if qid in items:
             items[qid]["aliases"].append((r["lang"]["value"], r["txt"]["value"]))
+    if fixture is None and d_cfg.get("occupations"):
+        cand = [q for q, it in items.items() if it["sitelinks"] >= d_cfg["min_sitelinks"]]
+        demote = _demote_by_occupation(cfg, d_cfg, log, refresh, cand)
     for qid in demote:
         if qid in items:
             items[qid]["demoted"] = True
@@ -126,6 +133,8 @@ def collect_demote(cfg, log, refresh=False):
     d = cfg.get("demote")
     if not d:
         return {}
+    if d.get("occupations"):
+        return _demote_by_occupation(cfg, d, log, refresh)
     q = f"""SELECT ?item (COUNT(DISTINCT ?x) AS ?n) WHERE {{
   {cfg['where']}
   ?item wikibase:sitelinks ?sl . FILTER(?sl >= {d['min_sitelinks']})
@@ -134,6 +143,54 @@ def collect_demote(cfg, log, refresh=False):
     rows = _run(q, log, refresh)
     out = {r["item"]["value"].rsplit("/", 1)[-1]: int(r["n"]["value"]) for r in rows}
     log(f"Kjente for noe annet ({d['property']} ≤ {d['max_count']}, sitelinks ≥ {d['min_sitelinks']}): {len(out)}")
+    return out
+
+
+def _keep_spec(spec):
+    """«P264» = har egenskapen, «P54:3» = minst 3 verdier, «^P86:15» = minst 15 objekter peker hit med P86,
+    «P101=Q395» = har akkurat denne verdien."""
+    inv = spec.startswith("^")
+    spec = spec.lstrip("^")
+    val = None
+    if "=" in spec:
+        spec, val = spec.split("=", 1)
+    prop, _, n = spec.partition(":")
+    return inv, prop, val, int(n or 1)
+
+
+def _demote_by_occupation(cfg, d, log, refresh, cand):
+    """Personer i kategorien som OGSÅ har et av yrkene i «occupations» (f.eks. skuespiller, politiker),
+    men ingen av kjennetegnene i «keep_props» / «keep_occupations» på at de faktisk er kjent for kategorien.
+    Eksempel: Charlie Chaplin står som sanger, men er kjent som filmskaper. Gyldig svar, men sjeldent å tenke på,
+    så det får nivået «tier» (standard 5). Kandidatene er de kjente objektene vi allerede har hentet; de sjekkes
+    i små bolker, så Wikidata aldri får én tung spørring."""
+    prop = d.get("prop", "P106")
+    occ = " ".join("wd:" + o for o in d["occupations"])
+    hit = []
+    for i in range(0, len(cand), 250):
+        vals = " ".join("wd:" + c for c in cand[i:i + 250])
+        rows = _run(f"SELECT DISTINCT ?item WHERE {{ VALUES ?item {{ {vals} }} VALUES ?o2 {{ {occ} }} ?item wdt:{prop} ?o2 . }}",
+                    log, refresh)
+        hit += [r["item"]["value"].rsplit("/", 1)[-1] for r in rows]
+    specs = list(d.get("keep_props", [])) + ["P106=" + o for o in d.get("keep_occupations", [])]
+    keep = set()
+    for spec in specs:
+        inv, kprop, val, n = _keep_spec(spec)
+        for i in range(0, len(hit), 250):
+            vals = " ".join("wd:" + c for c in hit[i:i + 250])
+            if val:
+                body = f"?item wdt:{kprop} wd:{val} ."
+            else:
+                body = f"?x wdt:{kprop} ?item ." if inv else f"?item wdt:{kprop} ?x ."
+            if n <= 1:
+                qq = f"SELECT DISTINCT ?item WHERE {{ VALUES ?item {{ {vals} }} {body} }}"
+            else:
+                qq = (f"SELECT ?item (COUNT(DISTINCT ?x) AS ?n) WHERE {{ VALUES ?item {{ {vals} }} {body} }} "
+                      f"GROUP BY ?item HAVING(COUNT(DISTINCT ?x) >= {n})")
+            for r in _run(qq, log, refresh):
+                keep.add(r["item"]["value"].rsplit("/", 1)[-1])
+    out = {c: 0 for c in hit if c not in keep}
+    log(f"Kjente for noe annet: {len(out)} av {len(hit)} med annet yrke (av {len(cand)} kjente; behold: {', '.join(specs) or '–'})")
     return out
 
 

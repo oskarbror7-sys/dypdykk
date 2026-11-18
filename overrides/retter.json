@@ -1,0 +1,29 @@
+{
+ "remove_labels": [
+  "Honning",
+  "Gulrot",
+  "Ketchup",
+  "Tyggegummi",
+  "Soyasaus",
+  "Soyamelk",
+  "Peanøttsmør",
+  "Nutella",
+  "Marmelade",
+  "Syltetøy",
+  "Godteri",
+  "Hurtigmat",
+  "Dessert",
+  "Bakverk",
+  "Karamell",
+  "Sjokolade",
+  "Konfekt",
+  "Sukkerspinn",
+  "Marshmallow",
+  "Lokum",
+  "Nougat",
+  "Marsipan",
+  "Kaviar",
+  "Skinke"
+ ],
+ "_note": "Råvarer, pålegg og godteri er ikke matretter"
+}

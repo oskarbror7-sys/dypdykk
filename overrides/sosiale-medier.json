@@ -1,0 +1,24 @@
+{
+ "relabel": {
+  "Nettstaden X": "X",
+  "The Internet Movie Database": "IMDb"
+ },
+ "aliases": {},
+ "remove_labels": [
+  "IMDb",
+  "The Internet Movie Database",
+  "Discogs",
+  "MusicBrainz",
+  "MobyGames",
+  "MyHeritage",
+  "Geni.com",
+  "Alumniportal Deutschland",
+  "Hyphanet"
+ ],
+ "tier_labels": {
+  "GitHub": 3,
+  "Last.fm": 3,
+  "ResearchGate": 4,
+  "Academia.edu": 4
+ }
+}

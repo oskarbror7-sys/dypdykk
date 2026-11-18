@@ -1,0 +1,12 @@
+{
+ "add": [
+  {
+   "id": "manuell:tnt",
+   "label": "TNT",
+   "aliases": [
+    "TNT (band)"
+   ],
+   "tier": 2
+  }
+ ]
+}

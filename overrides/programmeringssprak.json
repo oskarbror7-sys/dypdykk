@@ -1,0 +1,44 @@
+{
+ "relabel": {
+  "Programmeringsspråket Java": "Java",
+  "Structured Query Language": "SQL",
+  "Programmeringsspråket Pascal": "Pascal",
+  "Programmeringsspråket Ada": "Ada",
+  "Cascading Style Sheets": "CSS",
+  "F Sharp": "F#",
+  "Objective Caml": "OCaml"
+ },
+ "tier_labels": {
+  "CSS": 5,
+  "XML": 5,
+  "XPath": 5,
+  "TeX": 4
+ },
+ "add": [
+  {
+   "id": "manuell:c",
+   "label": "C",
+   "aliases": [
+    "C-språket",
+    "Programmeringsspråket C"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:r",
+   "label": "R",
+   "aliases": [
+    "R-språket"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:html",
+   "label": "HTML",
+   "aliases": [
+    "Hypertext Markup Language"
+   ],
+   "tier": 5
+  }
+ ]
+}

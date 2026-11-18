@@ -107,6 +107,12 @@ def _apply_overrides(entities, ov, log):
         lab = e.get("label") or ""
         if lab[:1].islower():
             e["label"] = lab[:1].upper() + lab[1:]
+    # Wikidata-objekter for wikisider (kategorier, maler, prosjektsider) er aldri gyldige svar
+    ns = re.compile(r"^(Category|Kategori|Template|Mal|Wikipedia|MediaWiki|Portal|Help|Hjelp|Module|Modul|User|Bruker|Draft)\s*:", re.I)
+    before = len(entities)
+    entities = [e for e in entities if not ns.match(e.get("label") or "")]
+    if len(entities) < before:
+        log(f"Fjernet {before - len(entities)} wikisider (Category:, Template: …)")
     removed = set(ov.get("remove", []))
     if removed:
         before = len(entities)
@@ -117,6 +123,36 @@ def _apply_overrides(entities, ov, log):
         before = len(entities)
         entities = [e for e in entities if norm(e["label"]) not in bad]
         log(f"Overstyring: fjernet {before - len(entities)} etter navn")
+    # Navnebaserte rettelser (praktisk når Wikidata-ID-en ikke er kjent): ny etikett, fast nivå, alias-regler
+    if ov.get("relabel"):
+        rl = {norm(k): v for k, v in ov["relabel"].items()}
+        n = 0
+        for e in entities:
+            new = rl.get(norm(e["label"]))
+            if new:
+                e["aliases"] = list(e["aliases"]) + [e["label"]]
+                e["label"] = new
+                n += 1
+        log(f"Overstyring: nye etiketter for {n}")
+    if ov.get("tier_labels"):
+        tl = {norm(k): v for k, v in ov["tier_labels"].items()}
+        for e in entities:
+            if norm(e["label"]) in tl:
+                e["pinned_tier"] = tl[norm(e["label"])]
+    if ov.get("alias_labels"):
+        al = {norm(k): v for k, v in ov["alias_labels"].items()}
+        for e in entities:
+            extra = al.get(norm(e["label"]))
+            if extra:
+                e["aliases"] = list(e["aliases"]) + [x for x in extra if x not in e["aliases"]]
+                e["manual_aliases"] = list(e.get("manual_aliases", [])) + extra
+    for old, new in ov.get("alias_rules", []):
+        for e in entities:
+            for t in [e["label"]] + list(e["aliases"]):
+                if old.lower() in t.lower():
+                    alt = re.sub(re.escape(old), new, t, flags=re.I)
+                    if alt != t and alt not in e["aliases"]:
+                        e["aliases"] = list(e["aliases"]) + [alt]
     for add in ov.get("add", []):
         entities.append({"id": add["id"], "label": add["label"], "aliases": add.get("aliases", []),
                          "metrics": add.get("metrics", {}), "source": "manuell", "pinned_tier": add.get("tier")})
@@ -292,10 +328,22 @@ def build(qid, offline=False, refresh=False, quiet=False):
 
     # 5) Nivåer
     observed = load_json(p("overrides", "observed", qid + ".json"), None)
-    ordered = rarity.assign_tiers(final, rcfg, observed)
-    for e in ordered:
-        if e.get("pinned_tier") is not None:
-            e["tier"] = int(e["pinned_tier"])
+    # Svar med fast nivå (manuelle eller «kjent for noe annet») holdes utenfor rangeringen, så de ikke tar
+    # plassene til de vanlige svarene: grensene regnes bare på de frie svarene.
+    free = [e for e in final if e.get("pinned_tier") is None]
+    pinned = [e for e in final if e.get("pinned_tier") is not None]
+    rc = rcfg
+    cuts = (rcfg or {}).get("cuts") or {}
+    if pinned and cuts.get("mode") == "rank" and final:
+        # Grensene er faste plasser beregnet for hele listen; skaler dem når mange svar har fast nivå
+        k = len(free) / len(final)
+        rc = dict(rcfg, cuts=dict(cuts, at=[max(1, round(a * k)) for a in cuts["at"]]))
+    ordered = rarity.assign_tiers(free, rc, observed) if free else []
+    for e in pinned:
+        e["tier"] = int(e["pinned_tier"])
+        e.setdefault("score", 0.0)
+        e["rank"] = None
+    ordered = sorted(ordered + pinned, key=lambda e: (-(e.get("score") or 0), e["label"]))
     dist = [sum(1 for e in ordered if e["tier"] == t) for t in range(6)]
     log(f"Fordeling på nivå 0–5 (Tare→Kjempeblekksprut): {dist}")
 

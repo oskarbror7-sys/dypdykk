@@ -1,1 +1,55 @@
-{"label":{"Q29999":"Nederland"},"aliases":{"Q29999":["Holland","Nederlandene"]},"tier":{"Q29999":1},"_note":"Wikidata bruker kongeriket som eget objekt med få språkversjoner; Nederland er et vanlig svar"}
+{
+ "label": {
+  "Q29999": "Nederland"
+ },
+ "aliases": {
+  "Q29999": [
+   "Holland",
+   "Nederlandene"
+  ]
+ },
+ "tier": {
+  "Q29999": 1
+ },
+ "_note": "Land i Storbritannia og selvstyrte områder kalles «land» i dagligtale; gyldige, men litt sjeldnere",
+ "add": [
+  {
+   "id": "manuell:england",
+   "label": "England",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:skottland",
+   "label": "Skottland",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:wales",
+   "label": "Wales",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:nord-irland",
+   "label": "Nord-Irland",
+   "aliases": [
+    "Nord Irland"
+   ],
+   "tier": 3
+  },
+  {
+   "id": "manuell:gronland",
+   "label": "Grønland",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:faeroyene",
+   "label": "Færøyene",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "remove_labels": [
+  "MediaWiki:Common.css",
+  "MediaWiki:Monobook.css"
+ ],
+ "_note": "Programmerings- og markeringsspråk er gyldige, men sjeldne svar på «Nevn et språk»",
+ "tier_labels": {
+  "HTML": 5,
+  "PHP": 5,
+  "Python": 5,
+  "JavaScript": 5,
+  "Programmeringsspråket Java": 5,
+  "C++": 5,
+  "Cascading Style Sheets": 5,
+  "C#": 5,
+  "Structured Query Language": 5,
+  "Perl": 5,
+  "Ruby": 5,
+  "XML": 5,
+  "BASIC": 5,
+  "Lua": 5,
+  "Fortran": 5,
+  "COBOL": 5,
+  "Lisp": 5,
+  "Haskell": 5,
+  "Pascal": 5,
+  "Programmeringsspråket Pascal": 5,
+  "Go": 5,
+  "Rust": 5,
+  "Swift": 5,
+  "Kotlin": 5,
+  "Scratch": 5,
+  "Assembler": 5,
+  "TeX": 5,
+  "SPARQL": 5
+ }
+}

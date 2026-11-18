@@ -1,0 +1,21 @@
+{
+ "alias_labels": {
+  "Sykkelsport": [
+   "Sykling",
+   "Sykkel",
+   "Landeveissykling"
+  ],
+  "Skihopping": [
+   "Hopp",
+   "Skihopp"
+  ],
+  "Gymnastikk": [
+   "Turn",
+   "Turning"
+  ],
+  "Hurtigløp på skøyter": [
+   "Skøyter",
+   "Skøyteløp"
+  ]
+ }
+}

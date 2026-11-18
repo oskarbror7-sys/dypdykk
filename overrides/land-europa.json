@@ -1,0 +1,36 @@
+{
+ "add": [
+  {
+   "id": "manuell:england",
+   "label": "England",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:skottland",
+   "label": "Skottland",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:wales",
+   "label": "Wales",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:nord-irland",
+   "label": "Nord-Irland",
+   "aliases": [
+    "Nord Irland"
+   ],
+   "tier": 3
+  },
+  {
+   "id": "manuell:faeroyene",
+   "label": "Færøyene",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
+}
