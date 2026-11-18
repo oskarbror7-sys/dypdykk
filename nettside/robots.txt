@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://dypdykk.netlify.app/sitemap.xml
