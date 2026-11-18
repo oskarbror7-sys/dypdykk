@@ -75,7 +75,9 @@ def auto_cuts(n, pct=None, caps=None):
 
 def assign_tiers(entities, cfg, observed=None):
     cuts = cfg.get("cuts", DEFAULT["cuts"])
-    ordered = sorted(entities, key=lambda e: (-e["score"], e["label"]))
+    # Like poengsummer avgjøres av antall språkutgaver, ikke alfabetet
+    tie = lambda e: (-e["score"], -((e.get("metrics") or {}).get("sitelinks") or 0), e["label"])
+    ordered = sorted(entities, key=tie)
     n = len(ordered)
     obs_total = sum(observed.values()) if observed else 0
     use_obs = observed and obs_total >= cfg.get("min_observed", DEFAULT["min_observed"])
@@ -86,7 +88,7 @@ def assign_tiers(entities, cfg, observed=None):
         for e in ordered:
             e["observed"] = observed.get(e["id"], 0)
             e["score"] = round((1 - w) * e["score"] + w * share.get(e["id"], 0) / top, 6)
-        ordered.sort(key=lambda e: (-e["score"], e["label"]))
+        ordered.sort(key=tie)
     if cuts["mode"] == "auto":
         cuts = {"mode": "rank", "at": auto_cuts(n, cuts.get("pct"), cuts.get("caps"))}
     for rank, e in enumerate(ordered):

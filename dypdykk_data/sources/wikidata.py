@@ -172,16 +172,26 @@ def collect_nowiki_views(items, pv, log, refresh):
     got = 0
     for i in range(0, len(names), 50):
         batch = names[i:i + 50]
-        res = fetch_json(NOWIKI_API, params={"action": "query", "prop": "pageviews", "pvipdays": 60, "titles": "|".join(batch),
-                                             "format": "json", "formatversion": 2}, refresh=refresh, log=log)
-        q_ = res.get("query", {})
-        back = {n["to"]: n["from"] for n in q_.get("normalized", [])}
-        for page in q_.get("pages", []):
-            t = back.get(page["title"], page["title"])
-            qid = titles.get(t)
-            if qid:
-                items[qid]["nowiki_views"] = sum(v or 0 for v in (page.get("pageviews") or {}).values())
-                got += 1
+        base = {"action": "query", "prop": "pageviews", "pvipdays": 60, "titles": "|".join(batch),
+                "format": "json", "formatversion": 2}
+        cont = {}
+        # prop=pageviews gir bare tall for et begrenset antall sider per svar (alfabetisk!) og krever
+        # «continue» for resten. Uten dette fikk bare sidene tidlig i alfabetet sidevisninger.
+        for _ in range(20):
+            res = fetch_json(NOWIKI_API, params=dict(base, **cont), refresh=refresh, log=log)
+            q_ = res.get("query", {})
+            back = {n["to"]: n["from"] for n in q_.get("normalized", [])}
+            for page in q_.get("pages", []):
+                if "pageviews" not in page:
+                    continue
+                t = back.get(page["title"], page["title"])
+                qid = titles.get(t)
+                if qid:
+                    items[qid]["nowiki_views"] = sum(v or 0 for v in (page.get("pageviews") or {}).values())
+                    got += 1
+            if "continue" not in res:
+                break
+            cont = res["continue"]
     log(f"Sidevisninger norsk Wikipedia: {got} artikler av {len(top)} kjente")
 
 

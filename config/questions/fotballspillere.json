@@ -63,6 +63,9 @@
       "property": "P54",
       "max_count": 1,
       "tier": 5
+    },
+    "pageviews": {
+      "top": 3000
     }
   },
   "derive": {
@@ -75,17 +78,11 @@
   },
   "rarity": {
     "weights": {
-      "sitelinks": 1.0
+      "sitelinks": 0.45,
+      "nowiki_views": 0.55
     },
     "cuts": {
-      "mode": "rank",
-      "at": [
-        60,
-        400,
-        2500,
-        12000,
-        50000
-      ]
+      "mode": "auto"
     }
   },
   "validate": {

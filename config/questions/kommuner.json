@@ -20,14 +20,7 @@
       "sitelinks": 0.4
     },
     "cuts": {
-      "mode": "percent",
-      "at": [
-        0.04,
-        0.14,
-        0.34,
-        0.6,
-        0.86
-      ]
+      "mode": "auto"
     }
   },
   "validate": {
