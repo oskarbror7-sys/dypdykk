@@ -616,6 +616,30 @@ EXTRA = {
     # Alle norske musikere og komikere, også de med få Wikipedia-utgaver (Herman Flesvig, Martin Lepperød)
     "artister": [{"where": NORSKE_UTOVERE, "min_sitelinks": 0, "bands": [[0, 100000]]}],
 }
+# Norske svar i de globale kategoriene tas med uansett antall språkutgaver: det er dem norske spillere kjenner.
+def _nor(where):
+    return [{"where": where, "min_sitelinks": 0, "bands": [[0, 100000]]}]
+HIPHOP_NO = "?item wdt:P136/wdt:P279* wd:Q11401 ; wdt:P27 wd:Q20 ; wdt:P31 wd:Q5 ."
+EXTRA.update({
+    "norske-rappere": _nor("VALUES ?t { wd:Q215380 wd:Q5741069 wd:Q9212979 } VALUES ?g { wd:Q11401 wd:Q6010 wd:Q1032889 } ?item wdt:P31 ?t ; wdt:P136 ?g ; wdt:P495 wd:Q20 ."),
+    "rappere": _nor("?item p:P106/ps:P106 wd:Q2252262 ; wdt:P27 wd:Q20 ; wdt:P31 wd:Q5 ."),
+    "komikere": _nor("VALUES ?occ { wd:Q245068 wd:Q18545066 } ?item p:P106/ps:P106 ?occ ; wdt:P27 wd:Q20 ; wdt:P31 wd:Q5 ."),
+    "skuespillere": _nor("?item p:P106/ps:P106 wd:Q33999 ; wdt:P27 wd:Q20 ; wdt:P31 wd:Q5 ."),
+    "forfattere": _nor("?item p:P106/ps:P106 wd:Q36180 ; wdt:P27 wd:Q20 ; wdt:P31 wd:Q5 ."),
+    "malere": _nor("?item p:P106/ps:P106 wd:Q1028181 ; wdt:P27 wd:Q20 ; wdt:P31 wd:Q5 ."),
+    "komponister": _nor("?item p:P106/ps:P106 wd:Q36834 ; wdt:P27 wd:Q20 ; wdt:P31 wd:Q5 ."),
+    "regissorer": _nor("?item p:P106/ps:P106 wd:Q2526255 ; wdt:P27 wd:Q20 ; wdt:P31 wd:Q5 ."),
+    "band": _nor("VALUES ?t { wd:Q215380 wd:Q5741069 wd:Q9212979 } ?item wdt:P31 ?t ; wdt:P495 wd:Q20 ."),
+    "sanger": _nor("?item wdt:P31 wd:Q7366 ; wdt:P495 wd:Q20 ."),
+    "tv-serier": _nor("?item wdt:P31 wd:Q5398426 ; wdt:P495 wd:Q20 ."),
+    "filmer": _nor("?item wdt:P31 wd:Q11424 ; wdt:P495 wd:Q20 ."),
+    "boker": _nor("?item wdt:P31 wd:Q7725634 ; wdt:P495 wd:Q20 ."),
+    "fotballklubber": _nor("?item wdt:P31 wd:Q476028 ; wdt:P17 wd:Q20 ."),
+    "selskaper": _nor("?item wdt:P31/wdt:P279? wd:Q4830453 ; wdt:P17 wd:Q20 ."),
+    "merkevarer": _nor("?item wdt:P31/wdt:P279* wd:Q431289 ; wdt:P495|wdt:P17 wd:Q20 ."),
+    "retter": _nor("?item wdt:P279* wd:Q746549 ; wdt:P495 wd:Q20 ."),
+    "videospill": _nor("?item wdt:P31 wd:Q7889 ; wdt:P495 wd:Q20 ."),
+})
 PV_EXTRA = {"artister", "band", "filmer", "filmer-1990", "tv-serier", "videospill", "fotballklubber", "fotballspillere",
             "skuespillere", "forfattere", "komikere", "rappere", "youtubere", "merkevarer", "bilmerker", "idretter", "retter",
             "boker", "superhelter", "disney-figurer", "spillfigurer", "animasjonsfilmer", "tv-kanaler", "musikksjangere",
