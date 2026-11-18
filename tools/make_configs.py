@@ -276,7 +276,7 @@ KATALOG = [
      "?item wdt:P106 wd:Q4144610 ; wdt:P31 wd:Q5 .", 2, "l", NB, rank(4000),
      ["Aksel Lund Svindal", "Kjetil André Aamodt", "Mikaela Shiffrin", "Lindsey Vonn"], ["Bjørn Dæhlie", "Lionel Messi"], 500),
     ("skihoppere", "Nevn en skihopper", "Sport", False,
-     "?item wdt:P106 wd:Q13382603 ; wdt:P31 wd:Q5 .", 2, "l", NB, rank(3000),
+     "?item wdt:P106 wd:Q13382603 ; wdt:P31 wd:Q5 . MINUS { ?item wdt:P106 wd:Q4144610 . }", 2, "l", NB, rank(3000),
      ["Halvor Egner Granerud", "Matti Nykänen", "Anders Jacobsen", "Maren Lundby"], ["Bjørn Dæhlie", "Lionel Messi"], 400),
     ("boksere", "Nevn en bokser", "Sport", False,
      "?item wdt:P106 wd:Q11338576 ; wdt:P31 wd:Q5 .", 5, "l", NB, rank(5000),
