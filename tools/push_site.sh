@@ -13,7 +13,7 @@ git init -q -b nettside
 git config user.name "dypdykk-bot"; git config user.email "bot@dypdykk.invalid"
 git add -A -- . ':!data/archive'
 git commit -qm "Nettside $(date -u +%F\ %H:%M)"
-# Ingen endring siden forrige publisering? Da hopper vi over (sparer byggeminutter hos Netlify)
+# Ingen endring siden forrige publisering? Da hopper vi over (sparer publiseringer hos Cloudflare Pages)
 REMOTE="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 if git fetch -q --depth 1 "$REMOTE" nettside 2>/dev/null && [ "$(git rev-parse HEAD^{tree})" = "$(git rev-parse FETCH_HEAD^{tree})" ]; then
   echo "Ingen endringer – nettsiden er allerede oppdatert"; rm -rf .git; exit 0

@@ -9,7 +9,7 @@ import json, os, subprocess, sys, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, "site")
-LIVE = os.environ.get("DYPDYKK_LIVE", "https://dypdykk.netlify.app")
+LIVE = os.environ.get("DYPDYKK_LIVE", "https://dypdykk.net")
 ASSETS = ["index.html", "_headers", "favicon.svg", "apple-touch-icon.png", "icon-192.png", "icon-512.png",
           "manifest.webmanifest", "og-image.jpg", "robots.txt"]
 
@@ -28,7 +28,7 @@ def from_branch():
 
 
 def get(path):
-    req = urllib.request.Request(f"{LIVE}/{path}", headers={"User-Agent": "DypdykkDataBot/1.0 (https://dypdykk.netlify.app)"})
+    req = urllib.request.Request(f"{LIVE}/{path}", headers={"User-Agent": "DypdykkDataBot/1.0 (https://dypdykk.net)"})
     with urllib.request.urlopen(req, timeout=60) as r:
         return r.read()
 
