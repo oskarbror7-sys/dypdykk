@@ -69,7 +69,7 @@
 :focus-visible{outline:3px solid var(--signal);outline-offset:4px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--abyss);color:var(--ink);font-family:var(--body);font-size:16px;-webkit-font-smoothing:antialiased}
-#scene{position:fixed;inset:0;width:100%;height:100%;display:block}
+#scene{position:fixed;inset:0;width:100%;height:100%;display:block;image-rendering:pixelated}
 button{font:inherit;cursor:pointer;border:0;color:inherit;background:none}
 svg[shape-rendering="crispEdges"]{image-rendering:pixelated}
 .fade{transition:opacity .45s var(--ease), transform .55s var(--ease);opacity:0;pointer-events:none}
@@ -192,7 +192,7 @@ body.s-answer #qcard h2{animation:qin .5s var(--ease) both}
 body.s-countdown #countdown{opacity:1;transform:translate(-50%,0)}
 
 /* ---------- Svarfelt ---------- */
-#bar{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));width:min(640px,94vw);z-index:7;transform:translate(-50%,30px)}
+#bar{position:fixed;left:50%;bottom:calc(max(22px,env(safe-area-inset-bottom)) + var(--kb,0px));width:min(640px,94vw);z-index:7;transform:translate(-50%,30px)}
 body.s-answer #bar{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 .barrow{display:flex;align-items:center;gap:10px;padding:8px}
 .ring{position:relative;width:52px;height:52px;flex:none}
@@ -228,8 +228,9 @@ body.s-answer #bar{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 .pill small{display:block;font-size:11.5px;opacity:.8;margin-top:2px}
 .tried{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
 .tried span{font-size:12.5px;padding:3px 9px;background:rgba(58,16,16,.85);color:#ffbdb3;text-decoration:line-through;box-shadow:0 0 0 2px var(--line)}
-.skip{display:block;margin:14px auto 0;font-family:var(--gauge);font-size:11px;color:var(--muted);opacity:.8;padding:6px 10px}
-.skip:hover{opacity:1;color:var(--ink)}
+.skip{display:block;margin:12px auto 0;font-family:var(--gauge);font-size:11px;letter-spacing:.08em;color:var(--bone);background:rgba(4,14,22,.72);
+  border:2px solid var(--line);padding:9px 16px;min-height:38px;box-shadow:var(--px-edge);transition:background .15s,color .15s}
+.skip:hover,.skip:focus-visible{background:var(--plate-hi);color:var(--signal)}
 
 /* ---------- Dykkeeffekter ---------- */
 #bigDepth{position:fixed;left:50%;top:calc(var(--dy,34%) + 110px);transform:translate(-50%,0) scale(.8);z-index:6;pointer-events:none;opacity:0;text-align:center;
@@ -528,10 +529,12 @@ body.s-page #hud,body.s-summary #hud{opacity:0;pointer-events:none}
   body.s-start #diver{opacity:0}
   .pips{display:none}
   #qcard{top:10px;width:min(560px,calc(100vw - 280px));padding:10px 16px 12px} #qcard h2{font-size:19px;margin:4px 0 0} #qcard .hint{display:none}
-  #bar{bottom:8px} .skip{display:none}
+  #bar{bottom:calc(8px + var(--kb,0px));width:min(560px,calc(100vw - 290px))} .skip{position:absolute;left:100%;bottom:6px;margin:0 0 0 12px;white-space:nowrap}
   #reveal{padding-top:12px} .ricon{width:52px;height:52px} .ricon svg{width:52px;height:52px} .flavor{display:none}
 }
 @media (max-height:700px) and (max-width:520px){.tierrow{display:none}}
+/* Når tastaturet er oppe: tett inntil tastaturet, og «Hopp over» skjules så svarfeltet får plass */
+body.kbopen #bar{bottom:calc(8px + var(--kb,0px))} body.kbopen .skip{display:none}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important;transition-duration:.01s!important}}
 </style>
 </head>
@@ -1287,8 +1290,14 @@ const playBase=()=>innerHeight<520?.2:innerWidth<560&&innerHeight>innerWidth?.43
 const playY=()=>{ const q=$("qcard"); let v=playBase(); if(q&&q.offsetHeight>40) v=Math.max(v,(q.offsetTop+q.offsetHeight+46)/innerHeight); return Math.min(v,.58); };
 const startY=()=>innerWidth<560&&innerHeight>innerWidth?.5:innerHeight<820?.56:.6;
 function diverYTo(v,ms){dy.from=dy.v;dy.to=v;dy.t0=performance.now();dy.dur=ms;}
-function resize(){DPR=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);buildMountains();}
+// Havet er pikselkunst: tegnes i CSS-piksler og skaleres opp skarpt (image-rendering:pixelated). Halverer tegnetiden på mobil.
+function resize(){DPR=1;W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);buildMountains();}
 addEventListener("resize",resize);
+// Mobiltastaturet legger seg over siden (iOS og nyere Android). Løft svarfeltet så det alltid ligger rett over tastaturet.
+if(window.visualViewport){ let kbRaf=0; const vv=visualViewport;
+  const kbFit=()=>{ kbRaf=0; const kb=Math.max(0,Math.round(innerHeight-vv.height-vv.offsetTop)); document.body.style.setProperty("--kb",kb>60?kb+"px":"0px"); document.body.classList.toggle("kbopen",kb>60); };
+  const kbQ=()=>{ if(!kbRaf) kbRaf=requestAnimationFrame(kbFit); };
+  vv.addEventListener("resize",kbQ); vv.addEventListener("scroll",kbQ); }
 
 // Fjellsilhuetter (generert, norsk fjordlandskap)
 let mtnBack=[],mtnFront=[];
@@ -1964,8 +1973,8 @@ const PAGES={
       ["Hvorfor ble ikke svaret mitt godkjent?","Svaret finnes ikke i svarlisten for spørsmålet, eller det er stavet for langt unna. Svarlistene utvides hele tiden."],
       ["Hvorfor foreslår spillet et annet svar?","Spillet tåler små skrivefeil. Er du én eller to bokstaver unna et godkjent svar, spør det «Mente du …?». Trykk Dykk igjen for å bekrefte. Dette kan slås av i innstillingene."],
       ["Hva betyr dybdemerkene?","Langs høyre kant ser du ekte dybder fra havet: dykkerrekorder, Sognefjorden, Titanic og dyphavsgropene."],
-      ["Hva er Boblebomben?","En kommende flerspillermodus: send boblen videre med et svar før den sprekker. Sist igjen vinner."],
-      ["Hva er temapakker?","Kommende reiser med 30 kapitler innenfor ett tema, for eksempel film, sport eller Norge."],
+      ["Hva er Boblebomben?","Flerspiller for to eller flere: svar riktig og send boblen videre før den sprekker. Den som sitter med boblen når den sprekker, ryker ut. Sist igjen vinner. Spill på samme skjerm eller på hver deres mobil med en romkode."],
+      ["Hva er temapakker?","Reiser med 30 kapitler innenfor ett tema, for eksempel film, sport eller Norge. Fullfør et kapittel for å åpne det neste."],
       ["Hvor kommer svarene fra?","Store svarlister hentes automatisk fra åpne datakilder: Wikidata (CC0) og Statistisk sentralbyrå (KLASS, NLOD 2.0). Sjeldenheten beregnes fra hvor kjent hvert svar er, for eksempel antall Wikipedia-utgaver og folketall."]
      ].map(([q,a])=>`<details class="acc"><summary>${q}</summary><div class="ab">${a}</div></details>`).join("")}</div>
    <div class="panel glass" id="forslag"><h3>Foreslå et spørsmål ${soonInline}</h3><p class="psub" style="font-size:13.5px;margin:0 0 12px">Har du en idé til et spørsmål med mange riktige svar?</p>
@@ -2007,7 +2016,7 @@ function summaryExtras(){
     <div class="panel glass"><h3>Sammenlign med andre ${soonInline}</h3><div class="ghostcurve">${curve}<div class="over">Her ser du hvordan du gjorde det mot alle andre som dykket i dag,<br>når Dypdykk har nok spillere.</div></div></div>
     <div class="panel glass"><h3>Fangsten · trykk på et spørsmål for å se alle svar</h3>${catchHTML}</div>
     ${game.daily?`<div class="panel glass" style="text-align:center"><h3>Neste dagens dykk om</h3><div class="countdown2" id="nextDive">--:--:--</div></div>`:""}
-    <div class="panel glass promo">${BOMB}<div><b>Boblebomben ${soonInline}</b><p>Flerspiller i sanntid: svar og send boblen videre før den sprekker.</p><button class="btn btn-ghost" onclick="location.hash='boblebomben'" style="padding:10px 18px;font-size:14px">Se lobbyen →</button></div></div>
+    <div class="panel glass promo">${BOMB}<div><b>Boblebomben</b><p>Flerspiller: svar og send boblen videre før den sprekker. Sist igjen vinner.</p><button class="btn btn-ghost" onclick="location.hash='boblebomben'" style="padding:10px 18px;font-size:14px">Spill med venner</button></div></div>
     <div class="panel glass"><h3>Hvordan var dykket?</h3><div class="stars" id="stars">${[1,2,3,4,5].map(n=>`<button data-r="${n}" class="${rated===n?"on":""}">${n}</button>`).join("")}</div>
       <p class="psub" style="font-size:12px;margin:10px 0 0">1 = kjedelig · 5 = kjempegøy</p></div>
     <div class="btnrow" style="margin-bottom:12px"><button class="btn btn-ghost" onclick="location.hash='temapakker'">Temapakker →</button><button class="btn btn-ghost" onclick="location.hash='arkiv'">Arkiv ↺</button></div>`;
