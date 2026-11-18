@@ -67,6 +67,7 @@
 }
 ::selection{background:rgba(255,122,61,.35)}
 :focus-visible{outline:3px solid var(--signal);outline-offset:4px}
+.btn-primary:focus-visible,#go:focus-visible{outline-color:var(--bone);outline-offset:3px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--abyss);color:var(--ink);font-family:var(--body);font-size:16px;-webkit-font-smoothing:antialiased}
 #scene{position:fixed;inset:0;width:100%;height:100%;display:block;image-rendering:pixelated}
@@ -81,9 +82,9 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
 .glass{background:var(--rivets),var(--plate);border-radius:0;
   box-shadow:var(--px-edge),inset 0 0 0 3px var(--plate),inset 0 0 0 4px var(--faint),0 9px 0 0 rgba(1,7,12,.5)}
 .panel{padding:22px 22px 20px;margin-bottom:22px}
-.panel h3,.sect{font-family:var(--gauge);font-size:11px;font-weight:400;letter-spacing:.06em;color:var(--brass);margin:0 0 12px}
-.panel h3{display:flex;align-items:center;gap:10px}
-.panel h3::after{content:"";flex:1;height:2px;background:repeating-linear-gradient(90deg,rgba(236,194,97,.35) 0 4px,transparent 4px 8px)}
+.panel h3,.sect{font-family:var(--body);font-size:17px;font-weight:700;letter-spacing:.01em;line-height:1.2;color:var(--bone);margin:0 0 14px}
+.panel h3{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.panel h3::before{content:"";width:8px;height:8px;flex:none;background:var(--brass);box-shadow:2px 2px 0 rgba(0,0,0,.45)}
 
 /* ---------- Knapper ---------- */
 .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:0;
@@ -120,7 +121,7 @@ body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opa
 body.s-start #start .top, body.s-start #start .bottom{opacity:1;pointer-events:auto;transform:none}
 #start .top{transform:translateY(-14px)} #start .bottom{transform:translateY(14px)}
 .kicker{display:inline-flex;align-items:center;gap:10px;font-family:var(--gauge);font-size:11px;color:var(--bone);opacity:.9}
-.kicker::before,.kicker::after{content:"";width:22px;height:2px;background:repeating-linear-gradient(90deg,currentColor 0 4px,transparent 4px 6px);opacity:.6}
+
 .title{margin:14px auto 12px;width:min(640px,88vw);line-height:0}
 .title .logo{width:100%;height:auto;display:block;overflow:visible;filter:drop-shadow(0 10px 0 rgba(2,10,17,.35))}
 .logo .lg-wl{animation:wl 3.2s ease-in-out infinite}
@@ -289,7 +290,7 @@ body.s-reveal #reveal{opacity:1;transform:translate(-50%,0) scale(1);pointer-eve
 /* ---------- Oppsummering ---------- */
 #summary{position:fixed;inset:0;z-index:8;overflow:auto;background:linear-gradient(180deg,rgba(3,10,18,.45),rgba(3,10,18,.88))}
 body.s-summary #summary{opacity:1;pointer-events:auto}
-.sum{max-width:660px;margin:0 auto;padding:max(30px,6vh) 18px 90px}
+.sum{max-width:660px;margin:0 auto;padding:max(84px,calc(env(safe-area-inset-top) + 76px)) 18px 90px}
 .sum .kicker{color:var(--sea)}
 .bignum{display:flex;align-items:baseline;gap:12px;margin:12px 0 4px;flex-wrap:wrap}
 .bignum b{font-family:var(--num);letter-spacing:-.04em;font-size:clamp(64px,14vw,104px);line-height:.9;font-weight:700;color:var(--ink);text-shadow:0 5px 0 #17627e,0 10px 0 var(--line)}
@@ -354,8 +355,7 @@ body.s-summary #menuBtn,body.s-page #menuBtn{z-index:12}
 .mhead b .logo{height:22px;width:auto;display:block}
 .mhead small{font-family:var(--gauge);font-size:11px;color:var(--muted)}
 .mhead .x{margin-left:auto;width:38px;height:38px;display:grid;place-items:center;background:var(--plate);box-shadow:var(--px-edge)}
-.mlabel{font-family:var(--gauge);font-size:11px;color:var(--brass);margin:18px 2px 12px;display:flex;align-items:center;gap:10px}
-.mlabel::after{content:"";flex:1;height:2px;background:repeating-linear-gradient(90deg,rgba(236,194,97,.3) 0 4px,transparent 4px 8px)}
+.mlabel{font-family:var(--body);font-size:14px;font-weight:700;color:var(--muted);margin:20px 2px 10px}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .tile{position:relative;text-align:left;padding:14px 14px 13px;background:var(--plate);min-height:96px;display:flex;flex-direction:column;gap:8px;overflow:hidden;
   box-shadow:var(--px-edge),inset 0 0 0 3px var(--plate),inset 0 0 0 4px var(--faint),0 5px 0 var(--line);transition:transform .1s var(--ease),background .2s}
@@ -535,6 +535,7 @@ body.s-page #hud,body.s-summary #hud{opacity:0;pointer-events:none}
 @media (max-height:700px) and (max-width:520px){.tierrow{display:none}}
 /* Når tastaturet er oppe: tett inntil tastaturet, og «Hopp over» skjules så svarfeltet får plass */
 body.kbopen #bar{bottom:calc(8px + var(--kb,0px))} body.kbopen .skip{display:none}
+.gainchip{position:fixed;z-index:8;pointer-events:none;font-family:var(--num);font-size:14px;padding:5px 9px;background:var(--abyss);box-shadow:var(--px-edge);white-space:nowrap}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important;transition-duration:.01s!important}}
 </style>
 </head>
@@ -1257,7 +1258,12 @@ function tone(f,dur,type="sine",vol=.12,to=null,delay=0){ if(muted)return; const
   if(to)o.frequency.exponentialRampToValueAtTime(to,t+dur); g.gain.setValueAtTime(.0001,t);
   g.gain.exponentialRampToValueAtTime(vol,t+.015); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
   o.connect(g).connect(c.destination); o.start(t); o.stop(t+dur+.05); }
+function noise(dur,vol=.1,freq=1200,delay=0){ if(muted)return; const c=ac(); if(!c)return; const t=c.currentTime+delay, n=Math.floor(c.sampleRate*dur), buf=c.createBuffer(1,n,c.sampleRate), d=buf.getChannelData(0);
+  for(let i=0;i<n;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/n,2.2);
+  const src=c.createBufferSource(), f=c.createBiquadFilter(), g=c.createGain(); src.buffer=buf; f.type="bandpass"; f.frequency.setValueAtTime(freq,t); f.frequency.exponentialRampToValueAtTime(freq*.35,t+dur); f.Q.value=.8; g.gain.value=vol;
+  src.connect(f).connect(g).connect(c.destination); src.start(t); }
 const SFX={
+  splash(){noise(.45,.22,1800);tone(520,.12,"sine",.05,180,.02);},
   bubble(){tone(280,.14,"sine",.12,900);tone(420,.1,"sine",.06,1200,.07);},
   wrong(){tone(180,.16,"triangle",.14,120);tone(140,.2,"triangle",.1,90,.09);},
   tick(){tone(1400,.05,"sine",.05);},
@@ -1317,7 +1323,7 @@ const rgb=(c,a=1)=>`rgba(${c[0]},${c[1]},${c[2]},${a})`;
 const snow=Array.from({length:150},()=>({x:Math.random(),y:Math.random(),r:.5+Math.random()*1.8,p:.4+Math.random()*.9,ph:Math.random()*6.28,
   glow:Math.random()<.22,hue:[180,190,280,165,45][Math.floor(Math.random()*5)]}));
 // Bobler (verdenskoordinater: x i px, d i meter)
-let bubbles=[];
+let bubbles=[], splash=[], ripples=[], prevCamD=0; const RMOT=matchMedia("(prefers-reduced-motion:reduce)");
 // Fiskestimer, maneter og lysende dyphavsfisk (verdensdybde)
 const fishes=Array.from({length:7},(_,i)=>({d:25+i*55+Math.random()*30,x:Math.random(),v:(Math.random()<.5?-1:1)*(.012+Math.random()*.02),n:5+Math.floor(Math.random()*8),s:.7+Math.random()*.6}));
 const jellies=Array.from({length:14},()=>({d:1200+Math.random()*5600,x:Math.random(),ph:Math.random()*6.28,s:.6+Math.random()*.9,hue:[290,190,330,170][Math.floor(Math.random()*4)]}));
@@ -1434,6 +1440,23 @@ function frame(now){
     if(pr.smoke){ for(let k=0;k<6;k++){ const ph=(t*.35+k/6)%1, sx=x+Math.sin(ph*6+k)*6*sc/5, sy=yy-h/2-ph*90; ctx.fillStyle=`rgba(150,160,170,${.25*(1-ph)})`; const r=Math.round(4+ph*10); ctx.fillRect(Math.round(sx-r/2),Math.round(sy-r/2),r,r); } }
   }
   ctx.restore();
+
+  // --- Plask: når dykkeren bryter overflaten på vei ned, spruter pikseldråper opp og ringer brer seg ut ---
+  if(prevCamD<=1.5&&cam.d>1.5&&cam.to>cam.from&&!RMOT.matches&&surfY>-40&&surfY<H){
+    const cx=W/2+4, n=SET.lite?14:36;
+    for(let i=0;i<n;i++){ const side=i%2?1:-1, a=-Math.PI/2+side*(.25+Math.random()*.85), v=190+Math.random()*260;
+      splash.push({x:cx+side*(8+Math.random()*26),oy:-2,vx:Math.cos(a)*v*.75,vy:Math.sin(a)*v,s:3+Math.round(Math.random()*3),a:0,life:.9+Math.random()*.5}); }
+    ripples.push({x:cx,r:6,a:0},{x:cx,r:2,a:-.18},{x:cx,r:0,a:-.38});
+    if(typeof SFX!=="undefined"&&SFX.splash) SFX.splash(); }
+  prevCamD=cam.d;
+  if(ripples.length){ ctx.save(); ctx.strokeStyle="#e8fbff"; ctx.lineWidth=2;
+    ripples=ripples.filter(r=>{ r.a+=dt; if(r.a<0) return true; const k=r.a/1.3; if(k>=1) return false; const rr=r.r+k*150;
+      ctx.globalAlpha=.6*(1-k); ctx.beginPath(); ctx.ellipse(Math.round(r.x),Math.round(surfY+2),rr,rr*.22,0,0,7); ctx.stroke(); return true; });
+    ctx.restore(); }
+  if(splash.length){ ctx.save();
+    splash=splash.filter(p=>{ p.a+=dt; if(p.a>p.life) return false; p.vy+=760*dt; p.x+=p.vx*dt; p.oy+=p.vy*dt; if(p.oy>4&&p.vy>0) return false;
+      ctx.globalAlpha=Math.min(1,(p.life-p.a)*3); const px=Math.round(p.x),py=Math.round(surfY+p.oy); ctx.fillStyle="rgba(2,10,17,.35)"; ctx.fillRect(px+1,py+1,p.s,p.s); ctx.fillStyle=p.s>4?"#c9f3ff":"#ffffff"; ctx.fillRect(px,py,p.s,p.s); return true; });
+    ctx.restore(); }
 
   // --- Bobler fra dykkeren ---
   if(cam.d>3 && Math.random()<dt*(document.body.classList.contains("s-diving")?28:3.2))
@@ -1591,6 +1614,7 @@ function accept(hit,reason){
     if(tier>=4){ diveTo(target,dur,easeBack); } else diveTo(target,dur,easeDive);
     fx.start(tier,dur);
     countUp($("hDepth"),fromD,game.depth,dur," m"); countUp($("hScore"),from,game.score,dur);
+    scoreGain(pts,T.color);
     bigDepthRun(meters,dur,T.color,tier);
     setTimeout(()=>{$("diver").classList.remove("dive");$("tag").classList.remove("show");fx.arrive(tier);showReveal();},dur+120);
   } else { SFX.miss(); setTimeout(showReveal,500); }
@@ -1675,6 +1699,14 @@ function logSVG(){
   return s+`</svg>`;
 }
 
+// «+25 p» stiger opp fra poengboksen, og boksen gir et lite hopp når poengene lander
+function scoreGain(pts,col){ const box=$("hScore").closest(".hbox"); if(!box||!pts||RMOT.matches) return;
+  const r=box.getBoundingClientRect(), el=document.createElement("div"); el.className="gainchip"; el.textContent="+"+pts+" p"; el.style.color=col;
+  el.style.left=(r.left-10)+"px"; el.style.top=(r.top+r.height/2-14)+"px"; document.body.appendChild(el);
+  el.animate([{opacity:0,transform:"translate(calc(-100% + 14px),0) scale(.7)"},{opacity:1,transform:"translate(-100%,0) scale(1.1)",offset:.18},{opacity:1,transform:"translate(-100%,0) scale(1)",offset:.7},{opacity:0,transform:"translate(calc(-100% + 18px),0) scale(.9)"}],
+    {duration:1500,easing:"cubic-bezier(.2,.8,.2,1)"}).onfinish=()=>el.remove();
+  box.animate([{transform:"none"},{transform:"translateY(-3px) scale(1.06)",offset:.3},{transform:"none"}],{duration:420,delay:900,easing:"steps(4,end)"}); }
+
 function showSummary(fromStart){
   clearInterval(timerH);
   if(fromStart){ $("hDepth").textContent=fmt(depthOf(game))+" m"; zoneUpdate(depthOf(game)); $("hScore").textContent=fmt(game.score); diverYTo(playY(),1400); diveTo(BASE+depthOf(game),3200); renderPips(); }
@@ -1683,7 +1715,7 @@ function showSummary(fromStart){
   const st=store.get("dypdykk-stats")||{};
   $("summary").innerHTML=`<div class="sum">
     <div class="kicker">${{daily:"Dykk nr. "+game.day+" fullført",archive:"Arkivdykk nr. "+game.day+" fullført",endless:"Uendelig dykk – tom for liv",pack:(game.packName||"Temapakke")+" · kapittel "+game.chapter+" fullført"}[game.mode]||"Øvingsdykk fullført"}</div>
-    <div class="bignum"><b id="sumScore">0</b><span>${game.mode==="endless"?`på ${game.results.length} spørsmål`:`/ ${game.results.length*100} p`}</span><em>−${fmt(depthOf(game))} m</em></div>
+    <div class="bignum"><b id="sumScore">0</b><span>${game.mode==="endless"?`på ${game.results.length} spørsmål`:`/ ${game.results.length*100} p`}</span><em>${fmt(depthOf(game))} m dypt</em></div>
     ${game.packMsg?`<div class="banner" style="margin:10px 0 0">${game.packMsg}</div>`:""}
     <div class="rank">${rank[1]}</div><p>${rank[2]}</p>
     <div class="panel glass" id="log"><h3>Dykkelogg · dypere = sjeldnere</h3>${logSVG()}</div>
@@ -1841,7 +1873,6 @@ function renderMenu(){
       <button class="tile wide" data-go="hjelp">${UI.help}<div><b>Hvordan spille</b><br><small>Regler, sjeldenhet og svar som ikke godkjennes</small></div></button></div>
     <div class="mlabel">Mer</div>
     <div class="mlinks">
-      <button data-go="foresla">${UI.idea}<span>Foreslå et spørsmål<small>Har du en god idé?</small></span>${soonInline}</button>
       <button data-go="garderobe">${UI.shirt}<span>Garderobe<small>Velg dykkekompis</small></span>${soonInline}</button>
     </div>
     <div class="mfoot">Sjeldne svar tar deg dypere</div>`;
@@ -1943,7 +1974,8 @@ const PAGES={
    <div class="panel glass"><h3>Fullførte dykk</h3><ul class="lb">
      <li><span class="nm">Dagens dykk og arkiv</span><span class="sc">${ds.length}</span></li>
      <li><span class="nm">Uendelig dykk (øving)</span><span class="sc">${Math.max(0,(st.played||0)-ds.length)}</span></li>
-     ${PACKS.map(p=>`<li class="ghost"><span class="nm">${p.name}</span><span class="sc">–</span>${soonInline}</li>`).join("")}</ul></div>
+     ${PACKS.map(p=>{ const pr=typeof packProg==="function"?packProg(p.id):{done:{}}, n=Object.values(pr.done||{}).filter(s=>s>=(typeof PACK_MIN!=="undefined"?PACK_MIN:0)).length;
+       return `<li${n?"":` class="ghost"`}><span class="nm">${p.name}</span><span class="sc">${n} / 30</span></li>`;}).join("")}</ul></div>
    <div class="panel glass"><h3>Dykkekompiser ${soonInline}</h3><p class="psub" style="font-size:13px;margin:0 0 12px">Lås opp nye kompiser med lange rekker. Snart kan du velge hvem som dykker med deg.</p>
      <div class="buddies">${BUDDIES.map(b=>{const got=streak>=b.days;return `<div class="buddy${got?(b.days===0?" on":""):" locked"}"><div class="bi">${b.art()}</div><b>${b.name}</b><small>${b.days?b.days+" dager":"Opptjent"}</small></div>`;}).join("")}</div></div>
    <div class="panel glass"><h3>Konto ${soonInline}</h3><p class="psub" style="font-size:13.5px;margin:0 0 12px">Logg inn for å ta med rekker og resultater mellom mobil og PC. Nå lagres alt bare i denne nettleseren.</p>
@@ -1976,9 +2008,7 @@ const PAGES={
       ["Hva er Boblebomben?","Flerspiller for to eller flere: svar riktig og send boblen videre før den sprekker. Den som sitter med boblen når den sprekker, ryker ut. Sist igjen vinner. Spill på samme skjerm eller på hver deres mobil med en romkode."],
       ["Hva er temapakker?","Reiser med 30 kapitler innenfor ett tema, for eksempel film, sport eller Norge. Fullfør et kapittel for å åpne det neste."],
       ["Hvor kommer svarene fra?","Store svarlister hentes automatisk fra åpne datakilder: Wikidata (CC0) og Statistisk sentralbyrå (KLASS, NLOD 2.0). Sjeldenheten beregnes fra hvor kjent hvert svar er, for eksempel antall Wikipedia-utgaver og folketall."]
-     ].map(([q,a])=>`<details class="acc"><summary>${q}</summary><div class="ab">${a}</div></details>`).join("")}</div>
-   <div class="panel glass" id="forslag"><h3>Foreslå et spørsmål ${soonInline}</h3><p class="psub" style="font-size:13.5px;margin:0 0 12px">Har du en idé til et spørsmål med mange riktige svar?</p>
-     <div class="rowf"><input class="field" id="sugIn" placeholder="F.eks. «Nevn en norsk ost»"><button class="btn btn-primary" id="sugBtn">Send</button></div></div></div>`
+     ].map(([q,a])=>`<details class="acc"><summary>${q}</summary><div class="ab">${a}</div></details>`).join("")}</div></div>`
 };
 const PAGE_INIT={
   pakke:()=>{},
@@ -1993,8 +2023,7 @@ const PAGE_INIT={
       try{ Object.keys(localStorage).filter(k=>k.startsWith("dypdykk-")&&k!=="dypdykk-settings"&&k!=="dypdykk-muted").forEach(k=>localStorage.removeItem(k)); }catch(e){}
       toast("Statistikken er nullstilt"); b.textContent="Nullstilt"; delete b.dataset.sure; };
   },
-  hjelp:()=>{ $("sugBtn").onclick=()=>{ const v=$("sugIn").value.trim(); if(!v){toast("Skriv et forslag først");return;}
-      const l=store.get("dypdykk-forslag")||[]; l.push({q:v,d:todayKey()}); store.set("dypdykk-forslag",l); $("sugIn").value=""; toast("Takk! Lagret her. Innsending kommer snart."); }; }
+  hjelp:()=>{}
 };
 
 /* ============================================================
@@ -2008,13 +2037,9 @@ function summaryExtras(){
       <div class="tierlist">${[5,4,3,2,1,0].map(t=>{const as=all.filter(a=>a.tier===t); if(!as.length) return "";
         return `<div><div class="th" style="color:${TIERS[t].color}"><b style="font-family:var(--head);font-size:16px;letter-spacing:.04em">${TIERS[t].name}</b> <span style="opacity:.7">· ${TIERS[t].desc} · ${TIERS[t].pts} p</span></div><div class="chips">${(()=>{const me=as.find(a=>a.label===r.label), lim=40, shown=as.slice(0,lim); if(me&&!shown.includes(me)) shown.push(me);
           return shown.map(a=>`<span class="chip${a===me?" me":""}" style="${a===me?`color:${TIERS[t].color}`:""}">${esc(a.label)}</span>`).join("")+(as.length>shown.length?`<span class="chip" style="opacity:.6">+ ${fmt(as.length-shown.length)} flere</span>`:"");})()}</div></div>`;}).join("")}</div></div></details>`;}).join("");
-  const curve=`<svg viewBox="0 0 600 150"><defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5ef2d6" stop-opacity=".6"/><stop offset="1" stop-color="#5ef2d6" stop-opacity="0"/></linearGradient></defs>
-    <path d="M0 140 C80 138 140 120 200 70 S280 10 320 30 S420 120 600 138 L600 150 L0 150Z" fill="url(#cg)"/><path d="M0 140 C80 138 140 120 200 70 S280 10 320 30 S420 120 600 138" fill="none" stroke="#5ef2d6" stroke-width="2"/>
-    <line x1="${clamp(game.score/700,0,1)*600}" x2="${clamp(game.score/700,0,1)*600}" y1="10" y2="150" stroke="#ff7a6b" stroke-width="2" stroke-dasharray="4 4"/></svg>`;
   const rated=store.get("dypdykk-rating-"+(game.daily?game.date:"x"));
   return `
-    <div class="panel glass"><h3>Sammenlign med andre ${soonInline}</h3><div class="ghostcurve">${curve}<div class="over">Her ser du hvordan du gjorde det mot alle andre som dykket i dag,<br>når Dypdykk har nok spillere.</div></div></div>
-    <div class="panel glass"><h3>Fangsten · trykk på et spørsmål for å se alle svar</h3>${catchHTML}</div>
+    <div class="panel glass"><h3>Fangsten</h3><p class="psub" style="font-size:12.5px;margin:-4px 0 6px">Trykk på et spørsmål for å se alle godkjente svar.</p>${catchHTML}</div>
     ${game.daily?`<div class="panel glass" style="text-align:center"><h3>Neste dagens dykk om</h3><div class="countdown2" id="nextDive">--:--:--</div></div>`:""}
     <div class="panel glass promo">${BOMB}<div><b>Boblebomben</b><p>Flerspiller: svar og send boblen videre før den sprekker. Sist igjen vinner.</p><button class="btn btn-ghost" onclick="location.hash='boblebomben'" style="padding:10px 18px;font-size:14px">Spill med venner</button></div></div>
     <div class="panel glass"><h3>Hvordan var dykket?</h3><div class="stars" id="stars">${[1,2,3,4,5].map(n=>`<button data-r="${n}" class="${rated===n?"on":""}">${n}</button>`).join("")}</div>
@@ -2216,7 +2241,7 @@ function partyRender(msg){
     <div class="kicker" style="color:var(--cyan)">Runde ${pg.round} · Boblebomben</div>
     <div class="ptitle" style="font-size:clamp(26px,6vw,40px)">${esc(pg.q.q)}</div>
     <div style="height:210px;display:grid;place-items:center"><div id="pBomb" style="width:150px;height:150px;transform:scale(${s});transition:transform .15s">${BOMB}</div></div>
-    <div class="banner" style="justify-content:center;background:rgba(94,242,214,.08);border-color:rgba(94,242,214,.35);color:#dffcf6">${cur.bot?"🤖 ":cur.id?"🌐 ":""}<b>${esc(cur.n)}</b>&nbsp;har boblen${cur.bot?" … tenker":cur.id?" … skriver":""}</div>
+    <div class="banner" style="justify-content:center;background:rgba(94,242,214,.08);border-color:rgba(94,242,214,.35);color:#dffcf6"><b>${esc(cur.n)}</b>&nbsp;har boblen${cur.bot?" … tenker":cur.id?" … skriver":""}</div>
     ${cur.bot||cur.id?"":`<form id="pForm" class="barrow glass" style="margin:0 auto 10px;max-width:520px" autocomplete="off"><input id="pInp" class="field" style="border:0;background:transparent;font-size:18px" placeholder="Skriv et svar …" autocapitalize="off" spellcheck="false"><button id="go" type="submit">SEND ▶</button></form>`}
     <div id="pMsg" style="min-height:24px;font-size:14px;color:#ffc2ba">${msg||""}</div>
     <div class="panel glass" style="text-align:left"><h3>Spillere</h3><ul class="lb">${pg.players.map((p,i)=>`<li style="${i===pg.turn?"background:rgba(94,242,214,.08)":""}${p.lives<=0?";opacity:.35":""}"><span class="pos">${i===pg.turn?"▶":""}</span><span class="nm">${esc(p.n)}</span><span class="sc" style="color:#ff7a6b">${p.gone?"frakoblet":"♥".repeat(Math.max(0,p.lives))||"ute"}</span><span class="sc">${p.ans} svar</span></li>`).join("")}</ul></div>
@@ -2253,11 +2278,11 @@ function partyTurnStart(){ const cur=pg.players[pg.turn]; if(!cur.bot) return;
 function partyPop(){ clearInterval(pgTimer); const cur=pg.players[pg.turn]; cur.lives--; SFX.boom(); fx.flash("#ff7a6b",.6,700); fx.shake(14,600);
   if(pg.net) NET.all({t:"pop",n:cur.n});
   const alive=partyAlive();
-  const box=$("page").querySelector(".pg"); if(box) box.insertAdjacentHTML("afterbegin",`<div class="banner" style="justify-content:center;font-size:16px">💥 Boblen sprakk hos <b>&nbsp;${esc(cur.n)}</b>!</div>`);
+  const box=$("page").querySelector(".pg"); if(box) box.insertAdjacentHTML("afterbegin",`<div class="banner" style="justify-content:center;font-size:16px">Boblen sprakk hos <b>&nbsp;${esc(cur.n)}</b>!</div>`);
   setTimeout(()=>{ if(!pg) return; if(alive.length<=1) partyEnd(alive[0]); else { pg.turn=(pg.turn+1)%pg.players.length; partyRound(); } },1800); }
 function partyEnd(winner){ const ps=[...pg.players].sort((a,b)=>b.lives-a.lives||b.ans-a.ans);
   $("page").innerHTML=`<div class="pg narrow" style="text-align:center"><div class="kicker" style="color:var(--cyan)">Boblebomben ferdig etter ${pg.round} runder</div>
-    <div class="ptitle">🏆 ${esc(winner?winner.n:"Ingen")} vant!</div>
+    <div class="ptitle">${esc(winner?winner.n:"Ingen")} vant!</div>
     <div class="panel glass" style="text-align:left"><h3>Resultat</h3><ul class="lb">${ps.map((p,i)=>`<li><span class="pos">${i+1}</span><span class="nm">${esc(p.n)}</span><span class="sc">${p.ans} svar</span><span class="sc" style="color:#ffd36b">${p.rare} sjeldne</span></li>`).join("")}</ul></div>
     <div class="btnrow"><button class="btn btn-primary" id="pAgain">Spill igjen</button><button class="btn btn-ghost" id="pBack">Til oppsett</button></div></div>`;
   SFX.tier(5); const players=pg.players.filter(p=>!p.gone).map(p=>({n:p.n,bot:p.bot,id:p.id}));
@@ -2304,7 +2329,7 @@ function netErr(e){ const t=(e&&e.type)||"";
     :"Tilkoblingen feilet. Noen nettverk (f.eks. strenge bedriftsnett) stopper direkte tilkobling."; }
 
 function onlinePanel(){ const code=new URLSearchParams(location.search).get("bli")||"";
-  return `<div class="panel glass full" id="netPanel"><h3>🌐 Spill over nettet</h3>
+  return `<div class="panel glass full" id="netPanel"><h3>Spill over nettet</h3>
     <p class="psub" style="font-size:14px;margin:0 0 12px">Lag en lobby og del koden med vennene dine. De blir med fra sin egen mobil eller PC.</p>
     <div class="rowf" style="margin-bottom:10px"><input class="field" id="netName" maxlength="16" placeholder="Ditt navn" value="${esc(myName()||store.get("dypdykk-net-name")||"")}"></div>
     <div class="rowf" style="gap:10px;flex-wrap:wrap">
@@ -2353,8 +2378,8 @@ function netLobbyRender(){ if(pg) return; const link=location.origin+location.pa
     <div style="font-size:clamp(46px,14vw,76px);font-weight:800;line-height:1.1;letter-spacing:.18em;margin:10px 0 8px;color:#dffcf6;text-shadow:0 0 30px rgba(94,242,214,.45)">${NET.code}</div>
     <div class="btnrow" style="margin-bottom:14px"><button class="btn btn-ghost" id="nlCopy">Kopier invitasjonslenke</button></div>
     <div class="panel glass" style="text-align:left"><h3>Spillere (${NET.lobby.length + PARTY.bots})</h3><ul class="lb">
-      ${NET.lobby.map((p,i)=>`<li><span class="pos">${i?"🌐":"👑"}</span><span class="nm">${esc(p.n)}</span><span class="sc">${i?"tilkoblet":"vert"}</span></li>`).join("")}
-      ${Array.from({length:PARTY.bots},(_,i)=>`<li><span class="pos">🤖</span><span class="nm">Dykkebot ${i+1}</span><span class="sc">datamotstander</span></li>`).join("")}</ul>
+      ${NET.lobby.map((p,i)=>`<li><span class="pos">${i+1}</span><span class="nm">${esc(p.n)}</span><span class="sc">${i?"tilkoblet":"vert"}</span></li>`).join("")}
+      ${Array.from({length:PARTY.bots},(_,i)=>`<li><span class="pos">B</span><span class="nm">Dykkebot ${i+1}</span><span class="sc">datamotstander</span></li>`).join("")}</ul>
       ${NET.lobby.length<2?'<p class="psub" style="font-size:13px;margin:8px 0 0">Venter på at noen blir med …</p>':""}</div>
     <div class="panel glass" style="text-align:left"><h3>Oppsett</h3>
       <div class="sect" style="text-align:left;margin-top:0">Datamotstandere</div><div class="chipsel" id="nlBots">${[0,1,2,3].map(n=>`<span data-b="${n}" class="${n===PARTY.bots?"on":""}" style="cursor:pointer">${n}</span>`).join("")}</div>
@@ -2390,10 +2415,10 @@ function netClientData(d){ if(!d||typeof d!=="object") return;
   if(d.t==="p"&&netView){ netView.p=d.p; const b=$("pBomb"); if(b) b.style.transform=`scale(${1+Math.min(d.p/300,1)*.9}) rotate(${Math.sin(d.p/3)*d.w*6}deg)`; return; }
   if(d.t==="msg"){ SFX.wrong(); const el=$("pMsg"); if(el){ el.innerHTML=d.m; const f=$("pForm"); if(f){f.classList.remove("err");void f.offsetWidth;f.classList.add("err");} const i=$("pInp"); if(i){i.value="";i.focus();} } return; }
   if(d.t==="pop"){ SFX.boom(); fx.flash("#ff7a6b",.6,700); fx.shake(14,600);
-    const box=$("page").querySelector(".pg"); if(box) box.insertAdjacentHTML("afterbegin",`<div class="banner" style="justify-content:center;font-size:16px">💥 Boblen sprakk hos <b>&nbsp;${esc(d.n)}</b>!</div>`); return; }
+    const box=$("page").querySelector(".pg"); if(box) box.insertAdjacentHTML("afterbegin",`<div class="banner" style="justify-content:center;font-size:16px">Boblen sprakk hos <b>&nbsp;${esc(d.n)}</b>!</div>`); return; }
   if(d.t==="end"){ netView={...netView,ended:true,phase:"end"}; SFX.tier(5);
     $("page").innerHTML=`<div class="pg narrow" style="text-align:center"><div class="kicker" style="color:var(--cyan)">Boblebomben ferdig etter ${d.round} runder</div>
-      <div class="ptitle">🏆 ${esc(d.w)} vant!</div>
+      <div class="ptitle">${esc(d.w)} vant!</div>
       <div class="panel glass" style="text-align:left"><h3>Resultat</h3><ul class="lb">${d.rows.map((r,i)=>`<li><span class="pos">${i+1}</span><span class="nm">${esc(r[0])}</span><span class="sc">${r[1]} svar</span><span class="sc" style="color:#ffd36b">${r[2]} sjeldne</span></li>`).join("")}</ul></div>
       <p class="psub">Venter på at verten starter et nytt spill …</p><div class="btnrow"><button class="btn btn-ghost" id="nLeave">Forlat lobbyen</button></div></div>`;
     $("nLeave").onclick=()=>{ NET.close(); netView=null; route(); }; return; }
@@ -2404,8 +2429,8 @@ function netClientLobby(){ const v=netView;
     <div class="ptitle" style="font-size:clamp(22px,5vw,32px)">Du er med! Venter på at verten starter …</div>
     <div style="height:170px;display:grid;place-items:center"><div style="width:130px;height:130px">${BOMB}</div></div>
     <div class="panel glass" style="text-align:left"><h3>Spillere</h3><ul class="lb">
-      ${v.players.map((n,i)=>`<li><span class="pos">${i?"🌐":"👑"}</span><span class="nm">${esc(n)}${n===NET.me?" (deg)":""}</span></li>`).join("")}
-      ${Array.from({length:v.bots},(_,i)=>`<li><span class="pos">🤖</span><span class="nm">Dykkebot ${i+1}</span></li>`).join("")}</ul>
+      ${v.players.map((n,i)=>`<li><span class="pos">${i+1}</span><span class="nm">${esc(n)}${n===NET.me?" (deg)":""}</span></li>`).join("")}
+      ${Array.from({length:v.bots},(_,i)=>`<li><span class="pos">B</span><span class="nm">Dykkebot ${i+1}</span></li>`).join("")}</ul>
       <p class="psub" style="font-size:13px;margin:8px 0 0">${v.lives} liv per spiller</p></div></div>`;
   $("nlQuit").onclick=()=>{ NET.close(); netView=null; route(); }; }
 function netClientGame(){ const v=netView, cur=v.players[v.turn], mine=cur&&cur.id===NET.myId, keep=$("pInp")&&mine?$("pInp").value:"";
@@ -2413,7 +2438,7 @@ function netClientGame(){ const v=netView, cur=v.players[v.turn], mine=cur&&cur.
     <div class="kicker" style="color:var(--cyan)">Runde ${v.round} · Boblebomben · ${esc(NET.code)}</div>
     <div class="ptitle" style="font-size:clamp(26px,6vw,40px)">${esc(v.q)}</div>
     <div style="height:210px;display:grid;place-items:center"><div id="pBomb" style="width:150px;height:150px;transform:scale(${1+Math.min(v.p/300,1)*.9});transition:transform .15s">${BOMB}</div></div>
-    <div class="banner" style="justify-content:center;background:rgba(94,242,214,.08);border-color:rgba(94,242,214,.35);color:#dffcf6">${mine?"<b>Du</b>&nbsp;har boblen – skriv fort!":`${cur.bot?"🤖 ":""}<b>${esc(cur.n)}</b>&nbsp;har boblen`}</div>
+    <div class="banner" style="justify-content:center;background:rgba(94,242,214,.08);border-color:rgba(94,242,214,.35);color:#dffcf6">${mine?"<b>Du</b>&nbsp;har boblen – skriv fort!":`<b>${esc(cur.n)}</b>&nbsp;har boblen`}</div>
     ${mine?`<form id="pForm" class="barrow glass" style="margin:0 auto 10px;max-width:520px" autocomplete="off"><input id="pInp" class="field" style="border:0;background:transparent;font-size:18px" placeholder="Skriv et svar …" autocapitalize="off" spellcheck="false"><button id="go" type="submit">SEND ▶</button></form>`:""}
     <div id="pMsg" style="min-height:24px;font-size:14px;color:#ffc2ba">${v.msg||""}</div>
     <div class="panel glass" style="text-align:left"><h3>Spillere</h3><ul class="lb">${v.players.map((p,i)=>`<li style="${i===v.turn?"background:rgba(94,242,214,.08)":""}${p.lives<=0?";opacity:.35":""}"><span class="pos">${i===v.turn?"▶":""}</span><span class="nm">${esc(p.n)}${p.id&&p.id===NET.myId?" (deg)":""}</span><span class="sc" style="color:#ff7a6b">${p.gone?"frakoblet":"♥".repeat(Math.max(0,p.lives))||"ute"}</span><span class="sc">${p.ans} svar</span></li>`).join("")}</ul></div>
@@ -2816,7 +2841,7 @@ function bbDraw(s){ if(!$("bbArena")) bbRenderArena(); const prev=bbLast; bbLast
     if(isCur&&pl.typing) say=`<div class="bbsay typ" style="top:${off}px;${side}">${esc(pl.typing)}</div>`;
     else if(pl.last&&!pl.last.bad) say=`<div class="bbsay${bbChanged(pl)?" pop":""}" style="top:${off}px;${side};color:${TIERS[pl.last.tier].color};border-color:${TIERS[pl.last.tier].color}66"><span class="tl" style="color:${TIERS[pl.last.tier].color}">▸ ${TIERS[pl.last.tier].name.toUpperCase()}</span>${esc(pl.last.label)}</div>`;
     const bad=pl.last&&pl.last.bad&&isCur?`<div class="bbbad${pl.last.sug?" sug"+(Date.now()-(pl.last.t||0)<380?" anim":""):""}" style="top:${off+34}px;${side}">${esc(pl.last.msg)}</div>`:"";
-    el.innerHTML=`<div class="av">${bbAvatar(pl,i)}</div><div class="rock"></div><div class="nm">${pl.bot?"🤖 ":""}${esc(pl.n)}${(!BB||BB.net)&&meIds.includes(pl.id)?" (deg)":""}</div><div class="hp">${pl.gone?'<span class="e">frakoblet</span>':hearts}</div><div class="prog">${prog}</div>${say}${bad}`; });
+    el.innerHTML=`<div class="av">${bbAvatar(pl,i)}</div><div class="rock"></div><div class="nm">${esc(pl.n)}${(!BB||BB.net)&&meIds.includes(pl.id)?" (deg)":""}</div><div class="hp">${pl.gone?'<span class="e">frakoblet</span>':hearts}</div><div class="prog">${prog}</div>${say}${bad}`; });
   // kategori
   const cat=$("bbCat"); if(s.cat&&s.phase!=="end"){ cat.style.display=""; cat.innerHTML=`<small>KATEGORI ${s.cat}</small><b>${esc(s.qText)}</b>${s.answers.length?`<div class="bbused"><span>Allerede sagt:</span>${s.answers.slice(-10).map(x=>`<em style="color:${TIERS[x[1]].color}">${esc(x[0])}</em>`).join("")}${s.answers.length>10?`<span>+${s.answers.length-10}</span>`:""}</div>`:`<i>Et godkjent svar sender boblen videre. Sjeldne svar gir mer luft.</i>`}`; } else cat.style.display="none";
   // boblen: svømmer mot den som har tur
