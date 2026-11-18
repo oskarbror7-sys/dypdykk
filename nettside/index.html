@@ -852,22 +852,36 @@ function parse(q){ if(q._p) return q._p; const out=[];
     q._data.k=null; }
   else for(const a of out) for(const k of a.keys) add(k,a);
   q._map=map; q._byLen=byLen; return q._p=out; }
+// «Løs» stavemåte: fanger lydlike skrivefeil (dobbelkonsonant, ph/f, th/t, w/v, c/k, z/s, y/i, ck/k, aa/a, sch/sj)
+function loose(k){ return k.replace(/sch/g,"sj").replace(/ph/g,"f").replace(/th/g,"t").replace(/ck/g,"k").replace(/w/g,"v").replace(/c/g,"k").replace(/z/g,"s").replace(/y/g,"i").replace(/q/g,"k").replace(/x/g,"ks").replace(/h(?=[^aeiou]|$)/g,"").replace(/(.)\1+/g,"$1"); }
+// Lager «løse» nøkler i bakgrunnen (i biter, så store lister ikke fryser siden)
+function buildLoose(q){ if(q._looseB||!q._map) return; q._looseB=true; const keys=[...q._map.keys()], lm=new Map(), lb=new Map(); let i=0;
+  const step=()=>{ const end=Math.min(keys.length,i+15000); for(;i<end;i++){ const k=keys[i], l=loose(k); if(l.length<3) continue;
+      if(!lm.has(l)) { lm.set(l,q._map.get(k)); let b=lb.get(l.length); if(!b) lb.set(l.length,b=[]); b.push(l); } }
+    if(i<keys.length) setTimeout(step,0); else { q._loose=lm; q._looseByLen=lb; } };
+  step(); }
 function check(q,input){ const n=norm(input); if(!n) return null; parse(q); const map=q._map; if(!map) return null;
   const hit=map.get(n); if(hit) return {a:hit,exact:true};
-  // «Mente du …?»: små skrivefeil. Store lister er strengere (lengre ord kreves, og første bokstav må stemme)
-  // for å unngå at et feil svar godkjennes fordi det ligner et gyldig svar.
-  // Toleranse etter listestørrelse: svært store lister (f.eks. 225 000 fotballspillere) er strengest
-  const huge=map.size>60000, big=map.size>3000; let best=null,bd=99;
-  for(let L=n.length-2;L<=n.length+2;L++){ const b=q._byLen.get(L); if(!b) continue;
-    for(const k of b){ const tol=huge?(k.length>=11?2:k.length>=7?1:0):big?(k.length>=10?2:k.length>=5?1:0):(k.length>=9?2:k.length>=4?1:0); if(!tol) continue;
-      if(big&&k[0]!==n[0]) continue; const d=lev(n,k); if(d<=tol&&d<bd){bd=d;best=map.get(k);} } }
-  return best?{a:best,exact:false,d:bd}:null; }
+  if(!q._looseB) buildLoose(q);
+  const huge=map.size>60000;
+  const tolOf=L=>huge?(L>=9?2:L>=5?1:0):(L>=12?3:L>=7?2:L>=3?1:0);
+  const scan=(s,byLen,get)=>{ let best=null,bd=99; for(let L=s.length-3;L<=s.length+3;L++){ const b=byLen.get(L); if(!b) continue;
+      for(const k of b){ const tol=Math.min(tolOf(k.length),tolOf(s.length)||1); if(!tol||Math.abs(k.length-s.length)>tol) continue;
+        if(huge&&k[0]!==s[0]) continue; const d=lev(s,k); if(d<=tol&&d<bd){bd=d;best=get(k); if(d===1) break;} } if(bd===1) break; }
+    return best?{a:best,d:bd}:null; };
+  let r=null;
+  if(q._loose){ const ln=loose(n), lh=ln.length>=3&&q._loose.get(ln); if(lh) return {a:lh,exact:false,d:1};   // lydlik stavemåte
+    r=scan(ln,q._looseByLen,k=>q._loose.get(k)); }
+  const r2=scan(n,q._byLen,k=>map.get(k)); if(r2&&(!r||r2.d<r.d)) r=r2;
+  return r?{a:r.a,exact:false,d:r.d}:null; }
+// Godtas uten «Mente du …?»: ett tegn feil (fra 4 bokstaver) eller to tegn feil i lange svar (fra 9 bokstaver)
+function autoOK(r,v){ const L=norm(v).length; return r&&!r.exact&&(r.d<=1&&L>=4||r.d<=2&&L>=9); }
 /* Datasett fra innsamlingssystemet (data/index.json). Lastes først når spørsmålet trengs. */
 async function loadDatasets(){ try{ const r=await fetch("data/index.json",{cache:"no-cache"}); if(!r.ok) return;
     const idx=await r.json(); for(const d of idx.datasets||[]){ if(QUESTIONS.some(q=>q.id===d.id)) continue;
       QUESTIONS.push({id:d.id,q:d.q,norsk:!!d.norsk,src:d.file,v:d.v,n:d.n,attr:d.src,from:d.from||1}); } }catch(e){} }
 async function ensureLoaded(q){ if(!q.src||q._data) return true; try{
-    const r=await fetch(q.src+"?v="+q.v); q._data=await r.json(); q._p=null; parse(q); return true; }catch(e){ return false; } }
+    const r=await fetch(q.src+"?v="+q.v); q._data=await r.json(); q._p=null; parse(q); setTimeout(()=>buildLoose(q),50); return true; }catch(e){ return false; } }
 const datasetsReady=loadDatasets();
 function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);
   t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
@@ -1183,7 +1197,7 @@ $("bar").onsubmit=e=>{ e.preventDefault(); if(answered) return;
   if(!r){ tried.push(v); pending=null; shake(); SFX.wrong(); if(SET.clear) inp.value=""; else inp.select();
     renderMsg(`<div class="pill bad">«${esc(v)}» ble ikke godkjent – prøv igjen!</div>`); return; }
   // Én bokstav feil i et langt svar godtas direkte; ellers spør vi «mente du …?» og Enter én gang til bekrefter
-  if(!r.exact && SET.corr && pending!==norm(v) && !(r.d<=1&&norm(v).length>=6)){ pending=norm(v);
+  if(!r.exact && SET.corr && pending!==norm(v) && !autoOK(r,v)){ pending=norm(v);
     renderMsg(`<div class="pill sug" id="sug">«${esc(v)}» → <b>${esc(r.a.label)}</b>?<small>Trykk Enter eller Dykk igjen for å bekrefte – eller rett svaret</small></div>`);
     $("sug").onclick=()=>accept(r.a); SFX.count(); return; }
   accept(r.a);
@@ -2230,7 +2244,7 @@ function bbSubmit(v,from){ if(!BB||BB.phase!=="play") return; v=String(v||"").tr
   const r=check(BB.q,v), say=m=>{ cur.last={bad:true,msg:m,label:v}; bbEv({k:"bad",id:cur.id,msg:m}); bbSync(); };
   if(!r) return say(`«${v}» ble ikke godkjent`);
   // Små skrivefeil (én bokstav i et langt ord) godtas direkte – her går det fort. Ellers: «Mente du …?», og Enter én gang til bekrefter.
-  if(!r.exact&&SET.corr!==false&&!(r.d<=1&&norm(v).length>=6)){
+  if(!r.exact&&SET.corr!==false&&!autoOK(r,v)){
     const key=norm(v); if(cur._pend!==key){ cur._pend=key; cur.last={bad:true,sug:true,msg:`Mente du «${r.a.label}»? Trykk Enter igjen`,label:v}; bbEv({k:"sug",id:cur.id}); bbSync(); return; } }
   cur._pend=null;
   if(BB.used.includes(r.a.label)) return say(`«${r.a.label}» er allerede sagt`);
