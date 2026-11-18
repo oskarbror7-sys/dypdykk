@@ -378,6 +378,10 @@ def publish(qid, force=False, quiet=False):
     compact["k"] = "\n".join(lines)
     # Med ferdige nøkler trenger spillet bare visningsnavn og nivå; alias ligger i nøklene.
     compact["e"] = [[e["label"], e["tier"]] for e in st["entries"]]
+    # Uendret innhold: ikke skriv filen på nytt (da blir det heller ingen ny publisering av nettsiden)
+    if prev and not force and all(prev.get(f) == compact.get(f) for f in ("q", "norsk", "n", "src", "cat", "modes", "diff", "status", "e", "k")):
+        log(f"Uendret: {qid} ({st['count']} svar) – ingen ny versjon")
+        return True
     if prev:
         arch = os.path.join(SITE, "data", "archive", qid)
         os.makedirs(arch, exist_ok=True)

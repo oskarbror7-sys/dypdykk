@@ -1,8 +1,8 @@
-# Henter nye svar fra Wikidata og SSB hver natt og publiserer nettsiden.
+# Henter nye svar fra Wikidata og SSB hver tredje time og publiserer nettsiden når noe er endret.
 # Nettsiden legges i grenen «nettside», som Netlify publiserer automatisk.
-name: Nattlig dataimport
+name: Dataimport
 on:
-  schedule: [{cron: "17 2 * * *"}]   # 03:17 norsk vintertid
+  schedule: [{cron: "17 */3 * * *"}]   # hver tredje time (00:17, 03:17, 06:17 … UTC)
   workflow_dispatch: {}               # kan også startes for hånd under «Actions»
 permissions:
   contents: write                     # boten må kunne lagre nettsiden og fremdriften
@@ -10,7 +10,9 @@ concurrency: {group: dataimport, cancel-in-progress: false}
 jobs:
   import:
     runs-on: ubuntu-latest
-    timeout-minutes: 345
+    timeout-minutes: 175
+    env:
+      DYPDYKK_CACHE_DAGER: "2"         # svar eldre enn 2 dager hentes på nytt
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -31,7 +33,7 @@ jobs:
         run: bash tools/push_site.sh
         env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
       - name: Import
-        run: timeout 290m python3 -m dypdykk_data queue --retry || true
+        run: timeout 150m python3 -m dypdykk_data queue --retry || true
       - name: Rapport
         if: always()
         run: python3 -m dypdykk_data report || true

@@ -13,6 +13,11 @@ git init -q -b nettside
 git config user.name "dypdykk-bot"; git config user.email "bot@dypdykk.invalid"
 git add -A -- . ':!data/archive'
 git commit -qm "Nettside $(date -u +%F\ %H:%M)"
-git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" nettside
+# Ingen endring siden forrige publisering? Da hopper vi over (sparer byggeminutter hos Netlify)
+REMOTE="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+if git fetch -q --depth 1 "$REMOTE" nettside 2>/dev/null && [ "$(git rev-parse HEAD^{tree})" = "$(git rev-parse FETCH_HEAD^{tree})" ]; then
+  echo "Ingen endringer – nettsiden er allerede oppdatert"; rm -rf .git; exit 0
+fi
+git push -q -f "$REMOTE" nettside
 rm -rf .git
 echo "Publisert til grenen nettside"
