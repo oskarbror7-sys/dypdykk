@@ -459,6 +459,46 @@ KATALOG = [
     ("youtubere", "Nevn en YouTuber", "Underholdning", False,
      "?item wdt:P106 wd:Q17125263 ; wdt:P31 wd:Q5 .", 5, "l", NB, rank(3000),
      ["PewDiePie", "MrBeast", "Markiplier"], ["Lionel Messi", "Edvard Munch"], 200),
+    # ===== Puffer Party-inspirerte kategorier (issue #1) =====
+    ("sosiale-medier", "Nevn et sosialt medium", "Samfunn", False,
+     "?item wdt:P31/wdt:P279* wd:Q3220391 .", 5, "s", NB, PCT,
+     ["Facebook", "TikTok"], ["Apple", "Microsoft"], 100),
+    ("nettlesere", "Nevn en nettleser", "Vitenskap", False,
+     "{ ?item wdt:P31/wdt:P279* wd:Q6368 . } UNION { VALUES ?item { wd:Q777 } }", 5, "s", NB, PCT,
+     ["Google Chrome", "Safari"], ["Google", "Windows"], 60),
+    ("kortspill", "Nevn et kortspill", "Underholdning", False,
+     "?item wdt:P31/wdt:P279* wd:Q142714 .", 3, "l", NB, PCT,
+     ["Blackjack"], ["Sjakk", "Monopol"], 200),
+    ("fobier", "Nevn en fobi", "Vitenskap", False,
+     "?item wdt:P279+ wd:Q175854 .", 3, "s", NB, PCT,
+     [], ["Angst", "Edderkopp"], 50),
+    ("sjakkapninger", "Nevn en sjakkåpning", "Sport", False,
+     "?item wdt:P31 wd:Q103632 .", 1, "s", NB, PCT,
+     [], ["Magnus Carlsen", "Sjakk"], 150),
+    ("eddik", "Nevn en type eddik", "Mat", False,
+     "?item wdt:P279+ wd:Q41354 .", 0, "s", NB, PCT,
+     [], ["Olivenolje", "Salt"], 25),
+    ("bilmodeller", "Nevn en bilmodell", "Samfunn", False,
+     "?item wdt:P31/wdt:P279* wd:Q3231690 .", 10, "l", NB, rank(3000),
+     ["Tesla Model 3"], ["Tesla", "Volvo"], 1000),
+    ("pixar-figurer", "Nevn en Pixar-figur", "Underholdning", False,
+     "?item wdt:P1441 ?w ; wdt:P31/wdt:P279* wd:Q95074 . ?w wdt:P272 wd:Q127552 .", 3, "s", NB, PCT,
+     ["Woody", "Buzz Lightyear"], ["Mikke Mus", "Pixar"], 30),
+    ("disney-figurer", "Nevn en Disney-figur", "Underholdning", False,
+     "?item wdt:P31/wdt:P279* wd:Q95074 ; wdt:P1441 ?w . ?w wdt:P272 wd:Q191224 .", 5, "s", NB, PCT,
+     ["Mikke Mus", "Donald Duck"], ["Walt Disney", "Pixar"], 100),
+    ("harry-potter-figurer", "Nevn en figur fra Harry Potter", "Underholdning", False,
+     "?item wdt:P1080 wd:Q5410773 ; wdt:P31/wdt:P279* wd:Q95074 .", 3, "l", NB, PCT,
+     ["Harry Potter"], ["J.K. Rowling", "Galtvort"], 200),
+    ("simpsons-figurer", "Nevn en figur fra The Simpsons", "Underholdning", False,
+     "?item wdt:P1441 wd:Q886 ; wdt:P31/wdt:P279* wd:Q95074 .", 1, "s", NB, PCT,
+     ["Homer Simpson"], ["Matt Groening", "Springfield"], 100),
+    ("cl-vinnere", "Nevn en klubb som har vunnet Champions League eller Europacupen", "Sport", False,
+     "?s wdt:P3450 wd:Q18756 ; wdt:P1346 ?item .", 0, "s", NB, PCT,
+     ["Liverpool"], ["Rosenborg", "Brann"], 20),
+    ("ballondor", "Nevn en vinner av Ballon d'Or", "Sport", False,
+     "?item wdt:P166 wd:Q166177 ; wdt:P31 wd:Q5 .", 0, "s", NB, PCT,
+     ["Lionel Messi"], ["Ole Gunnar Solskjær", "Petter Northug"], 40),
 ]
 
 
@@ -483,7 +523,9 @@ def make():
             cfg["strip_suffixes"] = ["Inc", "Inc.", "Corporation", "Corp", "Motor Company", "Motor Corporation", "Motors",
                                      "Company", "Group", "AG", "AB", "ASA", "AS", "SE", "S.p.A.", "SpA", "GmbH", "Ltd", "plc",
                                      "Holding", "Holdings", "Automobiles", "Automobile", "Cars", "Auto"]
-        if qid in ("norske-fotballklubber", "fotballklubber"):
+        if qid == "nettlesere":
+            cfg["strip_prefixes"] = ["Nettlesaren", "Nettleseren"]
+        if qid in ("norske-fotballklubber", "fotballklubber", "cl-vinnere"):
             cfg["strip_suffixes"] = ["FK", "Fotballklubb", "Fotball", "IL", "BK", "SK", "IF", "FC", "F.C.", "AFC", "CF",
                                      "Toppfotball", "Elite", "Fotballforening"]
             cfg["strip_prefixes"] = ["SK", "IL", "FK", "IK", "BK", "FC", "AFC", "AC", "AS", "SS", "SSC", "SV", "VfB",
