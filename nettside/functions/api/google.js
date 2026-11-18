@@ -78,7 +78,7 @@ export async function onRequestPost({ request, env }) {
   }
 
   let g;
-  try { g = await verifyGoogle(body.credential, env); } catch (e) { return json(401, { error: e.message }); }
+  try { g = await verifyGoogle(body.credential, env); } catch (e) { return json(401, { error: /^(Ugyldig|Innloggingen)/.test(e.message) ? e.message : "Ugyldig innlogging fra Google." }); }
   const { user, pass } = await credentialsFor(g.sub, env.GOOGLE_PW_SECRET);
   const items = body.items || {};
   let r = await callApi(env, "login", { user, pass, items });
