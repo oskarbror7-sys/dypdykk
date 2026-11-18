@@ -53,6 +53,26 @@ def score(entities, cfg):
     return entities
 
 
+AUTO_PCT = [0.04, 0.15, 0.33, 0.58, 0.85]
+AUTO_CAPS = [20, 80, 300, 800, 2000]
+
+
+def auto_cuts(n, pct=None, caps=None):
+    """Grenser (absolutt plass) som virker for både små og store lister.
+
+    Små lister deles etter andel. Store lister får faste tak, slik at «Tare» alltid er
+    en håndfull svar alle kommer på (maks 20), og alt utenfor de ~2000 mest kjente er
+    Kjempeblekksprut – uansett om listen har 3 000 eller 200 000 svar."""
+    pct = pct or AUTO_PCT
+    caps = caps or AUTO_CAPS
+    at, prev = [], 0
+    for p_, c in zip(pct, caps):
+        v = max(prev + 1, min(round(p_ * n), c))
+        at.append(v)
+        prev = v
+    return at
+
+
 def assign_tiers(entities, cfg, observed=None):
     cuts = cfg.get("cuts", DEFAULT["cuts"])
     ordered = sorted(entities, key=lambda e: (-e["score"], e["label"]))
@@ -67,6 +87,8 @@ def assign_tiers(entities, cfg, observed=None):
             e["observed"] = observed.get(e["id"], 0)
             e["score"] = round((1 - w) * e["score"] + w * share.get(e["id"], 0) / top, 6)
         ordered.sort(key=lambda e: (-e["score"], e["label"]))
+    if cuts["mode"] == "auto":
+        cuts = {"mode": "rank", "at": auto_cuts(n, cuts.get("pct"), cuts.get("caps"))}
     for rank, e in enumerate(ordered):
         pos = rank / n if cuts["mode"] == "percent" else rank
         e["tier"] = bisect.bisect_right(cuts["at"], pos)

@@ -13,6 +13,19 @@ OUT = os.path.join(ROOT, "config", "questions")
 NB = ["nb", "nn", "mul", "en"]
 NB_ONLY = ["nb", "nn", "no"]
 WD = "Kilde: Wikidata (CC0)"
+AUTO = {"mode": "auto"}
+# Lavere krav til antall språkutgaver: flere gyldige (sjeldne) svar. Nivåskalaen «auto» sørger for at
+# de nye, lite kjente svarene havner som sjeldne, ikke som vanlige.
+MINSL = {"arkitekter": 6, "filosofer": 10, "kjemikere": 8, "komikere": 5, "kriger": 8, "kunstmuseer": 5,
+         "instrumenter": 5, "malere": 10, "matematikere": 8, "musikksjangere": 6, "oppfinnere": 6,
+         "programmeringssprak": 4, "religioner": 4, "retter": 6, "slag": 8, "sprak": 10, "sykdommer": 8,
+         "universiteter": 8, "valutaer": 3, "verdens-innsjoer": 6, "skyskrapere": 4, "slott": 5, "idretter": 3,
+         "spillkonsoller": 3, "superhelter": 3, "rappere": 4, "oppdagelsesreisende": 5, "operaer": 3,
+         "tv-kanaler": 3, "youtubere": 3, "hav": 2, "orkener": 2, "nettlesere": 2, "sosiale-medier": 2,
+         "vulkaner": 3, "disney-figurer": 2, "flyselskaper": 3, "brettspill": 2, "fysikere": 6,
+         "animasjonsfilmer": 6, "pastatyper": 1, "cocktailer": 1, "kortspill": 1, "hesteraser": 1,
+         "hunderaser": 1, "katteraser": 1, "fobier": 1, "japanske-byer": 1, "oster-verden": 2,
+         "musikkfestivaler": 1, "golfspillere": 2, "fotballstadioner": 2, "verdensarv": 1}
 PCT = {"mode": "percent", "at": [0.04, 0.14, 0.32, 0.56, 0.84]}
 
 
@@ -619,6 +632,7 @@ def make():
         if row[1] is None:
             continue
         _, q, cat, norsk, where, minsl, size, langs, cuts, inn, ut, minc = row
+        minsl = MINSL.get(qid, minsl)
         where_full = where   # minstekravet til sitelinks håndteres av båndene (min_sitelinks)
         cfg = {
             "question": q, "category": cat, "norsk": norsk, "status": "godkjent",
@@ -641,15 +655,16 @@ def make():
                                      "VfL", "TSG", "RC", "CF", "CD", "UD", "SD", "Sportsklubben", "Idrettslaget"]
         if "?item wdt:P31 wd:Q5" in where or "P106" in where:
             cfg["derive"] = {"surname": {"top": 2000, "min_len": 4, "dominance": 1.5, "metric": "sitelinks"}}
-        if norsk or qid in PV_EXTRA:
-            # Hva nordmenn kjenner: lesing av artikkelen på norsk Wikipedia veier tyngre enn antall språkutgaver
-            cfg["source"]["pageviews"] = {"top": 3000}
-            cfg["rarity"]["weights"] = {"sitelinks": 0.45, "nowiki_views": 0.55}
+        # Hva nordmenn kjenner: lesing av artikkelen på norsk Wikipedia veier tyngre enn antall språkutgaver.
+        # Gjelder alle kategorier (spillet er norsk).
+        cfg["source"]["pageviews"] = {"top": 3000 if (norsk or qid in PV_EXTRA) else 2000}
+        cfg["rarity"]["weights"] = {"sitelinks": 0.45, "nowiki_views": 0.55}
+        # Samme nivåskala for alle: små lister deles etter andel, store får faste tak (se rarity.auto_cuts)
+        cfg["rarity"]["cuts"] = AUTO
         if qid in CITY_POP:
             # Byer: små steder med mange bot-artikler (Siligo, Uetersen) skal ikke regnes som kjente.
-            # Folketall veier tyngst, Wikipedia-utgaver litt.
             cfg["source"]["population"] = True
-            cfg["rarity"]["weights"] = {"sitelinks": 0.35, "population": 0.65}
+            cfg["rarity"]["weights"] = {"sitelinks": 0.2, "population": 0.45, "nowiki_views": 0.35}
         if qid in EXTRA:
             cfg["source"]["extra"] = EXTRA[qid]
         if qid in DEMOTE:
@@ -667,7 +682,7 @@ def make():
                    "alias_exclude_regex": "(?i)(\\bfylke\\b|^fylket\\b)",
                    "source": {"type": "ssb_klass", "classification": 104, "date": "2026-01-01", "id_prefix": "fylke",
                               "exclude_codes": ["99"], "wikidata_join": {"property": "P2504"}},
-                   "rarity": {"weights": {"population": 0.6, "sitelinks": 0.4}, "cuts": PCT},
+                   "rarity": {"weights": {"population": 0.6, "sitelinks": 0.4}, "cuts": AUTO},
                    "validate": {"min_count": 15, "expected_count": 15, "max_shrink": 0.0,
                                 "must_include": ["Vestland", "Trøndelag", "Akershus"], "must_exclude": ["Oslo kommune", "Bergen"]}},
                   f, ensure_ascii=False, indent=2)
