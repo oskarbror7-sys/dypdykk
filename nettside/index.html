@@ -2421,7 +2421,7 @@ addEventListener("beforeunload",()=>{ if(NET.peer) NET.close(); });
    Serveren (netlify/functions/api.mjs) lagrer brukernavn, et kryptert passord og spilldataene dine. Ingen e-post. */
 const AUTH_KEY="dypdykk-auth";
 // «Fortsett med Google»: offentlig klient-ID fra Google Cloud (ikke hemmelig). Tom = knappen vises ikke.
-const GOOGLE_CLIENT_ID="";
+const GOOGLE_CLIENT_ID="1025864431059-phdc9pclku02nfdac144l1d6c8kuf28f.apps.googleusercontent.com";
 const shownName=a=>a?(a.display||a.user):"";
 let _gsi=null;
 function loadGoogle(){ return _gsi||(_gsi=new Promise((ok,bad)=>{ if(window.google&&google.accounts) return ok();
@@ -2473,7 +2473,7 @@ PAGES.konto=()=>{ const a=auth();
        <div class="rowf" style="gap:10px">${a.google?"":`<input class="field" id="kDelPw" type="password" placeholder="Passord" autocomplete="current-password">`}<button class="btn btn-ghost" id="kDel">Slett kontoen</button></div></div></div>`; }
   return head("Logg inn","Lag en gratis bruker for å lagre dagens dykk, rekker og tidligere resultater – og ta dem med til andre enheter.")+
    (GOOGLE_CLIENT_ID?`<div class="panel glass gpanel"><h3>Raskest</h3><p class="psub" style="font-size:14px;margin:0 0 14px">Bruk Google-kontoen din – ingen brukernavn eller passord å huske.</p>
-       <div id="gBtn" style="min-height:44px"></div><p class="psub" style="font-size:12px;margin:12px 0 0">Vi lagrer ikke e-posten din, bare en anonym ID og dykkene dine.</p></div>
+       <div id="gBtn" style="min-height:44px"></div><p class="psub" style="font-size:12px;margin:12px 0 0">Vi lagrer ikke e-posten din, bare en anonym ID og dykkene dine. <a href="/personvern.html" style="color:var(--sea)">Personvern</a></p></div>
      <p class="mlabel" style="margin:6px 2px 14px">Eller med brukernavn og passord</p>`:"")+
    `<div class="party"><div class="panel glass"><h3>Logg inn</h3>
        <form id="kLogin" autocomplete="on"><input class="field" name="username" id="kU" placeholder="Brukernavn" autocomplete="username" autocapitalize="off" spellcheck="false" style="margin-bottom:10px">
