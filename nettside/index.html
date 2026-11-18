@@ -1164,18 +1164,18 @@ function check(q,input){ const n=norm(input); if(!n) return null; parse(q); cons
   const hit=map.get(n); if(hit) return {a:hit,exact:true};
   if(!q._looseB) buildLoose(q);
   const huge=map.size>60000;
-  const tolOf=L=>huge?(L>=9?2:L>=5?1:0):(L>=12?3:L>=7?2:L>=3?1:0);
-  const scan=(s,byLen,get)=>{ let best=null,bd=99; for(let L=s.length-3;L<=s.length+3;L++){ const b=byLen.get(L); if(!b) continue;
-      for(const k of b){ const tol=Math.min(tolOf(k.length),tolOf(s.length)||1); if(!tol||Math.abs(k.length-s.length)>tol) continue;
-        if(huge&&k[0]!==s[0]) continue; const d=lev(s,k); if(d<=tol&&d<bd){bd=d;best=get(k); if(d===1) break;} } if(bd===1) break; }
-    return best?{a:best,d:bd}:null; };
+  const tolOf=L=>huge?(L>=9?2:L>=5?1:0):(L>=12?3:L>=7?2:L>=4?1:0);
+  const scan=(s,byLen,get)=>{ let best=null,bd=99,bk=""; for(let L=s.length-3;L<=s.length+3;L++){ const b=byLen.get(L); if(!b) continue;
+      for(const k of b){ const tol=Math.min(tolOf(k.length),tolOf(s.length)); if(!tol||Math.abs(k.length-s.length)>tol) continue;
+        if(huge&&k[0]!==s[0]) continue; const d=lev(s,k); if(d<=tol&&d<bd){bd=d;best=get(k);bk=k; if(d===1) break;} } if(bd===1) break; }
+    return best?{a:best,d:bd,f:bk[0]===s[0]}:null; };
   let r=null;
-  if(q._loose){ const ln=loose(n), lh=ln.length>=3&&q._loose.get(ln); if(lh) return {a:lh,exact:false,d:1};   // lydlik stavemåte
+  if(q._loose){ const ln=loose(n), lh=ln.length>=3&&q._loose.get(ln); if(lh) return {a:lh,exact:false,d:1,f:true};   // lydlik stavemåte
     r=scan(ln,q._looseByLen,k=>q._loose.get(k)); }
   const r2=scan(n,q._byLen,k=>map.get(k)); if(r2&&(!r||r2.d<r.d)) r=r2;
-  return r?{a:r.a,exact:false,d:r.d}:null; }
+  return r?{a:r.a,exact:false,d:r.d,f:r.f}:null; }
 // Godtas uten «Mente du …?»: ett tegn feil (fra 4 bokstaver) eller to tegn feil i lange svar (fra 9 bokstaver)
-function autoOK(r,v){ const L=norm(v).length; return r&&!r.exact&&(r.d<=1&&L>=4||r.d<=2&&L>=9); }
+function autoOK(r,v){ const L=norm(v).length; return r&&!r.exact&&r.f!==false&&(r.d<=1&&L>=4||r.d<=2&&L>=9); }   // første bokstav må stemme for å godta uten å spørre
 /* Datasett fra innsamlingssystemet (data/index.json). Lastes først når spørsmålet trengs. */
 async function loadDatasets(){ try{ const r=await fetch("data/index.json",{cache:"no-cache"}); if(!r.ok) return;
     const idx=await r.json(); for(const d of idx.datasets||[]){ if(QUESTIONS.some(q=>q.id===d.id)) continue;
@@ -1823,6 +1823,7 @@ function go(id){
   if(location.hash!=="#"+id) location.hash=id; else route();
 }
 function route(){
+  setTimeout(()=>document.body.classList.toggle("bbplay",!!document.getElementById("bbArena")),0);
   const h=location.hash.replace("#","");
   if(!h){ if(document.body.classList.contains("s-page")&&!window.__starting) startScreen(); return; }
   if(inGame()) return; closeMenu();
@@ -2542,7 +2543,7 @@ let BB=null, bbTimer=null, bbAnim=null, bbEvSeen=0, bbMe="", bbLocalTyping="";
 function bbNewState(players,settings,net){ return {net:!!net,set:{...settings},phase:"ready",round:0,cat:0,turn:0,q:null,qText:"",used:[],answers:[],
   players:players.map((p,i)=>({id:p.id||("p"+i),n:p.n,bot:!!p.bot,local:!!p.local,lives:settings.lives,pts:0,segs:[],ans:0,rare:0,out:false,gone:false,last:null,typing:""})),
   catStart:0,fuseAt:0,turnStart:0,pressure:0,ev:[],evn:0,countdown:3,winner:null}; }
-function bbEv(e){ BB.evn++; e.id=BB.evn; BB.ev.push(e); if(BB.ev.length>20) BB.ev.shift(); }
+function bbEv(e){ BB.evn++; e.eid=BB.evn; BB.ev.push(e); if(BB.ev.length>20) BB.ev.shift(); }
 function bbAlive(){ return BB.players.filter(p=>!p.out); }
 function bbCur(){ return BB.players[BB.turn]; }
 function bbNextTurn(from){ const n=BB.players.length; let i=from; for(let k=0;k<n;k++){ i=(i+1)%n; if(!BB.players[i].out) return i; } return from; }
@@ -2580,7 +2581,7 @@ function bbSubmit(v,from){ if(!BB||BB.phase!=="play") return; v=String(v||"").tr
   if(!r) return say(`«${v}» ble ikke godkjent`);
   // Små skrivefeil (én bokstav i et langt ord) godtas direkte – her går det fort. Ellers: «Mente du …?», og Enter én gang til bekrefter.
   if(!r.exact&&SET.corr!==false&&!autoOK(r,v)){
-    const key=norm(v); if(cur._pend!==key){ cur._pend=key; cur.last={bad:true,sug:true,t:Date.now(),msg:`Mente du dette: «${r.a.label}»? Enter = ja`,label:v}; bbEv({k:"sug",id:cur.id}); bbSync(); return; } }
+    const key=norm(v); if(cur._pend!==key){ cur._pend=key; cur.last={bad:true,sug:true,t:Date.now(),msg:`Mente du dette: «${r.a.label}»? Enter = ja`,label:v}; bbEv({k:"sug",id:cur.id,label:r.a.label}); bbSync(); return; } }
   cur._pend=null;
   if(BB.used.includes(r.a.label)) return say(`«${r.a.label}» er allerede sagt`);
   const t=r.a.tier; BB.used.push(r.a.label); BB.answers.push([r.a.label,t,cur.n]);
@@ -2614,6 +2615,10 @@ const BB_CSS=`
 .bbcat{position:absolute;left:50%;top:0;transform:translateX(-50%);width:min(560px,92%);text-align:left;padding:12px 18px;background:var(--plate);box-shadow:var(--px-edge),inset 0 0 0 3px var(--plate),inset 0 0 0 4px rgba(255,122,160,.35),0 7px 0 rgba(1,7,12,.5);z-index:5}
 .bbcat small{display:block;color:#ff7aa0;font:400 10px var(--gauge,monospace)}
 .bbcat b{display:block;font:700 clamp(19px,3.4vw,27px)/1.2 var(--body,inherit);color:#eafcff;margin:3px 0}
+body.bbplay .iconbtn,body.bbplay #diver{opacity:0!important;pointer-events:none!important}
+body.bbplay #page{background:linear-gradient(180deg,rgba(3,10,18,.78),rgba(3,10,18,.94))}
+body.bbplay .pg{padding-top:calc(max(10px,env(safe-area-inset-top)) + 12px)!important}
+.bbused{display:flex;flex-wrap:wrap;gap:4px 8px;margin-top:6px;font:600 12.5px var(--body)}.bbused span{color:var(--muted);font-weight:500}.bbused em{font-style:normal;text-decoration:line-through;text-decoration-color:rgba(241,231,207,.35)}
 .bbcat i{font-style:normal;font-size:11px;color:var(--muted);letter-spacing:.08em}
 .bbseat{position:absolute;transform:translate(-50%,-50%);width:120px;text-align:center;transition:filter .3s}
 .bbseat .rock{width:84px;height:40px;margin:0 auto;border-radius:50% 50% 44% 44%;background:#1d3a50;box-shadow:inset 0 -6px 0 rgba(0,0,0,.35),inset 0 3px 0 rgba(255,255,255,.08),0 0 0 3px var(--line);position:relative}
@@ -2655,6 +2660,13 @@ const BB_CSS=`
 .bbtime{height:6px;background:rgba(255,255,255,.08);max-width:620px;margin:8px auto 0;overflow:hidden}
 .bbtime i{display:block;height:100%;background:#5ef2d6;transition:width .1s linear,background .3s}
 .bbbar.danger .bbtime i{background:#ff5d7a}
+.bbfb{max-width:620px;margin:0 auto 8px;min-height:0;max-height:0;overflow:hidden;opacity:0;text-align:center;font:600 15px var(--body);transition:opacity .15s,max-height .15s}
+.bbfb.on{max-height:80px;opacity:1;padding:8px 12px;box-shadow:var(--px-edge);background:var(--plate)}
+.bbfb.ok{color:#bff6e6}.bbfb.bad{background:#3a1010;color:#ffd5cf}.bbfb.wait{color:var(--muted)}
+.bbfb.sug{background:var(--bone);color:#1d2a30;cursor:pointer;animation:sugpop .3s var(--spring)}.bbfb.sug b{color:#b8391c;font-family:var(--display);font-size:18px}.bbfb.sug small{display:block;font-size:12px;color:#4c5d64;font-weight:500}
+.bbbar.mine .in{animation:bbmine .5s var(--spring)}@keyframes bbmine{40%{transform:translateY(-4px)}}
+.bbbar:not(.mine) input{opacity:.75}
+.bbbar button:disabled{filter:grayscale(.8);opacity:.6}
 .bbhint{text-align:center;font:400 10px var(--gauge,monospace);color:var(--muted);margin-bottom:8px}
 .bbhint b{color:#ff7aa0}
 .bbshard{position:absolute;width:6px;height:12px;background:#ffd36b;z-index:6;pointer-events:none}
@@ -2681,20 +2693,32 @@ function bbAvatar(p,i){ const b=BUDDIES[i%BUDDIES.length]; return p.bot?ICONS[(i
 let bbLast=null; const bbChg={};
 // Svarboblen «popper inn» i 350 ms når et nytt svar kommer
 function bbChanged(pl){ const key=pl.last?pl.last.label+"|"+pl.last.tier:""; const c=bbChg[pl.id]; if(!c||c.key!==key){ bbChg[pl.id]={key,t:Date.now()}; return !!key&&!!c; } return Date.now()-c.t<350; }
-function bbRenderArena(){
+function bbRenderArena(){ document.body.classList.add("bbplay");
   $("page").innerHTML=`<div class="pg" style="max-width:1000px;padding-bottom:150px"><button class="back" id="bbQuit">← Avslutt Boblebomben</button>
     <div class="bbarena" id="bbArena"><div class="bbring"></div><div class="bbcat" id="bbCat" style="display:none"></div><div id="bbSeats"></div>
       <div class="bbbubble" id="bbBubble"></div><div id="bbFx"></div><div class="bbcount" id="bbCount" style="display:none"></div><div class="bbwin" id="bbWin" style="display:none"></div></div>
     <div id="bbAfter"></div></div>
     <div class="bbvig" id="bbVig"></div>
-    <div class="bbbar" id="bbBar"><div class="bbhint" id="bbHint"></div><div class="in"><div class="bbheart" id="bbHeart"></div>
-      <form id="bbForm" autocomplete="off"><input id="bbInp" placeholder="Vent på boblen …" autocapitalize="off" spellcheck="false" disabled><button id="bbGo">SEND</button></form></div>
+    <div class="bbbar" id="bbBar"><div class="bbhint" id="bbHint"></div><div class="bbfb" id="bbFb" role="status" aria-live="polite"></div><div class="in"><div class="bbheart" id="bbHeart"></div>
+      <form id="bbForm" autocomplete="off"><input id="bbInp" placeholder="Vent på boblen …" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="send"><button id="bbGo">SEND</button></form></div>
       <div class="bbtime"><i id="bbTime" style="width:0"></i></div></div>`;
   bbLast=null;
   $("bbQuit").onclick=()=>{ bbStop(true); location.hash="boblebomben"; route(); };
   const inp=$("bbInp");
   inp.oninput=()=>{ BBS.type(); bbLocalTyping=inp.value; bbSendTyping(inp.value); };
-  $("bbForm").onsubmit=e=>{ e.preventDefault(); const v=inp.value.trim(); if(!v) return; bbSendAnswer(v); };
+  // Send-knappen skal ikke stjele fokus (ellers lukkes tastaturet på mobil)
+  $("bbGo").addEventListener("pointerdown",e=>e.preventDefault());
+  $("bbForm").onsubmit=e=>{ e.preventDefault(); const s=bbLast; if(!s) return; const v=inp.value.trim();
+    const cur=s.players[s.turn], mine=s.phase==="play"&&bbMeIds(s).includes(cur.id);
+    if(!v){ if(mine&&bbSugFor){ bbSugFor=null; bbFb("Sender …",""); bbSendAnswer(bbSent); } return; }   // tom Enter = «ja» til forslaget
+    if(!mine){ bbFb(s.phase==="play"?`Vent – ${esc(cur.n)} har boblen. Svaret ditt står klart.`:"Vent til boblen starter","wait"); return; }
+    bbSent=v; bbSugFor=null; inp.value=""; bbLocalTyping=""; bbFb(`Sender «${esc(v)}» …`,""); bbSendAnswer(v); };
+}
+// Tilbakemelding rett over svarfeltet – der øynene er når det går fort
+let bbSent="", bbSugFor=null, bbFbT=0;
+function bbFb(html,cls,ms){ const el=$("bbFb"); if(!el) return; clearTimeout(bbFbT); el.className="bbfb on "+(cls||""); el.innerHTML=html;
+  if(cls==="sug") el.onclick=()=>{ const s=bbLast; if(!s||!bbSugFor) return; bbSugFor=null; bbFb("Sender …",""); bbSendAnswer(bbSent); $("bbInp").focus(); }; else el.onclick=null;
+  if(ms!==0) bbFbT=setTimeout(()=>{ el.className="bbfb"; },ms||2200); 
 }
 function bbMeIds(s){ if(BB&&!BB.net) return s.players.filter(p=>p.local).map(p=>p.id); return [bbMe]; }
 function bbSendAnswer(v){ const s=bbLast; if(!s) return; const cur=s.players[s.turn]; if(!bbMeIds(s).includes(cur.id)) return;
@@ -2708,15 +2732,16 @@ function bbFxAt(id,html,cls,ms){ const seat=document.querySelector(`[data-pid="$
 function bbShards(){ const b=$("bbBubble"), fxl=$("bbFx"); if(!b||!fxl) return; const x=b.style.left, y=b.style.top;
   for(let i=0;i<22;i++){ const s=document.createElement("div"); s.className="bbshard"; s.style.left=x; s.style.top=y; s.style.background=["#ffd36b","#bff3ff","#ff5d7a","#5ef2d6"][i%4]; fxl.appendChild(s);
     const a=i/22*Math.PI*2, d=90+Math.random()*90; s.animate([{transform:`translate(-50%,-50%) rotate(${a}rad)`,opacity:1},{transform:`translate(calc(-50% + ${Math.cos(a)*d}px),calc(-50% + ${Math.sin(a)*d}px)) rotate(${a+3}rad)`,opacity:0}],{duration:900+Math.random()*400,easing:"cubic-bezier(.1,.8,.3,1)"}); setTimeout(()=>s.remove(),1400); } }
-function bbEffects(s){ for(const e of s.ev){ if(e.id<=bbEvSeen) continue; bbEvSeen=e.id;
+function bbEffects(s){ for(const e of s.ev){ if(e.eid<=bbEvSeen) continue; bbEvSeen=e.eid;
     if(e.k==="count"){ BBS.count(e.n); }
     else if(e.k==="cat"){ SFX.go(); const c=$("bbCat"); if(c) c.animate([{transform:"translateX(-50%) translateY(-20px)",opacity:0},{transform:"translateX(-50%)",opacity:1}],{duration:450,easing:"ease-out"}); }
-    else if(e.k==="ok"){ BBS.ok(e.tier); if(bbMeIds(s).includes(e.id)){ const i=$("bbInp"); if(i){ i.value=""; bbLocalTyping=""; } } if(e.tier>=4){ fx.flash(TIERS[e.tier].color,.18,450); } }
-    else if(e.k==="bad"){ if(bbMeIds(s).includes(e.id)){ BBS.bad(); const f=$("bbForm"); if(f) f.animate([{transform:"translateX(-8px)"},{transform:"translateX(8px)"},{transform:"translateX(-5px)"},{transform:"none"}],{duration:300}); const i=$("bbInp"); if(i){ i.value=""; bbLocalTyping=""; } } }
+    else if(e.k==="ok"){ BBS.ok(e.tier); if(bbMeIds(s).includes(e.id)){ bbSugFor=null; bbFb(`✓ ${esc(e.label)} <span style="color:${TIERS[e.tier].color}">${TIERS[e.tier].name}</span> – boblen gikk videre`,"ok"); } if(e.tier>=4){ fx.flash(TIERS[e.tier].color,.18,450); } }
+    else if(e.k==="bad"){ if(bbMeIds(s).includes(e.id)){ BBS.bad(); const f=$("bbForm"); if(f) f.animate([{transform:"translateX(-8px)"},{transform:"translateX(8px)"},{transform:"translateX(-5px)"},{transform:"none"}],{duration:300}); bbSugFor=null; bbFb(`✗ ${esc(e.msg||"Ikke godkjent")} – prøv et annet`,"bad"); } }
     else if(e.k==="pop"){ BBS.pop(); fx.flash("#ff5d7a",.55,700); fx.shake(16,650); bbShards(); bbFxAt(e.id,"−1 ♥","bbplus",1400)?.animate([{transform:"translate(-50%,-60px)",opacity:1},{transform:"translate(-50%,-110px)",opacity:0}],{duration:1400}); }
     else if(e.k==="plus"){ BBS.plus(); const el=bbFxAt(e.id,"+1 ♥","bbplus",1400); el&&el.animate([{transform:"translate(-50%,-60px) scale(.6)",opacity:0},{transform:"translate(-50%,-90px) scale(1.3)",opacity:1},{transform:"translate(-50%,-130px)",opacity:0}],{duration:1400}); }
-    else if(e.k==="sug"){ if(bbMeIds(s).includes(e.id)) SFX.count(); }
-    else if(e.k==="turn"){ if(bbMeIds(s).includes(e.id)){ SFX.bubble(); const i=$("bbInp"); if(i){ i.value=""; bbLocalTyping=""; setTimeout(()=>i.focus(),30); } } }
+    else if(e.k==="sug"){ if(bbMeIds(s).includes(e.id)){ SFX.count(); bbSugFor=e.label||"?"; bbFb(`Mente du <b>«${esc(bbSugFor)}»</b>? <small>Enter eller trykk her = ja · skriv noe annet = nei</small>`,"sug",0); } }
+    else if(e.k==="turn"){ if(bbSugFor&&!bbMeIds(s).includes(e.id)){ bbSugFor=null; const f=$("bbFb"); if(f&&f.classList.contains("sug")) f.className="bbfb"; }
+      if(bbMeIds(s).includes(e.id)){ SFX.bubble(); const i=$("bbInp"); if(i){ setTimeout(()=>{ i.focus(); if(i.value) bbSendTyping(i.value); },30); } } }
     else if(e.k==="end"){ BBS.win(); } } }
 function bbDraw(s){ if(!$("bbArena")) bbRenderArena(); const prev=bbLast; bbLast=s;
   const n=s.players.length, cur=s.players[s.turn], meIds=bbMeIds(s), mine=s.phase==="play"&&meIds.includes(cur.id), p=s.pressure, danger=s.phase==="play"&&p>.68;
@@ -2735,7 +2760,7 @@ function bbDraw(s){ if(!$("bbArena")) bbRenderArena(); const prev=bbLast; bbLast
     const bad=pl.last&&pl.last.bad&&isCur?`<div class="bbbad${pl.last.sug?" sug"+(Date.now()-(pl.last.t||0)<380?" anim":""):""}" style="top:${off+34}px;${side}">${esc(pl.last.msg)}</div>`:"";
     el.innerHTML=`<div class="av">${bbAvatar(pl,i)}</div><div class="rock"></div><div class="nm">${pl.bot?"🤖 ":""}${esc(pl.n)}${(!BB||BB.net)&&meIds.includes(pl.id)?" (deg)":""}</div><div class="hp">${pl.gone?'<span class="e">frakoblet</span>':hearts}</div><div class="prog">${prog}</div>${say}${bad}`; });
   // kategori
-  const cat=$("bbCat"); if(s.cat&&s.phase!=="end"){ cat.style.display=""; cat.innerHTML=`<small>KATEGORI ${s.cat}</small><b>${esc(s.qText)}</b><i>▼ alle godkjente svar sender boblen videre ▼</i>`; } else cat.style.display="none";
+  const cat=$("bbCat"); if(s.cat&&s.phase!=="end"){ cat.style.display=""; cat.innerHTML=`<small>KATEGORI ${s.cat}</small><b>${esc(s.qText)}</b>${s.answers.length?`<div class="bbused"><span>Allerede sagt:</span>${s.answers.slice(-10).map(x=>`<em style="color:${TIERS[x[1]].color}">${esc(x[0])}</em>`).join("")}${s.answers.length>10?`<span>+${s.answers.length-10}</span>`:""}</div>`:`<i>Et godkjent svar sender boblen videre. Sjeldne svar gir mer luft.</i>`}`; } else cat.style.display="none";
   // boblen: svømmer mot den som har tur
   const bub=$("bbBubble"), tgt=s.phase==="end"&&s.winner?s.players.findIndex(x=>x.id===s.winner):s.turn, tp=bbSeatPos(Math.max(0,tgt),n);
   const cy=innerWidth<640?60:57, bx=s.phase==="ready"?50:50+(tp.x-50)*.3, by=s.phase==="ready"?cy:cy+(tp.y-cy)*.3;
@@ -2756,9 +2781,10 @@ function bbDraw(s){ if(!$("bbArena")) bbRenderArena(); const prev=bbLast; bbLast
     if(!bbDraw._inf||now-bbDraw._inf>1300-p*800){ bbDraw._inf=now; if(p>.2) BBS.inflate(p); } }
   // inndata
   const inp=$("bbInp"), hint=$("bbHint"), me=s.players.find(x=>meIds.includes(x.id)&&(BB&&!BB.net?x.id===cur.id:true))||s.players.find(x=>meIds.includes(x.id));
-  inp.disabled=!mine; $("bbGo").disabled=!mine;
+  // Feltet er alltid åpent (tastaturet blir stående på mobil); du kan skrive klart mens du venter, men bare sende på din tur
+  $("bbGo").disabled=!mine; $("bbBar").classList.toggle("mine",mine);
   if(mine&&document.activeElement!==inp) inp.focus();
-  inp.placeholder=s.phase==="ready"?"Vent på boblen …":mine?"Din tur – skriv!":`${cur.n} har boblen …`;
+  inp.placeholder=s.phase!=="play"?"Vent på boblen …":mine?"Din tur – skriv!":`Vent – ${cur.n} har boblen`;
   hint.innerHTML=s.phase!=="play"?"&nbsp;":mine?`<b>▸ ${BB&&!BB.net&&meIds.length>1?esc(cur.n)+", din tur":"Din tur"}</b> · skriv et svar${danger?" – <b>FORT!</b>":""}`:`▸ <b>${esc(cur.n)}</b> har boblen`;
   if(me){ const fr=Math.min(1,me.pts/s.set.pph), C=2*Math.PI*22; $("bbHeart").innerHTML=`<svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="22" fill="rgba(6,24,40,.9)" stroke="rgba(255,255,255,.1)" stroke-width="4"/><circle cx="26" cy="26" r="22" fill="none" stroke="#ff5d7a" stroke-width="4" stroke-dasharray="${C*fr} ${C}" stroke-linecap="round"/></svg><b>♥${me.lives}</b>`; }
   bbEffects(s); }
@@ -2769,7 +2795,7 @@ function bbAfter(s){ const ps=[...s.players].sort((a,b)=>(b.out?0:1)-(a.out?0:1)
   $("bbAfter").querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{ $("bbAfter").querySelectorAll("[data-r]").forEach(x=>x.classList.toggle("on",x===b)); const l=store.get("dypdykk-boble-vurdering")||[]; l.push({r:+b.dataset.r,d:todayKey()}); store.set("dypdykk-boble-vurdering",l.slice(-50)); toast("Takk!"); });
   if($("bbAgain")) $("bbAgain").onclick=()=>{ const pl=BB.players.filter(p=>!p.gone).map(p=>({id:p.id,n:p.n,bot:p.bot,local:p.local})), set=BB.set, net=BB.net; bbStart(pl,set,net); };
   $("bbLobby").onclick=()=>{ if(BB&&BB.net){ bbStop(false); netLobbySync(); netLobbyRender(); } else { bbStop(true); route(); } }; }
-function bbStop(closeNet){ clearInterval(bbTimer); bbTimer=null; cancelAnimationFrame(bbAnim); if(closeNet&&(BB&&BB.net||!BB)&&NET.peer) NET.close(); BB=null; bbLast=null; const v=$("bbVig"); if(v) v.remove(); }
+function bbStop(closeNet){ document.body.classList.remove("bbplay"); clearInterval(bbTimer); bbTimer=null; cancelAnimationFrame(bbAnim); if(closeNet&&(BB&&BB.net||!BB)&&NET.peer) NET.close(); BB=null; bbLast=null; const v=$("bbVig"); if(v) v.remove(); }
 // jevn animasjon av boblen (pressure tegnes ~25 fps også mellom synker)
 function bbLoop(){ bbAnim=requestAnimationFrame(bbLoop); if(!bbLast||!$("bbArena")) return; const now=performance.now(); if(bbLoop._t&&now-bbLoop._t<40) return; bbLoop._t=now;
   if(bbLast.phase==="play"){ const bub=$("bbBubble"); if(bub){ const p=bbLast.pressure, wob=p>.5?(p-.5)*14:0; bub.style.transform=`translate(-50%,-50%) rotate(${Math.sin(Date.now()/(120-p*70))*wob}deg) scale(${1+Math.sin(Date.now()/90)*p*.03})`; }
