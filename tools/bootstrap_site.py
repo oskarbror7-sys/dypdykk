@@ -69,9 +69,11 @@ if __name__ == "__main__":
     # Spillfilene i repoet (mappen nettside/) er alltid nyest og legges over
     src = os.path.join(ROOT, "nettside")
     if os.path.isdir(src):
-        for name in os.listdir(src):
-            with open(os.path.join(src, name), "rb") as f:
-                save(name, f.read())
+        for dirpath, _, files in os.walk(src):
+            for name in files:
+                full = os.path.join(dirpath, name)
+                with open(full, "rb") as f:
+                    save(os.path.relpath(full, src), f.read())
         print("Spillfilene fra nettside/ er lagt inn")
     if not os.path.exists(os.path.join(SITE, "index.html")):
         sys.exit("Fant ingen nettside å bygge videre på")

@@ -12,16 +12,16 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Dypdykk – hvor dypt kommer du?">
 <meta property="og:description" content="Sju spørsmål med mange riktige svar. Jo sjeldnere svaret ditt er, desto dypere synker du.">
-<meta property="og:image" content="https://dypdykk.netlify.app/og-image.jpg">
-<meta property="og:url" content="https://dypdykk.netlify.app/">
-<link rel="canonical" href="https://dypdykk.netlify.app/">
+<meta property="og:image" content="https://dypdykk.net/og-image.jpg">
+<meta property="og:url" content="https://dypdykk.net/">
+<link rel="canonical" href="https://dypdykk.net/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Dypdykk">
 <meta name="keywords" content="dypdykk, quiz, quizspill, norsk quiz, daglig quiz, sjeldne svar, trivia, Boblebomben">
 <meta property="og:site_name" content="Dypdykk">
 <meta property="og:locale" content="nb_NO">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Dypdykk","alternateName":"Dypdykk quiz","url":"https://dypdykk.netlify.app/","description":"Dypdykk er et gratis norsk quizspill der sjeldne svar tar deg dypere. Sju nye spørsmål hver dag, mange riktige svar.","applicationCategory":"GameApplication","genre":"Quiz","inLanguage":"nb","operatingSystem":"Alle (nettleser)","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"NOK"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Dypdykk","alternateName":"Dypdykk quiz","url":"https://dypdykk.net/","description":"Dypdykk er et gratis norsk quizspill der sjeldne svar tar deg dypere. Sju nye spørsmål hver dag, mange riktige svar.","applicationCategory":"GameApplication","genre":"Quiz","inLanguage":"nb","operatingSystem":"Alle (nettleser)","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"NOK"}}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -2030,6 +2030,113 @@ function netClientGame(){ const v=netView, cur=v.players[v.turn], mine=cur&&cur.
 /* Invitasjonslenke (?bli=KODE) åpner Boblebomben med koden ferdig utfylt */
 if(new URLSearchParams(location.search).get("bli")&&!location.hash) location.hash="boblebomben";
 addEventListener("beforeunload",()=>{ if(NET.peer) NET.close(); });
+
+/* ---------- Konto: logg inn og lagre dykkene dine på tvers av enheter ----------
+   Serveren (netlify/functions/api.mjs) lagrer brukernavn, et kryptert passord og spilldataene dine. Ingen e-post. */
+const AUTH_KEY="dypdykk-auth";
+const SYNC_RE=/^dypdykk-(\d{4}-\d\d-\d\d|arkiv-\d{4}-\d\d-\d\d|stats|buddy|buddies-extra|name|endless-best|venner|settings|pack-[a-z0-9-]+)$/;
+function auth(){ return store.get(AUTH_KEY); }
+function localItems(){ const o={}; try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(SYNC_RE.test(k)) o[k]=store.get(k); } }catch(e){} return o; }
+async function api(path,body,method){ const a=auth(), h={"content-type":"application/json"}; if(a&&a.token) h.authorization="Bearer "+a.token;
+  let r; try{ r=await fetch("/api/"+path,{method:method||(body?"POST":"GET"),headers:h,body:body?JSON.stringify(body):undefined}); }
+  catch(e){ throw new Error("Fikk ikke kontakt med serveren. Sjekk nettet."); }
+  let j={}; try{ j=await r.json(); }catch(e){}
+  if(!r.ok){ if(r.status===401&&a&&path!=="login"){ store.set(AUTH_KEY,null); } throw new Error(j.error||"Noe gikk galt ("+r.status+")"); }
+  return j; }
+// Skriver serverens data inn lokalt. Dykk som bare finnes lokalt, beholdes. Rekken regnes ut på nytt fra datoene.
+function applyItems(items){ for(const [k,v] of Object.entries(items||{})){ if(!SYNC_RE.test(k)) continue;
+    if(/\d{4}-\d\d-\d\d$/.test(k)&&store.get(k)) continue; store.set(k,v); }
+  const days=Object.keys(localItems()).filter(k=>/^dypdykk-\d{4}-\d\d-\d\d$/.test(k)).map(k=>k.slice(8)).sort();
+  if(days.length){ const st=store.get("dypdykk-stats")||{}; let best=0,run=0,prev=null;
+    for(const d of days){ const t=new Date(d+"T12:00:00"); run=(prev&&Math.round((t-prev)/864e5)===1)?run+1:1; best=Math.max(best,run); prev=t; }
+    const last=days[days.length-1], y=new Date(); y.setDate(y.getDate()-1); const yk=y.getFullYear()+"-"+String(y.getMonth()+1).padStart(2,"0")+"-"+String(y.getDate()).padStart(2,"0");
+    st.lastDaily=last; st.streak=(last===todayKey()||last===yk)?run:0; st.bestStreak=Math.max(st.bestStreak||0,best);
+    st.best=Math.max(st.best||0,...days.map(d=>(store.get("dypdykk-"+d)||{}).score||0)); st.played=Math.max(st.played||0,days.length);
+    store.set("dypdykk-stats",st); }
+  if(typeof renderBuddy==="function") renderBuddy(); }
+let _syncT=null, _syncing=false;
+async function syncNow(quiet){ const a=auth(); if(!a||_syncing) return false; _syncing=true;
+  try{ const j=await api("save",{items:localItems()}); applyItems(j.items); a.last=new Date().toISOString(); store.set(AUTH_KEY,a); return true; }
+  catch(e){ if(!quiet) toast(e.message); return false; } finally{ _syncing=false; } }
+function syncSoon(){ clearTimeout(_syncT); _syncT=setTimeout(()=>syncNow(true),800); }
+
+/* Lagre automatisk etter hvert dykk */
+const _finishK=finish; finish=function(){ const r=_finishK.apply(this,arguments); if(auth()) syncSoon(); return r; };
+
+/* Arkivdykk lagres nå med hele dykket, slik at resultatet kan vises igjen senere */
+const _finishA=finish; finish=function(){ const g=game; const r=_finishA.apply(this,arguments);
+  if(g&&g.mode==="archive") store.set("dypdykk-arkiv-"+g.date,{...g}); return r; };
+
+/* ----- Kontosiden ----- */
+PAGES.konto=()=>{ const a=auth();
+  if(a){ const days=Object.keys(localItems()).filter(k=>/^dypdykk-(arkiv-)?\d{4}-\d\d-\d\d$/.test(k)).length;
+    return head("Konto",`Du er logget inn som ${esc(a.user)}. Dykkene dine lagres automatisk, så du kan logge inn på en annen mobil eller PC og fortsette der du slapp.`)+
+    `<div class="panel glass"><h3>Lagret på kontoen</h3><ul class="lb">
+       <li><span class="nm">Bruker</span><span class="sc">${esc(a.user)}</span></li>
+       <li><span class="nm">Dagens dykk og arkivdykk</span><span class="sc">${days}</span></li>
+       <li><span class="nm">Sist lagret</span><span class="sc">${a.last?new Date(a.last).toLocaleString("nb-NO",{dateStyle:"short",timeStyle:"short"}):"–"}</span></li></ul>
+       <div class="btnrow" style="margin-top:14px"><button class="btn btn-primary" id="kSync">Lagre nå</button><button class="btn btn-ghost" id="kRes">Se tidligere resultater</button><button class="btn btn-ghost" id="kOut">Logg ut</button></div>
+       <div id="kMsg" style="min-height:20px;font-size:13px;margin-top:8px;color:var(--cyan)"></div></div>
+     <div class="panel glass"><h3>Slett kontoen</h3><p class="psub" style="font-size:13px;margin:0 0 10px">Sletter brukeren og alt som er lagret på serveren. Resultatene i denne nettleseren blir liggende.</p>
+       <div class="rowf" style="gap:10px"><input class="field" id="kDelPw" type="password" placeholder="Passord" autocomplete="current-password"><button class="btn btn-ghost" id="kDel">Slett</button></div></div></div>`; }
+  return head("Logg inn","Lag en gratis bruker for å lagre dagens dykk, rekker og tidligere resultater – og ta dem med til andre enheter.")+
+   `<div class="party"><div class="panel glass"><h3>Logg inn</h3>
+       <form id="kLogin" autocomplete="on"><input class="field" name="username" id="kU" placeholder="Brukernavn" autocomplete="username" autocapitalize="off" spellcheck="false" style="margin-bottom:10px">
+       <input class="field" id="kP" type="password" placeholder="Passord" autocomplete="current-password" style="margin-bottom:12px">
+       <button class="btn btn-primary" style="width:100%">Logg inn</button></form></div>
+     <div class="panel glass"><h3>Ny bruker</h3>
+       <form id="kReg" autocomplete="on"><input class="field" id="kU2" placeholder="Velg brukernavn (3–20 tegn)" autocomplete="username" autocapitalize="off" spellcheck="false" maxlength="20" style="margin-bottom:10px">
+       <input class="field" id="kP2" type="password" placeholder="Velg passord (minst 6 tegn)" autocomplete="new-password" style="margin-bottom:10px">
+       <input class="field" id="kP3" type="password" placeholder="Gjenta passordet" autocomplete="new-password" style="margin-bottom:12px">
+       <button class="btn btn-primary" style="width:100%">Lag bruker</button></form>
+       <p class="psub" style="font-size:12px;margin:10px 0 0">Vi lagrer ikke e-post. Husk passordet – det kan ikke tilbakestilles. Dykkene du allerede har tatt i denne nettleseren, blir med på kontoen.</p></div>
+     <div class="panel glass full"><div id="kMsg" style="min-height:20px;font-size:14px;color:#ffc2ba"></div></div></div></div>`; };
+PAGE_INIT.konto=()=>{ const msg=(m,ok)=>{ const e=$("kMsg"); if(e){ e.textContent=m; e.style.color=ok?"var(--cyan)":"#ffc2ba"; } };
+  const done=(j,txt)=>{ store.set(AUTH_KEY,{token:j.token,user:j.user,last:new Date().toISOString()}); applyItems(j.items); SFX.bubble(); toast(txt); route(); renderMenu&&renderMenu(); };
+  if($("kLogin")) $("kLogin").onsubmit=async e=>{ e.preventDefault(); msg("Logger inn …",true);
+    try{ done(await api("login",{user:$("kU").value.trim(),pass:$("kP").value,items:localItems()}),"Velkommen tilbake!"); }catch(err){ msg(err.message); } };
+  if($("kReg")) $("kReg").onsubmit=async e=>{ e.preventDefault();
+    if($("kP2").value!==$("kP3").value) return msg("Passordene er ikke like.");
+    msg("Lager bruker …",true);
+    try{ done(await api("register",{user:$("kU2").value.trim(),pass:$("kP2").value,items:localItems()}),"Brukeren er laget!"); }catch(err){ msg(err.message); } };
+  if($("kSync")) $("kSync").onclick=async()=>{ msg("Lagrer …",true); if(await syncNow()){ msg("Lagret!",true); setTimeout(route,600); } else if(!auth()) route(); };
+  if($("kRes")) $("kRes").onclick=()=>{ location.hash="resultater"; };
+  if($("kOut")) $("kOut").onclick=()=>{ store.set(AUTH_KEY,null); toast("Du er logget ut. Resultatene i denne nettleseren blir liggende."); route(); renderMenu&&renderMenu(); };
+  if($("kDel")) $("kDel").onclick=async()=>{ if(!confirm("Slette kontoen og alt som er lagret på serveren?")) return;
+    try{ await api("delete",{pass:$("kDelPw").value}); store.set(AUTH_KEY,null); toast("Kontoen er slettet"); route(); }catch(err){ msg(err.message); } }; };
+
+/* ----- Tidligere resultater ----- */
+function pastResults(){ const out=[]; for(let n=dayNumber();n>=1;n--){ const d=dateOfDay(n), dd=store.get("dypdykk-"+d), ar=store.get("dypdykk-arkiv-"+d);
+  if(dd||ar) out.push({n,d,g:dd||ar,arkiv:!dd}); } return out; }
+function openPast(n){ const d=dateOfDay(n), saved=store.get("dypdykk-"+d)||store.get("dypdykk-arkiv-"+d); if(!saved) return false;
+  location.hash=""; setTimeout(()=>{ try{ game={...saved,mode:saved.mode||(saved.daily?"daily":"archive"),day:saved.day||n,date:d,results:saved.results||[],i:(saved.results||[]).length};
+      if(!game.qs) game.qs=(game.results||[]).map(r=>r.id||r.q); showSummary(true); }catch(e){ toast("Kunne ikke vise dette dykket"); } },50); return true; }
+PAGES.resultater=()=>{ const l=pastResults(), a=auth();
+  const best=l.reduce((m,x)=>Math.max(m,x.g.score||0),0), avg=l.length?l.reduce((s,x)=>s+(x.g.score||0),0)/l.length:0;
+  return head("Tidligere resultater","Alle dagens dykk og arkivdykk du har tatt. Trykk på et dykk for å se svarene og dykkeloggen.")+
+   (a?"":`<div class="banner" style="margin-bottom:14px">Logg inn for å lagre resultatene og se dem på andre enheter. <a href="#konto" style="color:var(--cyan);margin-left:6px">Logg inn →</a></div>`)+
+   `<div class="panel glass"><h3>Oppsummert</h3><div class="records"><div><b>${l.length}</b><span>Dykk</span></div><div><b>${fmt(best)}</b><span>Beste poeng</span></div><div><b>${fmt(avg)}</b><span>Snitt</span></div></div></div>
+    <div class="panel glass"><h3>Dykk for dykk</h3>${l.length?`<ul class="lb">${l.map(x=>`<li style="cursor:pointer" data-past="${x.n}"><span class="pos">${x.n}</span><span class="nm">${new Date(x.d+"T12:00:00").toLocaleDateString("nb-NO",{weekday:"short",day:"numeric",month:"short"})}${x.arkiv?' <small style="color:var(--muted)">arkiv</small>':""}</span><span class="sc">${fmt(x.g.score||0)} p</span><span class="sc" style="color:var(--muted)">›</span></li>`).join("")}</ul>`:'<p class="psub" style="margin:0">Ingen dykk ennå. Ta dagens dykk!</p>'}</div></div>`; };
+PAGE_INIT.resultater=()=>{ $("page").querySelectorAll("[data-past]").forEach(li=>li.onclick=()=>openPast(+li.dataset.past)); };
+
+/* Arkiv: et dykk du har tatt, åpnes som resultat i stedet for å starte på nytt */
+const _arkivInit=PAGE_INIT.arkiv;
+PAGE_INIT.arkiv=()=>{ _arkivInit(); $("page").querySelectorAll("[data-day]").forEach(b=>{ const n=+b.dataset.day, d=dateOfDay(n);
+  if(n!==dayNumber()&&(store.get("dypdykk-"+d)||store.get("dypdykk-arkiv-"+d))) b.onclick=()=>openPast(n); }); };
+
+/* Mitt Dypdykk: kontopanelet blir ekte */
+const _profileK=PAGES["mitt-dypdykk"];
+PAGES["mitt-dypdykk"]=()=>{ const a=auth(); return _profileK().replace(/<div class="panel glass"><h3>Konto[\s\S]*?<\/button><\/div>/,
+  `<div class="panel glass"><h3>Konto</h3><p class="psub" style="font-size:13.5px;margin:0 0 12px">${a?`Logget inn som <b>${esc(a.user)}</b>. Dykkene dine lagres automatisk.`:"Logg inn for å lagre dykkene dine og ta dem med mellom mobil og PC."}</p>
+   <div class="btnrow"><a class="btn btn-primary" href="#konto" style="text-decoration:none">${a?"Konto":"Logg inn / lag bruker"}</a><a class="btn btn-ghost" href="#resultater" style="text-decoration:none">Tidligere resultater</a></div></div>`); };
+
+/* Menyen: konto og tidligere resultater */
+const _renderMenuK=renderMenu;
+renderMenu=function(){ _renderMenuK(); const a=auth(), links=$("menu").querySelector(".mlinks"); if(!links) return;
+  links.insertAdjacentHTML("afterbegin",`<button data-go="konto">${UI.user}<span>${a?esc(a.user):"Logg inn"}<small>${a?"Dykkene dine lagres":"Lagre dykk og se tidligere resultater"}</small></span></button>
+    <button data-go="resultater">${UI.archive}<span>Tidligere resultater<small>Alle dykkene dine</small></span></button>`);
+  links.querySelectorAll('[data-go="konto"],[data-go="resultater"]').forEach(b=>b.onclick=()=>{ closeMenu(); go(b.dataset.go); }); };
+if(auth()) setTimeout(()=>syncNow(true),1500);
 
 startScreen(); route();
 </script>
