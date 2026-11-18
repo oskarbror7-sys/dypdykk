@@ -1,0 +1,14 @@
+{
+ "add": [
+  {
+   "id": "manuell:rde-stjerne-beograd",
+   "label": "Røde Stjerne Beograd",
+   "aliases": [
+    "Røde Stjerne",
+    "Crvena zvezda",
+    "Red Star Belgrade"
+   ],
+   "tier": 3
+  }
+ ]
+}

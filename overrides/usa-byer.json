@@ -1,4 +1,17 @@
 {
- "remove_labels": ["Toronto", "Vancouver", "Montreal", "Mexico"],
- "_note": "Småsteder i USA med navn på kjente utenlandske storbyer gir ellers Kjempeblekksprut for et feil svar. Fullt navn (f.eks. «Toronto, Ohio») godtas fortsatt."
+ "remove_labels": [
+  "Mexico",
+  "Montreal",
+  "Toronto",
+  "Vancouver"
+ ],
+ "_note": "Småsteder i USA med navn på kjente utenlandske storbyer gir ellers Kjempeblekksprut for et feil svar. Fullt navn (f.eks. «Toronto, Ohio») godtas fortsatt.",
+ "add": [
+  {
+   "id": "manuell:baltimore",
+   "label": "Baltimore",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
 }

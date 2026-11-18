@@ -33,5 +33,25 @@
   "Assembler": 5,
   "TeX": 5,
   "SPARQL": 5
- }
+ },
+ "add": [
+  {
+   "id": "manuell:tegnsprak",
+   "label": "Tegnspråk",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:norsk-tegnsprak",
+   "label": "Norsk tegnspråk",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:bosnisk",
+   "label": "Bosnisk",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
 }

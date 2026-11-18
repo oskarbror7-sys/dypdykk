@@ -1,0 +1,136 @@
+{
+ "alias_labels": {
+  "Lightning McQueen": [
+   "Lynet McQueen",
+   "McQueen"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:bill",
+   "label": "Bill",
+   "aliases": [
+    "Mater",
+    "Slepebilen Bill"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:eve",
+   "label": "EVE",
+   "aliases": [
+    "Eva"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:russell",
+   "label": "Russell",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:glede",
+   "label": "Glede",
+   "aliases": [
+    "Joy"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:tristhet",
+   "label": "Tristhet",
+   "aliases": [
+    "Sadness"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:sinne",
+   "label": "Sinne",
+   "aliases": [
+    "Anger"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:avsky",
+   "label": "Avsky",
+   "aliases": [
+    "Disgust"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:frykt",
+   "label": "Frykt",
+   "aliases": [
+    "Fear"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:bing-bong",
+   "label": "Bing Bong",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:miguel",
+   "label": "Miguel",
+   "aliases": [
+    "Miguel Rivera"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:hector",
+   "label": "Hector",
+   "aliases": [
+    "Héctor"
+   ],
+   "tier": 3
+  },
+  {
+   "id": "manuell:mr-utrolig",
+   "label": "Mr. Utrolig",
+   "aliases": [
+    "Mr. Incredible",
+    "Bob Parr"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:elastijenta",
+   "label": "Elastijenta",
+   "aliases": [
+    "Elastigirl",
+    "Helen Parr"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:potetmannen",
+   "label": "Potetmannen",
+   "aliases": [
+    "Mr. Potato Head",
+    "Herr Potet"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:luca",
+   "label": "Luca",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:mei",
+   "label": "Mei",
+   "aliases": [
+    "Mei Lee"
+   ],
+   "tier": 3
+  }
+ ]
+}

@@ -1,0 +1,33 @@
+{
+ "alias_labels": {
+  "Tyrkisk lira": [
+   "Lira"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:ethereum",
+   "label": "Ethereum",
+   "aliases": [
+    "Ether"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:drakme",
+   "label": "Drakme",
+   "aliases": [
+    "Gresk drakme"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:spesidaler",
+   "label": "Spesidaler",
+   "aliases": [
+    "Speciedaler"
+   ],
+   "tier": 3
+  }
+ ]
+}

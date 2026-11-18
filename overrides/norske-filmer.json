@@ -1,1 +1,32 @@
-{"add": [{"id": "manuell:flaklypa", "label": "Flåklypa Grand Prix", "aliases": ["Flåklypa"], "tier": 0}], "_note": "Animasjonsfilmen har en annen type i Wikidata"}
+{
+ "add": [
+  {
+   "id": "manuell:flaklypa",
+   "label": "Flåklypa Grand Prix",
+   "aliases": [
+    "Flåklypa"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:jul-i-blafjell",
+   "label": "Jul i Blåfjell",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:karsten-og-petra",
+   "label": "Karsten og Petra",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:kaptein-sabeltann",
+   "label": "Kaptein Sabeltann",
+   "aliases": [],
+   "tier": 1
+  }
+ ],
+ "_note": "Animasjonsfilmen har en annen type i Wikidata",
+ "min_count_after_cleanup": 1150
+}

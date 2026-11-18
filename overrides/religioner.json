@@ -1,0 +1,64 @@
+{
+ "remove_labels": [
+  "Ekstase",
+  "Indian religions",
+  "Shamballa",
+  "Tawhid",
+  "Yijing"
+ ],
+ "relabel": {
+  "Historical Vedic religion": "Vedisk religion"
+ },
+ "add": [
+  {
+   "id": "manuell:norrn-religion",
+   "label": "Norrøn religion",
+   "aliases": [
+    "Norrøn mytologi",
+    "Åsatro"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:satanisme",
+   "label": "Satanisme",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:scientologi",
+   "label": "Scientologi",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:jehovas-vitner",
+   "label": "Jehovas vitner",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:katolisisme",
+   "label": "Katolisisme",
+   "aliases": [
+    "Den katolske kirke",
+    "Katolsk"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:ortodoks-kristendom",
+   "label": "Ortodoks kristendom",
+   "aliases": [
+    "Den ortodokse kirke"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:sjamanisme",
+   "label": "Sjamanisme",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
+}

@@ -1,1 +1,36 @@
-{"reject_alias": ["Oslo", "Norge"], "_note": "Kortformen «Oslo» fra småklubber skal ikke godtas som klubbnavn"}
+{
+ "reject_alias": [
+  "Oslo",
+  "Norge"
+ ],
+ "_note": "Kortformen «Oslo» fra småklubber skal ikke godtas som klubbnavn",
+ "alias_labels": {
+  "Fotballklubben Bodø/Glimt": [
+   "Glimt",
+   "Bodø Glimt"
+  ],
+  "Odds Ballklubb": [
+   "Odd",
+   "Odd BK"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:egersunds-ik",
+   "label": "Egersunds IK",
+   "aliases": [
+    "Egersund",
+    "EIK"
+   ],
+   "tier": 3
+  },
+  {
+   "id": "manuell:il-hdd",
+   "label": "IL Hødd",
+   "aliases": [
+    "Hødd"
+   ],
+   "tier": 3
+  }
+ ]
+}

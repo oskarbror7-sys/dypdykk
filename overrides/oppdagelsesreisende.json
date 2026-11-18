@@ -1,0 +1,44 @@
+{
+ "remove_labels": [
+  "John Hurt"
+ ],
+ "tier_labels": {
+  "Richard Trevithick": 5
+ },
+ "add": [
+  {
+   "id": "manuell:fridtjof-nansen",
+   "label": "Fridtjof Nansen",
+   "aliases": [
+    "Nansen"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:brge-ousland",
+   "label": "Børge Ousland",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:otto-sverdrup",
+   "label": "Otto Sverdrup",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:francisco-pizarro",
+   "label": "Francisco Pizarro",
+   "aliases": [
+    "Pizarro"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:cecilie-skog",
+   "label": "Cecilie Skog",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
+}

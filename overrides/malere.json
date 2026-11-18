@@ -2,6 +2,16 @@
  "tier_labels": {
   "Walt Disney": 4,
   "Sarah Bernhardt": 4,
-  "Rabindranath Tagore": 3
- }
+  "Rabindranath Tagore": 3,
+  "Carl Gustav Jung": 5,
+  "David Lynch": 5
+ },
+ "add": [
+  {
+   "id": "manuell:kjell-aukrust",
+   "label": "Kjell Aukrust",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
 }

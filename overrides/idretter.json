@@ -17,5 +17,58 @@
    "Skøyter",
    "Skøyteløp"
   ]
- }
+ },
+ "add": [
+  {
+   "id": "manuell:amerikansk-fotball",
+   "label": "Amerikansk fotball",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:baseball",
+   "label": "Baseball",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:formel-1",
+   "label": "Formel 1",
+   "aliases": [
+    "F1",
+    "Formula 1"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:dans",
+   "label": "Dans",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:ridning",
+   "label": "Ridning",
+   "aliases": [
+    "Ridesport",
+    "Hestesport"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:dart",
+   "label": "Dart",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:biljard",
+   "label": "Biljard",
+   "aliases": [
+    "Snooker",
+    "Pool"
+   ],
+   "tier": 2
+  }
+ ]
 }

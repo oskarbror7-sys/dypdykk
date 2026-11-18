@@ -1,0 +1,26 @@
+{
+ "alias_labels": {
+  "Yellowstone-vulkanen": [
+   "Yellowstone"
+  ],
+  "Mount Erebus": [
+   "Erebus"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:olympus-mons",
+   "label": "Olympus Mons",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:santorini",
+   "label": "Santorini",
+   "aliases": [
+    "Thera"
+   ],
+   "tier": 2
+  }
+ ]
+}

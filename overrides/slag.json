@@ -1,0 +1,79 @@
+{
+ "relabel": {
+  "Fall of Constantinople": "Konstantinopels fall",
+  "Normandy landings": "Landgangen i Normandie",
+  "Battle of Ankara": "Slaget ved Ankara",
+  "Battle of Tannenberg": "Slaget ved Tannenberg"
+ },
+ "add": [
+  {
+   "id": "manuell:slaget-i-hafrsfjord",
+   "label": "Slaget i Hafrsfjord",
+   "aliases": [
+    "Slaget ved Hafrsfjord"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:slaget-om-midway",
+   "label": "Slaget om Midway",
+   "aliases": [
+    "Slaget ved Midway"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:d-dagen",
+   "label": "D-dagen",
+   "aliases": [
+    "Landgangen i Normandie",
+    "Slaget om Normandie",
+    "Invasjonen av Normandie"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:slaget-om-england",
+   "label": "Slaget om England",
+   "aliases": [
+    "Slaget om Storbritannia"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:slaget-ved-trafalgar",
+   "label": "Slaget ved Trafalgar",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:slaget-ved-lepanto",
+   "label": "Slaget ved Lepanto",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:ardenneroffensiven",
+   "label": "Ardenneroffensiven",
+   "aliases": [
+    "Slaget om Ardennene"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:slaget-ved-svolder",
+   "label": "Slaget ved Svolder",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:senkingen-av-blucher",
+   "label": "Senkingen av Blücher",
+   "aliases": [
+    "Slaget i Drøbaksundet",
+    "Blücher"
+   ],
+   "tier": 2
+  }
+ ]
+}

@@ -1,0 +1,112 @@
+{
+ "alias_labels": {
+  "Den tyske ordens slott i Malbork": [
+   "Malbork",
+   "Marienburg"
+  ],
+  "Borgen i Praha": [
+   "Praha borg",
+   "Pražský hrad"
+  ],
+  "Himejiborgen": [
+   "Himeji"
+  ],
+  "Frederiksborg slott": [
+   "Frederiksborg"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:det-kongelige-slott",
+   "label": "Det kongelige slott",
+   "aliases": [
+    "Slottet",
+    "Slottet i Oslo",
+    "Kongens slott"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:oscarshall",
+   "label": "Oscarshall",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:stiftsgarden",
+   "label": "Stiftsgården",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:skaugum",
+   "label": "Skaugum",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:bygd-kongsgard",
+   "label": "Bygdø kongsgård",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:gamlehaugen",
+   "label": "Gamlehaugen",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:austratt",
+   "label": "Austrått",
+   "aliases": [
+    "Austråttborgen"
+   ],
+   "tier": 4
+  },
+  {
+   "id": "manuell:baroniet-rosendal",
+   "label": "Baroniet Rosendal",
+   "aliases": [
+    "Rosendal"
+   ],
+   "tier": 3
+  },
+  {
+   "id": "manuell:buckingham-palace",
+   "label": "Buckingham Palace",
+   "aliases": [
+    "Buckingham"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:amalienborg",
+   "label": "Amalienborg",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:drottningholm",
+   "label": "Drottningholm",
+   "aliases": [
+    "Drottningholm slott"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:alhambra",
+   "label": "Alhambra",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:kreml",
+   "label": "Kreml",
+   "aliases": [
+    "Kremlin"
+   ],
+   "tier": 1
+  }
+ ]
+}

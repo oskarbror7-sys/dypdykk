@@ -1,1 +1,85 @@
-{"remove_labels": ["Titanic"], "_note": "Miniserien Titanic (2012) ville gi poeng for en åpenbar film"}
+{
+ "remove_labels": [
+  "Titanic"
+ ],
+ "_note": "Miniserien Titanic (2012) ville gi poeng for en åpenbar film",
+ "relabel": {
+  "Liv og Maddie": "Liv and Maddie"
+ },
+ "add": [
+  {
+   "id": "manuell:venner",
+   "label": "Venner",
+   "aliases": [
+    "Friends"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:the-simpsons",
+   "label": "The Simpsons",
+   "aliases": [
+    "Simpsons",
+    "Simpsons-familien"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:paw-patrol",
+   "label": "Paw Patrol",
+   "aliases": [
+    "Paw Patrol: Valpepatruljen"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:peppa-gris",
+   "label": "Peppa Gris",
+   "aliases": [
+    "Peppa Pig"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:ninjago",
+   "label": "Ninjago",
+   "aliases": [
+    "Lego Ninjago"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:svampebob-firkant",
+   "label": "SvampeBob Firkant",
+   "aliases": [
+    "Svampebob",
+    "SpongeBob"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:family-guy",
+   "label": "Family Guy",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:south-park",
+   "label": "South Park",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:rick-and-morty",
+   "label": "Rick and Morty",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:chernobyl",
+   "label": "Chernobyl",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
+}

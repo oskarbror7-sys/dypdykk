@@ -1,0 +1,19 @@
+{
+ "tier_labels": {
+  "Coritiba": 5,
+  "FK Riteriai": 5,
+  "FK Banga": 5,
+  "FC Hegelmann": 5,
+  "DFK Dainava": 5,
+  "FA Šiauliai": 5,
+  "FC Džiugas": 5,
+  "Nea Salamis": 5,
+  "Coritiba Foot Ball Club": 5,
+  "FC Hegelmann Litauen": 5,
+  "Nea Salamis Famagusta FC": 5
+ },
+ "relabel": {
+  "Coritiba Foot Ball Club": "Coritiba",
+  "Nea Salamis Famagusta FC": "Nea Salamis"
+ }
+}

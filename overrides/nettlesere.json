@@ -1,2 +1,34 @@
-{"label": {"Q41242": "Opera", "Q22906900": "Brave", "Q207872": "Lynx"},
- "aliases": {"Q41242": ["Nettleseren Opera", "Opera browser"], "Q22906900": ["Brave browser"], "Q207872": ["Lynx browser"]}}
+{
+ "label": {
+  "Q41242": "Opera",
+  "Q22906900": "Brave",
+  "Q207872": "Lynx"
+ },
+ "aliases": {
+  "Q41242": [
+   "Nettleseren Opera",
+   "Opera browser"
+  ],
+  "Q22906900": [
+   "Brave browser"
+  ],
+  "Q207872": [
+   "Lynx browser"
+  ]
+ },
+ "remove_labels": [
+  "Huggle"
+ ],
+ "tier_labels": {
+  "Tor Browser": 2,
+  "DuckDuckGo Private Browser": 2
+ },
+ "alias_labels": {
+  "Tor Browser": [
+   "Tor"
+  ],
+  "DuckDuckGo Private Browser": [
+   "DuckDuckGo"
+  ]
+ }
+}

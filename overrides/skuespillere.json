@@ -1,0 +1,27 @@
+{
+ "tier_labels": {
+  "Donald Trump": 5,
+  "Salvador Dalí": 5,
+  "Pelé": 5,
+  "Diego Maradona": 5,
+  "Eminem": 5,
+  "Stephen King": 5,
+  "Serena Williams": 5
+ },
+ "add": [
+  {
+   "id": "manuell:zendaya",
+   "label": "Zendaya",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:sylvester-stallone",
+   "label": "Sylvester Stallone",
+   "aliases": [
+    "Stallone"
+   ],
+   "tier": 0
+  }
+ ]
+}

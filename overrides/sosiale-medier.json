@@ -3,22 +3,144 @@
   "Nettstaden X": "X",
   "The Internet Movie Database": "IMDb"
  },
- "aliases": {},
  "remove_labels": [
-  "IMDb",
-  "The Internet Movie Database",
-  "Discogs",
-  "MusicBrainz",
-  "MobyGames",
-  "MyHeritage",
-  "Geni.com",
   "Alumniportal Deutschland",
-  "Hyphanet"
+  "Discogs",
+  "Geni.com",
+  "Hyphanet",
+  "IMDb",
+  "MobyGames",
+  "MusicBrainz",
+  "MyHeritage",
+  "The Internet Movie Database"
  ],
  "tier_labels": {
   "GitHub": 3,
   "Last.fm": 3,
   "ResearchGate": 4,
   "Academia.edu": 4
- }
+ },
+ "add": [
+  {
+   "id": "manuell:x",
+   "label": "X",
+   "aliases": [
+    "Twitter",
+    "X (Twitter)"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:youtube",
+   "label": "YouTube",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:discord",
+   "label": "Discord",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:twitch",
+   "label": "Twitch",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:whatsapp",
+   "label": "WhatsApp",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:messenger",
+   "label": "Messenger",
+   "aliases": [
+    "Facebook Messenger"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:telegram",
+   "label": "Telegram",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:kik",
+   "label": "Kik",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:mastodon",
+   "label": "Mastodon",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:clubhouse",
+   "label": "Clubhouse",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:vine",
+   "label": "Vine",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:flickr",
+   "label": "Flickr",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:nettby",
+   "label": "Nettby",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:biip",
+   "label": "Biip",
+   "aliases": [
+    "Biip.no"
+   ],
+   "tier": 4
+  },
+  {
+   "id": "manuell:signal",
+   "label": "Signal",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:skype",
+   "label": "Skype",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:viber",
+   "label": "Viber",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:quora",
+   "label": "Quora",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:strava",
+   "label": "Strava",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
 }

@@ -1,0 +1,66 @@
+{
+ "tier_labels": {
+  "Guam": 3,
+  "Montserrat": 3,
+  "Christmasøya": 3
+ },
+ "add": [
+  {
+   "id": "manuell:honshu",
+   "label": "Honshu",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:jamaica",
+   "label": "Jamaica",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:hawaii",
+   "label": "Hawaii",
+   "aliases": [
+    "Big Island",
+    "Hawaiʻi"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:korsika",
+   "label": "Korsika",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:tenerife",
+   "label": "Tenerife",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:madeira",
+   "label": "Madeira",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:fryene",
+   "label": "Færøyene",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:aland",
+   "label": "Åland",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:manhattan",
+   "label": "Manhattan",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
+}

@@ -1,0 +1,122 @@
+{
+ "remove_labels": [
+  "Thelo Aasgaard"
+ ],
+ "alias_labels": {
+  "Chirag Patel": [
+   "Chirag"
+  ],
+  "Magdi Omar Ytreeide Abdelmaguid": [
+   "Magdi"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:karpe",
+   "label": "Karpe",
+   "aliases": [
+    "Karpe Diem"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:tix",
+   "label": "Tix",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:ballinciaga",
+   "label": "Ballinciaga",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:pumba",
+   "label": "Pumba",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:onklp",
+   "label": "OnklP",
+   "aliases": [
+    "Onkl P",
+    "OnklP & De Fjerne Slektningene"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:jaa9-onklp",
+   "label": "Jaa9 & OnklP",
+   "aliases": [
+    "Jaa9 og OnklP"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:sirkus-eliassen",
+   "label": "Sirkus Eliassen",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:erik-og-kriss",
+   "label": "Erik og Kriss",
+   "aliases": [
+    "Erik & Kriss"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:sinsen",
+   "label": "Sinsen",
+   "aliases": [],
+   "tier": 4
+  },
+  {
+   "id": "manuell:tungtvann",
+   "label": "Tungtvann",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:gatas-parlament",
+   "label": "Gatas Parlament",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:madcon",
+   "label": "Madcon",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:nico-vinz",
+   "label": "Nico & Vinz",
+   "aliases": [
+    "Nico og Vinz"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:lyrical-mind",
+   "label": "Lyrical Mind",
+   "aliases": [],
+   "tier": 4
+  },
+  {
+   "id": "manuell:jaa9",
+   "label": "Jaa9",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:vinni",
+   "label": "Vinni",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
+}

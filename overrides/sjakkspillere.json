@@ -1,2 +1,24 @@
-{"tier": {"Q36591": 5, "Q5912": 5, "Q76334": 5, "Q172684": 5, "Q166663": 5, "Q3022141": 5, "Q109067": 5, "Q164582": 5, "Q435699": 5, "Q229566": 5, "Q2444534": 5, "Q313594": 4},
- "_note": "Kjente for noe annet enn sjakk (Nabokov, Duchamp, Boris Becker m.fl.) – gyldige, men sjeldne svar"}
+{
+ "tier": {
+  "Q36591": 5,
+  "Q5912": 5,
+  "Q76334": 5,
+  "Q172684": 5,
+  "Q166663": 5,
+  "Q3022141": 5,
+  "Q109067": 5,
+  "Q164582": 5,
+  "Q435699": 5,
+  "Q229566": 5,
+  "Q2444534": 5,
+  "Q313594": 4
+ },
+ "_note": "Kjente for noe annet enn sjakk (Nabokov, Duchamp, Boris Becker m.fl.) – gyldige, men sjeldne svar",
+ "alias_labels": {
+  "Jan Nepomnjasjtsji": [
+   "Ian Nepomnjasjtsji",
+   "Ian Nepomniachtchi",
+   "Nepo"
+  ]
+ }
+}

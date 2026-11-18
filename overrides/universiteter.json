@@ -1,0 +1,54 @@
+{
+ "tier_labels": {
+  "Università degli Studi Niccolò Cusano": 5
+ },
+ "add": [
+  {
+   "id": "manuell:oslomet",
+   "label": "OsloMet",
+   "aliases": [
+    "OsloMet – storbyuniversitetet"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:nord-universitet",
+   "label": "Nord universitet",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:handelshyskolen-bi",
+   "label": "Handelshøyskolen BI",
+   "aliases": [
+    "BI",
+    "BI Norwegian Business School"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:norges-handelshyskole",
+   "label": "Norges Handelshøyskole",
+   "aliases": [
+    "NHH"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:kbenhavns-universitet",
+   "label": "Københavns Universitet",
+   "aliases": [
+    "University of Copenhagen"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:london-school-of-economics",
+   "label": "London School of Economics",
+   "aliases": [
+    "LSE"
+   ],
+   "tier": 2
+  }
+ ]
+}

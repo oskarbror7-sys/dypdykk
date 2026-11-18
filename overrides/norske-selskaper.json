@@ -1,0 +1,62 @@
+{
+ "tier_labels": {
+  "UNIS": 4,
+  "Bellona": 4,
+  "Euronext": 4,
+  "Universitetssenteret på Svalbard": 4
+ },
+ "add": [
+  {
+   "id": "manuell:norwegian-air-shuttle",
+   "label": "Norwegian Air Shuttle",
+   "aliases": [
+    "Norwegian"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:widere",
+   "label": "Widerøe",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:coop",
+   "label": "Coop",
+   "aliases": [
+    "Coop Norge"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:elkjp",
+   "label": "Elkjøp",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:freia",
+   "label": "Freia",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:gjensidige",
+   "label": "Gjensidige",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:ringnes",
+   "label": "Ringnes",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:stabburet",
+   "label": "Stabburet",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+{
+ "add": [
+  {
+   "id": "manuell:stavanger",
+   "label": "Stavanger",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
+}

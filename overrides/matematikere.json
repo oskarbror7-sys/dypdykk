@@ -1,0 +1,16 @@
+{
+ "tier_labels": {
+  "Leo XIV": 5,
+  "Thomas Carlyle": 5
+ },
+ "add": [
+  {
+   "id": "manuell:alan-turing",
+   "label": "Alan Turing",
+   "aliases": [
+    "Turing"
+   ],
+   "tier": 1
+  }
+ ]
+}

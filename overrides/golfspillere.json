@@ -1,0 +1,25 @@
+{
+ "tier_labels": {
+  "Jevgenij Kafelnikov": 5,
+  "Rodolphe Seeldrayers": 5,
+  "Álvar Núñez Cabeza de Vaca": 5,
+  "Sven Tumba": 5,
+  "Veikko Kankkonen": 5,
+  "Charles B. Cory": 5,
+  "Alfonso Cabeza de Vaca y Leighton": 5
+ },
+ "add": [
+  {
+   "id": "manuell:kristian-krogh-johannessen",
+   "label": "Kristian Krogh Johannessen",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:kristoffer-ventura",
+   "label": "Kristoffer Ventura",
+   "aliases": [],
+   "tier": 4
+  }
+ ]
+}

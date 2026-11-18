@@ -8,5 +8,19 @@
    ],
    "tier": 1
   }
- ]
+ ],
+ "tier_labels": {
+  "Charlie Chaplin": 5,
+  "Marilyn Monroe": 5,
+  "Corbin Bleu": 5,
+  "Scarlett Johansson": 5,
+  "Brigitte Bardot": 5,
+  "Maya Angelou": 5,
+  "David Lynch": 5,
+  "Christopher Plummer": 5,
+  "Lauren Bacall": 5,
+  "John Goodman": 5,
+  "Hebe Camargo": 5,
+  "Mark Wahlberg": 5
+ }
 }

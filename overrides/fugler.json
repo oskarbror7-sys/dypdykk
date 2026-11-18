@@ -166,6 +166,52 @@
     "Ryper"
    ],
    "tier": 0
+  },
+  {
+   "id": "manuell:pafugl",
+   "label": "Påfugl",
+   "aliases": [
+    "Påfugler"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:hauk",
+   "label": "Hauk",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:kondor",
+   "label": "Kondor",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:albatross",
+   "label": "Albatross",
+   "aliases": [
+    "Albatros"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:tukan",
+   "label": "Tukan",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:kiwi",
+   "label": "Kiwi",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:kakadue",
+   "label": "Kakadue",
+   "aliases": [],
+   "tier": 1
   }
  ],
  "_note": "Spillere svarer ofte med fuglegrupper («pingvin», «ørn»), som ikke er arter i Wikidata"

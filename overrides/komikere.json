@@ -1,0 +1,42 @@
+{
+ "tier_labels": {
+  "Bing Crosby": 5,
+  "Jon Voight": 5,
+  "Michael Clarke Duncan": 5,
+  "John de Lancie": 5
+ },
+ "add": [
+  {
+   "id": "manuell:jerry-seinfeld",
+   "label": "Jerry Seinfeld",
+   "aliases": [
+    "Seinfeld"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:john-mulaney",
+   "label": "John Mulaney",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:bard-tufte-johansen",
+   "label": "Bård Tufte Johansen",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:herman-flesvig",
+   "label": "Herman Flesvig",
+   "aliases": [],
+   "tier": 4
+  },
+  {
+   "id": "manuell:martin-lepperd",
+   "label": "Martin Lepperød",
+   "aliases": [],
+   "tier": 5
+  }
+ ]
+}

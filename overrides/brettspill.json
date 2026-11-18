@@ -1,0 +1,103 @@
+{
+ "remove_labels": [
+  "Fjernsjakk"
+ ],
+ "add": [
+  {
+   "id": "manuell:yatzy",
+   "label": "Yatzy",
+   "aliases": [
+    "Yahtzee"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:scrabble",
+   "label": "Scrabble",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:go",
+   "label": "Go",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:carcassonne",
+   "label": "Carcassonne",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:fire-pa-rad",
+   "label": "Fire på rad",
+   "aliases": [
+    "4 på rad"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:stiger-og-slanger",
+   "label": "Stiger og slanger",
+   "aliases": [
+    "Slangespill",
+    "Slanger og stiger"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:othello",
+   "label": "Othello",
+   "aliases": [
+    "Reversi"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:alfapet",
+   "label": "Alfapet",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:afrikas-stjerne",
+   "label": "Afrikas stjerne",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:partners",
+   "label": "Partners",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:dixit",
+   "label": "Dixit",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:azul",
+   "label": "Azul",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:hint",
+   "label": "Hint",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:senke-slagskip",
+   "label": "Senke slagskip",
+   "aliases": [
+    "Slagskip",
+    "Battleship"
+   ],
+   "tier": 2
+  }
+ ]
+}

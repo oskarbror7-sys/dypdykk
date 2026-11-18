@@ -1,0 +1,45 @@
+{
+ "tier_labels": {
+  "Thomas Edison": 0,
+  "Albert Einstein": 2,
+  "Hypatia": 4
+ },
+ "add": [
+  {
+   "id": "manuell:benjamin-franklin",
+   "label": "Benjamin Franklin",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:isaac-newton",
+   "label": "Isaac Newton",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:ole-evinrude",
+   "label": "Ole Evinrude",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:erik-rotheim",
+   "label": "Erik Rotheim",
+   "aliases": [],
+   "tier": 4
+  },
+  {
+   "id": "manuell:kristian-birkeland",
+   "label": "Kristian Birkeland",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:louis-pasteur",
+   "label": "Louis Pasteur",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
+}

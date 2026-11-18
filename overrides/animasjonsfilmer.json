@@ -1,0 +1,37 @@
+{
+ "relabel": {
+  "1992-filmen Aladdin": "Aladdin"
+ },
+ "alias_labels": {
+  "To på rømmen": [
+   "Rapunzel",
+   "Tangled"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:chihiro-og-heksene",
+   "label": "Chihiro og heksene",
+   "aliases": [
+    "Spirited Away"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:min-nabo-totoro",
+   "label": "Min nabo Totoro",
+   "aliases": [
+    "My Neighbor Totoro"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:flaklypa-grand-prix",
+   "label": "Flåklypa Grand Prix",
+   "aliases": [
+    "Flåklypa"
+   ],
+   "tier": 1
+  }
+ ]
+}

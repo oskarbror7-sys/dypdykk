@@ -1,0 +1,17 @@
+{
+ "tier_labels": {
+  "Charlie Chaplin": 5,
+  "Martin Luther": 5,
+  "Rabindranath Tagore": 5,
+  "Shakira": 5,
+  "Basshunter": 5
+ },
+ "add": [
+  {
+   "id": "manuell:arne-nordheim",
+   "label": "Arne Nordheim",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
+}

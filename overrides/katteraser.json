@@ -1,0 +1,12 @@
+{
+ "add": [
+  {
+   "id": "manuell:bondekatt",
+   "label": "Bondekatt",
+   "aliases": [
+    "Huskatt"
+   ],
+   "tier": 1
+  }
+ ]
+}

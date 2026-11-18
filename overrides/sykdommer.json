@@ -1,0 +1,58 @@
+{
+ "add": [
+  {
+   "id": "manuell:autisme",
+   "label": "Autisme",
+   "aliases": [
+    "Autismespekterforstyrrelse"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:hjerneslag",
+   "label": "Hjerneslag",
+   "aliases": [
+    "Slag",
+    "Slagtilfelle"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:hiv",
+   "label": "HIV",
+   "aliases": [
+    "Hiv"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:meslinger",
+   "label": "Meslinger",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:svartedauden",
+   "label": "Svartedauden",
+   "aliases": [
+    "Pesten"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:gikt",
+   "label": "Gikt",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:omgangssyke",
+   "label": "Omgangssyke",
+   "aliases": [
+    "Norovirus",
+    "Mageinfluensa"
+   ],
+   "tier": 1
+  }
+ ]
+}

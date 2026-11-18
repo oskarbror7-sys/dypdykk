@@ -1,0 +1,19 @@
+{
+ "tier_labels": {
+  "Mark Wahlberg": 5,
+  "John Cena": 5,
+  "Shaquille O'Neal": 5,
+  "Carmen Electra": 5,
+  "Anthony Kiedis": 5
+ },
+ "add": [
+  {
+   "id": "manuell:karpe",
+   "label": "Karpe",
+   "aliases": [
+    "Karpe Diem"
+   ],
+   "tier": 1
+  }
+ ]
+}

@@ -1,0 +1,64 @@
+{
+ "add": [
+  {
+   "id": "manuell:oslo-domkirke",
+   "label": "Oslo domkirke",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:stavanger-domkirke",
+   "label": "Stavanger domkirke",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:borgund-stavkirke",
+   "label": "Borgund stavkirke",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:heddal-stavkirke",
+   "label": "Heddal stavkirke",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:fantoft-stavkirke",
+   "label": "Fantoft stavkirke",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:gol-stavkirke",
+   "label": "Gol stavkirke",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:ringebu-stavkirke",
+   "label": "Ringebu stavkirke",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:lom-stavkirke",
+   "label": "Lom stavkirke",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:kristiansand-domkirke",
+   "label": "Kristiansand domkirke",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:bod-domkirke",
+   "label": "Bodø domkirke",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
+}

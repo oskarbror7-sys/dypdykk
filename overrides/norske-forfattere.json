@@ -6,5 +6,9 @@
    "aliases": [],
    "tier": 2
   }
- ]
+ ],
+ "tier_labels": {
+  "Kurt Schwitters": 5,
+  "Roald Dahl": 5
+ }
 }

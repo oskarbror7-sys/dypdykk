@@ -1,0 +1,20 @@
+{
+ "alias_labels": {
+  "Sonoraørkenen": [
+   "Sonora"
+  ],
+  "Chihuahuaørkenen": [
+   "Chihuahua"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:antarktis",
+   "label": "Antarktis",
+   "aliases": [
+    "Den antarktiske ørken"
+   ],
+   "tier": 3
+  }
+ ]
+}

@@ -1,8 +1,135 @@
 {
  "add": [
-  {"id": "manuell:nike", "label": "Nike", "aliases": [], "tier": 0},
-  {"id": "manuell:adidas", "label": "Adidas", "aliases": [], "tier": 0},
-  {"id": "manuell:freia", "label": "Freia", "aliases": [], "tier": 2}
+  {
+   "id": "manuell:nike",
+   "label": "Nike",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:adidas",
+   "label": "Adidas",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:freia",
+   "label": "Freia",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:samsung",
+   "label": "Samsung",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:google",
+   "label": "Google",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:gucci",
+   "label": "Gucci",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:louis-vuitton",
+   "label": "Louis Vuitton",
+   "aliases": [
+    "LV"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:chanel",
+   "label": "Chanel",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:rolex",
+   "label": "Rolex",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:netflix",
+   "label": "Netflix",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:amazon",
+   "label": "Amazon",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:disney",
+   "label": "Disney",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:nintendo",
+   "label": "Nintendo",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:kvikk-lunsj",
+   "label": "Kvikk Lunsj",
+   "aliases": [
+    "Kvikklunsj"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:helly-hansen",
+   "label": "Helly Hansen",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:norrna",
+   "label": "Norrøna",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:bergans",
+   "label": "Bergans",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:ringnes",
+   "label": "Ringnes",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:telenor",
+   "label": "Telenor",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:rema-1000",
+   "label": "Rema 1000",
+   "aliases": [
+    "Rema"
+   ],
+   "tier": 2
+  }
  ],
- "_note": "Disse står som selskaper, ikke merkevarer, i Wikidata"
+ "_note": "Disse står som selskaper, ikke merkevarer, i Wikidata",
+ "remove_labels": [
+  "Platemerke",
+  "Stiftemaskin"
+ ]
 }

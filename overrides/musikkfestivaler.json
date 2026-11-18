@@ -1,0 +1,129 @@
+{
+ "tier_labels": {
+  "Tyrkvisjon": 5,
+  "Intervisjon": 5,
+  "MAMA": 5,
+  "Øyafestivalen": 0,
+  "Buktafestivalen": 2,
+  "Trænafestivalen": 3,
+  "Slottsfjellfestivalen": 2,
+  "Hove Music Festival": 2
+ },
+ "remove_labels": [
+  "Intervisjonens sangkonkurranse",
+  "MAMA Awards",
+  "Tyrkvisjonens sangkonkurranse"
+ ],
+ "alias_labels": {
+  "Øyafestivalen": [
+   "Øya"
+  ],
+  "Roskilde-festivalen": [
+   "Roskilde",
+   "Roskildefestivalen"
+  ],
+  "Hove Music Festival": [
+   "Hove",
+   "Hovefestivalen"
+  ],
+  "Buktafestivalen": [
+   "Bukta"
+  ],
+  "Trænafestivalen": [
+   "Træna"
+  ],
+  "Slottsfjellfestivalen": [
+   "Slottsfjell"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:bergenfest",
+   "label": "Bergenfest",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:pstereo",
+   "label": "Pstereo",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:norwegian-wood",
+   "label": "Norwegian Wood",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:findings",
+   "label": "Findings",
+   "aliases": [
+    "Findings festival"
+   ],
+   "tier": 3
+  },
+  {
+   "id": "manuell:piknik-i-parken",
+   "label": "Piknik i Parken",
+   "aliases": [
+    "PiP"
+   ],
+   "tier": 3
+  },
+  {
+   "id": "manuell:palmesus",
+   "label": "Palmesus",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:tinderbox",
+   "label": "Tinderbox",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:festspillene-i-bergen",
+   "label": "Festspillene i Bergen",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:ultima",
+   "label": "Ultima",
+   "aliases": [
+    "Ultima Oslo Contemporary Music Festival"
+   ],
+   "tier": 4
+  },
+  {
+   "id": "manuell:notodden-bluesfestival",
+   "label": "Notodden Bluesfestival",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:frde-folkemusikkfestival",
+   "label": "Førde Folkemusikkfestival",
+   "aliases": [
+    "Førdefestivalen"
+   ],
+   "tier": 4
+  },
+  {
+   "id": "manuell:olavsfestdagene",
+   "label": "Olavsfestdagene",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:quart",
+   "label": "Quart",
+   "aliases": [
+    "Quartfestivalen"
+   ],
+   "tier": 3
+  }
+ ]
+}

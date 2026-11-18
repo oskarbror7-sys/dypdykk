@@ -1,0 +1,67 @@
+{
+ "add": [
+  {
+   "id": "manuell:thor",
+   "label": "Thor",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:hulk",
+   "label": "Hulk",
+   "aliases": [
+    "The Hulk",
+    "Den utrolige Hulk"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:doctor-strange",
+   "label": "Doctor Strange",
+   "aliases": [
+    "Doktor Strange"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:ant-man",
+   "label": "Ant-Man",
+   "aliases": [
+    "Maurmannen"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:deadpool",
+   "label": "Deadpool",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:hawkeye",
+   "label": "Hawkeye",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:groot",
+   "label": "Groot",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:professor-x",
+   "label": "Professor X",
+   "aliases": [
+    "Charles Xavier"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:ms-marvel",
+   "label": "Ms. Marvel",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
+}

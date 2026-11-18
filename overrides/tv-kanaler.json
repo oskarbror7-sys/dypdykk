@@ -1,0 +1,80 @@
+{
+ "alias_labels": {
+  "Al Jazeera English": [
+   "Al Jazeera"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:nrk1",
+   "label": "NRK1",
+   "aliases": [
+    "NRK 1",
+    "NRK"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:nrk2",
+   "label": "NRK2",
+   "aliases": [
+    "NRK 2"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:nrk3",
+   "label": "NRK3",
+   "aliases": [
+    "NRK 3"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:viaplay",
+   "label": "Viaplay",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:tv-2-zebra",
+   "label": "TV 2 Zebra",
+   "aliases": [
+    "Zebra"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:tv-2-nyhetskanalen",
+   "label": "TV 2 Nyhetskanalen",
+   "aliases": [
+    "TV 2 Nyheter"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:fem",
+   "label": "FEM",
+   "aliases": [
+    "Kanal FEM"
+   ],
+   "tier": 3
+  },
+  {
+   "id": "manuell:bbc",
+   "label": "BBC",
+   "aliases": [
+    "BBC One"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:dr1",
+   "label": "DR1",
+   "aliases": [
+    "DR 1"
+   ],
+   "tier": 2
+  }
+ ]
+}

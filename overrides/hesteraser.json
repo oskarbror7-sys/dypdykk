@@ -1,0 +1,21 @@
+{
+ "alias_labels": {
+  "Araberhest": [
+   "Araber"
+  ],
+  "Connemaraponni": [
+   "Connemara"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:engelsk-fullblod",
+   "label": "Engelsk fullblod",
+   "aliases": [
+    "Fullblod",
+    "Fullblodshest"
+   ],
+   "tier": 1
+  }
+ ]
+}

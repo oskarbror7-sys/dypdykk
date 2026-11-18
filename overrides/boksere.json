@@ -1,0 +1,18 @@
+{
+ "tier_labels": {
+  "Felix Baumgartner": 5,
+  "Jack Palance": 5,
+  "Victor McLaglen": 5
+ },
+ "add": [
+  {
+   "id": "manuell:vitalij-klitsjko",
+   "label": "Vitalij Klitsjko",
+   "aliases": [
+    "Vitali Klitschko",
+    "Vitali Klitsjko"
+   ],
+   "tier": 1
+  }
+ ]
+}

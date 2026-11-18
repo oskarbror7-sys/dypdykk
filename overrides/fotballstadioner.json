@@ -1,2 +1,79 @@
-{"add": [{"id": "manuell:wembley", "label": "Wembley Stadium", "aliases": ["Wembley", "Wembley stadion"], "tier": 0}],
- "_note": "Wembley har en annen type enn fotballstadion i Wikidata"}
+{
+ "add": [
+  {
+   "id": "manuell:wembley",
+   "label": "Wembley Stadium",
+   "aliases": [
+    "Wembley",
+    "Wembley stadion"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:santiago-bernabeu",
+   "label": "Santiago Bernabéu",
+   "aliases": [
+    "Bernabéu",
+    "Estadio Santiago Bernabéu"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:san-siro",
+   "label": "San Siro",
+   "aliases": [
+    "Stadio Giuseppe Meazza",
+    "Giuseppe Meazza"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:aspmyra-stadion",
+   "label": "Aspmyra stadion",
+   "aliases": [
+    "Aspmyra"
+   ],
+   "tier": 3
+  },
+  {
+   "id": "manuell:etihad-stadium",
+   "label": "Etihad Stadium",
+   "aliases": [
+    "City of Manchester Stadium"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:tottenham-hotspur-stadium",
+   "label": "Tottenham Hotspur Stadium",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:parc-des-princes",
+   "label": "Parc des Princes",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:johan-cruijff-arena",
+   "label": "Johan Cruijff Arena",
+   "aliases": [
+    "Amsterdam Arena",
+    "Johan Cruyff Arena"
+   ],
+   "tier": 2
+  }
+ ],
+ "_note": "Wembley har en annen type enn fotballstadion i Wikidata",
+ "alias_labels": {
+  "Ullevaal Stadion": [
+   "Ullevaal",
+   "Ullevål stadion",
+   "Ullevål"
+  ],
+  "Lerkendal stadion": [
+   "Lerkendal"
+  ]
+ }
+}

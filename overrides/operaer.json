@@ -1,0 +1,49 @@
+{
+ "remove_labels": [
+  "A Night at the Opera",
+  "Festspillene i Bayreuth",
+  "Gilbert og Sullivan"
+ ],
+ "alias_labels": {
+  "Tristan und Isolde": [
+   "Tristan og Isolde"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:rigoletto",
+   "label": "Rigoletto",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:nibelungenringen",
+   "label": "Nibelungenringen",
+   "aliases": [
+    "Der Ring des Nibelungen",
+    "Ringen"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:eugen-onegin",
+   "label": "Eugen Onegin",
+   "aliases": [
+    "Jevgenij Onegin"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:boris-godunov",
+   "label": "Boris Godunov",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:porgy-and-bess",
+   "label": "Porgy and Bess",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
+}

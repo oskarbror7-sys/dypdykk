@@ -1,0 +1,22 @@
+{
+ "add": [
+  {
+   "id": "manuell:alexia-putellas",
+   "label": "Alexia Putellas",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:ada-hegerberg",
+   "label": "Ada Hegerberg",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:megan-rapinoe",
+   "label": "Megan Rapinoe",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
+}

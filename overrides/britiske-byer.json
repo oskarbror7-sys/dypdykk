@@ -1,0 +1,28 @@
+{
+ "add": [
+  {
+   "id": "manuell:manchester",
+   "label": "Manchester",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:birmingham",
+   "label": "Birmingham",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:brighton",
+   "label": "Brighton",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:bath",
+   "label": "Bath",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
+}

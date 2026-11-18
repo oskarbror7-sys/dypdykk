@@ -1,0 +1,154 @@
+{
+ "relabel": {
+  "Historic Sanctuary of Machu Picchu": "Machu Picchu",
+  "Memphis and its Necropolis – the Pyramid Fields from Giza to Dahshur": "Pyramidene i Giza",
+  "Borobudur Temple Compounds": "Borobudur",
+  "Fujisan, sacred place and source of artistic inspiration": "Fuji-san"
+ },
+ "tier_labels": {
+  "Røros bergstad og Circumferensen": 1,
+  "Helleristningene i Alta": 2,
+  "Rjukan-Notodden industriarv": 3,
+  "Historic Sanctuary of Machu Picchu": 0,
+  "Memphis and its Necropolis – the Pyramid Fields from Giza to Dahshur": 0,
+  "Grand Canyon nasjonalpark": 1,
+  "Angkor": 1,
+  "Kilimanjaro nasjonalpark": 2,
+  "Serengeti nasjonalpark": 2,
+  "Borobudur Temple Compounds": 3,
+  "Fujisan, sacred place and source of artistic inspiration": 2
+ },
+ "alias_labels": {
+  "Røros bergstad og Circumferensen": [
+   "Røros",
+   "Bergstaden Røros"
+  ],
+  "Helleristningene i Alta": [
+   "Bergkunsten i Alta",
+   "Helleristningene i Alta"
+  ],
+  "Rjukan-Notodden industriarv": [
+   "Rjukan",
+   "Rjukan–Notodden"
+  ],
+  "Historic Sanctuary of Machu Picchu": [
+   "Machu Picchu"
+  ],
+  "Memphis and its Necropolis – the Pyramid Fields from Giza to Dahshur": [
+   "Pyramidene i Giza",
+   "Giza"
+  ],
+  "Grand Canyon nasjonalpark": [
+   "Grand Canyon"
+  ],
+  "Angkor": [
+   "Angkor Wat"
+  ],
+  "Kilimanjaro nasjonalpark": [
+   "Kilimanjaro"
+  ],
+  "Serengeti nasjonalpark": [
+   "Serengeti"
+  ],
+  "Borobudur Temple Compounds": [
+   "Borobudur"
+  ],
+  "Fujisan, sacred place and source of artistic inspiration": [
+   "Fuji-san",
+   "Fuji"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:geirangerfjorden",
+   "label": "Geirangerfjorden",
+   "aliases": [
+    "Vestnorsk fjordlandskap"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:nryfjorden",
+   "label": "Nærøyfjorden",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:den-kinesiske-mur",
+   "label": "Den kinesiske mur",
+   "aliases": [
+    "Kinamuren"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:colosseum",
+   "label": "Colosseum",
+   "aliases": [
+    "Colosseo"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:kreml-og-den-rde-plass",
+   "label": "Kreml og Den røde plass",
+   "aliases": [
+    "Kreml",
+    "Den røde plass"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:venezia-og-lagunen",
+   "label": "Venezia og lagunen",
+   "aliases": [
+    "Venezia"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:firenzes-historiske-sentrum",
+   "label": "Firenzes historiske sentrum",
+   "aliases": [
+    "Firenze"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:pompeii",
+   "label": "Pompeii",
+   "aliases": [
+    "Pompei"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:mont-saint-michel",
+   "label": "Mont-Saint-Michel",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:alhambra",
+   "label": "Alhambra",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:paskeya",
+   "label": "Påskeøya",
+   "aliases": [
+    "Rapa Nui"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:den-forbudte-by",
+   "label": "Den forbudte by",
+   "aliases": [
+    "Keiserpalasset i Beijing"
+   ],
+   "tier": 2
+  }
+ ]
+}

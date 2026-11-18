@@ -1,0 +1,22 @@
+{
+ "add": [
+  {
+   "id": "manuell:trolltunga",
+   "label": "Trolltunga",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:rondane",
+   "label": "Rondane",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:vettakollen",
+   "label": "Vettakollen",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
+}

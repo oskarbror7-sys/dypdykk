@@ -1,0 +1,14 @@
+{
+ "tier_labels": {
+  "Fridtjof Nansen": 5,
+  "Marianne Vos": 5
+ },
+ "add": [
+  {
+   "id": "manuell:sonja-henie",
+   "label": "Sonja Henie",
+   "aliases": [],
+   "tier": 1
+  }
+ ]
+}

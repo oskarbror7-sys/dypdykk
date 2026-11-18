@@ -1,0 +1,29 @@
+{
+ "alias_labels": {
+  "Den lille hund": [
+   "Lille hund"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:karlsvogna",
+   "label": "Karlsvogna",
+   "aliases": [
+    "Karlsvognen"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:vren",
+   "label": "Væren",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:krepsen",
+   "label": "Krepsen",
+   "aliases": [],
+   "tier": 1
+  }
+ ]
+}

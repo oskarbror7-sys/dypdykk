@@ -1,0 +1,27 @@
+{
+ "tier_labels": {
+  "George S. Patton": 5,
+  "João Havelange": 5,
+  "Charlène av Monaco": 5
+ },
+ "add": [
+  {
+   "id": "manuell:tor-henning-hamre",
+   "label": "Tor Henning Hamre",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:ingrid-ellevog",
+   "label": "Ingrid Ellevog",
+   "aliases": [],
+   "tier": 4
+  },
+  {
+   "id": "manuell:lene-sundsdal",
+   "label": "Lene Sundsdal",
+   "aliases": [],
+   "tier": 4
+  }
+ ]
+}

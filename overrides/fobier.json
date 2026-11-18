@@ -86,5 +86,6 @@
   "Medical students' disease",
   "Skolevegring"
  ],
- "_note": "Fobier med engelske navn får norske navn; holdninger og rasisme-begreper fjernes"
+ "_note": "Fobier med engelske navn får norske navn; holdninger og rasisme-begreper fjernes",
+ "min_count_after_cleanup": 60
 }

@@ -1,0 +1,40 @@
+{
+ "add": [
+  {
+   "id": "manuell:kristian-valen",
+   "label": "Kristian Valen",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:kristin-gjelsvik",
+   "label": "Kristin Gjelsvik",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:kare-conradi",
+   "label": "Kåre Conradi",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:arne-hjeltnes",
+   "label": "Arne Hjeltnes",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:anders-hoff",
+   "label": "Anders Hoff",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:jenny-skavlan",
+   "label": "Jenny Skavlan",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
+}

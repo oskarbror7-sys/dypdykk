@@ -51,7 +51,46 @@
     "Hkeem (artist)"
    ],
    "tier": 2
+  },
+  {
+   "id": "manuell:erik-og-kriss",
+   "label": "Erik og Kriss",
+   "aliases": [
+    "Erik & Kriss"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:subwoolfer",
+   "label": "Subwoolfer",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:keiino",
+   "label": "Keiino",
+   "aliases": [
+    "KEiiNO"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:vamp",
+   "label": "Vamp",
+   "aliases": [],
+   "tier": 2
   }
  ],
- "_note": "Produsenter/DJ-er og noen artister mangler yrket sanger i Wikidata"
+ "_note": "Produsenter/DJ-er og noen artister mangler yrket sanger i Wikidata",
+ "tier_labels": {
+  "Kurt Schwitters": 5,
+  "Kristofer Hivju": 5,
+  "Varg Vikernes": 5,
+  "Jo Nesbø": 5
+ },
+ "alias_labels": {
+  "Chirag Patel": [
+   "Chirag"
+  ]
+ }
 }

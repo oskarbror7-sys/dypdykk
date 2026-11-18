@@ -1,0 +1,46 @@
+{
+ "add": [
+  {
+   "id": "manuell:trond-kirkvaag",
+   "label": "Trond Kirkvaag",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:vegard-ylvisaker",
+   "label": "Vegard Ylvisåker",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:shabana-rehman",
+   "label": "Shabana Rehman",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:kristian-valen",
+   "label": "Kristian Valen",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:ida-fladen",
+   "label": "Ida Fladen",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:atle-pettersen",
+   "label": "Atle Pettersen",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:carsten-byhring",
+   "label": "Carsten Byhring",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
+}

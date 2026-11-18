@@ -131,14 +131,17 @@ def _apply_overrides(entities, ov, log):
             new = rl.get(norm(e["label"]))
             if new:
                 e["aliases"] = list(e["aliases"]) + [e["label"]]
+                e["orig_label"] = e["label"]
                 e["label"] = new
                 n += 1
         log(f"Overstyring: nye etiketter for {n}")
     if ov.get("tier_labels"):
         tl = {norm(k): v for k, v in ov["tier_labels"].items()}
         for e in entities:
-            if norm(e["label"]) in tl:
-                e["pinned_tier"] = tl[norm(e["label"])]
+            for k in (norm(e["label"]), norm(e.get("orig_label") or "")):
+                if k in tl:
+                    e["pinned_tier"] = tl[k]
+                    break
     if ov.get("alias_labels"):
         al = {norm(k): v for k, v in ov["alias_labels"].items()}
         for e in entities:
@@ -212,6 +215,8 @@ def build(qid, offline=False, refresh=False, quiet=False):
     kept = []
     for e in entities:
         lab = clean_label(e["label"])
+        if not lab and (e.get("source") == "manuell" or e.get("orig_label")) and (e["label"] or "").strip():
+            lab = e["label"].strip()   # bevisst valgt kort navn, f.eks. «X» eller programmeringsspråket «C»
         if not lab:
             review.append({"id": e["id"], "problem": "ugyldig etikett", "label": e["label"]})
             continue
@@ -400,7 +405,9 @@ def publish(qid, force=False, quiet=False):
     out = os.path.join(SITE, "data", qid + ".json")
     prev = load_json(out)
     max_shrink = cfg.get("validate", {}).get("max_shrink", 0.15)
-    if prev and not force and st["count"] < prev["n"] * (1 - max_shrink):
+    # «min_count_after_cleanup» i overstyringsfilen: bevisst opprydding får krympe ned til dette tallet
+    allow_to = (load_json(p("overrides", qid + ".json"), {}) or {}).get("min_count_after_cleanup")
+    if prev and not force and st["count"] < prev["n"] * (1 - max_shrink) and not (allow_to and st["count"] >= allow_to):
         log(f"STOPPET: {qid} krymper fra {prev['n']} til {st['count']} svar (> {max_shrink:.0%}). "
             f"Mulig feil i kilden. Bruk --force hvis endringen er riktig.")
         return False

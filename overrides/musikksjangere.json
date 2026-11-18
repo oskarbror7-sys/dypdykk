@@ -1,0 +1,47 @@
+{
+ "relabel": {
+  "folk music": "Folkemusikk"
+ },
+ "tier_labels": {
+  "Adhan": 5,
+  "Mantra": 5,
+  "No": 5,
+  "Gasel": 5,
+  "Indiemusikk": 1
+ },
+ "alias_labels": {
+  "Klassisk musikk": [
+   "Klassisk"
+  ],
+  "Indiemusikk": [
+   "Indie"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:viser",
+   "label": "Viser",
+   "aliases": [
+    "Visesang",
+    "Vise"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:russemusikk",
+   "label": "Russemusikk",
+   "aliases": [
+    "Russelåter"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:dansband",
+   "label": "Dansband",
+   "aliases": [
+    "Dansebandmusikk"
+   ],
+   "tier": 2
+  }
+ ]
+}

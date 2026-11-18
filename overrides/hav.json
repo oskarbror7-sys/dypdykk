@@ -1,0 +1,16 @@
+{
+ "add": [
+  {
+   "id": "manuell:ddehavet",
+   "label": "Dødehavet",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:skagerrak",
+   "label": "Skagerrak",
+   "aliases": [],
+   "tier": 1
+  }
+ ]
+}

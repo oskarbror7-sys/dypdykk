@@ -1,0 +1,72 @@
+{
+ "tier_labels": {
+  "Alan Walker": 5,
+  "XXXTentacion": 5,
+  "Hikaru Nakamura": 5,
+  "Charlie Puth": 5,
+  "Tom Daley": 5,
+  "Teddy Riner": 5
+ },
+ "add": [
+  {
+   "id": "manuell:dude-perfect",
+   "label": "Dude Perfect",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:smosh",
+   "label": "Smosh",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:linus-tech-tips",
+   "label": "Linus Tech Tips",
+   "aliases": [
+    "LTT"
+   ],
+   "tier": 3
+  },
+  {
+   "id": "manuell:kurzgesagt",
+   "label": "Kurzgesagt",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:sidemen",
+   "label": "Sidemen",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:dantdm",
+   "label": "DanTDM",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:stampy",
+   "label": "Stampy",
+   "aliases": [
+    "Stampylonghead"
+   ],
+   "tier": 3
+  },
+  {
+   "id": "manuell:ryan-s-world",
+   "label": "Ryan's World",
+   "aliases": [
+    "Ryan ToysReview"
+   ],
+   "tier": 3
+  },
+  {
+   "id": "manuell:cocomelon",
+   "label": "Cocomelon",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
+}

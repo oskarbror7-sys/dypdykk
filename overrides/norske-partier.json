@@ -1,1 +1,24 @@
-{"tier_labels": {"Den nordiske motstandsbevegelsen": 4}, "_note": "Ytterliggående bevegelser er gyldige, men ikke typiske svar"}
+{
+ "tier_labels": {
+  "Den nordiske motstandsbevegelsen": 4
+ },
+ "_note": "Ytterliggående bevegelser er gyldige, men ikke typiske svar",
+ "add": [
+  {
+   "id": "manuell:liberalistene",
+   "label": "Liberalistene",
+   "aliases": [
+    "Liberalistene (tidligere Liberalistene)"
+   ],
+   "tier": 3
+  },
+  {
+   "id": "manuell:nasjonal-samling",
+   "label": "Nasjonal Samling",
+   "aliases": [
+    "NS"
+   ],
+   "tier": 1
+  }
+ ]
+}

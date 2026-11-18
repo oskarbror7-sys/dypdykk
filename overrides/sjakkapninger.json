@@ -1,0 +1,27 @@
+{
+ "relabel": {
+  "Open Game": "Åpent spill",
+  "Catalan Opening": "Katalansk",
+  "Four Knights Game": "Firespringerspill",
+  "Center Game": "Sentrumsspill",
+  "Closed Game": "Lukket spill",
+  "Latvian Gambit": "Latvisk gambit",
+  "Nimzowitsch Defence": "Nimzowitsch' forsvar"
+ },
+ "alias_labels": {
+  "Wienerparti": [
+   "Wiener",
+   "Wienersk"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:kongegambit",
+   "label": "Kongegambit",
+   "aliases": [
+    "King's Gambit"
+   ],
+   "tier": 1
+  }
+ ]
+}

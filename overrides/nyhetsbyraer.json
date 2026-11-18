@@ -8,5 +8,10 @@
    ],
    "tier": 1
   }
- ]
+ ],
+ "tier_labels": {
+  "Tehran Times": 5,
+  "Cadena SER": 5,
+  "TVRI": 5
+ }
 }

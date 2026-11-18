@@ -13,5 +13,10 @@
  "reject_alias": [
   "Charles Darwin",
   "Darwin"
- ]
+ ],
+ "tier_labels": {
+  "Johann Wolfgang von Goethe": 5,
+  "Angela Merkel": 5,
+  "Avicenna": 5
+ }
 }

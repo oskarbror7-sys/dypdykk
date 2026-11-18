@@ -1,0 +1,27 @@
+{
+ "add": [
+  {
+   "id": "manuell:ja-vi-elsker",
+   "label": "Ja, vi elsker",
+   "aliases": [
+    "Ja vi elsker",
+    "Ja, vi elsker dette landet"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:hurra-for-deg-som-fyller-ditt-ar",
+   "label": "Hurra for deg som fyller ditt år",
+   "aliases": [
+    "Hurra for deg"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:mitt-lille-land",
+   "label": "Mitt lille land",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
+}

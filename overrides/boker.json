@@ -1,7 +1,60 @@
 {
  "add": [
-  {"id": "manuell:peer-gynt", "label": "Peer Gynt", "aliases": [], "tier": 0},
-  {"id": "manuell:1984", "label": "1984", "aliases": ["Nittenåttifire", "Nineteen Eighty-Four"], "tier": 0}
+  {
+   "id": "manuell:peer-gynt",
+   "label": "Peer Gynt",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:1984",
+   "label": "1984",
+   "aliases": [
+    "Nittenåttifire",
+    "Nineteen Eighty-Four"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:bibelen",
+   "label": "Bibelen",
+   "aliases": [
+    "Bibel"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:et-dukkehjem",
+   "label": "Et dukkehjem",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:kristin-lavransdatter",
+   "label": "Kristin Lavransdatter",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:romeo-og-julie",
+   "label": "Romeo og Julie",
+   "aliases": [
+    "Romeo and Juliet"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:macbeth",
+   "label": "Macbeth",
+   "aliases": [],
+   "tier": 1
+  }
  ],
- "_note": "Skuespill og bøker med annen type/etikett i Wikidata"
+ "_note": "Skuespill og bøker med annen type/etikett i Wikidata",
+ "tier_labels": {
+  "Menneskerettighetserklæringen": 4,
+  "USAs grunnlov": 4,
+  "Encyclopædia Britannica": 4,
+  "Guinness Rekordbok": 4
+ }
 }

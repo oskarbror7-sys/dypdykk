@@ -1,0 +1,51 @@
+{
+ "remove_labels": [
+  "TV-aksjonen"
+ ],
+ "add": [
+  {
+   "id": "manuell:atlantic-crossing",
+   "label": "Atlantic Crossing",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:nytt-pa-nytt",
+   "label": "Nytt på nytt",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:71-nord",
+   "label": "71° nord",
+   "aliases": [
+    "71 grader nord"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:skal-vi-danse",
+   "label": "Skal vi danse",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:jul-i-skomakergata",
+   "label": "Jul i Skomakergata",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:labyrint",
+   "label": "Labyrint",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:grenseland",
+   "label": "Grenseland",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
+}

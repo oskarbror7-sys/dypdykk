@@ -39,6 +39,12 @@
     "Hypertext Markup Language"
    ],
    "tier": 5
+  },
+  {
+   "id": "manuell:bash",
+   "label": "Bash",
+   "aliases": [],
+   "tier": 2
   }
  ]
 }

@@ -1,6 +1,25 @@
 {
  "add": [
-  {"id": "Q54078", "label": "IKEA", "aliases": ["Ikea"], "tier": 0}
+  {
+   "id": "Q54078",
+   "label": "IKEA",
+   "aliases": [
+    "Ikea"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:netflix",
+   "label": "Netflix",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:spotify",
+   "label": "Spotify",
+   "aliases": [],
+   "tier": 0
+  }
  ],
  "_note": "IKEA er registrert som merkevare/møbelkjede, ikke som selskap, i Wikidata"
 }

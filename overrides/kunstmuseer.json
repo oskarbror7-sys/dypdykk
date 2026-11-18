@@ -1,0 +1,10 @@
+{
+ "tier_labels": {
+  "National Library of Australia": 5,
+  "Château de Montsoreau": 5,
+  "Château de Montsoreau - musée d'Art contemporain": 5
+ },
+ "relabel": {
+  "Château de Montsoreau - musée d'Art contemporain": "Château de Montsoreau"
+ }
+}

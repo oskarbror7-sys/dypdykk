@@ -1,0 +1,22 @@
+{
+ "relabel": {
+  "Filmen Jurassic Park": "Jurassic Park"
+ },
+ "add": [
+  {
+   "id": "manuell:ringenes-herre",
+   "label": "Ringenes herre",
+   "aliases": [
+    "The Lord of the Rings",
+    "Ringenes Herre-trilogien"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:shrek",
+   "label": "Shrek",
+   "aliases": [],
+   "tier": 0
+  }
+ ]
+}

@@ -1,0 +1,45 @@
+{
+ "add": [
+  {
+   "id": "manuell:comosjen",
+   "label": "Comosjøen",
+   "aliases": [
+    "Lago di Como",
+    "Lake Como"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:genfersjen",
+   "label": "Genfersjøen",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:ddehavet",
+   "label": "Dødehavet",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:aralsjen",
+   "label": "Aralsjøen",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:great-salt-lake",
+   "label": "Great Salt Lake",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:inarisjen",
+   "label": "Inarisjøen",
+   "aliases": [
+    "Enare"
+   ],
+   "tier": 3
+  }
+ ]
+}

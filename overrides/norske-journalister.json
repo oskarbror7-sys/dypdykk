@@ -1,0 +1,26 @@
+{
+ "tier_labels": {
+  "Rustem Adagamov": 5,
+  "Kareem Amer": 5
+ },
+ "add": [
+  {
+   "id": "manuell:kjetil-rolness",
+   "label": "Kjetil Rolness",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:line-verndal",
+   "label": "Line Verndal",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:arne-scheie",
+   "label": "Arne Scheie",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
+}

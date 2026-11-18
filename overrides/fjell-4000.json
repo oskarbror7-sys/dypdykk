@@ -1,0 +1,15 @@
+{
+ "remove_labels": [
+  "Albor Tholus",
+  "Elysium Mons",
+  "Olympus Mons"
+ ],
+ "add": [
+  {
+   "id": "manuell:eiger",
+   "label": "Eiger",
+   "aliases": [],
+   "tier": 1
+  }
+ ]
+}

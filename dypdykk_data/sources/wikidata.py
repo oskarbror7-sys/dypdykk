@@ -117,6 +117,11 @@ def collect(cfg, log, refresh=False, fixture=None):
         qid = r["item"]["value"].rsplit("/", 1)[-1]
         if qid in items:
             items[qid]["aliases"].append((r["lang"]["value"], r["txt"]["value"]))
+    if fixture is None and cfg.get("pageviews"):
+        try:
+            collect_nowiki_views(items, cfg["pageviews"], log, refresh)
+        except Exception as ex:   # sidevisninger er et tillegg: feiler de, rangeres det på Wikipedia-utgaver som før
+            log(f"Sidevisninger fra norsk Wikipedia utilgjengelig ({ex}); bruker bare Wikipedia-utgaver")
     if fixture is None and d_cfg.get("occupations"):
         cand = [q for q, it in items.items() if it["sitelinks"] >= d_cfg["min_sitelinks"]]
         demote = _demote_by_occupation(cfg, d_cfg, log, refresh, cand)
@@ -144,6 +149,40 @@ def collect_demote(cfg, log, refresh=False):
     out = {r["item"]["value"].rsplit("/", 1)[-1]: int(r["n"]["value"]) for r in rows}
     log(f"Kjente for noe annet ({d['property']} ≤ {d['max_count']}, sitelinks ≥ {d['min_sitelinks']}): {len(out)}")
     return out
+
+
+NOWIKI_API = "https://no.wikipedia.org/w/api.php"
+
+
+def collect_nowiki_views(items, pv, log, refresh):
+    """Hvor mye artikkelen på norsk (bokmål) Wikipedia leses de siste 60 dagene.
+    Et mye bedre mål enn antall språkutgaver på hva nordmenn faktisk kjenner til: Svalbard-topper og
+    black metal-band har mange bot-artikler på andre språk, men få norske lesere.
+    Bare de «top» mest kjente (etter språkutgaver) slås opp; resten får 0. Objekter uten norsk artikkel får 0."""
+    top = sorted(items, key=lambda q: -items[q]["sitelinks"])[:int(pv.get("top", 3000))]
+    titles = {}
+    for i in range(0, len(top), 250):
+        vals = " ".join("wd:" + q for q in top[i:i + 250])
+        for r in _run(f"""SELECT ?item ?t WHERE {{ VALUES ?item {{ {vals} }}
+  ?a schema:about ?item ; schema:isPartOf <https://no.wikipedia.org/> ; schema:name ?t . }}""", log, refresh):
+            titles[r["t"]["value"]] = r["item"]["value"].rsplit("/", 1)[-1]
+    for q in items:
+        items[q]["nowiki_views"] = 0 if q in top else None
+    names = list(titles)
+    got = 0
+    for i in range(0, len(names), 50):
+        batch = names[i:i + 50]
+        res = fetch_json(NOWIKI_API, params={"action": "query", "prop": "pageviews", "pvipdays": 60, "titles": "|".join(batch),
+                                             "format": "json", "formatversion": 2}, refresh=refresh, log=log)
+        q_ = res.get("query", {})
+        back = {n["to"]: n["from"] for n in q_.get("normalized", [])}
+        for page in q_.get("pages", []):
+            t = back.get(page["title"], page["title"])
+            qid = titles.get(t)
+            if qid:
+                items[qid]["nowiki_views"] = sum(v or 0 for v in (page.get("pageviews") or {}).values())
+                got += 1
+    log(f"Sidevisninger norsk Wikipedia: {got} artikler av {len(top)} kjente")
 
 
 def _keep_spec(spec):
@@ -208,7 +247,8 @@ def to_entities(items, cfg):
         aliases = [t for l, t in sorted(it["labels"].items()) if t != label]
         aliases += [t for _, t in it["aliases"]]
         e = {"id": qid, "label": label, "aliases": aliases,
-             "metrics": {"sitelinks": it["sitelinks"], "population": it["population"]}, "source": "wikidata"}
+             "metrics": {"sitelinks": it["sitelinks"], "population": it["population"], "nowiki_views": it.get("nowiki_views")},
+             "source": "wikidata"}
         if it.get("demoted"):
             e["pinned_tier"] = cfg["demote"].get("tier", 5)
             e["note"] = "kjent for noe annet"

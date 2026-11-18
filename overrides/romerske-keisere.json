@@ -1,0 +1,19 @@
+{
+ "add": [
+  {
+   "id": "manuell:justinian-i",
+   "label": "Justinian I",
+   "aliases": [
+    "Justinian den store",
+    "Justinian"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:romulus-augustulus",
+   "label": "Romulus Augustulus",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
+}

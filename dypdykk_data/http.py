@@ -17,7 +17,7 @@ import urllib.request
 
 USER_AGENT = "DypdykkDataBot/1.0 (https://dypdykk.netlify.app; norsk quizspill) python-urllib"
 CACHE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "cache")
-MIN_INTERVAL = {"query.wikidata.org": 1.5, "www.wikidata.org": 0.5, "wikimedia.org": 0.2}
+MIN_INTERVAL = {"query.wikidata.org": 1.5, "www.wikidata.org": 0.5, "wikimedia.org": 0.2, "no.wikipedia.org": 0.3}
 _last_call = {}
 
 

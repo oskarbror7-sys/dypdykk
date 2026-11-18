@@ -1,0 +1,18 @@
+{
+ "add": [
+  {
+   "id": "manuell:nagasaki",
+   "label": "Nagasaki",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:nikko",
+   "label": "Nikko",
+   "aliases": [
+    "Nikkō"
+   ],
+   "tier": 3
+  }
+ ]
+}

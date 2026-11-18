@@ -7,6 +7,34 @@
     "TNT (band)"
    ],
    "tier": 2
+  },
+  {
+   "id": "manuell:vmml-spellmannslag",
+   "label": "Vømmøl Spellmannslag",
+   "aliases": [
+    "Vømmøl"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:kirsebrhavens-kaptein",
+   "label": "Kirsebærhavens Kaptein",
+   "aliases": [],
+   "tier": 4
+  },
+  {
+   "id": "manuell:subwoolfer",
+   "label": "Subwoolfer",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:bobbysocks",
+   "label": "Bobbysocks",
+   "aliases": [
+    "Bobbysocks!"
+   ],
+   "tier": 2
   }
  ]
 }

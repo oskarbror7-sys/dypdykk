@@ -1,1 +1,21 @@
-{"aliases": {"Q38803": ["Norsk elghund", "Elghund", "Grå elghund"], "Q38961": ["Svart elghund"]}}
+{
+ "aliases": {
+  "Q38803": [
+   "Norsk elghund",
+   "Elghund",
+   "Grå elghund"
+  ],
+  "Q38961": [
+   "Svart elghund"
+  ]
+ },
+ "remove_labels": [
+  "Australsk dingo"
+ ],
+ "alias_labels": {
+  "Jack Russell-terrier": [
+   "Jack russell",
+   "Jack Russell terrier"
+  ]
+ }
+}

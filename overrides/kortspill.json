@@ -1,0 +1,97 @@
+{
+ "alias_labels": {
+  "Presidenten": [
+   "President"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:poker",
+   "label": "Poker",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:kabal",
+   "label": "Kabal",
+   "aliases": [
+    "Kabale"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:amerikaner",
+   "label": "Amerikaner",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:solitaire",
+   "label": "Solitaire",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:lgn",
+   "label": "Løgn",
+   "aliases": [
+    "Juksepoker"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:texas-hold-em",
+   "label": "Texas hold'em",
+   "aliases": [
+    "Texas Holdem",
+    "Texas hold em"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:exploding-kittens",
+   "label": "Exploding Kittens",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:plump",
+   "label": "Plump",
+   "aliases": [],
+   "tier": 4
+  },
+  {
+   "id": "manuell:hjerterfri",
+   "label": "Hjerterfri",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:femkort",
+   "label": "Femkort",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:skitkar",
+   "label": "Skitkar",
+   "aliases": [],
+   "tier": 4
+  },
+  {
+   "id": "manuell:spar-dame",
+   "label": "Spar dame",
+   "aliases": [],
+   "tier": 4
+  },
+  {
+   "id": "manuell:vri-atter",
+   "label": "Vri åtter",
+   "aliases": [
+    "Vri 8",
+    "Vri åtte"
+   ],
+   "tier": 1
+  }
+ ]
+}

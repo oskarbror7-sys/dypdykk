@@ -1,0 +1,16 @@
+{
+ "add": [
+  {
+   "id": "manuell:oder",
+   "label": "Oder",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:zambezi",
+   "label": "Zambezi",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "add": [
+  {
+   "id": "manuell:tvillingtarnene",
+   "label": "Tvillingtårnene",
+   "aliases": [
+    "World Trade Center-tårnene",
+    "Twin Towers"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:postgirobygget",
+   "label": "Postgirobygget",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:flatiron-building",
+   "label": "Flatiron Building",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:central-park-tower",
+   "label": "Central Park Tower",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:mjstarnet",
+   "label": "Mjøstårnet",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
+}

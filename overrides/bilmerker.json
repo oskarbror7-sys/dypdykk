@@ -25,5 +25,18 @@
    "tier": 2
   }
  ],
- "_note": "Bilmerker som i Wikidata er registrert som vanlige selskaper, ikke bilprodusenter"
+ "_note": "Bilmerker som i Wikidata er registrert som vanlige selskaper, ikke bilprodusenter",
+ "relabel": {
+  "Toyota Motor Corporation": "Toyota",
+  "BMW Group": "BMW",
+  "Ford Motor Company": "Ford",
+  "Hyundai Motor Company": "Hyundai",
+  "Mitsubishi Motors Corporation": "Mitsubishi",
+  "Škoda Auto": "Škoda"
+ },
+ "tier_labels": {
+  "Stellantis North America": 4,
+  "Volkswagen Group": 4,
+  "Daimler AG": 4
+ }
 }

@@ -1,0 +1,32 @@
+{
+ "tier_labels": {
+  "Urho Kekkonen": 5,
+  "O.J. Simpson": 5
+ },
+ "add": [
+  {
+   "id": "manuell:trine-hattestad",
+   "label": "Trine Hattestad",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:kelly-holmes",
+   "label": "Kelly Holmes",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:filip-ingebrigtsen",
+   "label": "Filip Ingebrigtsen",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:sondre-guttormsen",
+   "label": "Sondre Guttormsen",
+   "aliases": [],
+   "tier": 3
+  }
+ ]
+}

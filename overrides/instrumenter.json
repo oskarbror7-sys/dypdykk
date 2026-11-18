@@ -1,20 +1,23 @@
 {
  "remove_labels": [
-  "Mikrofon",
-  "Høyttaler",
-  "Multimedia",
-  "Fonograf",
-  "Hodetelefoner",
-  "Stemmegaffel",
-  "Sopran",
-  "Tenor",
   "Alt",
-  "Mezzosopran",
   "Baryton",
+  "Beatboxing",
   "Fidget spinner",
+  "Fonograf",
   "Grammofon",
+  "Hodetelefoner",
+  "Høyttaler",
+  "Mezzosopran",
+  "Mikrofon",
+  "Multimedia",
+  "Sopran",
+  "Stemmegaffel",
   "Streng",
-  "Beatboxing"
+  "Tenor"
  ],
- "_note": "Lydutstyr og stemmetyper er ikke instrumenter"
+ "_note": "Lydutstyr og stemmetyper er ikke instrumenter",
+ "tier_labels": {
+  "Snurrebass": 5
+ }
 }

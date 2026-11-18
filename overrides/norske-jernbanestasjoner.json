@@ -1,0 +1,12 @@
+{
+ "add": [
+  {
+   "id": "manuell:nationaltheatret-stasjon",
+   "label": "Nationaltheatret stasjon",
+   "aliases": [
+    "Nationaltheatret"
+   ],
+   "tier": 1
+  }
+ ]
+}

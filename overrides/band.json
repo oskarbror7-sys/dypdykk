@@ -1,0 +1,20 @@
+{
+ "add": [
+  {
+   "id": "manuell:blackpink",
+   "label": "Blackpink",
+   "aliases": [
+    "BLACKPINK"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:the-chainsmokers",
+   "label": "The Chainsmokers",
+   "aliases": [
+    "Chainsmokers"
+   ],
+   "tier": 2
+  }
+ ]
+}

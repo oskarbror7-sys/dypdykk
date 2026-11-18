@@ -12,5 +12,11 @@
    "aliases": [],
    "tier": 3
   }
- ]
+ ],
+ "relabel": {
+  "Manchego cheese PDO": "Manchego",
+  "Processed cheese": "Smelteost",
+  "Maasdam cheese": "Maasdam",
+  "Cabrales cheese": "Cabrales"
+ }
 }

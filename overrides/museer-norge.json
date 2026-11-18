@@ -1,0 +1,25 @@
+{
+ "tier_labels": {
+  "Norsk filminstitutt": 5
+ },
+ "alias_labels": {
+  "Astrup Fearnley Museet for Moderne Kunst": [
+   "Astrup Fearnley",
+   "Astrup Fearnley-museet"
+  ],
+  "Ringve Musikkmuseum": [
+   "Ringve"
+  ],
+  "Henie Onstad kunstsenter": [
+   "Henie Onstad"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:polaria",
+   "label": "Polaria",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
+}

@@ -1,17 +1,17 @@
 {
  "remove_labels": [
-  "Julenissen",
-  "Skipper'n",
-  "Olive Oyl",
-  "Sonic the Hedgehog",
+  "Badroulbadour",
   "Dr. Eggman",
-  "Ryu",
-  "M. Bison",
-  "Ken Masters",
-  "Zangief",
-  "Kaptein Nemo",
   "Huckleberry Finn",
-  "Badroulbadour"
+  "Julenissen",
+  "Kaptein Nemo",
+  "Ken Masters",
+  "M. Bison",
+  "Olive Oyl",
+  "Ryu",
+  "Skipper'n",
+  "Sonic the Hedgehog",
+  "Zangief"
  ],
  "tier_labels": {
   "Luke Skywalker": 4,
@@ -28,5 +28,101 @@
   "Captain Phasma": 4,
   "Maz Kanata": 4
  },
- "_note": "Figurer som bare dukker opp i Disney-filmer/-spill (Julenissen, Street Fighter) fjernes. Star Wars eies av Disney: gyldig, men sjeldent."
+ "_note": "Figurer som bare dukker opp i Disney-filmer/-spill (Julenissen, Street Fighter) fjernes. Star Wars eies av Disney: gyldig, men sjeldent.",
+ "add": [
+  {
+   "id": "manuell:pluto",
+   "label": "Pluto",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:askepott",
+   "label": "Askepott",
+   "aliases": [
+    "Cinderella"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:peter-pan",
+   "label": "Peter Pan",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:tingeling",
+   "label": "Tingeling",
+   "aliases": [
+    "Tinker Bell"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:dumbo",
+   "label": "Dumbo",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:bambi",
+   "label": "Bambi",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:pinocchio",
+   "label": "Pinocchio",
+   "aliases": [],
+   "tier": 1
+  },
+  {
+   "id": "manuell:ole-dole-og-doffen",
+   "label": "Ole, Dole og Doffen",
+   "aliases": [
+    "Ole",
+    "Dole",
+    "Doffen",
+    "Ole Dole og Doffen"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:bestemor-duck",
+   "label": "Bestemor Duck",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:fetter-anton",
+   "label": "Fetter Anton",
+   "aliases": [
+    "Anton Duck",
+    "Gladstone Gander"
+   ],
+   "tier": 2
+  },
+  {
+   "id": "manuell:tarzan",
+   "label": "Tarzan",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:ole-brumm",
+   "label": "Ole Brumm",
+   "aliases": [
+    "Winnie the Pooh"
+   ],
+   "tier": 1
+  },
+  {
+   "id": "manuell:tigergutt",
+   "label": "Tigergutt",
+   "aliases": [
+    "Tigger"
+   ],
+   "tier": 2
+  }
+ ]
 }

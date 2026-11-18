@@ -1,0 +1,27 @@
+{
+ "alias_labels": {
+  "Yasir Arafat": [
+   "Jasir Arafat"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:finn-kydland",
+   "label": "Finn Kydland",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:trygve-haavelmo",
+   "label": "Trygve Haavelmo",
+   "aliases": [],
+   "tier": 3
+  },
+  {
+   "id": "manuell:ragnar-frisch",
+   "label": "Ragnar Frisch",
+   "aliases": [],
+   "tier": 2
+  }
+ ]
+}
