@@ -2420,6 +2420,12 @@ addEventListener("beforeunload",()=>{ if(NET.peer) NET.close(); });
 /* ---------- Konto: logg inn og lagre dykkene dine på tvers av enheter ----------
    Serveren (netlify/functions/api.mjs) lagrer brukernavn, et kryptert passord og spilldataene dine. Ingen e-post. */
 const AUTH_KEY="dypdykk-auth";
+// «Fortsett med Google»: offentlig klient-ID fra Google Cloud (ikke hemmelig). Tom = knappen vises ikke.
+const GOOGLE_CLIENT_ID="";
+const shownName=a=>a?(a.display||a.user):"";
+let _gsi=null;
+function loadGoogle(){ return _gsi||(_gsi=new Promise((ok,bad)=>{ if(window.google&&google.accounts) return ok();
+  const sc=document.createElement("script"); sc.src="https://accounts.google.com/gsi/client"; sc.async=true; sc.onload=ok; sc.onerror=()=>{ _gsi=null; bad(new Error("Fikk ikke kontakt med Google.")); }; document.head.appendChild(sc); })); }
 const SYNC_RE=/^dypdykk-(\d{4}-\d\d-\d\d|arkiv-\d{4}-\d\d-\d\d|stats|buddy|buddies-extra|name|endless-best|venner|settings|pack-[a-z0-9-]+)$/;
 function auth(){ return store.get(AUTH_KEY); }
 function localItems(){ const o={}; try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(SYNC_RE.test(k)) o[k]=store.get(k); } }catch(e){} return o; }
@@ -2456,16 +2462,19 @@ const _finishA=finish; finish=function(){ const g=game; const r=_finishA.apply(t
 /* ----- Kontosiden ----- */
 PAGES.konto=()=>{ const a=auth();
   if(a){ const days=Object.keys(localItems()).filter(k=>/^dypdykk-(arkiv-)?\d{4}-\d\d-\d\d$/.test(k)).length;
-    return head("Konto",`Du er logget inn som ${esc(a.user)}. Dykkene dine lagres automatisk, så du kan logge inn på en annen mobil eller PC og fortsette der du slapp.`)+
+    return head("Konto",`Du er logget inn som ${esc(shownName(a))}${a.google?" (Google)":""}. Dykkene dine lagres automatisk, så du kan logge inn på en annen mobil eller PC og fortsette der du slapp.`)+
     `<div class="panel glass"><h3>Lagret på kontoen</h3><ul class="lb">
-       <li><span class="nm">Bruker</span><span class="sc">${esc(a.user)}</span></li>
+       <li><span class="nm">Bruker</span><span class="sc">${esc(shownName(a))}${a.google?" · Google":""}</span></li>
        <li><span class="nm">Dagens dykk og arkivdykk</span><span class="sc">${days}</span></li>
        <li><span class="nm">Sist lagret</span><span class="sc">${a.last?new Date(a.last).toLocaleString("nb-NO",{dateStyle:"short",timeStyle:"short"}):"–"}</span></li></ul>
        <div class="btnrow" style="margin-top:14px"><button class="btn btn-primary" id="kSync">Lagre nå</button><button class="btn btn-ghost" id="kRes">Se tidligere resultater</button><button class="btn btn-ghost" id="kOut">Logg ut</button></div>
        <div id="kMsg" style="min-height:20px;font-size:13px;margin-top:8px;color:var(--cyan)"></div></div>
      <div class="panel glass"><h3>Slett kontoen</h3><p class="psub" style="font-size:13px;margin:0 0 10px">Sletter brukeren og alt som er lagret på serveren. Resultatene i denne nettleseren blir liggende.</p>
-       <div class="rowf" style="gap:10px"><input class="field" id="kDelPw" type="password" placeholder="Passord" autocomplete="current-password"><button class="btn btn-ghost" id="kDel">Slett</button></div></div></div>`; }
+       <div class="rowf" style="gap:10px">${a.google?"":`<input class="field" id="kDelPw" type="password" placeholder="Passord" autocomplete="current-password">`}<button class="btn btn-ghost" id="kDel">Slett kontoen</button></div></div></div>`; }
   return head("Logg inn","Lag en gratis bruker for å lagre dagens dykk, rekker og tidligere resultater – og ta dem med til andre enheter.")+
+   (GOOGLE_CLIENT_ID?`<div class="panel glass gpanel"><h3>Raskest</h3><p class="psub" style="font-size:14px;margin:0 0 14px">Bruk Google-kontoen din – ingen brukernavn eller passord å huske.</p>
+       <div id="gBtn" style="min-height:44px"></div><p class="psub" style="font-size:12px;margin:12px 0 0">Vi lagrer ikke e-posten din, bare en anonym ID og dykkene dine.</p></div>
+     <p class="mlabel" style="margin:6px 2px 14px">Eller med brukernavn og passord</p>`:"")+
    `<div class="party"><div class="panel glass"><h3>Logg inn</h3>
        <form id="kLogin" autocomplete="on"><input class="field" name="username" id="kU" placeholder="Brukernavn" autocomplete="username" autocapitalize="off" spellcheck="false" style="margin-bottom:10px">
        <input class="field" id="kP" type="password" placeholder="Passord" autocomplete="current-password" style="margin-bottom:12px">
@@ -2478,7 +2487,13 @@ PAGES.konto=()=>{ const a=auth();
        <p class="psub" style="font-size:12px;margin:10px 0 0">Vi lagrer ikke e-post. Husk passordet – det kan ikke tilbakestilles. Dykkene du allerede har tatt i denne nettleseren, blir med på kontoen.</p></div>
      <div class="panel glass full"><div id="kMsg" style="min-height:20px;font-size:14px;color:#ffc2ba"></div></div></div></div>`; };
 PAGE_INIT.konto=()=>{ const msg=(m,ok)=>{ const e=$("kMsg"); if(e){ e.textContent=m; e.style.color=ok?"var(--cyan)":"#ffc2ba"; } };
-  const done=(j,txt)=>{ store.set(AUTH_KEY,{token:j.token,user:j.user,last:new Date().toISOString()}); applyItems(j.items); SFX.bubble(); toast(txt); route(); renderMenu&&renderMenu(); };
+  const done=(j,txt)=>{ store.set(AUTH_KEY,{token:j.token,user:j.user,display:j.display||null,google:!!j.google,last:new Date().toISOString()}); applyItems(j.items); SFX.bubble(); toast(txt); route(); renderMenu&&renderMenu(); };
+  if($("gBtn")&&GOOGLE_CLIENT_ID) loadGoogle().then(()=>{ const el=$("gBtn"); if(!el) return;
+      google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID, ux_mode:"popup", auto_select:false, cancel_on_tap_outside:true,
+        callback:async r=>{ msg("Logger inn med Google …",true);
+          try{ const j=await api("google",{credential:r.credential,items:localItems()}); done(j,j.fresh?`Velkommen, ${j.display}! Brukeren er laget.`:`Velkommen tilbake, ${j.display}!`); }catch(err){ msg(err.message); } }});
+      google.accounts.id.renderButton(el,{theme:"filled_black",size:"large",text:"continue_with",shape:"rectangular",locale:"nb",width:Math.min(360,el.clientWidth||320)}); })
+    .catch(err=>msg(err.message));
   if($("kLogin")) $("kLogin").onsubmit=async e=>{ e.preventDefault(); msg("Logger inn …",true);
     try{ done(await api("login",{user:$("kU").value.trim(),pass:$("kP").value,items:localItems()}),"Velkommen tilbake!"); }catch(err){ msg(err.message); } };
   if($("kReg")) $("kReg").onsubmit=async e=>{ e.preventDefault();
@@ -2489,7 +2504,7 @@ PAGE_INIT.konto=()=>{ const msg=(m,ok)=>{ const e=$("kMsg"); if(e){ e.textConten
   if($("kRes")) $("kRes").onclick=()=>{ location.hash="resultater"; };
   if($("kOut")) $("kOut").onclick=()=>{ store.set(AUTH_KEY,null); toast("Du er logget ut. Resultatene i denne nettleseren blir liggende."); route(); renderMenu&&renderMenu(); };
   if($("kDel")) $("kDel").onclick=async()=>{ if(!confirm("Slette kontoen og alt som er lagret på serveren?")) return;
-    try{ await api("delete",{pass:$("kDelPw").value}); store.set(AUTH_KEY,null); toast("Kontoen er slettet"); route(); }catch(err){ msg(err.message); } }; };
+    try{ const a=auth(); if(a&&a.google) await api("google",{action:"delete"}); else await api("delete",{pass:$("kDelPw").value}); store.set(AUTH_KEY,null); toast("Kontoen er slettet"); route(); }catch(err){ msg(err.message); } }; };
 
 /* ----- Tidligere resultater ----- */
 function pastResults(){ const out=[]; for(let n=dayNumber();n>=1;n--){ const d=dateOfDay(n), dd=store.get("dypdykk-"+d), ar=store.get("dypdykk-arkiv-"+d);
@@ -2513,13 +2528,13 @@ PAGE_INIT.arkiv=()=>{ _arkivInit(); $("page").querySelectorAll("[data-day]").for
 /* Mitt Dypdykk: kontopanelet blir ekte */
 const _profileK=PAGES["mitt-dypdykk"];
 PAGES["mitt-dypdykk"]=()=>{ const a=auth(); return _profileK().replace(/<div class="panel glass"><h3>Konto[\s\S]*?<\/button><\/div>/,
-  `<div class="panel glass"><h3>Konto</h3><p class="psub" style="font-size:13.5px;margin:0 0 12px">${a?`Logget inn som <b>${esc(a.user)}</b>. Dykkene dine lagres automatisk.`:"Logg inn for å lagre dykkene dine og ta dem med mellom mobil og PC."}</p>
+  `<div class="panel glass"><h3>Konto</h3><p class="psub" style="font-size:13.5px;margin:0 0 12px">${a?`Logget inn som <b>${esc(shownName(a))}</b>. Dykkene dine lagres automatisk.`:"Logg inn for å lagre dykkene dine og ta dem med mellom mobil og PC."}</p>
    <div class="btnrow"><a class="btn btn-primary" href="#konto" style="text-decoration:none">${a?"Konto":"Logg inn / lag bruker"}</a><a class="btn btn-ghost" href="#resultater" style="text-decoration:none">Tidligere resultater</a></div></div>`); };
 
 /* Menyen: konto og tidligere resultater */
 const _renderMenuK=renderMenu;
 renderMenu=function(){ _renderMenuK(); const a=auth(), links=$("menu").querySelector(".mlinks"); if(!links) return;
-  links.insertAdjacentHTML("afterbegin",`<button data-go="konto">${UI.user}<span>${a?esc(a.user):"Logg inn"}<small>${a?"Dykkene dine lagres":"Lagre dykk og se tidligere resultater"}</small></span></button>
+  links.insertAdjacentHTML("afterbegin",`<button data-go="konto">${UI.user}<span>${a?esc(shownName(a)):"Logg inn"}<small>${a?"Dykkene dine lagres":"Lagre dykk og se tidligere resultater"}</small></span></button>
     <button data-go="resultater">${UI.archive}<span>Tidligere resultater<small>Alle dykkene dine</small></span></button>`);
   links.querySelectorAll('[data-go="konto"],[data-go="resultater"]').forEach(b=>b.onclick=()=>{ closeMenu(); go(b.dataset.go); }); };
 if(auth()) setTimeout(()=>syncNow(true),1500);
