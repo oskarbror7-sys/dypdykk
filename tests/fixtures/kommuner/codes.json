@@ -1,0 +1,70 @@
+{
+ "_note": "TESTDATA – ikke ekte uttrekk",
+ "codes": [
+  {
+   "code": "0301",
+   "name": "Oslo",
+   "level": "1"
+  },
+  {
+   "code": "4601",
+   "name": "Bergen",
+   "level": "1"
+  },
+  {
+   "code": "5001",
+   "name": "Trondheim - Tråante",
+   "level": "1"
+  },
+  {
+   "code": "5501",
+   "name": "Tromsø - Romsa - Tromssa",
+   "level": "1"
+  },
+  {
+   "code": "1103",
+   "name": "Stavanger",
+   "level": "1"
+  },
+  {
+   "code": "5610",
+   "name": "Kárášjohka - Karasjok",
+   "level": "1"
+  },
+  {
+   "code": "3205",
+   "name": "Lillestrøm",
+   "level": "1"
+  },
+  {
+   "code": "1508",
+   "name": "Ålesund",
+   "level": "1"
+  },
+  {
+   "code": "1580",
+   "name": "Haram",
+   "level": "1"
+  },
+  {
+   "code": "4020",
+   "name": "Midt-Telemark",
+   "level": "1"
+  },
+  {
+   "code": "1811",
+   "name": "Bindal",
+   "level": "1"
+  },
+  {
+   "code": "9999",
+   "name": "Uoppgitt",
+   "level": "1"
+  },
+  {
+   "code": "0301",
+   "name": "Oslo",
+   "level": "1"
+  }
+ ]
+}

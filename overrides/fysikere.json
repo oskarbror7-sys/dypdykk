@@ -1,0 +1,17 @@
+{
+ "add": [
+  {
+   "id": "manuell:newton",
+   "label": "Isaac Newton",
+   "aliases": [
+    "Newton"
+   ],
+   "tier": 0
+  }
+ ],
+ "_note": "Newton står som matematiker/astronom i Wikidata. «Charles Darwin» skal ikke gi poeng via fysikeren Charles Galton Darwin.",
+ "reject_alias": [
+  "Charles Darwin",
+  "Darwin"
+ ]
+}

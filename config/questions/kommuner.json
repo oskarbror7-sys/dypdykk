@@ -1,0 +1,62 @@
+{
+  "question": "Nevn en norsk kommune",
+  "norsk": true,
+  "attribution": "Kilde: Statistisk sentralbyrå (KLASS, NLOD 2.0) og Wikidata (CC0)",
+  "source": {
+    "type": "ssb_klass",
+    "classification": 131,
+    "date": "2026-01-01",
+    "id_prefix": "kommune",
+    "exclude_codes": [
+      "9999"
+    ],
+    "wikidata_join": {
+      "property": "P2504"
+    }
+  },
+  "rarity": {
+    "weights": {
+      "population": 0.6,
+      "sitelinks": 0.4
+    },
+    "cuts": {
+      "mode": "percent",
+      "at": [
+        0.04,
+        0.14,
+        0.34,
+        0.6,
+        0.86
+      ]
+    }
+  },
+  "validate": {
+    "min_count": 300,
+    "expected_count": 357,
+    "expected_note": "SSB: 357 kommuner fra 1.1.2024; endres ved nye sammenslåinger/delinger",
+    "max_shrink": 0.05,
+    "must_include": [
+      "Oslo",
+      "Bergen",
+      "Trondheim",
+      "Tromsø",
+      "Karasjok"
+    ],
+    "must_exclude": [
+      "Norge",
+      "Vestland"
+    ]
+  },
+  "validate_offline": {
+    "min_count": 5,
+    "must_include": [
+      "Oslo",
+      "Bergen",
+      "Karasjok"
+    ],
+    "must_exclude": [
+      "Norge"
+    ]
+  },
+  "alias_exclude_regex": "(?i)(\\bkommune\\b|^kommunen\\b)"
+}

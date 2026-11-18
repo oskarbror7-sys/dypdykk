@@ -1,0 +1,6 @@
+{"add": [
+  {"id": "manuell:alan-walker", "label": "Alan Walker", "aliases": [], "tier": 0},
+  {"id": "manuell:aurora", "label": "Aurora", "aliases": ["Aurora Aksnes"], "tier": 0},
+  {"id": "manuell:kygo", "label": "Kygo", "aliases": ["Kyrre Gørvell-Dahll"], "tier": 0}
+ ],
+ "_note": "Produsenter/DJ-er og noen artister mangler yrket sanger i Wikidata"}

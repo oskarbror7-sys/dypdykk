@@ -1,0 +1,10 @@
+cache/
+staging/
+logs/
+review/
+site/
+__pycache__/
+config/questions/*
+!config/questions/kommuner.json
+!config/questions/fotballspillere.json
+state/jobs.json

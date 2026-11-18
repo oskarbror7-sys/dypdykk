@@ -1,0 +1,239 @@
+{
+ "_note": "TESTDATA",
+ "results": {
+  "bindings": [
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q585"
+    },
+    "nr": {
+     "type": "literal",
+     "value": "0301"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "250"
+    },
+    "pop": {
+     "type": "literal",
+     "value": "717710"
+    },
+    "alias": {
+     "type": "literal",
+     "value": "Christiania"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q585"
+    },
+    "nr": {
+     "type": "literal",
+     "value": "0301"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "250"
+    },
+    "pop": {
+     "type": "literal",
+     "value": "717710"
+    },
+    "alias": {
+     "type": "literal",
+     "value": "Kristiania"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q26793"
+    },
+    "nr": {
+     "type": "literal",
+     "value": "4601"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "180"
+    },
+    "pop": {
+     "type": "literal",
+     "value": "291940"
+    },
+    "alias": {
+     "type": "literal",
+     "value": "Bjørgvin"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q25804"
+    },
+    "nr": {
+     "type": "literal",
+     "value": "5001"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "150"
+    },
+    "pop": {
+     "type": "literal",
+     "value": "214565"
+    },
+    "alias": {
+     "type": "literal",
+     "value": "Nidaros"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q25821"
+    },
+    "nr": {
+     "type": "literal",
+     "value": "5501"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "140"
+    },
+    "pop": {
+     "type": "literal",
+     "value": "78745"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q25416"
+    },
+    "nr": {
+     "type": "literal",
+     "value": "1103"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "130"
+    },
+    "pop": {
+     "type": "literal",
+     "value": "149048"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q482474"
+    },
+    "nr": {
+     "type": "literal",
+     "value": "5610"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "60"
+    },
+    "pop": {
+     "type": "literal",
+     "value": "2600"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q57966905"
+    },
+    "nr": {
+     "type": "literal",
+     "value": "3205"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "30"
+    },
+    "pop": {
+     "type": "literal",
+     "value": "94000"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q27044"
+    },
+    "nr": {
+     "type": "literal",
+     "value": "1508"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "80"
+    },
+    "pop": {
+     "type": "literal",
+     "value": "67000"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q484470"
+    },
+    "nr": {
+     "type": "literal",
+     "value": "1580"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "25"
+    },
+    "pop": {
+     "type": "literal",
+     "value": "9400"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q42405"
+    },
+    "nr": {
+     "type": "literal",
+     "value": "4020"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "20"
+    },
+    "pop": {
+     "type": "literal",
+     "value": "10700"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q485597"
+    },
+    "nr": {
+     "type": "literal",
+     "value": "1811"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "15"
+    },
+    "pop": {
+     "type": "literal",
+     "value": "1450"
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,254 @@
+{
+ "_note": "TESTDATA",
+ "results": {
+  "bindings": [
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q615"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "180"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Messi",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q615"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "180"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Leo Messi",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q11571"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "170"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "CR7",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q529207"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "160"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Ronaldo Nazário",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q529207"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "160"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "R9",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q12897"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "150"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Edson Arantes do Nascimento",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q27991478"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "130"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Erling Braut Haaland",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q27991478"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "130"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Erling Braut Håland",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q2593993"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "80"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Alfie Haaland",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q11887"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "140"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Zizou",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q1835"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "120"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Zlatan",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q1835"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "120"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Ibra",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q999008"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "2"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Mo Salah",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   }
+  ]
+ }
+}

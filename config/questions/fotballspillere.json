@@ -1,0 +1,136 @@
+{
+  "question": "Nevn en fotballspiller",
+  "norsk": false,
+  "attribution": "Kilde: Wikidata (CC0)",
+  "source": {
+    "type": "wikidata",
+    "where": "?item wdt:P106 wd:Q937857 ; wdt:P31 wd:Q5 .",
+    "bands": [
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        8,
+        9
+      ],
+      [
+        10,
+        14
+      ],
+      [
+        15,
+        24
+      ],
+      [
+        25,
+        49
+      ],
+      [
+        50,
+        100000
+      ]
+    ],
+    "label_langs": [
+      "nb",
+      "nn",
+      "mul",
+      "en"
+    ],
+    "alias_langs": [
+      "nb",
+      "mul",
+      "en"
+    ],
+    "demote": {
+      "min_sitelinks": 30,
+      "property": "P54",
+      "max_count": 1,
+      "tier": 5
+    }
+  },
+  "derive": {
+    "surname": {
+      "top": 3000,
+      "min_len": 4,
+      "dominance": 1.5,
+      "metric": "sitelinks"
+    }
+  },
+  "rarity": {
+    "weights": {
+      "sitelinks": 1.0
+    },
+    "cuts": {
+      "mode": "rank",
+      "at": [
+        60,
+        400,
+        2500,
+        12000,
+        50000
+      ]
+    }
+  },
+  "validate": {
+    "min_count": 100000,
+    "max_shrink": 0.1,
+    "must_include": [
+      "Erling Haaland",
+      "Lionel Messi",
+      "Cristiano Ronaldo",
+      "Ole Gunnar Solskjær",
+      "Pelé",
+      "Haaland",
+      "Messi",
+      "Mbappé"
+    ],
+    "must_exclude": [
+      "Magnus Carlsen",
+      "Petter Northug",
+      "Roger Federer"
+    ]
+  },
+  "validate_offline": {
+    "min_count": 20,
+    "must_include": [
+      "Erling Haaland",
+      "Lionel Messi",
+      "Haaland"
+    ],
+    "must_exclude": [
+      "Magnus Carlsen"
+    ]
+  },
+  "rarity_offline": {
+    "weights": {
+      "sitelinks": 1.0
+    },
+    "cuts": {
+      "mode": "rank",
+      "at": [
+        2,
+        5,
+        9,
+        13,
+        17
+      ]
+    }
+  }
+}

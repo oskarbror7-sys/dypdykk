@@ -1,0 +1,7 @@
+{
+ "add": [
+  {"id": "manuell:peer-gynt", "label": "Peer Gynt", "aliases": [], "tier": 0},
+  {"id": "manuell:1984", "label": "1984", "aliases": ["Nittenåttifire", "Nineteen Eighty-Four"], "tier": 0}
+ ],
+ "_note": "Skuespill og bøker med annen type/etikett i Wikidata"
+}

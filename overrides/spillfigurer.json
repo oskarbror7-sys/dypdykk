@@ -1,0 +1,10 @@
+{"add": [
+  {"id": "manuell:pikachu", "label": "Pikachu", "aliases": [], "tier": 0},
+  {"id": "manuell:charmander", "label": "Charmander", "aliases": [], "tier": 2},
+  {"id": "manuell:bulbasaur", "label": "Bulbasaur", "aliases": [], "tier": 2},
+  {"id": "manuell:squirtle", "label": "Squirtle", "aliases": [], "tier": 2},
+  {"id": "manuell:jigglypuff", "label": "Jigglypuff", "aliases": [], "tier": 3},
+  {"id": "manuell:mewtwo", "label": "Mewtwo", "aliases": [], "tier": 3},
+  {"id": "manuell:eevee", "label": "Eevee", "aliases": [], "tier": 3}
+ ],
+ "_note": "Pokémon er registrert som fiktive arter, ikke spillfigurer, i Wikidata"}

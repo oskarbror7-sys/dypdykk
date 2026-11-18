@@ -1,0 +1,672 @@
+{
+ "_note": "TESTDATA",
+ "results": {
+  "bindings": [
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q615"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "180"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Lionel Messi",
+     "xml:lang": "nb"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "nb"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q615"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "180"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Lionel Messi",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q11571"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "170"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Cristiano Ronaldo",
+     "xml:lang": "nb"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "nb"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q11571"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "170"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Cristiano Ronaldo",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q529207"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "160"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Ronaldo",
+     "xml:lang": "nb"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "nb"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q529207"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "160"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Ronaldo",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q12897"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "150"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Pelé",
+     "xml:lang": "nb"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "nb"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q12897"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "150"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Pelé",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q27991478"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "130"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Erling Haaland",
+     "xml:lang": "nb"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "nb"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q27991478"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "130"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Erling Haaland",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q2593993"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "45"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Alf-Inge Haaland",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q312808"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "110"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Ole Gunnar Solskjær",
+     "xml:lang": "nb"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "nb"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q312808"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "110"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Ole Gunnar Solskjær",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q16729433"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "90"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Martin Ødegaard",
+     "xml:lang": "nb"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "nb"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q16729433"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "90"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Martin Ødegaard",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q11887"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "140"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Zinedine Zidane",
+     "xml:lang": "nb"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "nb"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q11887"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "140"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Zinedine Zidane",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q1835"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "120"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Zlatan Ibrahimović",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q209838"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "60"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "John Arne Riise",
+     "xml:lang": "nb"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "nb"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q209838"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "60"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "John Arne Riise",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q713214"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "40"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Tore André Flo",
+     "xml:lang": "nb"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "nb"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q713214"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "40"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Tore André Flo",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q502203"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "25"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Steffen Iversen",
+     "xml:lang": "nb"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "nb"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q502203"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "25"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Steffen Iversen",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q4116581"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "8"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Paulinho (footballer, born 1988)",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q2393130"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "6"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Paulinho",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q999001"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "3"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Arne Larsen Økland",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q999002"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "2"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Q999002",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q999003"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "2"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Hans Müller",
+     "xml:lang": "de"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "de"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q999004"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "2"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Juan Pérez",
+     "xml:lang": "es"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "es"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q999005"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "4"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Ola Nordmann (fotballspiller)",
+     "xml:lang": "nb"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "nb"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q999006"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "3"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Kim Larsen",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q999007"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "3"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Per Larsen",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q999008"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "2"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Mohamed Salah",
+     "xml:lang": "en"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "en"
+    }
+   },
+   {
+    "item": {
+     "type": "uri",
+     "value": "http://www.wikidata.org/entity/Q11571"
+    },
+    "sl": {
+     "type": "literal",
+     "value": "170"
+    },
+    "txt": {
+     "type": "literal",
+     "value": "Cristiano Ronaldo",
+     "xml:lang": "nb"
+    },
+    "lang": {
+     "type": "literal",
+     "value": "nb"
+    }
+   }
+  ]
+ }
+}

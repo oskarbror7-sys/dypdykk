@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dypdykk – hvor dypt kommer du?</title>
+<meta name="description" content="Dypdykk – det daglige quizspillet der sjeldne svar tar deg dypere. Sju spørsmål, mange riktige svar. Hvor dypt kommer du?">
+<meta name="theme-color" content="#062238">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dypdykk – hvor dypt kommer du?">
+<meta property="og:description" content="Sju spørsmål med mange riktige svar. Jo sjeldnere svaret ditt er, desto dypere synker du.">
+<meta property="og:image" content="https://dypdykk.netlify.app/og-image.jpg">
+<meta property="og:url" content="https://dypdykk.netlify.app/">
+<link rel="canonical" href="https://dypdykk.netlify.app/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Dypdykk">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#eaf6fb; --muted:#8db4c6; --cyan:#5ef2d6; --blue:#36b7ff; --warn:#ff7a6b;
+  --glass:rgba(8,26,44,.52); --edge:rgba(160,230,255,.16);
+  --mono:'JetBrains Mono',ui-monospace,monospace; --head:'Space Grotesk',Inter,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;overflow:hidden;background:#02060d;color:var(--ink);font-family:Inter,system-ui,sans-serif}
+#scene{position:fixed;inset:0;width:100%;height:100%;display:block}
+button{font:inherit;cursor:pointer;border:0;color:inherit;background:none}
+.glass{background:var(--glass);border:1px solid var(--edge);border-radius:22px;
+  backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);
+  box-shadow:0 20px 60px rgba(0,8,20,.45), inset 0 1px 0 rgba(255,255,255,.06)}
+.fade{transition:opacity .55s ease, transform .55s cubic-bezier(.2,.8,.2,1);opacity:0;pointer-events:none}
+
+/* ---------- Knapper ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;font-weight:700;
+  padding:16px 34px;font-size:17px;transition:transform .2s, box-shadow .2s, filter .2s}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--blue));color:#03202c;
+  box-shadow:0 10px 34px rgba(54,183,255,.38), inset 0 1px 0 rgba(255,255,255,.45)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(54,183,255,.5)}
+.btn-primary:active{transform:translateY(1px)}
+.btn-ghost{background:rgba(255,255,255,.06);border:1px solid var(--edge);color:var(--ink);backdrop-filter:blur(10px)}
+.btn-ghost:hover{background:rgba(255,255,255,.12)}
+.arrow{display:inline-block;animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateY(3px)}}
+
+/* ---------- Dykkeren ---------- */
+#diver{position:fixed;left:50%;width:62px;height:78px;margin-left:-31px;margin-top:-39px;z-index:4;pointer-events:none;top:60%}
+#diver .rot{width:100%;height:100%;transition:transform .7s cubic-bezier(.5,0,.2,1)}
+#diver.dive .rot{transform:rotate(180deg)}
+#diver .bob{width:100%;height:100%;animation:bob 2.8s ease-in-out infinite}
+#diver svg{width:100%;height:100%;filter:drop-shadow(0 6px 14px rgba(0,0,0,.45))}
+@keyframes bob{50%{transform:translateY(5px) rotate(-3deg)}}
+#tag{position:absolute;bottom:calc(100% + 14px);left:50%;transform:translate(-50%,6px);white-space:nowrap;
+  font-family:var(--mono);font-weight:700;font-size:15px;padding:8px 14px;border-radius:999px;
+  background:rgba(4,20,34,.7);border:1px solid rgba(160,240,255,.5);color:#dffcff;
+  box-shadow:0 0 24px rgba(94,242,214,.35);opacity:0;transition:opacity .35s, transform .35s}
+#tag.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- Startskjerm ---------- */
+#start .top{position:fixed;left:0;right:0;top:max(7vh,28px);text-align:center;z-index:5;padding:0 18px}
+#start .bottom{position:fixed;left:0;right:0;bottom:max(4vh,18px);z-index:5;display:flex;flex-direction:column;align-items:center;gap:12px;padding:0 18px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#cfe9f5;opacity:.85}
+.title{font-family:var(--head);font-weight:700;font-size:clamp(58px,13vw,128px);line-height:.95;letter-spacing:.03em;margin:10px 0 12px;
+  background:linear-gradient(100deg,#ffffff 30%,#aef7ff 45%,#ffffff 60%);background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 7s linear infinite;
+  filter:drop-shadow(0 8px 30px rgba(10,30,70,.55))}
+@keyframes shimmer{from{background-position:120% 0}to{background-position:-120% 0}}
+.sub{max-width:460px;margin:0 auto;font-size:16px;line-height:1.5;color:#e2f2fa;text-shadow:0 2px 12px rgba(0,20,40,.6)}
+.tierrow{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;width:100%;max-width:470px;margin-top:6px}
+.tierrow div{text-align:center;font-size:11px;color:var(--muted)}
+.tierrow svg{width:34px;height:34px;display:block;margin:0 auto 4px;filter:drop-shadow(0 0 10px rgba(94,242,214,.15))}
+.tierrow b{display:block;font-size:11.5px;color:var(--ink);font-weight:600}
+.donebox{font-size:15px;color:#d9eef7;text-align:center}
+.donebox b{color:var(--cyan);font-family:var(--mono)}
+.stats{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.05em}
+body.s-start #start .top, body.s-start #start .bottom{opacity:1;pointer-events:auto;transform:none}
+#start .top{transform:translateY(-14px)} #start .bottom{transform:translateY(14px)}
+
+/* ---------- HUD ---------- */
+#hud{position:fixed;top:0;left:0;right:0;z-index:6;display:flex;align-items:center;justify-content:space-between;
+  padding:max(14px,env(safe-area-inset-top)) 18px 0;transform:translateY(-10px)}
+body:not(.s-start) #hud{opacity:1;transform:none}
+.hbox{min-width:96px}
+.hbox .lbl{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.hbox .val{font-family:var(--mono);font-weight:700;font-size:22px;color:var(--cyan);font-variant-numeric:tabular-nums}
+.hbox.r{text-align:right}.hbox.r .val{color:#ffd36b}
+.pips{display:flex;gap:7px}
+.pips i{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.14);transition:all .4s;position:relative}
+.pips i.now{background:transparent;box-shadow:0 0 0 2px var(--cyan)}
+.pips i.now::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px solid var(--cyan);animation:ping 1.6s infinite}
+@keyframes ping{from{opacity:.8;transform:scale(.6)}to{opacity:0;transform:scale(1.4)}}
+#mute{position:fixed;left:14px;top:calc(max(14px,env(safe-area-inset-top)) + 52px);z-index:9;width:34px;height:34px;border-radius:50%;
+  background:rgba(255,255,255,.07);border:1px solid var(--edge);display:grid;place-items:center;color:var(--muted)}
+#mute svg{width:18px;height:18px}
+body.s-start #mute{top:auto;bottom:max(16px,env(safe-area-inset-bottom));left:auto;right:16px}
+
+/* ---------- Spørsmålskort ---------- */
+#qcard{position:fixed;left:50%;top:clamp(66px,10vh,96px);width:min(580px,92vw);z-index:5;padding:18px 24px 20px;transform:translate(-50%,-18px)}
+body.s-countdown #qcard, body.s-answer #qcard{opacity:1;transform:translate(-50%,0)}
+#qcard .qn{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--cyan);text-transform:uppercase}
+#qcard h2{font-family:var(--head);font-weight:700;font-size:clamp(22px,4.4vw,30px);line-height:1.15;margin:8px 0 6px}
+#qcard .hint{font-size:13px;color:var(--muted)}
+
+/* ---------- Nedtelling ---------- */
+#countdown{position:fixed;left:50%;bottom:calc(max(24px,env(safe-area-inset-bottom)) + 8px);transform:translate(-50%,12px);z-index:6;
+  font-family:var(--mono);font-size:13px;letter-spacing:.12em;padding:12px 20px;border-radius:999px;color:#cdeefa}
+#countdown b{color:var(--cyan);font-size:16px;display:inline-block;min-width:14px;text-align:center}
+body.s-countdown #countdown{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- Svarfelt ---------- */
+#bar{position:fixed;left:50%;bottom:max(22px,env(safe-area-inset-bottom));width:min(620px,94vw);z-index:7;transform:translate(-50%,30px)}
+body.s-answer #bar{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.barrow{display:flex;align-items:center;gap:10px;padding:8px;border-radius:999px}
+.ring{position:relative;width:52px;height:52px;flex:none}
+.ring svg{width:52px;height:52px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:4}
+.ring .bgc{stroke:rgba(255,255,255,.1)}
+.ring .fg{stroke:var(--cyan);stroke-linecap:round;stroke-dasharray:138.2;transition:stroke .3s}
+.ring span{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--mono);font-weight:700;font-size:16px}
+.ring.low .fg{stroke:var(--warn)} .ring.low span{color:var(--warn);animation:throb .5s ease-in-out infinite alternate}
+@keyframes throb{to{transform:scale(1.15)}}
+#inp{flex:1;min-width:0;background:transparent;border:0;outline:0;color:var(--ink);font:500 19px Inter,sans-serif;padding:10px 4px}
+#inp::placeholder{color:rgba(200,230,245,.4)}
+#go{background:linear-gradient(135deg,var(--cyan),var(--blue));color:#03202c;font-weight:800;border-radius:999px;padding:14px 22px;font-size:15px;letter-spacing:.06em;flex:none}
+#go:hover{filter:brightness(1.08)}
+.barrow.err{animation:shake .38s;box-shadow:0 0 0 1px rgba(255,122,107,.6),0 0 34px rgba(255,122,107,.25)}
+@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(3px)}}
+.msg{position:absolute;left:0;right:0;bottom:calc(100% + 10px);display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none}
+.pill{pointer-events:auto;font-size:14px;padding:9px 16px;border-radius:999px;max-width:100%;text-align:center;
+  animation:pop .35s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.94)}}
+.pill.bad{background:rgba(70,14,14,.72);border:1px solid rgba(255,122,107,.55);color:#ffd1ca}
+.pill.sug{background:rgba(6,40,56,.8);border:1px solid rgba(94,242,214,.55);color:#dffcf6;cursor:pointer}
+.pill.sug b{color:var(--cyan)}
+.pill small{display:block;font-size:11.5px;opacity:.75;margin-top:2px}
+.tried{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.tried span{font-size:12px;padding:3px 10px;border-radius:999px;background:rgba(255,122,107,.12);border:1px solid rgba(255,122,107,.32);color:#ffbdb3;text-decoration:line-through}
+.skip{display:block;margin:10px auto 0;font-size:12.5px;color:var(--muted);letter-spacing:.06em;opacity:.7}
+.skip:hover{opacity:1}
+
+/* ---------- Dykkeeffekter ---------- */
+#bigDepth{position:fixed;left:50%;top:calc(var(--dy,34%) + 110px);transform:translate(-50%,0) scale(.8);z-index:6;pointer-events:none;opacity:0;text-align:center;
+  font-family:var(--mono);font-weight:700;color:#eafcff;text-shadow:0 0 30px rgba(94,242,214,.45);transition:opacity .3s,transform .4s cubic-bezier(.2,1.4,.4,1)}
+#bigDepth .bd-n{font-size:clamp(54px,12vw,104px);letter-spacing:-.02em}
+#bigDepth .bd-u{font-size:clamp(22px,4vw,34px);margin-left:8px;opacity:.7}
+#bigDepth .bd-l{font-size:12px;letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-top:-4px}
+#bigDepth.on{opacity:1;transform:translate(-50%,0) scale(1)}
+#bigDepth.done{transform:translate(-50%,0) scale(1.18);color:var(--bc)}
+#flash{position:fixed;inset:0;z-index:7;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 40%,var(--fc,#5ef2d6) 0%,transparent 70%);mix-blend-mode:screen}
+/* ---------- Resultat per svar ---------- */
+#reveal{position:fixed;left:50%;top:calc(var(--dy,36%) + 70px);width:min(520px,92vw);z-index:5;text-align:center;padding:26px 24px 22px;transform:translate(-50%,16px);max-height:calc(100% - var(--dy,36%) - 80px);overflow:auto}
+body.s-reveal #reveal{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.ricon{position:relative;width:86px;height:86px;margin:-6px auto 6px}
+.ricon svg{position:relative;width:86px;height:86px;z-index:2;animation:iconin .7s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes iconin{from{transform:scale(.2) rotate(-25deg);opacity:0}}
+.ricon .burst{position:absolute;inset:0;border-radius:50%;border:2px solid var(--tc);opacity:0;animation:burst 1.4s ease-out .1s}
+.ricon .burst.b2{animation-delay:.35s}
+.ricon .glow{position:absolute;inset:-18px;border-radius:50%;background:radial-gradient(circle,var(--tc) 0%,transparent 65%);opacity:.28;animation:glow 2.4s ease-in-out infinite}
+@keyframes burst{0%{opacity:.9;transform:scale(.6)}100%{opacity:0;transform:scale(2.4)}}
+@keyframes glow{50%{opacity:.45;transform:scale(1.08)}}
+.tname{font-family:var(--head);font-weight:700;font-size:clamp(30px,8.6vw,52px);line-height:1.05;letter-spacing:.02em;overflow-wrap:anywhere;margin:4px 0 2px;color:var(--tc);text-shadow:0 0 28px color-mix(in srgb,var(--tc) 55%,transparent)}
+.tname.long{font-size:clamp(25px,6.4vw,42px);overflow-wrap:normal}
+.rquote{font-family:var(--mono);font-size:15px;color:#e8f6fb;margin:4px 0 8px}
+.rmeta{font-family:var(--mono);font-size:14px;color:var(--tc);font-weight:700}
+.rmeta span{color:var(--muted);font-weight:500}
+.rbar{display:flex;gap:5px;justify-content:center;margin:14px 0 6px}
+.rbar i{width:30px;height:6px;border-radius:3px;background:rgba(255,255,255,.12);transform-origin:left;animation:fillin .4s both}
+@keyframes fillin{from{transform:scaleX(0)}}
+.rword{display:inline-block;font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin:2px 0 8px;color:var(--tc);border:1px solid color-mix(in srgb,var(--tc) 45%,transparent);opacity:.85}
+.rscale{display:flex;justify-content:space-between;width:min(210px,70%);margin:0 auto 4px;font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.flavor{font-size:14px;color:#bcd6e2;margin:6px 0 2px}
+.sect{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.chip{font-size:13px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--edge)}
+#reveal .btn{margin-top:20px;width:100%}
+
+/* ---------- Oppsummering ---------- */
+#summary{position:fixed;inset:0;z-index:8;overflow:auto;background:linear-gradient(180deg,rgba(2,8,16,.35),rgba(2,8,16,.8));
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+body.s-summary #summary{opacity:1;pointer-events:auto}
+.sum{max-width:640px;margin:0 auto;padding:max(28px,6vh) 18px 90px}
+.sum .kicker{color:var(--cyan)}
+.bignum{display:flex;align-items:baseline;gap:12px;margin:10px 0 4px;flex-wrap:wrap}
+.bignum b{font-family:var(--head);font-size:clamp(72px,16vw,112px);line-height:.9;font-weight:700;
+  background:linear-gradient(180deg,#fff,#9eeefe);-webkit-background-clip:text;background-clip:text;color:transparent}
+.bignum span{font-family:var(--mono);color:var(--muted);font-size:16px}
+.bignum em{font-style:normal;font-family:var(--mono);color:var(--cyan);font-size:16px}
+.rank{font-family:var(--head);font-size:22px;font-weight:700;margin:6px 0 2px}
+.rank+p{color:#bcd6e2;margin:0 0 22px;font-size:15px}
+.panel{padding:20px;margin-bottom:16px}
+.panel h3{margin:0 0 12px;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:500}
+#log svg{width:100%;height:auto;display:block;overflow:visible}
+.drop{stroke-dasharray:400;stroke-dashoffset:400;animation:draw 1s cubic-bezier(.5,0,.2,1) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.dropicon{opacity:0;animation:appear .5s cubic-bezier(.2,1.5,.4,1) forwards}
+@keyframes appear{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+.alist{list-style:none;padding:0;margin:0}
+.alist li{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid rgba(160,230,255,.1);font-size:14px}
+.alist li:first-child{border-top:0}
+.alist svg{width:30px;height:30px;flex:none}
+.alist .q{flex:1;color:#cfe3ec}
+.alist .q small{display:block;color:var(--ink);font-weight:600;font-size:14.5px;margin-top:1px}
+.alist .t{text-align:right;font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+.alist .miss{width:30px;height:30px;border-radius:50%;border:1.5px dashed rgba(255,122,107,.6);flex:none}
+.share{font-family:var(--mono);white-space:pre-wrap;font-size:14px;line-height:1.6;background:rgba(0,0,0,.25);border-radius:14px;padding:14px 16px;border:1px solid var(--edge);margin-bottom:12px}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap}
+.btnrow .btn{flex:1;min-width:160px}
+.records{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center}
+.records b{display:block;font-family:var(--mono);font-size:22px;color:var(--cyan)}
+.records span{font-size:12px;color:var(--muted)}
+
+.toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,10px);z-index:20;padding:10px 18px;border-radius:999px;font-size:14px;
+  background:rgba(3,32,44,.92);border:1px solid var(--cyan);opacity:0;transition:all .3s;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+/* ---------- Toppknapper ---------- */
+.iconbtn{position:fixed;z-index:9;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+  background:rgba(6,22,38,.45);border:1px solid var(--edge);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#d7eef7;transition:background .2s,opacity .4s}
+.iconbtn:hover{background:rgba(255,255,255,.12)}
+.iconbtn svg{width:19px;height:19px}
+#menuBtn{left:14px;top:max(14px,env(safe-area-inset-top))}
+#profBtn{right:62px;top:max(14px,env(safe-area-inset-top))}
+#gearBtn{right:14px;top:max(14px,env(safe-area-inset-top))}
+body.s-countdown .iconbtn,body.s-answer .iconbtn,body.s-diving .iconbtn,body.s-reveal .iconbtn,body.s-intro .iconbtn{opacity:0;pointer-events:none}
+body:not(.s-start):not(.s-summary):not(.s-page) #profBtn,body:not(.s-start):not(.s-summary):not(.s-page) #gearBtn{opacity:0;pointer-events:none}
+body.s-summary #menuBtn,body.s-page #menuBtn{z-index:12}
+body.s-start #mute{display:none}
+
+/* ---------- Meny ---------- */
+#menuWrap{position:fixed;inset:0;z-index:30;pointer-events:none}
+#menuWrap .scrim{position:absolute;inset:0;background:rgba(1,6,14,.55);opacity:0;transition:opacity .35s}
+#menu{position:absolute;left:0;top:0;bottom:0;width:min(400px,92vw);padding:max(18px,env(safe-area-inset-top)) 18px 24px;overflow:auto;
+  background:linear-gradient(180deg,rgba(8,30,50,.92),rgba(4,14,28,.96));border-right:1px solid var(--edge);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);transform:translateX(-104%);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+#menuWrap.open{pointer-events:auto}#menuWrap.open .scrim{opacity:1}#menuWrap.open #menu{transform:none}
+.mhead{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.mhead .mlogo{width:42px;height:42px}
+.mhead b{font-family:var(--head);font-size:24px;letter-spacing:.06em;display:block}
+.mhead small{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+.mhead .x{margin-left:auto;width:36px;height:36px;border-radius:10px;border:1px solid var(--edge);display:grid;place-items:center}
+.mlabel{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;margin:16px 2px 10px}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{position:relative;text-align:left;padding:14px 14px 13px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid var(--edge);
+  transition:transform .2s,background .2s,border-color .2s;min-height:92px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.tile:hover{transform:translateY(-2px);background:rgba(255,255,255,.08);border-color:rgba(160,230,255,.35)}
+.tile svg.ti{width:26px;height:26px;color:var(--cyan)}
+.tile b{font-size:14.5px;font-weight:600}
+.tile small{font-size:11.5px;color:var(--muted);line-height:1.3}
+.tile.active{border-color:rgba(94,242,214,.6);background:linear-gradient(135deg,rgba(94,242,214,.14),rgba(54,183,255,.08))}
+.tile.wide{grid-column:span 2;flex-direction:row;align-items:center;min-height:0}
+.soon{position:absolute;top:9px;right:9px;font-family:var(--mono);font-size:9px;letter-spacing:.14em;padding:3px 7px;border-radius:999px;
+  background:rgba(255,211,107,.14);border:1px solid rgba(255,211,107,.45);color:#ffd36b;text-transform:uppercase}
+.soon.inline{position:static;display:inline-block;vertical-align:middle;margin-left:6px}
+.mlinks{display:flex;flex-direction:column;gap:8px}
+.mlinks button{display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px;border-radius:14px;border:1px solid var(--edge);background:rgba(255,255,255,.03)}
+.mlinks button:hover{background:rgba(255,255,255,.07)}
+.mlinks svg{width:20px;height:20px;color:var(--muted);flex:none}
+.mlinks span{flex:1;font-size:14px}.mlinks span.soon{flex:none;font-size:9px}.mlinks small{display:block;color:var(--muted);font-size:11.5px}
+.mfoot{margin-top:18px;font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.1em;text-align:center;opacity:.7}
+
+/* ---------- Sider ---------- */
+#page{position:fixed;inset:0;z-index:11;overflow:auto;background:linear-gradient(180deg,rgba(2,10,20,.55),rgba(2,8,16,.88));
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+body.s-page #page{opacity:1;pointer-events:auto}
+.pg{max-width:760px;margin:0 auto;padding:calc(max(14px,env(safe-area-inset-top)) + 58px) 18px 80px}
+.pg.narrow{max-width:640px}
+.back{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;padding:6px 0;margin-bottom:6px}
+.back:hover{color:var(--ink)}
+.ptitle{font-family:var(--head);font-weight:700;font-size:clamp(34px,7vw,52px);line-height:1;margin:6px 0 8px;letter-spacing:.02em}
+.psub{color:#bcd6e2;font-size:15.5px;line-height:1.5;margin:0 0 22px;max-width:560px}
+.banner{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:16px;margin-bottom:18px;
+  background:linear-gradient(135deg,rgba(255,211,107,.12),rgba(255,171,122,.06));border:1px solid rgba(255,211,107,.35);font-size:14px;color:#ffe9b8}
+.banner svg{width:22px;height:22px;flex:none;color:#ffd36b}
+.dis{opacity:.5;pointer-events:none;filter:saturate(.6)}
+.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none!important;box-shadow:none}
+
+/* Temapakker */
+.packs{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.pack{text-align:left;border-radius:20px;overflow:hidden;border:1px solid var(--edge);background:rgba(6,20,36,.6);transition:transform .25s,box-shadow .25s;position:relative}
+.pack:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.4)}
+.pack .art{height:140px;position:relative}
+.pack .art svg{width:100%;height:100%;display:block}
+.pack .body{padding:14px 16px 16px}
+.pack .tag2{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--pc);text-transform:uppercase}
+.pack b{display:block;font-family:var(--head);font-size:20px;margin:4px 0 2px}
+.pack small{color:var(--muted);font-size:12.5px}
+.pack .cta{display:block;margin-top:12px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--pc)}
+.chapters{width:100%;height:auto;display:block}
+.chapters .node{transition:transform .2s}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin:8px 0 18px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+
+/* Boblebomben */
+.party{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.party .panel{margin:0}
+.party .full{grid-column:span 2}
+.bomb{display:grid;place-items:center;padding:12px 0 4px}
+.bomb svg{width:150px;height:150px;animation:wob 2.4s ease-in-out infinite}
+@keyframes wob{50%{transform:scale(1.06) rotate(3deg)}}
+.chipsel{display:flex;gap:8px;flex-wrap:wrap}
+.chipsel span{padding:9px 14px;border-radius:12px;border:1px solid var(--edge);font-family:var(--mono);font-size:12.5px}
+.chipsel span.on{border-color:var(--cyan);color:var(--cyan);background:rgba(94,242,214,.08)}
+.field{width:100%;background:rgba(0,0,0,.25);border:1px solid var(--edge);border-radius:12px;padding:12px 14px;color:var(--ink);font:500 15px Inter,sans-serif;outline:0}
+.field:focus{border-color:var(--cyan)}
+.rowf{display:flex;gap:8px}.rowf .field{flex:1}
+.empty{text-align:center;color:var(--muted);font-size:13.5px;padding:26px 10px;border:1px dashed var(--edge);border-radius:14px}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:s;display:flex;gap:12px;padding:8px 0;font-size:14px;color:#d4e8f0;line-height:1.45}
+.steps li::before{content:counter(s);flex:none;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:12px;background:rgba(94,242,214,.12);color:var(--cyan)}
+.buddies{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px}
+.buddy{text-align:center;padding:12px 6px 10px;border-radius:14px;border:1px solid var(--edge);background:rgba(255,255,255,.03);font-size:12px}
+.buddy .bi{width:46px;height:46px;margin:0 auto 6px}
+.buddy .bi svg{width:100%;height:100%}
+.buddy b{display:block;font-size:12.5px;margin-bottom:2px}
+.buddy small{color:var(--muted);font-size:10.5px;font-family:var(--mono)}
+.buddy.locked .bi{filter:brightness(0) invert(.25);opacity:.7}
+.buddy.on{border-color:var(--cyan);background:rgba(94,242,214,.08)}
+
+/* Arkiv */
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}
+.cal .dow{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--muted);text-align:center;text-transform:uppercase}
+.cal .day{aspect-ratio:1;border-radius:12px;border:1px solid var(--edge);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;background:rgba(255,255,255,.03);position:relative}
+.cal .day small{font-size:9.5px;color:var(--muted)}
+.cal .day.done{border-color:rgba(94,242,214,.6);background:rgba(94,242,214,.1)}
+.cal .day.today{box-shadow:0 0 0 2px var(--cyan)}
+.cal .day.future{opacity:.25}
+.cal .day.blank{border:0;background:none}
+
+/* Venner */
+.lb{list-style:none;margin:0;padding:0}
+.lb li{display:flex;align-items:center;gap:12px;padding:12px 4px;border-top:1px solid rgba(160,230,255,.08);font-size:14px}
+.lb li:first-child{border-top:0}
+.lb .pos{width:26px;font-family:var(--mono);color:var(--muted)}
+.lb .av{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.06);display:grid;place-items:center}
+.lb .av svg{width:26px;height:26px}
+.lb .nm{flex:1}.lb .sc{font-family:var(--mono);color:var(--cyan)}
+.lb li.ghost{opacity:.35}
+
+/* Innstillinger */
+.set{display:flex;align-items:center;gap:14px;padding:14px 2px;border-top:1px solid rgba(160,230,255,.08)}
+.set:first-of-type{border-top:0}
+.set div{flex:1}.set b{font-size:15px;font-weight:600}.set small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px;line-height:1.4}
+.sw{width:50px;height:28px;border-radius:999px;background:rgba(255,255,255,.12);position:relative;transition:background .25s;flex:none;border:1px solid var(--edge)}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#cfe3ec;transition:transform .25s cubic-bezier(.3,1.4,.5,1)}
+.sw.on{background:linear-gradient(135deg,var(--cyan),var(--blue))}.sw.on::after{transform:translateX(22px);background:#fff}
+
+/* FAQ / Fangsten */
+details.acc{border-top:1px solid rgba(160,230,255,.1)}
+details.acc:first-of-type{border-top:0}
+details.acc summary{list-style:none;cursor:pointer;padding:14px 2px;display:flex;align-items:center;gap:12px;font-size:15px;font-weight:600}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary::after{content:"+";margin-left:auto;font-family:var(--mono);color:var(--muted);font-size:18px;transition:transform .25s}
+details.acc[open] summary::after{transform:rotate(45deg)}
+details.acc .ab{padding:0 2px 16px;color:#c7dde6;font-size:14px;line-height:1.55}
+details.acc summary .ci{width:28px;height:28px;flex:none}
+details.acc summary .ci svg{width:100%;height:100%}
+details.acc summary .qq{flex:1;font-weight:500}
+details.acc summary .qq small{display:block;font-weight:700;font-size:14px}
+.tierlist{margin:4px 0 0}
+.tierlist div{margin-bottom:10px}
+.tierlist .th{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px}
+.tierlist .chips{justify-content:flex-start}
+.chip.me{box-shadow:0 0 0 2px currentColor}
+.ghostcurve{position:relative}
+.ghostcurve svg{width:100%;height:auto;opacity:.35;filter:blur(.3px)}
+.ghostcurve .over{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-size:13.5px;color:#e6f3f8}
+.countdown2{font-family:var(--mono);font-size:28px;color:var(--cyan);letter-spacing:.06em}
+.stars{display:flex;gap:8px}
+.stars button{width:44px;height:44px;border-radius:12px;border:1px solid var(--edge);font-family:var(--mono);font-size:15px;background:rgba(255,255,255,.04)}
+.stars button.on{background:linear-gradient(135deg,var(--cyan),var(--blue));color:#03202c;border-color:transparent}
+.promo{display:flex;gap:16px;align-items:center}
+.promo svg{width:84px;height:84px;flex:none}
+.promo b{font-family:var(--head);font-size:20px;display:block;margin-bottom:2px}
+.promo p{margin:0 0 10px;color:#c4dae4;font-size:14px}
+@media (max-width:600px){.party{grid-template-columns:1fr}.party .full{grid-column:auto}.records{grid-template-columns:repeat(2,1fr)}}
+
+body.s-page #hud,body.s-summary #hud{opacity:0;pointer-events:none}
+body.s-page #mute{display:none}
+@media (max-width:480px){.cal{gap:4px}.cal .day{border-radius:9px;font-size:12px}.cal .day small{font-size:8px}.cal .dow{font-size:9px;letter-spacing:.04em}}
+#buddy{position:absolute;left:-44px;top:26px;width:38px;height:38px;animation:bob 2.2s ease-in-out infinite reverse;pointer-events:none}
+#buddy svg{width:100%;height:100%;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}
+.cal button.day{color:inherit;font:inherit;cursor:pointer}.cal button.day:disabled{cursor:default}
+@media (max-width:480px){
+  .btn{padding:15px 24px;font-size:16px}
+  .tierrow div{font-size:10px}.tierrow b{font-size:10px}.tierrow svg{width:28px;height:28px}
+  .hbox .val{font-size:18px}.hbox{min-width:76px}
+  #go{padding:13px 16px}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body class="s-start">
+<canvas id="scene"></canvas>
+
+<div id="diver"><div id="tag"></div><div class="rot"><div class="bob" id="diverArt"></div></div></div>
+
+<div id="hud" class="fade">
+  <div class="hbox"><span class="lbl">Dybde</span><span class="val" id="hDepth">0 m</span></div>
+  <div class="pips" id="pips"></div>
+  <div class="hbox r"><span class="lbl">Poeng</span><span class="val" id="hScore">0</span></div>
+</div>
+
+<section id="start">
+  <div class="top fade">
+    <div class="kicker" id="dayLabel"></div>
+    <div class="title">DYPDYKK</div>
+    <p class="sub">Sju spørsmål med mange riktige svar. Jo sjeldnere svaret ditt er, desto dypere synker du.</p>
+  </div>
+  <div class="bottom fade" id="startBottom"></div>
+</section>
+
+<div id="qcard" class="glass fade"></div>
+<div id="countdown" class="glass fade">KLOKKA STARTER OM <b id="cd">3</b></div>
+
+<form id="bar" class="fade" autocomplete="off">
+  <div class="msg" id="msg"></div>
+  <div class="barrow glass" id="barrow">
+    <div class="ring" id="ring"><svg viewBox="0 0 52 52"><circle class="bgc" cx="26" cy="26" r="22"/><circle class="fg" id="ringfg" cx="26" cy="26" r="22"/></svg><span id="secs">20</span></div>
+    <input id="inp" type="text" placeholder="Skriv ett svar …" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go">
+    <button id="go" type="submit">DYKK ▼</button>
+  </div>
+  <button class="skip" type="button" id="skip">Hopp over</button>
+</form>
+
+<div id="reveal" class="glass fade"></div>
+<div id="bigDepth"><span class="bd-n">0</span><span class="bd-u">m</span><div class="bd-l">dypere</div></div>
+<div id="flash"></div>
+<section id="summary" class="fade"></section>
+<button id="mute" title="Lyd av/på" aria-label="Lyd av/på"></button>
+<button class="iconbtn" id="menuBtn" aria-label="Meny"></button><button class="iconbtn" id="profBtn" aria-label="Mitt Dypdykk"></button><button class="iconbtn" id="gearBtn" aria-label="Innstillinger"></button>
+<section id="page" class="fade"></section>
+<div id="menuWrap"><div class="scrim"></div><nav id="menu"></nav></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const QUESTIONS = [
+{id:"afrika", q:"Nevn et land i Afrika", a:
+"Egypt/Egypten,Sør-Afrika/Sydafrika,Nigeria,Kenya,Marokko|Etiopia,Ghana,Tanzania,Algerie,Tunisia,Uganda,Somalia,Libya|Kongo/Republikken Kongo/Kongo-Brazzaville,DR Kongo/Den demokratiske republikken Kongo/Kongo-Kinshasa/DRC,Sudan,Senegal,Zimbabwe,Kamerun,Angola,Madagaskar,Rwanda,Mosambik|Elfenbenskysten,Mali,Zambia,Namibia,Botswana,Sør-Sudan,Niger,Tsjad,Eritrea,Liberia,Sierra Leone|Gambia,Malawi,Burkina Faso,Benin,Togo,Guinea,Mauritania,Gabon,Burundi,Den sentralafrikanske republikk/Sentralafrikanske republikk/SAR,Lesotho,Eswatini/Swaziland,Djibouti,Kapp Verde|Ekvatorial-Guinea,Guinea-Bissau,São Tomé og Príncipe/Sao Tome,Komorene,Seychellene,Mauritius"},
+{id:"euhov", q:"Nevn en hovedstad i Europa", a:
+"Oslo,Stockholm,København,Paris,London,Berlin|Roma/Rom,Madrid,Helsinki,Amsterdam,Wien,Reykjavik,Dublin,Brussel|Lisboa,Praha,Warszawa,Athen,Budapest,Moskva,Bern,Kyiv/Kiev/Kijev|Tallinn,Riga,Vilnius,Beograd,Bucuresti/Bukarest,Sofia,Zagreb,Bratislava,Luxembourg,Minsk,Monaco|Ljubljana,Sarajevo,Tirana,Skopje,Podgorica,Chisinau,Valletta,Andorra la Vella,Vaduz,San Marino,Vatikanstaten/Vatikanet|Nikosia/Nicosia,Pristina,Ankara"},
+{id:"grunnstoff", q:"Nevn et grunnstoff i periodesystemet", a:
+"Oksygen/Oxygen/Surstoff,Hydrogen/Vannstoff,Karbon/Carbon/Kullstoff,Jern/Iron,Gull/Gold,Nitrogen/Kvelstoff,Helium|Sølv/Silver,Kobber/Copper,Natrium/Sodium,Kalsium/Calcium,Aluminium,Sink/Zinc,Bly/Lead,Uran/Uranium,Klor/Chlorine,Magnesium,Kalium/Potassium,Neon,Platina/Platinum,Kvikksølv/Mercury|Fosfor,Svovel/Sulfur,Tinn/Tin,Silisium/Silicon,Titan/Titanium,Nikkel/Nickel,Plutonium,Litium/Lithium,Fluor,Argon,Jod/Iod,Radon,Wolfram,Krom,Kobolt,Mangan,Radium|Arsen,Krypton,Xenon,Brom,Bor,Beryllium,Polonium,Cesium,Barium,Kadmium,Palladium,Iridium,Osmium,Selen,Strontium,Germanium,Gallium,Vanadium,Zirkonium,Molybden,Neodym,Americium,Einsteinium|Scandium,Rubidium,Yttrium,Niob,Ruthenium,Rhodium,Indium,Antimon,Tellur,Lantan,Cerium,Europium,Gadolinium,Hafnium,Tantal,Rhenium,Thallium,Vismut,Astat,Francium,Actinium,Thorium,Curium,Nobelium,Mendelevium,Fermium,Californium,Neptunium,Technetium,Samarium|Praseodym,Prometium,Terbium,Dysprosium,Holmium,Erbium,Thulium,Ytterbium,Lutetium,Protactinium,Berkelium,Lawrencium,Rutherfordium,Dubnium,Seaborgium,Bohrium,Hassium,Meitnerium,Darmstadtium,Røntgenium/Roentgenium,Copernicium,Nihonium,Flerovium,Moscovium,Livermorium,Tennessin,Oganesson"},
+{id:"planet", q:"Nevn en planet eller dvergplanet i solsystemet", a:
+"Jorden/Jorda,Mars|Jupiter,Saturn,Venus|Merkur,Uranus,Neptun|Pluto|Ceres|Eris,Makemake,Haumea"},
+{id:"usa", q:"Nevn en delstat i USA", a:
+"California,Texas,Florida,New York|Alaska,Hawaii,Nevada,Washington,Arizona,Colorado,Michigan|Illinois,Ohio,Georgia,Massachusetts,Louisiana,Utah,Oregon,Pennsylvania,New Jersey,Tennessee,Minnesota|Virginia,North Carolina/Nord-Carolina,South Carolina/Sør-Carolina,Kentucky,Alabama,Montana,Wisconsin,Kansas,Oklahoma,Missouri,Indiana,Iowa|Idaho,Wyoming,Nebraska,North Dakota/Nord-Dakota,South Dakota/Sør-Dakota,New Mexico,Mississippi,Arkansas,Maryland,Connecticut,Maine,Vermont,West Virginia|New Hampshire,Rhode Island,Delaware"},
+{id:"fylke", norsk:true, q:"Nevn et av dagens norske fylker", a:
+"Oslo,Vestland|Rogaland,Trøndelag|Nordland,Innlandet,Agder|Akershus,Troms,Finnmark|Møre og Romsdal,Vestfold,Telemark|Østfold,Buskerud"},
+{id:"tyskland", q:"Nevn et land som grenser til Tyskland", a:
+"Frankrike,Polen|Østerrike,Sveits|Danmark,Nederland/Holland|Belgia,Tsjekkia|Luxembourg"},
+{id:"eu", q:"Nevn et medlemsland i EU", a:
+"Tyskland,Frankrike,Sverige,Spania,Italia|Danmark,Finland,Nederland/Holland,Polen,Belgia|Portugal,Hellas/Grekenland,Østerrike,Irland|Estland,Latvia,Litauen,Tsjekkia,Ungarn,Kroatia|Slovakia,Slovenia,Romania,Bulgaria,Luxembourg|Malta,Kypros"},
+{id:"stjernetegn", q:"Nevn et stjernetegn i dyrekretsen", a:
+"Løven/Løve,Skorpionen/Skorpion|Vannmannen/Vannmann,Fiskene/Fisk,Tvillingene/Tvilling|Væren/Vær,Jomfruen/Jomfru|Tyren/Tyr,Krepsen/Kreps,Vekten/Vekt|Skytten/Skytte|Steinbukken/Steinbukk"},
+{id:"kinesisk", q:"Nevn et dyr i den kinesiske dyrekretsen", a:
+"Drage,Tiger|Rotte,Slange|Ape,Hest,Hund|Gris/Svin,Okse|Hare/Kanin,Hane/Kylling/Høne|Geit/Sau/Bukk"},
+{id:"guder", q:"Nevn en gresk gud eller gudinne fra Olympen", a:
+"Zevs/Zeus,Poseidon|Hades,Athene/Athena,Afrodite/Aphrodite|Apollon/Apollo,Ares,Hermes|Hera,Artemis|Dionysos/Dionysus,Demeter|Hefaistos/Hephaistos,Hestia"},
+{id:"soramerika", q:"Nevn et land i Sør-Amerika", a:
+"Brasil,Argentina|Chile,Peru,Colombia|Venezuela,Bolivia|Ecuador,Uruguay|Paraguay|Guyana,Surinam/Suriname"},
+{id:"orkester", q:"Nevn et instrument i et symfoniorkester", a:
+"Fiolin/Fele,Piano/Flygel,Fløyte,Trompet|Cello,Kontrabass,Klarinett,Pauker/Pauke,Trombone/Basun,Harpe|Bratsj/Viola,Obo,Fagott,Valthorn/Horn,Tuba,Tromme/Skarptromme/Stortromme|Piccolofløyte/Piccolo,Triangel,Cymbal/Bekken,Xylofon,Kontrafagott|Engelsk horn,Klokkespill/Glockenspiel,Rørklokker,Tamtam/Gong,Basklarinett|Celesta,Kastanjetter"},
+{id:"asia", q:"Nevn et land i Asia", a:
+"Kina,Japan,India,Sør-Korea/Korea,Thailand|Nord-Korea,Vietnam,Indonesia,Filippinene,Pakistan,Iran,Irak,Afghanistan,Israel,Saudi-Arabia,Tyrkia|Russland,Malaysia,Singapore,Bangladesh,Nepal,Sri Lanka,Syria,Mongolia,Qatar,De forente arabiske emirater/Emiratene/UAE,Libanon,Jordan,Kambodsja,Myanmar/Burma,Taiwan|Kasakhstan,Usbekistan,Laos,Kuwait,Jemen,Oman,Bhutan,Maldivene,Palestina|Kirgisistan,Tadsjikistan,Turkmenistan,Bahrain,Brunei,Øst-Timor/Timor-Leste,Aserbajdsjan,Armenia|Georgia,Kypros"},
+{id:"statsminister", norsk:true, q:"Nevn en norsk statsminister etter 1945", a:
+"Jonas Gahr Støre/Støre,Erna Solberg/Solberg,Jens Stoltenberg/Stoltenberg|Gro Harlem Brundtland/Brundtland/Gro,Kjell Magne Bondevik/Bondevik|Einar Gerhardsen/Gerhardsen,Thorbjørn Jagland/Jagland,Kåre Willoch/Willoch|Odvar Nordli/Nordli,Trygve Bratteli/Bratteli,Per Borten/Borten|Jan P. Syse/Jan Syse/Syse,Lars Korvald/Korvald|John Lyng/Lyng,Oscar Torp/Torp"},
+{id:"asiahov", q:"Nevn en hovedstad i Asia", a:
+"Tokyo,Beijing/Peking,Seoul|Bangkok,New Delhi/Delhi,Jakarta,Manila,Hanoi|Kuala Lumpur,Singapore,Teheran,Bagdad,Kabul,Islamabad,Riyadh/Riyad,Doha,Abu Dhabi,Pyongyang|Kathmandu,Dhaka,Colombo,Beirut,Amman,Damaskus,Phnom Penh,Taipei,Ulan Bator/Ulaanbaatar|Astana,Tasjkent/Tashkent,Vientiane,Kuwait by/Kuwait City,Muskat/Muscat,Sanaa/Sana,Thimphu,Malé/Male,Naypyidaw,Manama|Bisjkek/Bishkek,Dusjanbe/Dushanbe,Asjgabat/Ashgabat,Bandar Seri Begawan,Dili,Baku,Jerevan/Yerevan,Nusantara,Sri Jayawardenepura Kotte/Kotte,Tbilisi"},
+{id:"oseania", q:"Nevn et land i Oseania", a:
+"Australia,New Zealand|Fiji,Papua Ny-Guinea/Papua New Guinea|Samoa,Tonga|Vanuatu,Salomonøyene|Kiribati,Mikronesiaføderasjonen/Mikronesia,Marshalløyene|Palau,Nauru,Tuvalu"},
+{id:"nordamerika", q:"Nevn et land i Nord-Amerika, Mellom-Amerika eller Karibia", a:
+"USA/De forente stater/Amerika,Canada,Mexico|Cuba,Jamaica|Panama,Costa Rica,Haiti,Den dominikanske republikk/Dominikanske republikk|Guatemala,Honduras,Bahamas,Nicaragua,El Salvador|Belize,Barbados,Trinidad og Tobago|Grenada,Saint Lucia,Dominica,Antigua og Barbuda,Saint Vincent og Grenadinene,Saint Kitts og Nevis"},
+{id:"underverk", q:"Nevn et av verdens sju nye underverker (eller æresunderverket)", a:
+"Den kinesiske mur/Kinesiske mur/Kinamuren|Taj Mahal,Colosseum/Colosseo|Machu Picchu,Pyramidene i Giza/Giza/Pyramidene|Kristusstatuen/Cristo Redentor/Kristus forløseren|Petra|Chichén Itzá/Chichen Itza"},
+{id:"middelhavet", q:"Nevn et land med kyst mot Middelhavet", a:
+"Italia,Spania,Hellas/Grekenland|Frankrike,Tyrkia,Kroatia,Egypt/Egypten|Marokko,Tunisia,Kypros,Malta,Israel|Libya,Algerie,Libanon,Albania,Montenegro|Syria,Slovenia,Monaco|Bosnia-Hercegovina/Bosnia,Palestina/Gaza"},
+{id:"gresk", q:"Nevn en bokstav i det greske alfabetet", a:
+"Alfa/Alpha,Beta,Pi,Omega|Gamma,Delta,Sigma,Lambda|Theta/Teta,Epsilon,My/Mu|Zeta,Eta,Tau,Rho/Ro,Kappa,Fi/Phi|Jota/Iota,Ny/Nu,Khi/Chi,Psi,Ypsilon/Upsilon|Ksi/Xi,Omikron/Omicron"},
+{id:"nato", q:"Nevn et medlemsland i NATO", a:
+"USA,Norge,Storbritannia/UK/England,Tyskland,Frankrike|Danmark,Sverige,Finland,Canada,Italia,Spania,Polen,Nederland/Holland,Tyrkia|Belgia,Portugal,Island,Hellas/Grekenland,Estland,Latvia,Litauen|Tsjekkia,Ungarn,Romania,Bulgaria,Kroatia,Slovakia|Slovenia,Albania,Luxembourg,Montenegro|Nord-Makedonia/Makedonia"},
+{id:"vinterol", norsk:true, q:"Nevn en idrett eller gren i vinter-OL", a:
+"Langrenn,Skiskyting,Alpint/Alpin|Skihopp/Hopp,Skøyter/Skøyteløp/Hurtigløp,Ishockey|Kunstløp,Curling,Snowboard/Snøbrett|Kombinert/Nordisk kombinert,Freestyle,Bob|Kortbane,Aking,Skicross,Skeleton|Skialpinisme/Randonee/Skimo"}
+];
+const Q_GEO=[
+{id:"europa", q:"Nevn et land i Europa", a:
+"Norge,Sverige,Frankrike,Tyskland,Spania,Italia|Danmark,Finland,Storbritannia/England/UK,Polen,Nederland/Holland,Hellas/Grekenland,Portugal,Island,Sveits,Østerrike|Belgia,Irland,Russland,Ukraina,Kroatia,Tsjekkia,Ungarn,Romania,Estland,Latvia,Litauen|Bulgaria,Serbia,Slovakia,Slovenia,Belarus/Hviterussland,Albania,Luxembourg,Malta,Kypros,Tyrkia|Bosnia-Hercegovina/Bosnia,Montenegro,Nord-Makedonia/Makedonia,Moldova,Monaco,Liechtenstein,Andorra,San Marino,Kosovo|Vatikanstaten/Vatikanet,Georgia,Armenia,Aserbajdsjan,Kasakhstan"},
+{id:"afrikahov", q:"Nevn en hovedstad i Afrika", a:
+"Kairo,Nairobi,Pretoria,Kapp/Kappstaden/Cape Town|Rabat,Tunis,Addis Abeba,Abuja,Accra,Tripoli,Alger|Dakar,Kinshasa,Kampala,Mogadishu,Khartoum,Dodoma,Harare,Kigali,Luanda,Bloemfontein|Lusaka,Maputo,Windhoek,Gaborone,Antananarivo,Bamako,Niamey,Yamoussoukro,Abidjan,Juba,Asmara,Monrovia,Freetown,Brazzaville,Djibouti|Lilongwe,Banjul,Conakry,Bissau,Lomé/Lome,Porto-Novo,Ouagadougou,Nouakchott,Libreville,Malabo,Bangui,N'Djamena/Ndjamena,Yaoundé/Yaounde,Maseru,Mbabane,Lobamba,Gitega|Praia,Moroni,Victoria,Port Louis,São Tomé/Sao Tome"},
+{id:"sorhov", q:"Nevn en hovedstad i Sør-Amerika", a:
+"Buenos Aires,Brasília/Brasilia|Santiago,Lima,Bogotá/Bogota|Caracas,Montevideo|Quito,La Paz|Asunción/Asuncion,Sucre|Georgetown,Paramaribo"},
+{id:"russland", q:"Nevn et land som grenser til Russland", a:
+"Norge,Finland,Kina|Ukraina,Estland,Belarus/Hviterussland|Latvia,Polen,Mongolia,Kasakhstan|Litauen,Georgia|Nord-Korea|Aserbajdsjan"},
+{id:"kinagrense", q:"Nevn et land som grenser til Kina", a:
+"Russland,India|Mongolia,Nord-Korea,Vietnam|Pakistan,Nepal,Kasakhstan|Afghanistan,Laos,Myanmar/Burma|Bhutan,Kirgisistan|Tadsjikistan"},
+{id:"australia", q:"Nevn en delstat eller et territorium i Australia", a:
+"Queensland|New South Wales,Victoria|Tasmania|Vest-Australia/Western Australia|Sør-Australia/South Australia|Nordterritoriet/Northern Territory,Australian Capital Territory/ACT/Hovedstadsterritoriet"},
+{id:"canada", q:"Nevn en provins eller et territorium i Canada", a:
+"Québec/Quebec,Ontario|British Columbia,Alberta|Manitoba,Nova Scotia,Yukon|Saskatchewan,New Brunswick,Newfoundland og Labrador/Newfoundland/Labrador|Prince Edward Island,Nunavut|Nordvestterritoriene/Northwest Territories"},
+{id:"elver", q:"Nevn en av verdens ti lengste elver", a:
+"Nilen,Amazonas|Mississippi/Missouri/Mississippi-Missouri|Yangtze/Jangtse|Kongo/Kongoelva|Huang He/Den gule elv/Gule elv,Jenisej|Ob/Irtysj/Ob-Irtysj,Amur,Paraná/Parana"},
+{id:"fjell", q:"Nevn et av verdens ti høyeste fjell", a:
+"Mount Everest/Everest|K2|Kangchenjunga/Kanchenjunga|Lhotse,Annapurna|Makalu,Nanga Parbat,Manaslu|Cho Oyu,Dhaulagiri"},
+{id:"sevensummits", q:"Nevn det høyeste fjellet på et av de sju kontinentene", a:
+"Mount Everest/Everest|Kilimanjaro|Denali/Mount McKinley,Aconcagua|Elbrus|Mount Vinson/Vinson/Vinson Massif|Mount Kosciuszko/Kosciuszko,Puncak Jaya/Carstensz/Carstensz-pyramiden"},
+{id:"monarki", q:"Nevn et land i Europa som er et monarki", a:
+"Norge,Sverige|Danmark,Storbritannia/England/UK|Spania,Nederland/Holland|Belgia,Monaco|Luxembourg,Liechtenstein|Andorra,Vatikanstaten/Vatikanet"},
+{id:"spansk", q:"Nevn et land der spansk er offisielt språk", a:
+"Spania,Mexico|Argentina,Colombia,Chile,Peru|Cuba,Venezuela|Bolivia,Ecuador,Uruguay,Costa Rica,Panama|Paraguay,Guatemala,Honduras,Den dominikanske republikk/Dominikanske republikk,Nicaragua|El Salvador,Ekvatorial-Guinea"},
+{id:"portugisisk", q:"Nevn et land der portugisisk er offisielt språk", a:
+"Portugal|Brasil|Angola|Mosambik|Kapp Verde,Øst-Timor/Timor-Leste|Guinea-Bissau,São Tomé og Príncipe/Sao Tome,Ekvatorial-Guinea"},
+{id:"norden", q:"Nevn et land eller selvstyrt område i Norden", a:
+"Norge|Sverige|Danmark|Finland|Island|Færøyene,Grønland,Åland"},
+{id:"nordamhov", q:"Nevn en hovedstad i Nord-Amerika, Mellom-Amerika eller Karibia", a:
+"Washington/Washington DC,Ottawa|Mexico by/Mexico City/Ciudad de México|Havanna,Kingston,Panama by/Panama City|San José/San Jose,Santo Domingo,Port-au-Prince,Nassau|Guatemala by/Guatemala City,Tegucigalpa,Managua,San Salvador,Belmopan|Bridgetown,Port of Spain,Basseterre,Castries,Kingstown,Roseau,St. George's/St Georges,Saint John's/St Johns"},
+{id:"oseaniahov", q:"Nevn en hovedstad i Oseania", a:
+"Canberra|Wellington|Suva|Port Moresby|Apia,Nuku'alofa/Nukualofa|Honiara,Port Vila,Funafuti,Yaren,Tarawa/Sør-Tarawa,Majuro,Palikir,Ngerulmud/Melekeok"},
+{id:"sommerol", q:"Nevn et land som har arrangert sommer-OL", a:
+"USA,Storbritannia/England/UK,Hellas/Grekenland|Frankrike,Kina,Australia|Spania,Japan,Tyskland,Brasil|Russland/Sovjetunionen,Sør-Korea,Canada,Mexico|Italia,Sverige,Finland|Belgia,Nederland/Holland"},
+{id:"vinterol-land", q:"Nevn et land som har arrangert vinter-OL", a:
+"Norge,USA|Italia,Russland|Japan,Canada,Sveits|Frankrike,Østerrike,Kina|Tyskland,Sør-Korea|Jugoslavia/Bosnia-Hercegovina/Bosnia"},
+{id:"g20", q:"Nevn et medlem av G20", a:
+"USA,Kina|Russland,Tyskland,Japan,India|Frankrike,Storbritannia/England/UK,Brasil,Canada|Italia,Australia,Sør-Korea,Saudi-Arabia|Mexico,Indonesia,Tyrkia,Sør-Afrika,Argentina|EU/Den europeiske union,Den afrikanske union/AU"},
+{id:"euro", q:"Nevn et land som bruker euro som valuta", a:
+"Tyskland,Frankrike,Spania,Italia|Nederland/Holland,Finland,Portugal,Belgia,Irland,Hellas/Grekenland,Østerrike|Estland,Latvia,Litauen,Kroatia,Slovakia,Slovenia|Luxembourg,Malta,Kypros,Bulgaria|Monaco,Vatikanstaten/Vatikanet,San Marino,Andorra|Montenegro,Kosovo"},
+{id:"stan", q:"Nevn et land med «stan» i navnet", a:
+"Pakistan,Afghanistan|Kasakhstan|Usbekistan|Kirgisistan|Tadsjikistan|Turkmenistan"},
+{id:"fire", q:"Nevn et land med fire bokstaver i det norske navnet", a:
+"Kina,Peru|Cuba,Iran|Irak,Fiji|Mali,Laos|Oman|Togo"},
+{id:"land-s", q:"Nevn et land som begynner på S", a:
+"Sverige,Spania,Sveits|Storbritannia,Sør-Afrika,Sør-Korea|Serbia,Syria,Somalia,Singapore,Saudi-Arabia,Sudan|Slovakia,Slovenia,Senegal,Sri Lanka,Samoa|Sør-Sudan,Sierra Leone,Seychellene,San Marino,Surinam/Suriname|Salomonøyene,São Tomé og Príncipe/Sao Tome,Saint Lucia,Saint Kitts og Nevis,Saint Vincent og Grenadinene"},
+{id:"land-b", q:"Nevn et land som begynner på B", a:
+"Brasil,Belgia|Bulgaria,Bolivia|Bangladesh,Bosnia-Hercegovina/Bosnia,Bahamas,Belarus|Botswana,Burundi,Burkina Faso,Bahrain|Benin,Bhutan,Barbados,Belize|Brunei,Burma"},
+{id:"land-m", q:"Nevn et land som begynner på M", a:
+"Mexico,Marokko|Malta,Mongolia|Madagaskar,Mali,Malaysia,Maldivene|Moldova,Monaco,Montenegro,Mosambik,Myanmar|Malawi,Mauritania,Mauritius|Marshalløyene,Mikronesia/Mikronesiaføderasjonen"},
+{id:"hov-b", q:"Nevn en hovedstad som begynner på B", a:
+"Berlin,Brussel|Budapest,Bern,Beijing,Bangkok|Buenos Aires,Beograd,Bratislava,Bucuresti/Bukarest|Bogotá/Bogota,Beirut,Bagdad,Brasília/Brasilia|Baku,Bamako,Bisjkek/Bishkek,Brazzaville|Bangui,Banjul,Bissau,Bridgetown,Basseterre,Belmopan,Bandar Seri Begawan"},
+{id:"sverige", q:"Nevn et svensk län", a:
+"Stockholm,Skåne/Skane|Västra Götaland/Vastra Gotaland,Uppsala,Gotland|Dalarna,Värmland/Varmland,Norrbotten,Jämtland/Jamtland|Halland,Östergötland/Ostergotland,Västerbotten/Vasterbotten,Kalmar,Blekinge|Örebro/Orebro,Jönköping/Jonkoping,Kronoberg,Gävleborg/Gavleborg|Södermanland/Sodermanland,Västmanland/Vastmanland,Västernorrland/Vasternorrland"}
+];
+
+const Q_NAT=[
+{id:"organ", q:"Nevn et organ i menneskekroppen", a:
+"Hjerte/Hjertet,Hjerne/Hjernen,Lunge/Lunger/Lungene|Lever/Leveren,Nyre/Nyrer/Nyrene,Mage/Magesekk/Magesekken,Hud/Huden|Tarm/Tarmer/Tarmene,Tynntarm/Tynntarmen,Tykktarm/Tykktarmen,Milt/Milten,Bukspyttkjertel/Bukspyttkjertelen,Urinblære/Blære/Blæren,Øye/Øyne|Galleblære/Galleblæren,Skjoldbruskkjertel/Skjoldbruskkjertelen,Livmor/Livmoren,Spiserør/Spiserøret,Luftrør/Luftrøret,Tunge/Tungen,Blindtarm/Blindtarmen|Binyre/Binyrer/Binyrene,Eggstokk/Eggstokker,Testikkel/Testikler,Prostata,Strupe/Strupehode,Endetarm/Endetarmen,Tolvfingertarm/Tolvfingertarmen|Hypofyse/Hypofysen,Brissel/Thymus,Mandler/Mandlene,Lillehjerne/Lillehjernen,Bitestikkel,Biskjoldbruskkjertel,Konglekjertel/Epifysen"},
+{id:"bein", q:"Nevn et bein (knokkel) i menneskekroppen", a:
+"Lårbein/Lårbeinet/Femur,Ribbein/Ribbeina,Hodeskalle/Kranium/Hodeskallen|Kragebein/Kragebeinet,Kneskål/Kneskjell/Patella,Skinnebein/Skinnebeinet/Tibia,Ryggvirvel/Virvel/Ryggrad,Kjeve/Kjevebein/Underkjeve/Mandibula|Skulderblad/Skulderbladet/Scapula,Bekken/Bekkenet/Hoftebein,Brystbein/Brystbeinet/Sternum,Halebein/Halebeinet/Haleben/Coccyx,Overarmsbein/Overarmsbeinet/Humerus|Leggbein/Leggbeinet/Fibula,Albuebein/Albuebeinet/Ulna,Spolebein/Spolebeinet/Radius,Korsbein/Korsbeinet/Sacrum,Hælbein/Hælbeinet/Calcaneus,Overkjeve/Maxilla,Nesebein/Nesebeinet|Stigbøylen/Stigbøyle/Stapes,Hammeren/Malleus,Ambolten/Ambolt/Incus,Pannebein/Pannebeinet,Tinningbein/Tinningbeinet,Bakhodebein/Bakhodebeinet,Mellomfotsbein,Mellomhåndsbein,Ankelbein/Talus,Tåbein,Fingerbein|Issebein/Issebeinet,Kilebein/Kilebeinet,Silbein/Silbeinet,Tungebein/Tungebeinet/Hyoid,Kinnbein/Kinnbeinet,Båtbein/Båtbeinet,Hamatum,Pisiforme/Ertebein"},
+{id:"pattedyr", norsk:true, q:"Nevn et vilt pattedyr som lever i Norge (inkludert Svalbard og havet)", a:
+"Elg,Ulv,Bjørn/Brunbjørn,Rev/Rødrev|Rådyr,Hjort,Rein/Villrein,Gaupe,Ekorn,Hare,Isbjørn|Jerv,Grevling,Lemen,Bever,Oter,Sel,Pinnsvin|Mår,Røyskatt,Mink,Fjellrev,Moskus/Moskusokse,Hvalross,Spekkhogger,Flaggermus,Spissmus|Snømus,Steinkobbe,Havert,Nise,Vågehval,Knølhval,Kaskelott,Villsvin,Markmus|Ringsel,Vånd/Jordrotte,Hasselmus,Klappmyss,Grønlandssel,Finnhval"},
+{id:"hunder", norsk:true, q:"Nevn en norsk hunderase", a:
+"Elghund/Norsk elghund/Grå elghund/Svart elghund|Buhund/Norsk buhund|Lundehund/Norsk lundehund|Dunker|Haldenstøver|Hygenhund"},
+{id:"maaner", q:"Nevn en måne i solsystemet", a:
+"Månen|Europa,Titan|Io,Ganymedes/Ganymede|Callisto/Kallisto,Fobos/Phobos,Deimos,Enceladus|Triton,Charon,Mimas,Miranda|Rhea,Dione,Tethys,Iapetus,Hyperion,Phoebe,Oberon,Titania,Ariel,Umbriel,Nereid,Proteus,Amalthea,Janus,Pan,Epimetheus"},
+{id:"gasser", q:"Nevn et grunnstoff som er en gass ved romtemperatur", a:
+"Oksygen/Oxygen/Surstoff,Hydrogen/Vannstoff|Nitrogen/Kvelstoff,Helium|Neon,Klor|Argon,Radon,Fluor|Krypton|Xenon"},
+{id:"enbokstav", q:"Nevn et grunnstoff med kjemisk symbol på én bokstav", a:
+"Oksygen/O/Oxygen,Hydrogen/H|Karbon/C/Carbon,Nitrogen/N|Svovel/S,Fosfor/P,Kalium/K,Uran/U|Fluor/F,Jod/I,Bor/B|Wolfram/W,Vanadium/V|Yttrium/Y"},
+{id:"dino", q:"Nevn en dinosaur (slekt)", a:
+"Tyrannosaurus/T-rex/T. rex/Tyrannosaurus rex,Triceratops,Velociraptor|Stegosaurus,Brachiosaurus,Diplodocus,Spinosaurus|Ankylosaurus,Brontosaurus,Apatosaurus,Allosaurus,Iguanodon,Parasaurolophus,Giganotosaurus|Pachycephalosaurus,Argentinosaurus,Carnotaurus,Dilophosaurus,Gallimimus,Compsognathus,Deinonychus,Archaeopteryx,Oviraptor,Baryonyx|Therizinosaurus,Protoceratops,Utahraptor,Maiasaura,Styracosaurus,Edmontosaurus,Troodon,Megalosaurus,Plateosaurus,Microraptor,Albertosaurus,Corythosaurus|Coelophysis,Herrerasaurus,Ceratosaurus,Amargasaurus,Patagotitan,Mamenchisaurus,Kentrosaurus,Euoplocephalus,Ouranosaurus,Suchomimus,Daspletosaurus,Tarbosaurus,Psittacosaurus,Lambeosaurus,Dreadnoughtus,Saltasaurus,Sinosauropteryx,Yutyrannus"},
+{id:"kattedyr", q:"Nevn et dyr i kattefamilien", a:
+"Løve,Tiger,Katt/Huskatt|Leopard,Gepard,Gaupe,Jaguar|Puma/Fjelløve,Snøleopard|Serval,Ozelot,Karakal,Svartpanter/Panter,Villkatt|Manul,Skyleopard,Rødgaupe/Bobcat,Kanadagaupe,Margay,Jaguarundi,Sandkatt|Pardelgaupe/Iberisk gaupe,Fiskekatt,Marmorkatt,Svartfotkatt,Gullkatt,Rustkatt,Kodkod,Pampaskatt,Ørkengaupe"},
+{id:"ferskvannsfisk", norsk:true, q:"Nevn en fisk som lever i norske innsjøer eller elver", a:
+"Ørret/Aure,Laks|Gjedde,Abbor,Røye|Harr,Sik,Ål,Karpe|Mort,Brasme,Lake,Regnbueørret,Stingsild|Ørekyt,Sørv,Suter,Karuss,Krøkle,Vederbuk,Hork|Lagesild,Gullbust,Asp,Laue,Steinsmett,Bekkerøye,Pukkellaks"},
+{id:"sjomat", norsk:true, q:"Nevn en fisk som fiskes kommersielt i Norge", a:
+"Torsk,Laks,Sild,Makrell|Sei,Hyse,Kveite|Lodde,Rødspette,Steinbit,Breiflabb|Uer,Lange,Brosme,Blåkveite,Kolmule,Hvitting|Lyr,Øyepål,Tobis,Hestmakrell,Skrei|Gapeflyndre,Smørflyndre,Lomre,Piggvar"},
+{id:"skyer", q:"Nevn en type sky", a:
+"Cumulus/Haugsky,Cumulonimbus/Tordensky/Bygesky|Stratus/Lagsky,Cirrus/Fjærsky|Nimbostratus/Regnsky|Stratocumulus,Altocumulus|Altostratus,Cirrostratus|Cirrocumulus,Lenticularis/Linseskyer,Mammatus"},
+{id:"vitamin", q:"Nevn et vitamin", a:
+"C/Vitamin C/C-vitamin,D/Vitamin D/D-vitamin|A/Vitamin A,B12/Vitamin B12,B/Vitamin B|E/Vitamin E,K/Vitamin K|B6/Vitamin B6,Folat/Folsyre/B9|B1/Tiamin,B2/Riboflavin,B3/Niacin|B5/Pantotensyre,B7/Biotin"},
+{id:"frukt", q:"Nevn en frukt eller et bær", a:
+"Eple,Banan,Appelsin,Jordbær|Pære,Druer/Drue,Mango,Ananas,Kiwi,Blåbær,Sitron|Bringebær,Vannmelon,Melon,Kirsebær,Plomme,Fersken,Mandarin/Klementin,Lime,Grapefrukt|Aprikos,Nektarin,Granateple,Bjørnebær,Tyttebær,Multe/Molte/Multer,Solbær,Rips,Stikkelsbær,Kokosnøtt,Papaya,Pasjonsfrukt/Maracuja,Avokado,Fiken,Daddel|Litchi/Lychee,Drakefrukt/Pitaya,Stjernefrukt/Karambola,Guava,Persimon/Sharon/Kaki,Kvede,Nype/Nyper,Tranebær,Krekling,Morbær,Havtorn,Aronia,Kumquat,Pomelo,Physalis/Kappstikkelsbær,Blodappelsin,Rambutan,Durian|Jackfrukt,Mangostan,Longan,Salak,Feijoa,Yuzu,Kiwano/Hornmelon,Tamarind,Cherimoya,Sapodilla,Jabuticaba,Bergamott"},
+{id:"gronnsak", q:"Nevn en grønnsak", a:
+"Gulrot,Agurk,Tomat,Potet,Brokkoli|Løk,Paprika,Salat,Blomkål,Mais,Erter,Spinat,Hvitløk|Kål/Hodekål,Squash/Courgette,Aubergine,Rosenkål,Purre,Selleri,Kålrot,Rødbeter/Rødbete,Asparges,Bønner|Grønnkål,Reddik,Søtpotet,Pastinakk,Rødkål,Sjalottløk,Vårløk,Sukkererter,Gresskar,Fennikel,Ruccola|Jordskokk,Artisjokk,Knutekål,Rotselleri,Persillerot,Mangold,Pak choi,Kinakål,Bladselleri,Okra,Edamame,Neper|Romanesco,Kålrabi,Endive,Savoykål,Taro,Jicama,Maniok/Kassava,Daikon,Rabarbra,Haricots verts"},
+{id:"krydder", q:"Nevn et krydder eller en krydderurt", a:
+"Salt,Pepper,Kanel|Basilikum,Oregano,Persille,Hvitløk,Paprika,Karri|Timian,Rosmarin,Dill,Gressløk,Ingefær,Chili,Muskat/Muskatnøtt,Kardemomme,Vanilje,Koriander|Spisskummen,Gurkemeie,Kruspersille,Laurbærblad/Laurbær,Nellik,Allehånde,Salvie,Estragon,Mynte,Sitrongress,Karve,Sennep,Cayenne|Fenikkelfrø,Anis,Stjerneanis,Safran,Sumak,Merian,Kjørvel,Lavendel,Pepperrot,Wasabi,Einer/Einebær,Bukkehornkløver,Za'atar,Garam masala|Asafoetida,Lakrisrot,Kubebepper,Sichuanpepper,Galangal,Kaffirlime,Ajowan,Mahlab,Sort karve/Nigella"},
+{id:"ost", norsk:true, q:"Nevn en ost", a:
+"Brunost/Geitost/Gudbrandsdalsost,Jarlsberg,Norvegia,Mozzarella|Gouda,Cheddar,Parmesan/Parmigiano,Feta,Brie,Camembert|Edamer,Halloumi,Ricotta,Mascarpone,Kremost/Philadelphia,Cottage cheese/Cottage,Gorgonzola,Snøfrisk,Ridder,Nøkkelost|Emmentaler,Roquefort,Gamalost/Gammelost,Pultost,Manchego,Gruyère/Gruyere,Prim/Mysost,Burrata,Stilton,Raclette,Pecorino|Kraftkar,Selbu blå,Västerbotten,Havarti,Danablu,Leerdammer,Grana Padano,Provolone,Comté/Comte,Paneer,Kvarg/Quark,Chèvre/Chevre|Taleggio,Fontina,Asiago,Reblochon,Époisses/Epoisses,Munster,Appenzeller,Tilsiter,Limburger,Wensleydale,Red Leicester,Maasdam,Monterey Jack,Port Salut"}
+];
+
+const Q_KUL=[
+{id:"norrone", norsk:true, q:"Nevn en gud eller gudinne i norrøn mytologi", a:
+"Odin,Tor|Loke,Frøya/Freya/Frøyja|Frøy/Frey,Balder/Baldr,Frigg|Tyr,Heimdall,Hel|Njord,Idun,Brage,Ull,Sif|Vidar,Vale/Våle,Høder/Hod,Forsete,Skade,Nanna,Ran,Gefjon,Eir,Saga,Ægir,Bil,Lofn,Sjofn,Vår,Snotra,Gná/Gna"},
+{id:"romersk", q:"Nevn en romersk gud eller gudinne", a:
+"Jupiter,Mars|Venus,Neptun/Neptunus|Merkur/Mercurius,Pluto,Saturn/Saturnus,Apollo|Minerva,Juno,Diana,Bacchus,Cupido/Amor|Vulcanus/Vulkan,Ceres,Janus,Vesta,Fortuna,Aurora|Proserpina,Faunus,Flora,Bellona,Quirinus,Terminus,Pomona,Victoria,Liber,Sol,Luna"},
+{id:"egyptisk", q:"Nevn en gud eller gudinne i egyptisk mytologi", a:
+"Ra/Re,Anubis|Osiris,Isis,Horus|Set/Seth,Bastet,Amon/Amun,Thot/Thoth|Hathor,Ptah,Sekhmet,Aton/Aten,Sobek,Maat|Nut,Geb,Shu,Nefthys/Nephthys,Khnum,Khepri,Bes|Tefnut,Taweret,Mut,Khonsu,Neith,Serket,Montu,Apophis/Apep,Hapi,Min"},
+{id:"apostler", q:"Nevn en av Jesu tolv apostler", a:
+"Peter/Simon Peter,Judas/Judas Iskariot|Johannes,Matteus/Levi,Tomas|Andreas,Jakob/Jakob Sebedeus|Filip,Bartolomeus/Natanael|Simon/Simon seloten,Taddeus/Judas Taddeus|Jakob Alfeus/Jakob den yngre,Mattias"},
+{id:"dodssynder", q:"Nevn en av de sju dødssyndene", a:
+"Grådighet,Misunnelse|Hovmod/Stolthet,Vrede/Sinne|Latskap/Treghet|Fråtseri|Begjær/Lyst/Utukt"},
+{id:"ibsen", norsk:true, q:"Nevn et skuespill av Henrik Ibsen", a:
+"Et dukkehjem/Dukkehjem,Peer Gynt|Gengangere,Vildanden/Villanden,Hedda Gabler|En folkefiende/Folkefiende,Brand|Rosmersholm,Byggmester Solness,Fruen fra havet|John Gabriel Borkman,Når vi døde vågner,Lille Eyolf,Samfundets støtter,Kejser og Galilæer|Kjærlighetens komedie,Kongs-emnerne/Kongsemnene,Hærmendene på Helgeland,Fru Inger til Østråt,Gildet på Solhaug,De unges forbund,Catilina,Kjæmpehøien,Olaf Liljekrans,Sancthansnatten"},
+{id:"nobel", norsk:true, q:"Nevn en norsk vinner av en nobelpris", a:
+"Fridtjof Nansen/Nansen|Sigrid Undset/Undset,Knut Hamsun/Hamsun,Bjørnstjerne Bjørnson/Bjørnson|Jon Fosse/Fosse|May-Britt Moser,Edvard Moser,Ragnar Frisch/Frisch|Finn Kydland/Kydland,Christian Lous Lange/Lange,Lars Onsager/Onsager|Odd Hassel/Hassel,Ivar Giæver/Giæver,Trygve Haavelmo/Haavelmo"},
+{id:"korps", norsk:true, q:"Nevn et instrument i et skolekorps", a:
+"Trompet,Kornett,Klarinett,Fløyte|Trommer/Tromme/Skarptromme,Saksofon/Altsaksofon/Tenorsaksofon,Trombone/Basun,Tuba|Althorn,Baryton,Eufonium,Stortromme|Cymbal/Bekken,Valthorn/Horn,Xylofon,Klokkespill/Glockenspiel|Piccolo/Piccolofløyte,Obo,Fagott,Pauker|Barytonsaksofon,Bassklarinett,Flygelhorn,Sousafon"},
+{id:"mat", norsk:true, q:"Nevn en tradisjonell norsk rett eller bakst", a:
+"Pinnekjøtt,Ribbe,Lutefisk,Fårikål|Kjøttkaker,Raspeballer/Komle/Kumle/Klubb/Kompe,Lefse,Lompe,Vafler/Vaffel,Risgrøt|Rømmegrøt,Fiskeboller,Fiskekaker,Lapskaus,Kransekake,Krumkake,Smalahove,Rakfisk|Sveler,Riskrem,Multekrem,Klippfisk,Tørrfisk,Gravlaks,Flatbrød,Medisterkaker,Pølse i lompe|Sodd,Plukkfisk,Sylte,Fenalår,Spekemat,Persetorsk,Boknafisk,Bacalao,Lammerull/Rull,Potetlefse|Smultringer,Fattigmann,Sandkaker,Rosettbakkels,Serinakaker,Berlinerkranser,Sirupssnipper,Julekake,Skillingsboller,Lappar"},
+{id:"sjakk", q:"Nevn en brikke i sjakk", a:
+"Dronning,Konge|Bonde,Hest/Springer|Tårn|Løper"},
+{id:"brettspill", q:"Nevn et brettspill", a:
+"Monopol/Monopoly,Sjakk,Ludo|Yatzy,Scrabble,Trivial Pursuit,Alfapet,Cluedo,Risk|Catan/Settlers/Settlers of Catan,Stratego,Backgammon,Dam,Fire på rad,Stiger og slanger,Alias,Uno|Ticket to Ride,Carcassonne,Mastermind,Senke slagskip/Slagskip/Battleship,Pictionary,Kinasjakk,Othello/Reversi,Go,Mølle,Afrikas stjerne,Partners|Pandemic,Codenames,Dixit,Azul,7 Wonders,Splendor,Kingdomino,Mahjong,Kalaha/Mancala,Hint|Wingspan,Terraforming Mars,Gloomhaven,Agricola,Puerto Rico,Dominion,Small World,Shogi,Twilight Imperium,Brass"},
+{id:"bil", q:"Nevn et bilmerke", a:
+"Tesla,Volvo,Toyota,BMW,Audi,Volkswagen/VW,Mercedes/Mercedes-Benz|Ford,Ferrari,Porsche,Lamborghini,Honda,Nissan,Hyundai,Kia,Peugeot,Skoda,Renault,Fiat,Polestar|Citroën/Citroen,Opel,Mazda,Subaru,Mitsubishi,Suzuki,Lexus,Jaguar,Land Rover/Range Rover,Mini,Bentley,Rolls-Royce,Aston Martin,McLaren,Bugatti,Maserati,BYD,Chevrolet,Jeep,Dodge,Saab|Alfa Romeo,Seat,Cupra,Dacia,MG,Cadillac,Lada,Smart,Koenigsegg,Lotus,Nio,Xpeng,Lancia,Chrysler,Lincoln|Genesis,Infiniti,Acura,Rivian,Lucid,Pagani,DS,Isuzu,Buick,GMC,Ram,Zeekr,Lynk & Co/Lynk,Geely,Hummer,Pontiac,Trabant|Rimac,Tata,Mahindra,Proton,Datsun,Oldsmobile,Plymouth,Aiways,Fisker,Spyker,Morgan,Alpine"},
+{id:"programmering", q:"Nevn et programmeringsspråk", a:
+"Python,Java,JavaScript|C,C++/Cpp,HTML,C#/C sharp|TypeScript,PHP,SQL,Swift,Rust,Go/Golang,Kotlin,Ruby,Scratch|R,MATLAB,Perl,Assembly,Visual Basic/VB,Lua,Dart,Scala,Haskell,Bash/Shell,Fortran,COBOL,Pascal|Julia,Lisp,Prolog,Erlang,Elixir,F#,Objective-C,Clojure,Groovy,Delphi,BASIC,Solidity,Zig|Simula,Smalltalk,OCaml,Ada,APL,Forth,Nim,Crystal,Racket,Scheme"},
+{id:"sommerolidrett", q:"Nevn en idrett i sommer-OL", a:
+"Fotball,Friidrett,Svømming,Håndball|Basketball,Turn,Tennis,Sykling,Volleyball,Boksing|Bordtennis,Badminton,Roing,Seiling,Judo,Bryting,Golf,Ridning,Sandvolleyball|Skyting,Bueskyting,Fekting,Vektløfting,Taekwondo,Stup,Triatlon,Padling/Kajakk/Kano,Rugby,Landhockey/Hockey,Vannpolo|Moderne femkamp,Kunstsvømming,Klatring/Sportsklatring,Skateboard,Surfing,BMX,Terrengsykling|Breaking/Breakdance,Rytmisk gymnastikk,Trampoline,Maratonsvømming"},
+{id:"friidrett", q:"Nevn en øvelse i friidrett", a:
+"100 meter/100 m/100m,Maraton,Høydehopp/Høyde,Lengdehopp/Lengde|Stavsprang/Stav,Spyd/Spydkast,Kule/Kulestøt,Hekk|200 meter/200 m/200m,400 meter/400 m/400m,Diskos/Diskoskast,Stafett,Tresteg,1500 meter/1500 m/1500m|800 meter/800 m/800m,5000 meter/5000 m/5000m,10 000 meter/10000 m/10000m,Slegge/Sleggekast,Tikamp,110 meter hekk/110 m hekk,400 meter hekk/400 m hekk|Sjukamp,Hinder/3000 meter hinder/3000 m hinder,Kappgang,100 meter hekk/100 m hekk,4x100 meter/4x100,4x400 meter/4x400|Halvmaraton,Terrengløp,Femkamp,60 meter/60 m,3000 meter/3000 m"},
+{id:"fotballposisjon", q:"Nevn en posisjon i fotball", a:
+"Keeper/Målvakt,Spiss/Angriper|Midtstopper/Stopper,Back,Midtbane/Midtbanespiller|Venstreback,Høyreback,Kant/Ving|Sentral midtbane,Defensiv midtbane,Offensiv midtbane,Midtspiss|Vingback,Ytterback,Indreløper,Playmaker|Libero/Sweeper,Falsk nier,Ankermann,Regista"},
+{id:"svomming", q:"Nevn en svømmeart (stilart)", a:
+"Bryst/Brystsvømming|Crawl/Fri,Rygg/Ryggsvømming|Butterfly|Medley|Hundesvømming,Sidesvømming"},
+{id:"valuta", q:"Nevn en valuta som brukes i Europa i dag", a:
+"Euro,Norsk krone/Krone/Kroner|Svensk krone,Dansk krone,Pund/Britisk pund|Sveitsisk franc/Franc,Rubel/Russisk rubel,Islandsk krone|Zloty,Forint,Tsjekkisk krone/Koruna,Lira/Tyrkisk lira|Hryvnja/Hryvnia,Lei/Leu/Rumensk leu,Dinar/Serbisk dinar|Lek,Denar,Konvertibel mark/Mark,Moldovsk leu,Hviterussisk rubel,Lari,Dram,Manat"},
+{id:"g-landsby", q:"Nevn en by i Italia", a:
+"Roma/Rom,Milano,Venezia/Venedig,Firenze|Napoli/Neapel,Torino,Pisa,Verona,Bologna|Genova,Palermo,Siena,Sorrento,Amalfi,Como,Bergamo,Rimini|Bari,Catania,Trieste,Padova,Parma,Modena,Lucca,Perugia,Assisi,Positano,Cagliari|Brescia,Messina,Salerno,Livorno,Ravenna,Lecce,Ancona,Trento,Bolzano,Ferrara,Siracusa,Matera,Taranto,Pescara,Vicenza|Udine,Mantova,Cremona,Piacenza,Agrigento,Foggia,Reggio Calabria,Reggio Emilia,San Remo/Sanremo,Arezzo,Cortina d'Ampezzo/Cortina"},
+{id:"tysk-by", q:"Nevn en by i Tyskland", a:
+"Berlin,München/Munchen/Munich,Hamburg|Frankfurt,Köln/Koln/Koeln,Dortmund,Stuttgart|Düsseldorf/Dusseldorf,Leipzig,Dresden,Bremen,Hannover,Nürnberg/Nurnberg,Kiel|Essen,Bonn,Heidelberg,Freiburg,Gelsenkirchen,Wolfsburg,Mainz,Lübeck/Lubeck,Rostock|Duisburg,Bochum,Münster/Munster,Augsburg,Karlsruhe,Mannheim,Aachen,Wiesbaden,Kassel,Magdeburg,Potsdam|Erfurt,Weimar,Jena,Würzburg/Wurzburg,Regensburg,Bamberg,Trier,Koblenz,Flensburg,Schwerin,Saarbrücken/Saarbrucken,Ulm,Ingolstadt"},
+{id:"spansk-by", q:"Nevn en by i Spania", a:
+"Madrid,Barcelona|Malaga/Málaga,Sevilla,Valencia,Alicante|Bilbao,Granada,Palma/Palma de Mallorca,Marbella,Benidorm,Toledo|Zaragoza,Córdoba/Cordoba,Salamanca,San Sebastián/San Sebastian,Cádiz/Cadiz,Torrevieja,Murcia,Ibiza|Santiago de Compostela,Pamplona,Valladolid,Segovia,Las Palmas,Santa Cruz de Tenerife,Girona,Tarragona,Almería/Almeria,Nerja|Burgos,León/Leon,Oviedo,Gijón/Gijon,Vigo,A Coruña/La Coruña/A Coruna,Huelva,Jaén/Jaen,Cartagena,Sitges,Ronda,Cáceres/Caceres,Mérida/Merida,Logroño/Logrono,Santander,Teruel,Cuenca,Albacete,Badajoz,Lleida,Elche"},
+{id:"sprakfamilie", q:"Nevn et offisielt språk i EU", a:
+"Engelsk,Tysk,Fransk,Spansk|Italiensk,Svensk,Dansk,Nederlandsk/Hollandsk|Finsk,Portugisisk,Polsk,Gresk|Estisk,Latvisk,Litauisk,Ungarsk,Tsjekkisk,Irsk|Rumensk,Bulgarsk,Kroatisk,Slovakisk,Slovensk|Maltesisk"}
+];
+
+QUESTIONS.push(...Q_GEO,...Q_NAT,...Q_KUL);
+
+const Q_EKSTRA=[
+{id:"sjanger", q:"Nevn en musikksjanger", a:
+"Pop,Rock,Hiphop/Hip-hop/Rap,Jazz|Klassisk/Klassisk musikk,Country,Metal/Heavy metal,Blues,Techno,Reggae,Punk|Soul,R&B,Disco,Funk,House,Folkemusikk/Folk,EDM,Indie,Gospel,Opera|Black metal,Grunge,Ska,Salsa,Swing,Trap,Reggaeton,K-pop,Dansband,Viser,Schlager,Musikal,Emo|Dubstep,Trance,Drum and bass,Ambient,Bluegrass,Flamenco,Tango,Samba,Joik,Death metal,Afrobeat,J-pop,Synthpop|Krautrock,Shoegaze,Bossa nova,Zydeco,Dancehall,Garage,Grime,Vaporwave,Hardstyle,Lo-fi"},
+{id:"bond", q:"Nevn en skuespiller som har spilt James Bond i en offisiell film", a:
+"Sean Connery/Connery|Daniel Craig/Craig|Roger Moore/Moore|Pierce Brosnan/Brosnan|Timothy Dalton/Dalton|George Lazenby/Lazenby"},
+{id:"fjorder", norsk:true, q:"Nevn en norsk fjord", a:
+"Sognefjorden,Geirangerfjorden,Oslofjorden,Hardangerfjorden|Lysefjorden,Trondheimsfjorden,Nærøyfjorden|Nordfjord,Storfjorden,Romsdalsfjorden,Boknafjorden,Aurlandsfjorden|Porsangerfjorden,Varangerfjorden,Hjørundfjorden,Lyngenfjorden,Ofotfjorden,Altafjorden,Sunndalsfjorden,Saltfjorden|Tysfjorden,Malangen,Sørfjorden,Bjørnafjorden,Fensfjorden,Dalsfjorden,Førdefjorden,Hidlefjorden,Tanafjorden|Ullsfjorden,Kåfjorden,Vefsnfjorden,Ranfjorden,Sandsfjorden,Jøsenfjorden,Masfjorden,Osterfjorden,Vågsfjorden"},
+{id:"landemerker", norsk:true, q:"Nevn et kjent norsk turmål eller landemerke", a:
+"Preikestolen,Trolltunga,Nordkapp,Holmenkollen,Operahuset/Operaen,Vigelandsparken|Kjeragbolten,Besseggen,Trollstigen,Atlanterhavsveien,Bryggen,Nidarosdomen,Lofoten,Galdhøpiggen,Geirangerfjorden,Akershus festning|Romsdalseggen,Reinebringen,Vøringsfossen,Fløyen,Ulriken,Ishavskatedralen,Briksdalsbreen,Jostedalsbreen,Kongsten fort,Slottet/Det kongelige slott,Stortinget|Svartisen,Segla,Hamnøy,Steinsdalsfossen,Kjosfossen,Tromsdalstinden,Fjellheisen,Flåmsbana,Røros,Gamle Stavanger|Låtefoss,Hornelen,Stetind,Torghatten,Saltstraumen,Hjerkinn,Snøhetta,Lindesnes fyr,Kvitfjell,Rondane"},
+{id:"tre", norsk:true, q:"Nevn et tre som vokser i Norge", a:
+"Gran,Furu,Bjørk,Eik|Rogn,Osp,Ask,Lønn,Bøk|Lind,Alm,Hassel,Selje,Or/Gråor/Svartor,Hegg|Einer,Lerk,Platanlønn,Villeple/Apal,Kirsebær/Villkirsebær,Pil,Vier|Barlind,Hagtorn,Kristtorn,Fjellbjørk,Dvergbjørk|Sommereik,Vintereik,Svartgran,Sitkagran,Douglasgran,Edelgran"},
+{id:"sopp", q:"Nevn en spiselig sopp", a:
+"Kantarell,Steinsopp,Sjampinjong|Traktkantarell,Piggsopp,Østerssopp/Østerssopper,Shiitake|Morkel,Rødskrubb,Smørsopp,Matblekksopp,Trompetsopp|Sauesopp,Granmatriske,Kremle,Brunskrubb,Rimsopp,Kragesopp|Svart trompetsopp,Pluggsopp,Fåresopp,Blek piggsopp,Kastanjemusserong,Kongsmusserong|Enoki,Trøffel,Kragemusserong,Lakssopp,Svovelkjuke"},
+{id:"strommetjeneste", q:"Nevn en strømmetjeneste for film, TV eller musikk", a:
+"Netflix,Spotify,YouTube|HBO Max/HBO/Max,Disney+/Disney Plus,Viaplay,NRK TV,TV 2 Play|Prime Video/Amazon Prime/Amazon Prime Video,Apple TV+/Apple TV,Apple Music,Tidal|SkyShowtime,Paramount+,Deezer,Crunchyroll,Twitch,SoundCloud,Discovery+|Hulu,Peacock,Mubi,Plex,Pluto TV,Qobuz,Napster,YouTube Music|Rakuten TV,Curiosity Stream,Shudder,BritBox,Dplay,Wimp"},
+{id:"sosiale", q:"Nevn et sosialt medium eller en meldingsapp", a:
+"Snapchat,Instagram,TikTok,Facebook|YouTube,X/Twitter,Messenger,WhatsApp|LinkedIn,Reddit,Pinterest,Discord,Telegram|Threads,BeReal,Tumblr,Signal,Twitch,Bluesky|Myspace,Nettby,Mastodon,Clubhouse,Google+,Vine,WeChat,Weibo|Biip,Kik,Skype,ICQ,MSN,Habbo,Ello,Path"},
+{id:"norske-merker", norsk:true, q:"Nevn et norsk merke eller produkt", a:
+"Freia,Tine,Helly Hansen,Norrøna|Kvikk Lunsj,Ringnes,Solo,Bergans,Jordan,Stabburet,Gilde|Q-meieriene/Q,Swix,Devold,Dale of Norway,Stormberg,Nidar,Mack,Synnøve Finden,Mills,Idun,Toro|Fjordland,Kavli,Hansa,Jøtul,Dovre,Lerøy,Mowi,Smash,Laban,Sørlandschips|Kims,Tandberg,Laerdal,Hennig-Olsen,Diplom-Is,Bremykt,Ekte Geitost,Lano,Grandiosa"},
+{id:"radiokanal", norsk:true, q:"Nevn en norsk radiokanal", a:
+"NRK P1/P1,NRK P3/P3,P4|NRK P2/P2,Radio Norge,P5,NRK mP3/mP3|NRK Klassisk,NRK Jazz,NRK Alltid Nyheter,NRK P1 Pluss/P1 Pluss,P7 Klem,P10 Country|Radio Rock,NRK Sport,NRK Super,NRK Folkemusikk,P8 Pop,P9 Retro|NRK Sápmi,P13,P24,Radio 1,Kiss,Radio Metro,P6 Rock|Radio Vest,Radio Nova,Radio Hele Norge"},
+{id:"tvkanal", norsk:true, q:"Nevn en norsk TV-kanal", a:
+"NRK1,TV 2,TVNorge/TVN|NRK2,NRK3,NRK Super,TV3|TV 2 Direkte/TV 2 Nyhetskanalen,TV 2 Sport,FEM,VOX,Max,V4/Viasat 4|TV 2 Zebra,TV 2 Livsstil,Rex,Eurosport Norge,Viasat Sport|TV 2 Sport Premium,Godt Nytt,Kanal 10,TV Vest,TV Haugaland|TV 2 Humor,Discovery Channel Norge,TLC Norge"},
+{id:"norske-ord-havet", norsk:true, q:"Nevn et dyr som lever i havet langs norskekysten", a:
+"Torsk,Laks,Sild,Makrell,Krabbe,Hummer,Hval,Sel,Reke|Spekkhogger,Nise,Maneter/Manet,Sjøstjerne,Kongekrabbe,Breiflabb,Kveite,Sei,Hyse|Blåskjell,Østers,Kråkebolle,Blekksprut,Steinbit,Rødspette,Lodde,Uer,Sjøpølse|Pigghå,Håbrann,Brugde,Ålekone,Taskekrabbe,Sjøkreps,Kamskjell,Lysmanet,Brennmanet|Glassmanet,Haneskjell,Sjøanemone,Rognkjeks,Berggylt,Leppefisk,Havmus,Isgalt,Vanlig sjøstjerne"}
+];
+QUESTIONS.push(...Q_EKSTRA);
+
+const Q_EKSTRA2=[
+{id:"farger", q:"Nevn en farge", a:
+"Rød,Blå,Grønn,Gul,Svart/Sort,Hvit|Oransje,Lilla/Fiolett,Rosa,Brun,Grå|Turkis,Beige,Gull,Sølv,Lyseblå,Mørkeblå,Marineblå|Burgunder,Lime,Magenta,Cyan,Oliven/Olivengrønn,Lavendel,Korall,Bronse,Mintgrønn|Indigo,Okergul/Oker,Fuksia,Terrakotta,Khaki,Elfenben,Smaragdgrønn,Rubinrød,Safirblå,Petrol|Cerise,Sepia,Umbra,Vermillion,Chartreuse,Taupe,Ultramarin,Karmin,Kobolt/Koboltblå,Kadmiumgul"},
+{id:"insekter", q:"Nevn et insekt", a:
+"Maur,Bie,Flue,Mygg,Sommerfugl|Veps,Marihøne,Gresshoppe,Humle,Kakerlakk,Øyenstikker|Bille,Lus,Loppe,Termitt,Møll,Siriss,Knott|Bladlus,Gullsmed,Klegg,Teger,Silkesommerfugl|Vannløper,Skorpionflue,Sølvkre,Steinflue,Døgnflue,Kneler/Knelere,Pinnedyr,Sikade|Snutebille,Oldenborre,Hjortebille,Gravebille,Vårflue,Snylteveps,Gallveps,Mudderflue"},
+{id:"verktoy", q:"Nevn et verktøy", a:
+"Hammer,Skrutrekker,Sag|Tang,Drill/Boremaskin,Skiftenøkkel,Målebånd|Vater,Fil,Høvel,Meisel,Sandpapir,Øks|Pipenøkkel,Unbrakonøkkel,Vinkelsliper,Stikksag,Sirkelsag,Kniv,Spade,Brekkjern/Kubein|Lodd,Skrustikke,Tvinge,Rasp,Slegge,Skrape,Loddebolt,Momentnøkkel,Popnagletang|Hoggjern,Bøylesag,Gjengetapp,Dor,Krympetang,Avbitertang,Kittkniv,Ambolt,Tommestokk"},
+{id:"kjokken", q:"Nevn et kjøkkenredskap", a:
+"Kniv,Gaffel,Skje,Stekepanne,Kjele|Visp,Øse,Slikkepott,Rivjern,Skjærefjøl/Skjærebrett,Stekespade|Sil/Dørslag,Kjevle,Ostehøvel,Potetskreller,Tang,Mikser,Hvitløkspresse|Mandolin,Morter,Termometer,Brødkniv,Pensel,Sprøytepose,Kjøkkenvekt,Hurtigmikser,Stavmikser|Trakt,Wok,Kokkekniv,Eggedeler,Hullsleiv,Spiralkutter,Pizzahjul,Vaffeljern,Bakebolle|Sous vide,Flambérbrenner/Gassbrenner,Sitronpresse,Fileteringskniv,Smørkniv,Bakesten"},
+{id:"yrker", q:"Nevn et yrke", a:
+"Lege,Lærer,Sykepleier,Politi/Politibetjent|Advokat,Ingeniør,Snekker,Kokk,Elektriker,Brannmann/Brannkonstabel|Frisør,Rørlegger,Bonde,Pilot,Tannlege,Journalist,Butikkmedarbeider,Sjåfør|Arkitekt,Psykolog,Dommer,Bibliotekar,Fisker,Veterinær,Prest,Revisor,Økonom|Farmasøyt,Murer,Maler,Baker,Slakter,Fotograf,Tolk,Gartner,Urmaker,Glassmester|Hovslager,Smed,Skomaker,Bokbinder,Kirkegårdsarbeider,Taksidermist,Tønnemaker,Feier,Fyrvokter"},
+{id:"dans", q:"Nevn en dans", a:
+"Vals,Salsa,Tango|Ballett,Hiphop,Breakdance,Swing,Disco|Foxtrot,Samba,Cha-cha/Cha cha cha,Rumba,Linedance,Halling|Springar,Polka,Flamenco,Jive,Lindy hop,Twist,Moonwalk|Quickstep,Paso doble,Charleston,Bachata,Merengue,Kizomba,Mazurka,Pols,Hula|Gangar,Reinlender,Menuett,Bolero,Tarantella,Polonese,Capoeira,Krumping,Voguing"},
+{id:"kortspill", q:"Nevn et kortspill", a:
+"Poker,Uno|Kabal,Bridge,Blackjack,Amerikaner,Vri åtter/Vri 8,Ludo|Idiot,Hjerterfri,Femkort,Løgn,Gris,Solitaire|Casino,Canasta,Rommy/Rummy,Gin rummy,Mau-Mau,Krig,Svarteper|Whist,Baccarat,Kasino,Skitkar,Belote,Tarot,Spar dame,Plump|Euchre,Cribbage,Piquet,Préférence,Doppelkopf,Skat,Jass,Napoleon"},
+{id:"kampsport", q:"Nevn en kampsport", a:
+"Boksing,Karate|Judo,Taekwondo,Bryting,MMA,Kickboksing|Jiu-jitsu/Brasiliansk jiu-jitsu,Kung fu,Muay thai,Fekting,Sumo,Aikido|Kendo,Capoeira,Krav maga,Wing chun,Sambo,Kalaripayattu|Hapkido,Savate,Silat,Glima,Sanda,Bartitsu,Kyokushin|Pankration,Lethwei,Bokator,Shoot boxing,Kurash,Pehlwani"},
+{id:"ballspill", q:"Nevn en idrett der man bruker ball", a:
+"Fotball,Basketball,Håndball,Tennis,Volleyball|Golf,Bordtennis,Rugby,Amerikansk fotball,Baseball,Cricket|Bowling,Biljard,Vannpolo,Squash,Beachvolleyball,Innebandy|Padel,Futsal,Softball,Bandy,Lacrosse,Netball,Boccia|Korfball,Pétanque,Sepak takraw,Gælisk fotball,Australsk fotball,Hurling|Pesäpallo,Jai alai,Rundball,Fistball,Goalball,Polo,Krokket"},
+{id:"julemat", norsk:true, q:"Nevn en norsk juletradisjon innen mat og drikke", a:
+"Ribbe,Pepperkaker,Risengrynsgrøt/Grøt|Lutefisk,Juleøl,Gløgg,Riskrem,Medisterkaker,Julebrus|Sju slag/Syv slag,Krumkaker,Sandkaker,Marsipan,Kransekake,Akevitt,Rakfisk|Smultringer,Fattigmann,Serinakaker,Mandel i grøten,Rødkål,Surkål,Torsk,Kalkun|Berlinerkranser,Sirupsnipper,Goro,Lefse,Multekrem,Svineribbe,Mandarin|Rosetter,Tilslørte bondepiker,Karamellpudding,Pultost,Smalahove,Julekake,Julepølse"},
+{id:"pa-legg", norsk:true, q:"Nevn et typisk norsk pålegg", a:
+"Brunost/Geitost,Leverpostei,Gulost/Hvitost,Syltetøy|Kaviar,Makrell i tomat,Skinke,Salami,Nugatti,Prim|Servelat,Egg,Agurk,Banan,Peanøttsmør,Honning,Smøreost|Rullepølse,Fårepølse,Sardiner,Reker,Røkt laks,Majones,Baconost|Sylte,Fenalår,Spekeskinke,Mysost,Gammelost,Pinnekjøtt|Ansjos,Sursild,Pultost,Rekesalat,Italiensk salat,Russisk salat,Kokt skinke"},
+{id:"havdyr", q:"Nevn et dyr som lever i havet", a:
+"Hai,Hval,Delfin|Blekksprut,Krabbe,Manet,Sel,Hummer,Torsk|Sjøstjerne,Laks,Hvalross,Reke,Skilpadde,Spekkhogger,Sjøhest|Ål,Rokke,Kråkebolle,Breiflabb,Sverdfisk,Tunfisk,Narhval,Østers|Sjøanemone,Sjøpølse,Klovnefisk,Kamskjell,Hestereke,Murene,Steinbit,Pelikanål|Sjøengel,Fangstarmsblekksprut,Vampyrblekksprut,Dumbo-blekksprut,Blobfisk,Havmus"},
+{id:"maleri-kunstner", q:"Nevn en kjent kunstmaler", a:
+"Picasso/Pablo Picasso,Leonardo da Vinci/Da Vinci,Van Gogh/Vincent van Gogh,Edvard Munch/Munch|Monet/Claude Monet,Rembrandt,Michelangelo,Salvador Dalí/Dalí|Frida Kahlo,Andy Warhol/Warhol,Raphael/Rafael,Renoir,Cézanne,Matisse,Vermeer|Klimt,Goya,Caravaggio,Rubens,Degas,Gauguin,Botticelli,Tidemand,Kittelsen|Turner,Magritte,Kandinsky,Hockney,Basquiat,Hokusai,Pollock,Edward Hopper,J.C. Dahl/Johan Christian Dahl|El Greco,Bosch,Bruegel,Holbein,Tizian,Velázquez,Ensor,Harriet Backer,Nikolai Astrup"},
+{id:"kongehus", q:"Nevn et land som har monark (konge, dronning, keiser e.l.) i dag", a:
+"Norge,Sverige,Danmark,Storbritannia/England|Spania,Nederland,Belgia,Japan,Saudi-Arabia|Thailand,Marokko,Monaco,Luxembourg,Jordan,Canada,Australia|Liechtenstein,Qatar,Kuwait,Oman,Bahrain,Brunei,Malaysia,De forente arabiske emirater/Emiratene,Bhutan,Kambodsja|Andorra,Eswatini/Swaziland,Lesotho,Tonga,New Zealand,Jamaica,Vatikanstaten|Bahamas,Belize,Grenada,Papua Ny-Guinea,Salomonøyene,Tuvalu,Antigua og Barbuda,Saint Lucia,Saint Kitts og Nevis,Saint Vincent og Grenadinene"},
+{id:"pelsdyr", q:"Nevn et dyr som har pels", a:
+"Hund,Katt,Bjørn,Hest|Ulv,Rev,Kanin,Løve,Tiger,Sau,Mus|Ekorn,Rotte,Gaupe,Elg,Rein,Hamster,Ape,Panda|Mår,Røyskatt,Oter,Bever,Lemen,Moskus,Sjimpanse,Alpakka,Lama|Jerv,Chinchilla,Mink,Ilder,Vaskebjørn,Snøleopard,Okapi,Dovendyr|Fjellrev,Pika,Fennek,Kinkaju,Binturong,Kvoll,Numbat,Aye-aye"},
+{id:"kjente-skip", q:"Nevn et kjent skip, båt eller fartøy fra historien eller fiksjon", a:
+"Titanic,Fram,Kon-Tiki,Vasa,Gokstadskipet,Osebergskipet|Mayflower,Santa Maria,Black Pearl,Bismarck,Victory|Endeavour,Beagle,Bounty,Lusitania,Gjøa,Statsraad Lehmkuhl|Cutty Sark,Mary Rose,Yamato,Pinta,Niña,Golden Hind,Hood,Tirpitz,Blücher|Endurance,Essex,Ra II,Christian Radich,Sørlandet,Maud,Nautilus|Argo,Pequod,Hispaniola,Arken/Noahs ark,Flying Dutchman/Den flyvende hollender,Calypso"}
+];
+Q_EKSTRA2.forEach(q=>q.from=19); // med i dagens dykk fra 19. november (dagens sett er allerede spilt)
+QUESTIONS.push(...Q_EKSTRA2);
+
+
+const ICONS = [
+/* 0 Tare */
+`<svg viewBox="0 0 64 64" fill="none" stroke-linecap="round">
+  <path d="M24 62C18 50 30 42 24 30C19 20 26 12 27 4" stroke="#6fbf73" stroke-width="5"/>
+  <path d="M38 62C44 52 34 44 40 34C45 26 39 18 41 10" stroke="#4e9e5a" stroke-width="5"/>
+  <ellipse cx="17" cy="38" rx="7" ry="3.5" fill="#6fbf73" transform="rotate(-35 17 38)"/>
+  <ellipse cx="31" cy="20" rx="7" ry="3.5" fill="#6fbf73" transform="rotate(30 31 20)"/>
+  <ellipse cx="47" cy="44" rx="7" ry="3.5" fill="#4e9e5a" transform="rotate(35 47 44)"/>
+  <ellipse cx="34" cy="28" rx="6" ry="3" fill="#4e9e5a" transform="rotate(-30 34 28)"/>
+</svg>`,
+/* 1 Reke */
+`<svg viewBox="0 0 64 64" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M46 8C38 4 26 6 16 12" stroke="#ffb38a" stroke-width="1.6"/>
+  <path d="M47 11C40 9 30 12 22 18" stroke="#ffb38a" stroke-width="1.6"/>
+  <path d="M44 18C55 26 54 42 42 48C34 52 25 50 20 44" stroke="#ff8f5a" stroke-width="11"/>
+  <path d="M48 26L41 29M50 35L42 36M46 43L39 41M36 48L34 42" stroke="#d9663a" stroke-width="2"/>
+  <path d="M21 44L9 38L12 46L8 53L21 47Z" fill="#ff8f5a"/>
+  <path d="M36 34l-6 6M40 40l-5 7" stroke="#ffb38a" stroke-width="2"/>
+  <circle cx="45" cy="17" r="2.6" fill="#14202a"/>
+</svg>`,
+/* 2 Makrell */
+`<svg viewBox="0 0 64 64" fill="none" stroke-linecap="round">
+  <path d="M50 32L61 21L58 32L61 43Z" fill="#3e8fc4"/>
+  <path d="M6 32C16 18 40 17 51 32C40 47 16 46 6 32Z" fill="#7fd1ff"/>
+  <path d="M8 31C18 19 40 18 50 31" fill="#2f6f9e"/>
+  <path d="M20 22c3 3 0 6 3 9M28 20c3 3 0 6 3 9M36 21c3 3 0 6 3 9M43 24c2 3 0 5 2 7" stroke="#163f5c" stroke-width="2"/>
+  <path d="M22 36C30 39 40 38 46 34" stroke="#d8f2ff" stroke-width="1.6"/>
+  <circle cx="15" cy="31" r="2.6" fill="#0b1c28"/>
+  <circle cx="15.8" cy="30.2" r=".8" fill="#fff"/>
+</svg>`,
+/* 3 Blekksprut */
+`<svg viewBox="0 0 64 64" fill="none" stroke-linecap="round">
+  <g stroke="#a46be0" stroke-width="5">
+    <path d="M22 34C14 40 18 50 10 54"/><path d="M27 36C24 46 28 54 22 60"/>
+    <path d="M37 36C40 46 36 54 42 60"/><path d="M42 34C50 40 46 50 54 54"/>
+    <path d="M32 37C32 48 30 54 32 60"/>
+  </g>
+  <ellipse cx="32" cy="24" rx="16" ry="15" fill="#c79bff"/>
+  <ellipse cx="27" cy="16" rx="5" ry="3" fill="#e2ccff" opacity=".7"/>
+  <circle cx="26" cy="27" r="3.4" fill="#fff"/><circle cx="38" cy="27" r="3.4" fill="#fff"/>
+  <circle cx="26.6" cy="27.6" r="1.8" fill="#1d0f2e"/><circle cx="38.6" cy="27.6" r="1.8" fill="#1d0f2e"/>
+</svg>`,
+/* 4 Breiflabb */
+`<svg viewBox="0 0 64 64" fill="none" stroke-linecap="round">
+  <path d="M28 20C28 8 42 4 48 12" stroke="#b08a3a" stroke-width="2.2"/>
+  <circle cx="49" cy="14" r="7" fill="#ffd36b" opacity=".25"/>
+  <circle cx="49" cy="14" r="4" fill="#ffe9a8"/>
+  <path d="M52 40L62 32L60 42L62 52Z" fill="#8a6a2a"/>
+  <circle cx="30" cy="38" r="21" fill="#b8913f"/>
+  <path d="M10 40C16 50 30 52 42 44L12 34Z" fill="#2a1a08"/>
+  <path d="M13 36l3 5 2-5 3 6 2-6 3 6 2-6 3 6 2-6 3 5 2-5" stroke="#fff6dd" stroke-width="1.6" stroke-linejoin="round"/>
+  <path d="M16 46l3-4 3 5 3-5 3 5 3-5 3 4" stroke="#fff6dd" stroke-width="1.6" stroke-linejoin="round"/>
+  <circle cx="24" cy="27" r="4" fill="#fff"/><circle cx="23.4" cy="27.4" r="2.2" fill="#0e0a04"/>
+</svg>`,
+/* 5 Kjempeblekksprut */
+`<svg viewBox="0 0 64 64" fill="none" stroke-linecap="round">
+  <g stroke="#2fb8a3" stroke-width="2.6">
+    <path d="M27 38C24 46 28 52 24 58"/><path d="M30 38C30 46 28 52 30 58"/>
+    <path d="M34 38C34 46 36 52 34 58"/><path d="M37 38C40 46 36 52 40 58"/>
+  </g>
+  <path d="M25 38C18 48 22 56 12 62" stroke="#5ee6d0" stroke-width="2.2"/>
+  <path d="M39 38C46 48 42 56 52 62" stroke="#5ee6d0" stroke-width="2.2"/>
+  <ellipse cx="12" cy="61" rx="3.5" ry="2" fill="#5ee6d0"/><ellipse cx="52" cy="61" rx="3.5" ry="2" fill="#5ee6d0"/>
+  <path d="M32 2C43 13 43 28 39 39L25 39C21 28 21 13 32 2Z" fill="#5ee6d0"/>
+  <path d="M32 6L22 16L26 20Z M32 6L42 16L38 20Z" fill="#2fb8a3"/>
+  <path d="M29 12C28 18 28 26 29 32" stroke="#b9fff3" stroke-width="1.6" opacity=".7"/>
+  <circle cx="27.5" cy="33" r="3" fill="#fff"/><circle cx="36.5" cy="33" r="3" fill="#fff"/>
+  <circle cx="27.8" cy="33.5" r="1.6" fill="#03201c"/><circle cx="36.8" cy="33.5" r="1.6" fill="#03201c"/>
+</svg>`
+];
+/* Dykkeren */
+const DIVER = `<svg viewBox="0 0 64 80" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="50" cy="8" r="3" stroke="#cdeef7" stroke-width="1.4"/>
+  <circle cx="55" cy="16" r="2" stroke="#cdeef7" stroke-width="1.2"/>
+  <rect x="35" y="27" width="11" height="24" rx="5" fill="#9fb3bf"/>
+  <rect x="37" y="30" width="3" height="18" rx="1.5" fill="#d4e2e9"/>
+  <path d="M22 34L12 44M40 34L48 42" stroke="#ff8a3d" stroke-width="6"/>
+  <circle cx="11" cy="45" r="3.4" fill="#ffd36b"/>
+  <rect x="20" y="27" width="22" height="26" rx="10" fill="#ff8a3d"/>
+  <path d="M21 40H41" stroke="#14303f" stroke-width="3"/>
+  <path d="M25 51L23 66M37 51L39 66" stroke="#ff8a3d" stroke-width="7"/>
+  <path d="M17 66C17 74 27 76 28 66Z" fill="#ffd36b"/>
+  <path d="M34 66C35 76 45 74 45 66Z" fill="#ffd36b"/>
+  <circle cx="31" cy="17" r="11" fill="#f1c39b"/>
+  <path d="M20 14C21 5 41 5 42 14C38 10 24 10 20 14Z" fill="#14303f"/>
+  <rect x="22" y="13" width="18" height="10" rx="5" fill="#7fd1ff" stroke="#14303f" stroke-width="2.4"/>
+  <path d="M25 16C26 15 28 15 29 16" stroke="#e8f8ff" stroke-width="1.4"/>
+  <path d="M42 22V6" stroke="#ffd36b" stroke-width="3"/>
+  <path d="M31 26C34 26 38 25 42 22" stroke="#14303f" stroke-width="2"/>
+</svg>`;
+
+/* ============================================================
+   INNSTILLINGER
+   ============================================================ */
+const TIERS = [
+  {name:"Tare", m:50,             pts:10,  color:"#9fd18b", desc:"Veldig vanlig",            flavor:"Tare og tang i strandkanten. Her svarer nesten alle."},
+  {name:"Reke", m:150,             pts:25,  color:"#ffab7a", desc:"Vanlig",              flavor:"Du svømmer med stimen. Trygt, men grunt."},
+  {name:"Makrell", m:350,          pts:40,  color:"#6cc8ff", desc:"Litt uvanlig",               flavor:"Under overflaten. Pent levert!"},
+  {name:"Blekksprut", m:650,       pts:60,  color:"#c79bff", desc:"Uvanlig",                    flavor:"Godt under springlaget. Sterkt!"},
+  {name:"Breiflabb", m:1050,        pts:80,  color:"#ffd36b", desc:"Sjeldent",                   flavor:"Her nede lyser bare dyrene selv. Sjeldent godt."},
+  {name:"Kjempeblekksprut", m:1570, pts:100, color:"#5ef2d6", desc:"Ekstremt sjeldent",  flavor:"Legendarisk. Nesten ingen har vært så dypt."}
+];
+const ROUNDS=7, SECONDS=20, BASE=14;
+const depthOf=g=>g.results.reduce((a,r)=>a+(r.tier>=0?TIERS[r.tier].m:0),0);     // BASE = meter under overflaten ved start
+const LANDMARKS=[
+  [40,"Grensen for vanlig sportsdykking"],
+  [214,"Verdensrekord i fridykking (No Limits)"],
+  [332,"Dypeste dykk med dykkerflasker"],
+  [500,"Keiserpingviner kan dykke hit"],
+  [700,"Norskerenna er rundt så dyp"],
+  [1000,"Midnattssonen – her slutter sollyset"],
+  [1308,"Sognefjorden – Norges dypeste fjord"],
+  [2000,"Kaskelotter jakter blekksprut her"],
+  [2992,"Rekorddykk for Cuviers nebbhval"],
+  [3800,"Vraket av Titanic"],
+  [4000,"Abyssalsonen – dyphavssletten"],
+  [6000,"Hadalsonen – dyphavsgropene"],
+  [8336,"Dypeste fisk som er filmet (en sneglefisk)"],
+  [10935,"Marianergropen – havets dypeste punkt"],
+  [10990,"Bunnen – et perfekt dykk ender her"]
+];
+const RANKS=[[0,"Snorkler","Du holdt deg nær overflaten i dag."],[150,"Sportsdykker","Et solid dykk – du er på vei ned."],
+  [300,"Fridykker","Godt under springlaget. Bra jobba!"],[420,"Dyphavsforsker","Du fant svar få andre tenker på."],
+  [540,"Grøftedykker","Helt nede i dyphavsgropene. Imponerende!"],[640,"Havets legende","Nesten et perfekt dykk. Ingen dykker dypere."]];
+
+/* ============================================================
+   HJELPEFUNKSJONER
+   ============================================================ */
+const $=id=>document.getElementById(id);
+function norm(s){return s.toLowerCase().replace(/\+\+/g,"pp").replace(/#/g,"sharp").replace(/æ/g,"ae").replace(/ø/g,"o").replace(/å/g,"a")
+  .normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]/g,"");}
+function lev(a,b){ if(Math.abs(a.length-b.length)>2) return 9;
+  const d=Array.from({length:a.length+1},(_,i)=>[i]); for(let j=1;j<=b.length;j++) d[0][j]=j;
+  for(let i=1;i<=a.length;i++) for(let j=1;j<=b.length;j++)
+    d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
+  return d[a.length][b.length]; }
+function parse(q){ if(q._p) return q._p; const out=[];
+  if(q.src){ const pre=q._data&&q._data.k; (q._data?q._data.e:[]).forEach(r=>out.push({label:r[0],tier:Math.max(0,Math.min(5,r[1]|0)),keys:pre?null:[r[0],...r.slice(2)].map(norm)})); }
+  else q.a.split("|").forEach((g,ti)=>g.split(",").forEach(it=>{const n=it.split("/").map(s=>s.trim()).filter(Boolean);
+    if(n.length) out.push({label:n[0],tier:Math.min(ti,5),keys:n.map(norm)});}));
+  if(q.src&&!q._data) return out;
+  // Oppslagstabell: nøkkel -> svar (første forekomst vinner; listen er sortert fra mest til minst kjent)
+  const map=new Map(), byLen=new Map();
+  const add=(k,a)=>{ if(!k||map.has(k)) return; map.set(k,a); let b=byLen.get(k.length); if(!b) byLen.set(k.length,b=[]); b.push(k); };
+  if(q.src&&q._data.k){ // ferdig normaliserte nøkler fra importen: mye raskere på mobil
+    const L=q._data.k.split("\n"); for(let i=0;i<L.length;i++){ const a=out[i], ks=L[i].split("\t"); for(let j=0;j<ks.length;j++) add(ks[j],a); }
+    q._data.k=null; }
+  else for(const a of out) for(const k of a.keys) add(k,a);
+  q._map=map; q._byLen=byLen; return q._p=out; }
+function check(q,input){ const n=norm(input); if(!n) return null; parse(q); const map=q._map; if(!map) return null;
+  const hit=map.get(n); if(hit) return {a:hit,exact:true};
+  // «Mente du …?»: små skrivefeil. Store lister er strengere (lengre ord kreves, og første bokstav må stemme)
+  // for å unngå at et feil svar godkjennes fordi det ligner et gyldig svar.
+  const big=map.size>3000; let best=null,bd=99;
+  for(let L=n.length-2;L<=n.length+2;L++){ const b=q._byLen.get(L); if(!b) continue;
+    for(const k of b){ const tol=big?(k.length>=11?2:k.length>=7?1:0):(k.length>=9?2:k.length>=5?1:0); if(!tol) continue;
+      if(big&&k[0]!==n[0]) continue; const d=lev(n,k); if(d<=tol&&d<bd){bd=d;best=map.get(k);} } }
+  return best?{a:best,exact:false}:null; }
+/* Datasett fra innsamlingssystemet (data/index.json). Lastes først når spørsmålet trengs. */
+async function loadDatasets(){ try{ const r=await fetch("data/index.json",{cache:"no-cache"}); if(!r.ok) return;
+    const idx=await r.json(); for(const d of idx.datasets||[]){ if(QUESTIONS.some(q=>q.id===d.id)) continue;
+      QUESTIONS.push({id:d.id,q:d.q,norsk:!!d.norsk,src:d.file,v:d.v,n:d.n,attr:d.src,from:d.from||1}); } }catch(e){} }
+async function ensureLoaded(q){ if(!q.src||q._data) return true; try{
+    const r=await fetch(q.src+"?v="+q.v); q._data=await r.json(); q._p=null; parse(q); return true; }catch(e){ return false; } }
+const datasetsReady=loadDatasets();
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);
+  t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function shuffle(a,r){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function pickSet(r){const out=[];let nor=0;for(const q of shuffle(QUESTIONS,r)){if(out.length>=ROUNDS)break;
+  if(q.norsk){if(nor>=1)continue;nor++;}out.push(q);}return out;}
+/* Fast kalender for dagens dykk: alle får de samme spørsmålene samme dag, og ingen spørsmål
+   gjentas før hele banken er brukt. Annenhver dag har ett Norge-spørsmål. */
+/* Fast kalender for dagens dykk. Hvert spørsmål har en startdag («from»), og en dag bruker bare spørsmål som
+   fantes da. Nye spørsmål endrer derfor aldri tidligere dager. Spørsmål som er brukt nylig hoppes over. */
+function hashStr(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+let _cal={n:-1,days:[],last:new Map()};
+function dailySet(day){
+  if(_cal.n!==QUESTIONS.length) _cal={n:QUESTIONS.length,days:[],last:new Map()};
+  const byId=(a,b)=>a.id<b.id?-1:1, all=QUESTIONS.slice().sort(byId);
+  const pick=(pool,k,d,win)=>{ const sc=q=>hashStr(q.id+"|"+d);
+    const fresh=pool.filter(q=>{const l=_cal.last.get(q.id);return l===undefined||d-l>win;});
+    const src=fresh.length>=k?fresh:pool; return src.slice().sort((a,b)=>sc(a)-sc(b)).slice(0,k); };
+  for(let d=_cal.days.length+1;d<=day;d++){
+    const ok=all.filter(q=>(q.from||1)<=d), G=ok.filter(q=>!q.norsk), N=ok.filter(q=>q.norsk);
+    const nN=((d-1)%2===0&&N.length)?1:0;
+    const out=[...pick(N,nN,d,Math.floor(N.length/2)-1),...pick(G,ROUNDS-nN,d,Math.floor(G.length/ROUNDS)-2)];
+    for(const q of out) _cal.last.set(q.id,d);
+    _cal.days.push(shuffle(out,rng(d*31+7))); }
+  return _cal.days[day-1].slice(); }
+function todayKey(){const d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function dayNumber(){const s=new Date(2026,10,1),n=new Date();n.setHours(0,0,0,0);return Math.max(1,Math.round((n-s)/864e5)+1);}
+const store={get(k){try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));}
+const fmt=n=>Math.round(n).toLocaleString("nb-NO");
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("show"),1800);}
+function setState(s){document.body.className="s-"+s;}
+const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function countUp(el,from,to,ms,suffix=""){const t0=performance.now();
+  (function f(){const p=clamp((performance.now()-t0)/ms,0,1);el.textContent=fmt(from+(to-from)*ease(p))+suffix;if(p<1)requestAnimationFrame(f);})();}
+
+/* ============================================================
+   LYD (syntetisert, ingen filer)
+   ============================================================ */
+let AC=null, muted=store.get("dypdykk-muted")||false;
+function ac(){ if(!AC){try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}} if(AC&&AC.state==="suspended")AC.resume(); return AC; }
+function tone(f,dur,type="sine",vol=.12,to=null,delay=0){ if(muted)return; const c=ac(); if(!c)return;
+  const t=c.currentTime+delay,o=c.createOscillator(),g=c.createGain(); o.type=type; o.frequency.setValueAtTime(f,t);
+  if(to)o.frequency.exponentialRampToValueAtTime(to,t+dur); g.gain.setValueAtTime(.0001,t);
+  g.gain.exponentialRampToValueAtTime(vol,t+.015); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g).connect(c.destination); o.start(t); o.stop(t+dur+.05); }
+const SFX={
+  bubble(){tone(280,.14,"sine",.12,900);tone(420,.1,"sine",.06,1200,.07);},
+  wrong(){tone(180,.16,"triangle",.14,120);tone(140,.2,"triangle",.1,90,.09);},
+  tick(){tone(1400,.05,"sine",.05);},
+  count(){tone(660,.09,"sine",.08);},
+  go(){tone(880,.16,"sine",.1);tone(1320,.2,"sine",.06,null,.05);},
+  dive(){tone(240,1.4,"sine",.06,55);for(let i=0;i<5;i++)tone(300+Math.random()*300,.1,"sine",.05,1100,.15+i*.18);},
+  tier(t){const base=330*Math.pow(1.19,t);tone(base,1.1,"sine",.12);tone(base*1.5,1.3,"sine",.06,null,.08);
+    if(t>=4){tone(base*2,1.8,"sine",.05,null,.18);tone(base*3,2.2,"sine",.025,null,.3);}},
+  miss(){tone(300,.4,"sine",.08,150);}
+};
+function drawMute(){ $("mute").innerHTML = muted
+  ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>`
+  : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>`; }
+$("mute").onclick=()=>{muted=!muted;store.set("dypdykk-muted",muted);drawMute();if(!muted)SFX.bubble();};
+drawMute();
+
+/* ============================================================
+   HAVSCENEN (canvas)
+   ============================================================ */
+const cv=$("scene"), ctx=cv.getContext("2d");
+let W=0,H=0,DPR=1; const PPM=1.35;           // piksler per meter
+const cam={d:0,from:0,to:0,t0:0,dur:1};       // kameradybde (følger dykkeren)
+const dy={v:.6,from:.6,to:.6,t0:0,dur:1};    // dykkerens høyde på skjermen (andel av H)
+function diveTo(d,ms,ez){cam.from=cam.d;cam.to=d;cam.t0=performance.now();cam.dur=ms;cam.ez=ez||ease;}
+const easeBack=t=>{const c1=1.25,c3=c1+1;return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2);};
+const easeDive=t=>1-Math.pow(1-t,3);
+function diverYTo(v,ms){dy.from=dy.v;dy.to=v;dy.t0=performance.now();dy.dur=ms;}
+function resize(){DPR=Math.min(2,window.devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);buildMountains();}
+addEventListener("resize",resize);
+
+// Fjellsilhuetter (generert, norsk fjordlandskap)
+let mtnBack=[],mtnFront=[];
+function ridge(seed,n,peaks){const r=rng(seed),P=[];for(let i=0;i<peaks;i++)P.push([r()*1.1-.05,.35+r()*.65,.06+r()*.12]);
+  const pts=[];for(let i=0;i<=n;i++){const x=i/n;let h=.04;
+    P.forEach(([c,ht,w])=>{const d=Math.abs(x-c)/w;if(d<1)h=Math.max(h,ht*Math.pow(1-d,1.25));});
+    h+=Math.sin(x*90+seed)*.012+Math.sin(x*37+seed*2)*.02;pts.push(Math.max(0,h));}return pts;}
+function buildMountains(){mtnBack=ridge(7,220,9);mtnFront=ridge(42,220,7);}
+
+// Fargeskala for vann etter dybde
+const WATER=[[0,[38,150,190]],[60,[22,108,150]],[300,[13,70,110]],[1000,[8,38,70]],[2500,[5,22,44]],[4500,[3,12,26]],[7500,[2,6,14]],[11000,[1,2,6]]];
+function waterAt(d){d=clamp(d,0,11000);for(let i=1;i<WATER.length;i++){if(d<=WATER[i][0]){const[a,ca]=WATER[i-1],[b,cb]=WATER[i],t=(d-a)/(b-a);
+  return ca.map((c,k)=>Math.round(c+(cb[k]-c)*t));}}return WATER[WATER.length-1][1];}
+const rgb=(c,a=1)=>`rgba(${c[0]},${c[1]},${c[2]},${a})`;
+
+// Partikler: havsnø og selvlysende prikker
+const snow=Array.from({length:150},()=>({x:Math.random(),y:Math.random(),r:.5+Math.random()*1.8,p:.4+Math.random()*.9,ph:Math.random()*6.28,
+  glow:Math.random()<.22,hue:[180,190,280,165,45][Math.floor(Math.random()*5)]}));
+// Bobler (verdenskoordinater: x i px, d i meter)
+let bubbles=[];
+// Fiskestimer, maneter og lysende dyphavsfisk (verdensdybde)
+const fishes=Array.from({length:7},(_,i)=>({d:25+i*55+Math.random()*30,x:Math.random(),v:(Math.random()<.5?-1:1)*(.012+Math.random()*.02),n:5+Math.floor(Math.random()*8),s:.7+Math.random()*.6}));
+const jellies=Array.from({length:14},()=>({d:1200+Math.random()*5600,x:Math.random(),ph:Math.random()*6.28,s:.6+Math.random()*.9,hue:[290,190,330,170][Math.floor(Math.random()*4)]}));
+const lures=Array.from({length:10},()=>({d:3500+Math.random()*3400,x:Math.random(),ph:Math.random()*6.28}));
+
+let lastT=performance.now(), lastCam=0;
+function frame(now){
+  const dt=Math.min(.05,(now-lastT)/1000); lastT=now;
+  // tweens
+  let p=clamp((now-cam.t0)/cam.dur,0,1); cam.d=cam.from+(cam.to-cam.from)*(cam.ez||ease)(p);
+  p=clamp((now-dy.t0)/dy.dur,0,1); dy.v=dy.from+(dy.to-dy.from)*ease(p);
+  const diverY=H*dy.v; $("diver").style.top=diverY+"px"; document.documentElement.style.setProperty("--dy",(dy.v*100)+"%");
+  const surfY=diverY+18-cam.d*PPM;                 // overflatens y på skjermen
+  const dAt=y=>(y-surfY)/PPM;                       // dybde ved skjermposisjon y
+  const camMove=(cam.d-lastCam)*PPM; lastCam=cam.d;
+  const t=now/1000;
+
+  // --- Vann (bakgrunn) ---
+  const g=ctx.createLinearGradient(0,Math.max(surfY,0),0,H);
+  const y0=Math.max(surfY,0); for(let i=0;i<=5;i++){const y=y0+(H-y0)*i/5;g.addColorStop(i/5,rgb(waterAt(dAt(y))));}
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+
+  // --- Himmel og fjell (bare når overflaten er synlig) ---
+  if(surfY>-10){
+    const sky=ctx.createLinearGradient(0,0,0,surfY);
+    sky.addColorStop(0,"#0b1d3d");sky.addColorStop(.45,"#2c4f86");sky.addColorStop(.8,"#e59a7c");sky.addColorStop(1,"#ffd2a1");
+    ctx.fillStyle=sky; ctx.fillRect(0,0,W,surfY+2);
+    // stjerner
+    ctx.fillStyle="rgba(255,255,255,.7)";
+    for(let i=0;i<40;i++){const sx=(i*137.5%100)/100*W, sy=((i*61.8)%45)/100*surfY; const a=.3+.3*Math.sin(t*1.3+i);
+      ctx.globalAlpha=a*clamp(1-sy/(surfY*.5),0,1); ctx.fillRect(sx,sy,1.4,1.4);} ctx.globalAlpha=1;
+    // sol
+    const sx=W*.72, sy=surfY-Math.min(H*.3,270), sr=Math.max(28,W*.035);
+    const sg=ctx.createRadialGradient(sx,sy,0,sx,sy,sr*5); sg.addColorStop(0,"rgba(255,226,170,.9)");sg.addColorStop(.18,"rgba(255,190,140,.45)");sg.addColorStop(1,"rgba(255,160,120,0)");
+    ctx.fillStyle=sg; ctx.beginPath(); ctx.arc(sx,sy,sr*5,0,7); ctx.fill();
+    ctx.fillStyle="#fff1d6"; ctx.beginPath(); ctx.arc(sx,sy,sr,0,7); ctx.fill();
+    // fjell
+    const drawRidge=(arr,hMax,col)=>{ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(0,surfY);
+      arr.forEach((v,i)=>ctx.lineTo(i/(arr.length-1)*W,surfY-hMax*v));ctx.lineTo(W,surfY);ctx.closePath();ctx.fill();};
+    drawRidge(mtnBack,Math.min(H*.28,280),"rgba(78,96,140,.9)");
+    // snø på toppene
+    {const hM=Math.min(H*.28,280);ctx.save();ctx.beginPath();ctx.rect(0,0,W,surfY-hM*.62);ctx.clip();
+     drawRidge(mtnBack,hM,"rgba(232,238,252,.78)");ctx.restore();}
+    drawRidge(mtnFront,Math.min(H*.19,190),"#1a2644");
+    // snø på toppene (bakre rygg)
+    // vannflate
+    const wg=ctx.createLinearGradient(0,surfY,0,surfY+60); wg.addColorStop(0,"rgba(255,210,170,.55)");wg.addColorStop(1,"rgba(255,210,170,0)");
+    ctx.beginPath(); ctx.moveTo(0,H);
+    for(let x=0;x<=W;x+=8){ctx.lineTo(x,surfY+Math.sin(x*.018+t*1.4)*3+Math.sin(x*.05-t*.9)*1.6);} ctx.lineTo(W,H); ctx.closePath();
+    ctx.fillStyle=rgb(waterAt(2)); ctx.fill(); ctx.fillStyle=wg; ctx.fill();
+    // solens refleks
+    ctx.fillStyle="rgba(255,225,180,.55)";
+    for(let i=0;i<9;i++){const ry=surfY+6+i*7, rw=(40-i*3)*(1+.3*Math.sin(t*2+i)); ctx.globalAlpha=.6-i*.06; ctx.fillRect(sx-rw/2,ry,rw,2);} ctx.globalAlpha=1;
+    // skimrende linje
+    ctx.strokeStyle="rgba(255,255,255,.35)";ctx.lineWidth=1.2;ctx.beginPath();
+    for(let x=0;x<=W;x+=8){const y=surfY+Math.sin(x*.018+t*1.4)*3+Math.sin(x*.05-t*.9)*1.6;x?ctx.lineTo(x,y):ctx.moveTo(x,y);} ctx.stroke();
+  }
+
+  // --- Lysstråler ---
+  const rayA=clamp(1-cam.d/600,0,1);
+  if(rayA>0&&!SET.lite){ctx.save();ctx.globalCompositeOperation="lighter";
+    for(let i=0;i<7;i++){const bx=W*(.1+i*.14)+Math.sin(t*.3+i)*40, w=30+i%3*25, len=H*1.1;
+      const rg=ctx.createLinearGradient(0,Math.max(surfY,0),0,Math.max(surfY,0)+len);
+      rg.addColorStop(0,`rgba(180,240,255,${.10*rayA})`);rg.addColorStop(1,"rgba(180,240,255,0)");
+      ctx.fillStyle=rg;ctx.beginPath();const top=Math.max(surfY,0);
+      ctx.moveTo(bx-w/2,top);ctx.lineTo(bx+w/2,top);ctx.lineTo(bx+w*1.6+60,top+len);ctx.lineTo(bx-w*1.2+60,top+len);ctx.fill();}
+    ctx.restore();}
+
+  // --- Fisk (grunt vann) ---
+  if(!SET.lite) fishes.forEach(f=>{f.x+=f.v*dt; if(f.x>1.2)f.x=-.2; if(f.x<-.2)f.x=1.2;
+    const y=surfY+f.d*PPM; if(y<-40||y>H+40)return; const a=clamp(1-f.d/500,0,1)*.55;
+    ctx.fillStyle=`rgba(5,25,45,${a})`;
+    for(let k=0;k<f.n;k++){const fx=f.x*W+((k*37)%60-30)*f.s*1.4, fy=y+((k*23)%30-15)*f.s+Math.sin(t*2+k)*2, dir=Math.sign(f.v), s=7*f.s;
+      ctx.beginPath();ctx.ellipse(fx,fy,s,s*.38,0,0,7);ctx.fill();ctx.beginPath();ctx.moveTo(fx-dir*s*.8,fy);ctx.lineTo(fx-dir*s*1.6,fy-s*.4);ctx.lineTo(fx-dir*s*1.6,fy+s*.4);ctx.fill();}});
+
+  // --- Havsnø og selvlysende prikker ---
+  ctx.save(); ctx.globalCompositeOperation="lighter";
+  snow.forEach((s,si)=>{ if(SET.lite&&si%3) return; s.y-=camMove*s.p/H; s.y+=dt*.008*s.p; s.x+=Math.sin(t*.4+s.ph)*.00008;
+    if(s.y<0)s.y+=1; if(s.y>1)s.y-=1;
+    const y=s.y*H, d=dAt(y); if(y<surfY+4) return;
+    if(s.glow){const k=clamp((d-600)/1400,0,1); if(k<=0) return; const a=k*(.35+.45*Math.sin(t*1.7+s.ph*3));
+      const r=s.r*2.6; const gg=ctx.createRadialGradient(s.x*W,y,0,s.x*W,y,r*4); gg.addColorStop(0,`hsla(${s.hue},100%,70%,${a})`);gg.addColorStop(1,`hsla(${s.hue},100%,60%,0)`);
+      ctx.fillStyle=gg;ctx.beginPath();ctx.arc(s.x*W,y,r*4,0,7);ctx.fill();}
+    else {ctx.fillStyle=`rgba(200,235,255,${.18+.22*s.p})`;ctx.fillRect(s.x*W,y,s.r,s.r); if(Math.abs(camMove)>2){ctx.fillRect(s.x*W,y,s.r*.7,clamp(-camMove*s.p*1.6,0,140));}}});
+  // maneter
+  if(!SET.lite) jellies.forEach(j=>{const y=surfY+j.d*PPM+Math.sin(t*.6+j.ph)*12; if(y<-80||y>H+80)return; const x=j.x*W+Math.sin(t*.25+j.ph)*30, s=18*j.s, pulse=1+.08*Math.sin(t*2.2+j.ph);
+    const jg=ctx.createRadialGradient(x,y,0,x,y,s*2.4);jg.addColorStop(0,`hsla(${j.hue},90%,70%,.45)`);jg.addColorStop(1,`hsla(${j.hue},90%,60%,0)`);
+    ctx.fillStyle=jg;ctx.beginPath();ctx.arc(x,y,s*2.4,0,7);ctx.fill();
+    ctx.fillStyle=`hsla(${j.hue},90%,78%,.55)`;ctx.beginPath();ctx.ellipse(x,y,s*pulse,s*.7/pulse,0,Math.PI,0);ctx.fill();
+    ctx.strokeStyle=`hsla(${j.hue},90%,75%,.35)`;ctx.lineWidth=1.2;
+    for(let k=-2;k<=2;k++){ctx.beginPath();ctx.moveTo(x+k*s*.3,y);for(let m=1;m<=6;m++)ctx.lineTo(x+k*s*.3+Math.sin(t*2+m+k+j.ph)*3,y+m*s*.35);ctx.stroke();}});
+  // lysende agn fra dyphavsfisk
+  if(!SET.lite) lures.forEach(l=>{const y=surfY+l.d*PPM; if(y<-30||y>H+30)return; const x=l.x*W+Math.sin(t*.5+l.ph)*16, a=.5+.5*Math.sin(t*3+l.ph);
+    const lg=ctx.createRadialGradient(x,y,0,x,y,16);lg.addColorStop(0,`rgba(255,240,170,${a})`);lg.addColorStop(1,"rgba(255,220,120,0)");
+    ctx.fillStyle=lg;ctx.beginPath();ctx.arc(x,y,16,0,7);ctx.fill();});
+  ctx.restore();
+
+  // --- Bobler fra dykkeren ---
+  if(cam.d>3 && Math.random()<dt*(document.body.classList.contains("s-diving")?28:3.2))
+    bubbles.push({x:W/2+8+Math.random()*8,d:cam.d+(-diverY+diverY-26)/PPM,r:1.5+Math.random()*3.2,w:Math.random()*6.28});
+  ctx.strokeStyle="rgba(220,245,255,.6)";ctx.lineWidth=1;
+  bubbles=bubbles.filter(b=>{b.d-=dt*(38+b.r*8); const y=surfY+b.d*PPM; if(b.d<0||y<-20)return false;
+    const x=b.x+Math.sin(t*3+b.w)*4; ctx.beginPath();ctx.arc(x,y,b.r,0,7);ctx.stroke(); return true;});
+
+  // --- Dybdemåler til høyre ---
+  if(!document.body.classList.contains("s-start")||cam.d>5){
+    const rx=W-(W<520?30:46); ctx.save();
+    ctx.strokeStyle="rgba(170,225,245,.22)";ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(rx,Math.max(surfY,0));ctx.lineTo(rx,H);ctx.stroke();
+    const dTop=Math.max(0,dAt(0)), dBot=dAt(H);
+    for(let m=Math.ceil(dTop/50)*50;m<=dBot;m+=50){const y=surfY+m*PPM, major=m%250===0;
+      ctx.strokeStyle=`rgba(170,225,245,${major?.55:.25})`;ctx.beginPath();ctx.moveTo(rx-(major?12:6),y);ctx.lineTo(rx,y);ctx.stroke();
+      if(major&&m>0&&!LANDMARKS.some(l=>Math.abs(l[0]-m)<40)){ctx.fillStyle="rgba(170,225,245,.6)";ctx.font="500 10px 'JetBrains Mono',monospace";ctx.textAlign="right";ctx.fillText(fmt(m)+" m",rx-16,y+3.5);}}
+    // merker
+    LANDMARKS.forEach(([m,txt])=>{const y=surfY+m*PPM; if(y<-20||y>H+20)return; const near=clamp(1-Math.abs(y-diverY)/(H*.55),0,1);
+      ctx.globalAlpha=.25+.75*near; ctx.fillStyle="#ffd36b"; ctx.beginPath();ctx.arc(rx,y,3.2,0,7);ctx.fill();
+      ctx.setLineDash([3,4]);ctx.strokeStyle="rgba(255,211,107,.35)";ctx.beginPath();ctx.moveTo(rx-120,y);ctx.lineTo(rx-6,y);ctx.stroke();ctx.setLineDash([]);
+      if(W>560){ctx.fillStyle="rgba(255,233,180,.9)";ctx.font="500 11.5px Inter,sans-serif";ctx.textAlign="right";ctx.fillText(txt,rx-14,y-7);
+        ctx.fillStyle="rgba(255,211,107,.85)";ctx.font="700 10px 'JetBrains Mono',monospace";ctx.fillText(fmt(m)+" m",rx-14,y+14);}
+      ctx.globalAlpha=1;});
+    // dykkerens markør
+    ctx.fillStyle="#5ef2d6";ctx.beginPath();ctx.moveTo(rx-1,diverY);ctx.lineTo(rx-11,diverY-6);ctx.lineTo(rx-11,diverY+6);ctx.fill();
+    ctx.restore();
+  }
+  // vignett
+  const vg=ctx.createRadialGradient(W/2,H*.45,Math.min(W,H)*.35,W/2,H*.5,Math.max(W,H)*.85);
+  vg.addColorStop(0,"rgba(0,0,0,0)");vg.addColorStop(1,`rgba(0,4,10,${.25+clamp(cam.d/11000,0,1)*.45})`);
+  ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);
+  requestAnimationFrame(frame);
+}
+$("diverArt").innerHTML=DIVER;
+resize(); requestAnimationFrame(frame);
+
+/* ============================================================
+   SPILLET
+   ============================================================ */
+let game=null, timerH=null, cdH=null;
+
+function startScreen(){
+  clearInterval(timerH);clearInterval(cdH); if(typeof closeMenu==="function") closeMenu();
+  setState("start"); diverYTo(.6,1600); diveTo(0,2200); $("diver").classList.remove("dive");
+  const d=new Date(); $("dayLabel").textContent="Dykk nr. "+dayNumber()+" · "+d.toLocaleDateString("nb-NO",{weekday:"long",day:"numeric",month:"long"});
+  const done=store.get("dypdykk-"+todayKey()), st=store.get("dypdykk-stats")||{};
+  $("startBottom").innerHTML=`
+    ${done?`<div class="donebox">Dagens dykk er tatt: <b>${fmt(done.score)} p · ${fmt(depthOf(done))} m</b><br><span class="stats">Nytt dykk i morgen</span></div>
+      <button class="btn btn-primary" id="seeToday">Se dagens resultat</button>`
+    :`<button class="btn btn-primary" id="daily"><span class="arrow">▼</span> Start dagens dykk</button>`}
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><button class="btn btn-ghost" id="practice">Øvingsdykk</button><button class="btn btn-ghost" id="endless">∞ Uendelig</button></div>
+    ${st.played?`<div class="stats">Beste: ${fmt(st.best||0)} p · Dykk: ${st.played} · Rekke: ${st.streak||0} dager</div>`:""}
+    <div class="tierrow">${TIERS.map((t,i)=>`<div>${ICONS[i]}<b>${t.name.replace("Kjempeblekksprut","Kjempe&shy;blekksprut")}</b>${t.desc}<br><span style="opacity:.7">${fmt(t.m)} m</span></div>`).join("")}</div>`;
+  if(done) $("seeToday").onclick=()=>{game=done;showSummary(true);};
+  else $("daily").onclick=()=>begin(true);
+  $("practice").onclick=()=>begin(false);
+  $("endless").onclick=()=>begin("endless");
+}
+
+/* Moduser: daily (dagens dykk), practice (øving, 7 tilfeldige), endless (uendelig, 3 liv),
+   archive (tidligere dagens dykk), pack (kapittel i en temapakke). */
+function dateOfDay(n){const d=new Date(2026,10,1);d.setDate(d.getDate()+n-1);
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function randomQ(exclude){ const pool=QUESTIONS.filter(q=>!exclude.includes(q.id)&&(!q.modes||q.modes.includes("endless")));
+  return pool[Math.floor(Math.random()*pool.length)]||QUESTIONS[0]; }
+async function begin(mode,opts={}){
+  if(mode===true) mode="daily"; if(mode===false||mode===undefined) mode="practice";
+  window.__starting=true; setTimeout(()=>{window.__starting=false;},1200);
+  if(location.hash) try{ history.replaceState(null,"",location.pathname+location.search); }catch(e){}
+  ac(); SFX.bubble(); await datasetsReady;
+  const day=mode==="archive"?opts.day:dayNumber();
+  const set=mode==="daily"||mode==="archive"?dailySet(day):mode==="pack"?opts.set:mode==="endless"?[randomQ([])]:pickSet(rng(Math.floor(Math.random()*1e9)));
+  game={mode,daily:mode==="daily",day,date:mode==="archive"?dateOfDay(day):todayKey(),qs:set.map(q=>q.id),results:[],score:0,i:0,
+    rounds:mode==="endless"?Infinity:set.length,lives:mode==="endless"?3:null,pack:opts.pack||null,chapter:opts.chapter||null,packName:opts.packName||null};
+  const loading=Promise.all(set.map(ensureLoaded)); game._ready=loading;
+  $("hDepth").textContent="0 m"; $("hScore").textContent="0"; renderPips();
+  setState("intro"); diverYTo(.34,1500); diveTo(BASE,1700);
+  setTimeout(async()=>{ const ok=await loading; if(ok.includes(false)){ // et datasett kunne ikke lastes: bytt det ut
+      game.qs=game.qs.map((id,i)=>ok[i]?id:QUESTIONS.find(q=>!q.src&&!game.qs.includes(q.id)).id); }
+    nextQ(); },1500);
+}
+
+function renderPips(){
+  if(game.mode==="endless"){ $("pips").innerHTML=[0,1,2].map(k=>`<i style="${k<game.lives?"background:#ff7a6b;box-shadow:0 0 10px #ff7a6b":"opacity:.35"}"></i>`).join("")
+    +`<span style="font-family:var(--mono);font-size:12px;color:var(--muted);margin-left:8px">#${game.i+1}</span>`; return; }
+  $("pips").innerHTML=Array.from({length:game.rounds||ROUNDS},(_,k)=>{const r=game.results[k];
+  const st=r?(r.tier>=0?`background:${TIERS[r.tier].color};box-shadow:0 0 12px ${TIERS[r.tier].color}`:"background:rgba(255,122,107,.5)"):"";
+  return `<i class="${!r&&k===game.i?"now":""}" style="${st}"></i>`;}).join(""); }
+
+function curQ(){return QUESTIONS.find(x=>x.id===game.qs[game.i]);}
+
+function nextQ(){
+  const q=curQ(); renderPips();
+  $("qcard").innerHTML=`<div class="qn">${game.mode==="endless"?`Uendelig dykk · spørsmål ${game.i+1} · ${"♥".repeat(game.lives)}`:`Spørsmål ${game.i+1} / ${game.rounds}`}${game.mode==="pack"?" · Kapittel "+game.chapter:""}${q.norsk?" · 🇳🇴 Norge":""}</div><h2>${esc(q.q)}</h2><div class="hint">▼ sjeldnere svar synker dypere</div>`;
+  $("msg").innerHTML=""; $("inp").value="";
+  setState("countdown"); let n=3; $("cd").textContent=n; SFX.count();
+  clearInterval(cdH); cdH=setInterval(()=>{n--; if(n>0){$("cd").textContent=n;SFX.count();} else {clearInterval(cdH);startAnswer();}},750);
+}
+
+let tried=[], pending=null, deadline=0, answered=false, lastSec=99;
+function startAnswer(){
+  setState("answer"); SFX.go(); tried=[]; pending=null; answered=false; lastSec=99;
+  const inp=$("inp"); inp.value=""; setTimeout(()=>inp.focus(),60);
+  deadline=performance.now()+SECONDS*1000; $("ring").classList.remove("low");
+  clearInterval(timerH); timerH=setInterval(tickTimer,50); tickTimer();
+}
+function tickTimer(){
+  const left=Math.max(0,deadline-performance.now()), s=Math.ceil(left/1000);
+  $("ringfg").style.strokeDashoffset=138.2*(1-left/(SECONDS*1000)); $("secs").textContent=s;
+  if(s<=5){$("ring").classList.add("low"); if(s!==lastSec&&s>0)SFX.tick();} lastSec=s;
+  if(left<=0){ clearInterval(timerH); const v=$("inp").value.trim(), r=v?check(curQ(),v):null;
+    if(r&&(r.exact||pending===norm(v))) accept(r.a); else { if(v) tried.push(v); accept(null,"time"); } }
+}
+function renderMsg(html){ $("msg").innerHTML=html+(tried.length?`<div class="tried">${tried.map(t=>`<span>${esc(t)}</span>`).join("")}</div>`:""); }
+$("bar").onsubmit=e=>{ e.preventDefault(); if(answered) return;
+  const inp=$("inp"), v=inp.value.trim(), row=$("barrow");
+  const shake=()=>{row.classList.remove("err");void row.offsetWidth;row.classList.add("err");};
+  if(!v){shake();return;}
+  const r=check(curQ(),v);
+  if(!r){ tried.push(v); pending=null; shake(); SFX.wrong(); if(SET.clear) inp.value=""; else inp.select();
+    renderMsg(`<div class="pill bad">«${esc(v)}» ble ikke godkjent – prøv igjen!</div>`); return; }
+  if(!r.exact && SET.corr && pending!==norm(v)){ pending=norm(v);
+    renderMsg(`<div class="pill sug" id="sug">«${esc(v)}» → <b>${esc(r.a.label)}</b>?<small>Trykk Dykk igjen for å bekrefte, eller rett svaret</small></div>`);
+    $("sug").onclick=()=>accept(r.a); SFX.count(); return; }
+  accept(r.a);
+};
+$("inp").addEventListener("input",()=>{ if(pending&&norm($("inp").value)!==pending){pending=null;renderMsg("");} $("barrow").classList.remove("err"); });
+$("skip").onclick=()=>{ if(!answered) accept(null,"pass"); };
+
+function accept(hit,reason){
+  if(answered) return; answered=true; clearInterval(timerH); $("inp").blur();
+  const q=curQ(), tier=hit?hit.tier:-1, pts=hit?TIERS[tier].pts:0;
+  game.results.push({id:q.id,q:q.q,label:hit?hit.label:null,tier,pts,reason:reason||null,tried:tried.slice()});
+  setState("diving");
+  if(hit){
+    $("tag").textContent="«"+hit.label+"»"; $("tag").classList.add("show");
+    $("diver").classList.add("dive"); SFX.dive();
+    const T=TIERS[tier], meters=T.m, fromD=depthOf(game)-meters, from=game.score;
+    const dur=[1300,1700,2200,2800,3400,4300][tier];
+    game.score+=pts; game.depth=depthOf(game);
+    const target=BASE+game.depth;
+    if(tier>=4){ diveTo(target,dur,easeBack); } else diveTo(target,dur,easeDive);
+    fx.start(tier,dur);
+    countUp($("hDepth"),fromD,game.depth,dur," m"); countUp($("hScore"),from,game.score,dur);
+    bigDepthRun(meters,dur,T.color,tier);
+    setTimeout(()=>{$("diver").classList.remove("dive");$("tag").classList.remove("show");fx.arrive(tier);showReveal();},dur+120);
+  } else { SFX.miss(); setTimeout(showReveal,500); }
+}
+
+function showReveal(){
+  const q=curQ(), r=game.results[game.i], all=parse(q);
+  if(game.mode==="endless"&&r.tier<0) game.lives--;
+  const last=game.mode==="endless"?game.lives<=0:game.i===game.rounds-1;
+  const common=all.filter(a=>a.tier===0).slice(0,4).map(a=>a.label);
+  const rare=shuffle(all.filter(a=>a.tier>=4&&a.label!==r.label),Math.random).slice(0,5);
+  let top;
+  if(r.tier>=0){ const t=TIERS[r.tier];
+    top=`<div style="--tc:${t.color}">
+      <div class="ricon"><div class="glow"></div><div class="burst"></div><div class="burst b2"></div>${ICONS[r.tier]}</div>
+      <div class="tname${t.name.length>12?" long":""}">${t.name.toUpperCase()}</div>
+      <div class="rword">${t.desc} svar</div>
+      <div class="rquote">«${esc(r.label)}»</div>
+      <div class="rmeta">+${t.pts} p <span>· sank ${fmt(t.m)} m</span></div>
+      <div class="rbar">${TIERS.map((x,k)=>`<i style="${k<=r.tier?`background:${t.color};box-shadow:0 0 10px ${t.color};animation-delay:${k*.08}s`:""}"></i>`).join("")}</div>
+      <div class="rscale"><span>Vanlig</span><span>Sjeldent</span></div>
+      <div class="flavor">${t.flavor}</div></div>`;
+    SFX.tier(r.tier);
+  } else {
+    top=`<div style="--tc:#ff7a6b"><div class="ricon"><div class="burst"></div>
+      <svg viewBox="0 0 64 64" fill="none" stroke="#ff7a6b" stroke-width="3" stroke-linecap="round"><circle cx="32" cy="32" r="22" stroke-dasharray="5 6"/><path d="M24 24l16 16M40 24 24 40"/></svg></div>
+      <div class="tname">${r.reason==="pass"?"HOPPET OVER":"TIDEN ER UTE"}</div>
+      <div class="rmeta">+0 p <span>· ${game.mode==="endless"?`du mistet et liv (${game.lives} igjen)`:"du ble liggende"}</span></div>
+      <div class="flavor">${r.tried.length?`Ikke godkjent: ${r.tried.map(esc).join(", ")}`:"Neste gang – skriv hva som helst som passer!"}</div></div>`;
+  }
+  $("reveal").innerHTML=top+`
+    <div class="sect">Vanligste svar</div><div class="chips">${common.map(c=>`<span class="chip">${esc(c)}</span>`).join("")}</div>
+    <div class="sect">Sjeldne svar du kunne gitt</div><div class="chips">${rare.map(a=>`<span class="chip" style="border-color:${TIERS[a.tier].color}66;color:${TIERS[a.tier].color}">${esc(a.label)}</span>`).join("")}</div>
+    <button class="btn btn-primary" id="next">${last?"Fullfør dykket":"Dykk videre <span class='arrow'>▼</span>"}</button>`;
+  renderPips(); setState("reveal");
+  const nx=$("next"); $("reveal").scrollTop=0; setTimeout(()=>nx.focus({preventScroll:true}),300);
+  // Uendelig: hent neste spørsmål i bakgrunnen mens spilleren leser resultatet, så «Dykk videre» svarer med en gang
+  if(!last&&game.mode==="endless"&&game.i+1>=game.qs.length&&!game._next){
+    game._next=(async()=>{ let q2=randomQ(game.qs.slice(-25));
+      if(!(await ensureLoaded(q2))) q2=QUESTIONS.find(x=>!x.src&&!game.qs.includes(x.id))||QUESTIONS[0]; return q2; })(); }
+  nx.onclick=async()=>{ if(last) return finish();
+    if(game.mode==="endless"&&game.i+1>=game.qs.length){ nx.disabled=true; const t=setTimeout(()=>{nx.textContent="Henter neste …";},250);
+      const q2=await (game._next||Promise.resolve(QUESTIONS[0])); clearTimeout(t); game._next=null;
+      game.qs.push(q2.id); }
+    game.i++; nextQ(); };
+}
+
+function finish(){
+  if(game.mode==="archive") store.set("dypdykk-arkiv-"+game.date,{score:game.score,results:game.results,date:game.date,day:game.day});
+  if(game.mode==="pack"&&typeof packDone==="function") packDone(game);
+  if(game.mode==="endless"){ const b=store.get("dypdykk-endless-best")||0; if(game.score>b) store.set("dypdykk-endless-best",game.score); }
+  if(game.daily){ store.set("dypdykk-"+game.date,game);
+    const st=store.get("dypdykk-stats")||{}; const y=new Date();y.setDate(y.getDate()-1);
+    const yk=y.getFullYear()+"-"+String(y.getMonth()+1).padStart(2,"0")+"-"+String(y.getDate()).padStart(2,"0");
+    st.streak=(st.lastDaily===yk?(st.streak||0)+1:1); st.lastDaily=game.date; st.bestStreak=Math.max(st.bestStreak||0,st.streak); store.set("dypdykk-stats",st); }
+  const st=store.get("dypdykk-stats")||{}; st.played=(st.played||0)+1; st.best=Math.max(st.best||0,game.score); store.set("dypdykk-stats",st);
+  showSummary(false);
+}
+
+function shareText(){
+  const sq=["⬜","🟧","🟦","🟪","🟨","🟩"];
+  const what=game.mode==="daily"?"nr. "+game.day:game.mode==="archive"?"nr. "+game.day+" (arkiv)":game.mode==="endless"?"uendelig":game.mode==="pack"?`${game.packName||"temapakke"} kap. ${game.chapter}`:"(øving)";
+  const link=(typeof SET!=="undefined"&&SET.link)?"\n"+(location.origin&&location.origin.startsWith("http")?location.origin+"/":"https://dypdykk.netlify.app/"):"";
+  return `Dypdykk ${what} 🤿\n${game.results.map(r=>r.tier<0?"⬛":sq[r.tier]).join("")}\n${fmt(game.score)} p · ${fmt(depthOf(game))} m${link}`;
+}
+
+function logSVG(){
+  const cols=game.results.length, Wd=Math.max(700,cols*60), top=26, depth=210;
+  let s=`<svg viewBox="0 0 ${Wd} ${top+depth+46}">`;
+  for(let k=0;k<=4;k++){const y=top+depth*k/4; s+=`<line x1="40" x2="${Wd-10}" y1="${y}" y2="${y}" stroke="rgba(160,230,255,.1)" stroke-dasharray="${k?"3 5":""}"/>
+    <text x="32" y="${y+3}" fill="rgba(160,210,230,.55)" font-family="JetBrains Mono" font-size="10" text-anchor="end">${k*400}</text>`;}
+  s+=`<text x="40" y="12" fill="rgba(160,210,230,.6)" font-family="JetBrains Mono" font-size="10" letter-spacing="2">OVERFLATEN</text>`;
+  game.results.forEach((r,i)=>{ const x=80+i*((Wd-110)/(cols-1||1)), y=top+depth*((r.tier>=0?TIERS[r.tier].m:0)/1600), c=r.tier>=0?TIERS[r.tier].color:"#ff7a6b", dl=(.25+i*.18);
+    s+=`<line class="drop" x1="${x}" x2="${x}" y1="${top}" y2="${y}" stroke="${c}" stroke-width="2.5" stroke-linecap="round" style="animation-delay:${dl}s;filter:drop-shadow(0 0 6px ${c})"/>`;
+    if(r.tier>=0) s+=`<image class="dropicon" href="data:image/svg+xml,${encodeURIComponent(ICONS[r.tier].replace("<svg ","<svg xmlns='http://www.w3.org/2000/svg' "))}" x="${x-18}" y="${y-18}" width="36" height="36" style="animation-delay:${dl+.8}s;transform-origin:${x}px ${y}px"/>`;
+    else s+=`<circle class="dropicon" cx="${x}" cy="${y+4}" r="8" fill="none" stroke="#ff7a6b" stroke-dasharray="3 3" style="animation-delay:${dl+.8}s;transform-origin:${x}px ${y}px"/>`;
+    s+=`<text x="${x}" y="${top+depth+34}" fill="rgba(200,230,240,.7)" font-family="JetBrains Mono" font-size="11" text-anchor="middle">${i+1}</text>`;});
+  return s+`</svg>`;
+}
+
+function showSummary(fromStart){
+  clearInterval(timerH);
+  if(fromStart){ $("hDepth").textContent=fmt(depthOf(game))+" m"; $("hScore").textContent=fmt(game.score); diverYTo(.34,1400); diveTo(BASE+depthOf(game),3200); renderPips(); }
+  const eq=game.results.length?game.score*7/Math.max(7,game.results.length):0;
+  const rank=[...RANKS].reverse().find(r=>(game.mode==="endless"?eq:game.score)>=r[0]);
+  const st=store.get("dypdykk-stats")||{};
+  $("summary").innerHTML=`<div class="sum">
+    <div class="kicker">${{daily:"Dykk nr. "+game.day+" fullført",archive:"Arkivdykk nr. "+game.day+" fullført",endless:"Uendelig dykk – tom for liv",pack:(game.packName||"Temapakke")+" · kapittel "+game.chapter+" fullført"}[game.mode]||"Øvingsdykk fullført"}</div>
+    <div class="bignum"><b id="sumScore">0</b><span>${game.mode==="endless"?`på ${game.results.length} spørsmål`:`/ ${game.results.length*100} p`}</span><em>−${fmt(depthOf(game))} m</em></div>
+    ${game.packMsg?`<div class="banner" style="margin:10px 0 0">${game.packMsg}</div>`:""}
+    <div class="rank">${rank[1]}</div><p>${rank[2]}</p>
+    <div class="panel glass" id="log"><h3>Dykkelogg · dypere = sjeldnere</h3>${logSVG()}</div>
+    ${summaryExtras()}
+    <div class="panel glass"><h3>Dine rekorder</h3><div class="records">
+      <div><b>${fmt(st.best||game.score)}</b><span>Beste poeng</span></div><div><b>${st.played||1}</b><span>Dykk tatt</span></div><div><b>${st.streak||0}</b><span>Dager på rad</span></div></div></div>
+    <div class="panel glass"><h3>Del resultatet</h3><div class="share" id="share">${esc(shareText())}</div>
+      <div class="btnrow"><button class="btn btn-primary" id="copy">Kopier resultatet</button></div></div>
+    <div class="btnrow"><button class="btn btn-ghost" id="again">${game.mode==="endless"?"Dykk uendelig igjen":game.mode==="pack"?"Tilbake til pakken":"Nytt øvingsdykk"}</button><button class="btn btn-ghost" id="home">▲ Til overflaten</button></div>
+  </div>`;
+  setState("summary"); $("summary").scrollTop=0; initSummaryExtras();
+  countUp($("sumScore"),0,game.score,1400);
+  $("copy").onclick=async()=>{ try{await navigator.clipboard.writeText(shareText());toast("Kopiert!");}
+    catch(e){const r=document.createRange();r.selectNodeContents($("share"));const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Marker og kopier teksten");} };
+  $("again").onclick=()=>{ if(game.mode==="endless") begin("endless"); else if(game.mode==="pack") location.hash="pakke-"+game.pack; else begin(false); };
+  $("home").onclick=()=>{ SFX.bubble(); startScreen(); };
+}
+
+/* ---------- Effekter: risting, lysglimt, stor dybdeteller ---------- */
+const fx={
+  shake(power,ms){ if(SET.lite) power*=.5; const k=[];const n=Math.round(ms/40);
+    for(let i=0;i<=n;i++){const f=power*(1-i/n);k.push({transform:`translate(${(Math.random()*2-1)*f}px,${(Math.random()*2-1)*f}px) rotate(${(Math.random()*2-1)*f*.06}deg)`});}
+    k.push({transform:"none"}); document.body.animate(k,{duration:ms,easing:"linear"}); },
+  flash(col,strength,ms){ const f=$("flash"); f.style.setProperty("--fc",col); f.animate([{opacity:strength},{opacity:0}],{duration:ms,easing:"ease-out"}); },
+  burst(n,spread){ for(let i=0;i<n;i++) bubbles.push({x:W/2+(Math.random()*2-1)*spread,d:cam.d+(Math.random()*60-30),r:2+Math.random()*6,w:Math.random()*6.28}); },
+  start(tier,dur){
+    fx.burst(10+tier*8,30+tier*12);
+    if(tier>=3) fx.flash(TIERS[tier].color,.18+tier*.04,500);
+    if(tier===5){ fx.shake(6,dur*.5); setTimeout(()=>fx.shake(10,dur*.35),dur*.5); SFX.rumble(dur); }
+    else if(tier===4){ setTimeout(()=>fx.shake(4,600),dur*.55); }
+  },
+  arrive(tier){
+    if(tier===5){ fx.flash("#5ef2d6",.75,1100); fx.shake(18,900); fx.burst(60,160); SFX.boom(); }
+    else if(tier===4){ fx.flash("#ffd36b",.45,800); fx.shake(9,550); fx.burst(30,90); }
+    else if(tier===3){ fx.shake(4,350); fx.burst(16,60); }
+  }
+};
+SFX.rumble=ms=>{tone(70,ms/1000,"sawtooth",.035,40);tone(110,ms/1000,"sine",.05,55);};
+SFX.boom=()=>{tone(90,1.2,"sine",.22,30);tone(180,.6,"triangle",.08,60);tone(1320,1.6,"sine",.05,null,.15);tone(1760,2,"sine",.03,null,.3);};
+function bigDepthRun(meters,dur,col,tier){
+  const el=$("bigDepth"), n=el.querySelector(".bd-n"); el.classList.remove("done"); el.style.setProperty("--bc",col);
+  el.classList.add("on"); countUp(n,0,meters,dur*.95,"");
+  setTimeout(()=>{el.classList.add("done");},dur*.95);
+  setTimeout(()=>{el.classList.remove("on","done");},dur+200);
+}
+/* ============================================================
+   INNSTILLINGER (lagres i nettleseren)
+   ============================================================ */
+const SET_DEF={lite:false,cb:false,corr:true,clear:true,link:false};
+const SET=Object.assign({},SET_DEF,store.get("dypdykk-settings")||{});
+function saveSet(){store.set("dypdykk-settings",SET);}
+if(SET.cb){ ["#d9d9d9","#E69F00","#56B4E9","#CC79A7","#F0E442","#009E73"].forEach((c,i)=>TIERS[i].color=c); }
+
+/* ============================================================
+   IKONER (strek)
+   ============================================================ */
+const I=(p,extra="")=>`<svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ${extra}>${p}</svg>`;
+const UI={
+  menu:I('<path d="M4 7h16M4 12h16M4 17h10"/>'),
+  gear:I('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'),
+  user:I('<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>'),
+  x:I('<path d="M6 6l12 12M18 6 6 18"/>'),
+  dive:I('<path d="M12 3v14M6 11l6 6 6-6"/><path d="M5 21h14"/>'),
+  inf:I('<path d="M8 8c-3 0-5 2-5 4s2 4 5 4c4 0 4-8 8-8 3 0 5 2 5 4s-2 4-5 4c-4 0-4-8-8-8z"/>'),
+  party:I('<circle cx="11" cy="14" r="7"/><path d="M15.5 8.5 18 6M18 6l2 1M18 6l-1-2"/><path d="M8 13a3 3 0 0 1 3-3"/>'),
+  archive:I('<rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 9h18M8 2v4M16 2v4"/><path d="M8 14h3M8 17h6"/>'),
+  packs:I('<rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>'),
+  friends:I('<circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2.5 20c1-3.5 3.5-5 6.5-5s5.5 1.5 6.5 5M15 15c3 0 5 1.5 6 4.5"/>'),
+  help:I('<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 1-1 1.7v.5M12 17h.01"/>'),
+  idea:I('<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/>'),
+  lock:I('<rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'),
+  info:I('<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/>'),
+  share:I('<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/>'),
+  shirt:I('<path d="M8 3 4 5.5 2 10l3.5 1.5V21h13v-9.5L22 10l-2-4.5L16 3c-.5 1.5-2 2.5-4 2.5S8.5 4.5 8 3z"/>')
+};
+$("menuBtn").innerHTML=UI.menu; $("profBtn").innerHTML=UI.user; $("gearBtn").innerHTML=UI.gear;
+
+/* ============================================================
+   INNHOLD FOR STRUKTUREN
+   ============================================================ */
+const PACKS=[
+ {id:"ord",name:"Ord og språk",tag:"Norsk",desc:"30 kapitler · fyll ordboka, ord for ord",col:"#c79bff",art:`
+  <svg viewBox="0 0 300 140" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="pa1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1b5e"/><stop offset="1" stop-color="#5b3a9e"/></linearGradient></defs>
+  <rect width="300" height="140" fill="url(#pa1)"/><g fill="#fff" opacity=".18"><circle cx="40" cy="30" r="1.5"/><circle cx="250" cy="22" r="1.5"/><circle cx="210" cy="50" r="1"/><circle cx="80" cy="60" r="1"/></g>
+  <path d="M150 120 C120 108 85 106 60 112 L60 54 C85 48 120 50 150 62Z" fill="#f4ecff"/><path d="M150 120 C180 108 215 106 240 112 L240 54 C215 48 180 50 150 62Z" fill="#e6dbff"/>
+  <path d="M150 62v58" stroke="#b9a3ea" stroke-width="2"/><g stroke="#c9b6f2" stroke-width="2" stroke-linecap="round"><path d="M75 70h55M75 80h50M75 90h55M170 70h55M170 80h45M170 90h55"/></g>
+  <g font-family="Space Grotesk,Inter" font-weight="700" fill="#fff"><text x="96" y="40" font-size="26" opacity=".95">Æ</text><text x="140" y="30" font-size="30">Ø</text><text x="186" y="42" font-size="26" opacity=".9">Å</text></g></svg>`},
+ {id:"film",name:"Film og TV",tag:"Premiere",desc:"30 visninger · fra kinosalen til strømmetjenesten",col:"#ff8fa3",art:`
+  <svg viewBox="0 0 300 140" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="pa2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b0d26"/><stop offset="1" stop-color="#7a1f3d"/></linearGradient>
+  <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff2c4" stop-opacity=".9"/><stop offset="1" stop-color="#fff2c4" stop-opacity="0"/></linearGradient></defs>
+  <rect width="300" height="140" fill="url(#pa2)"/><path d="M70 70 L300 10 L300 130Z" fill="url(#beam)" opacity=".5"/>
+  <rect x="34" y="56" width="46" height="30" rx="6" fill="#1a0610"/><circle cx="46" cy="48" r="13" fill="#1a0610" stroke="#ff8fa3" stroke-width="2"/><circle cx="70" cy="46" r="11" fill="#1a0610" stroke="#ff8fa3" stroke-width="2"/>
+  <circle cx="46" cy="48" r="3" fill="#ff8fa3"/><circle cx="70" cy="46" r="3" fill="#ff8fa3"/><rect x="78" y="64" width="8" height="12" fill="#1a0610"/>
+  <g transform="rotate(-8 210 100)"><rect x="140" y="92" width="150" height="26" fill="#120409"/><g fill="#ff8fa3" opacity=".8">${[0,1,2,3,4,5,6,7,8].map(i=>`<rect x="${146+i*16}" y="95" width="7" height="4" rx="1"/><rect x="${146+i*16}" y="111" width="7" height="4" rx="1"/>`).join("")}</g></g></svg>`},
+ {id:"sport",name:"Sport",tag:"Kampklar",desc:"30 øvelser · fra hoppbakken til mållinjen",col:"#5ef2d6",art:`
+  <svg viewBox="0 0 300 140" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="pa3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04122a"/><stop offset="1" stop-color="#0c3350"/></linearGradient>
+  <linearGradient id="aur" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5ef2d6" stop-opacity="0"/><stop offset=".5" stop-color="#5ef2d6" stop-opacity=".55"/><stop offset="1" stop-color="#7d8cff" stop-opacity="0"/></linearGradient></defs>
+  <rect width="300" height="140" fill="url(#pa3)"/><path d="M0 40 C60 10 120 60 180 30 S280 20 300 35 L300 55 C260 40 220 70 170 50 S60 40 0 62Z" fill="url(#aur)"/>
+  <path d="M30 140 L30 60 L40 60 L150 120 L300 128 L300 140Z" fill="#e8f4fb"/><path d="M30 60 L40 60 L150 120 L148 124Z" fill="#9fc3d6"/>
+  <g transform="translate(176 66) rotate(-20)"><path d="M-22 6 L26 -2" stroke="#ffd36b" stroke-width="3" stroke-linecap="round"/><path d="M-20 12 L28 4" stroke="#ffd36b" stroke-width="3" stroke-linecap="round"/><circle cx="4" cy="-8" r="4" fill="#ff8a3d"/><path d="M0 -4 L10 6" stroke="#ff8a3d" stroke-width="5" stroke-linecap="round"/></g></svg>`},
+ {id:"geo",name:"Geografi",tag:"Pass klart",desc:"30 ekspedisjoner · jorda rundt på sju svar",col:"#6cc8ff",art:`
+  <svg viewBox="0 0 300 140" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="pa4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#06304a"/><stop offset="1" stop-color="#0f6b7a"/></linearGradient><radialGradient id="gl" cx=".4" cy=".35"><stop offset="0" stop-color="#7fe0ff"/><stop offset="1" stop-color="#1b6c9a"/></radialGradient></defs>
+  <rect width="300" height="140" fill="url(#pa4)"/><circle cx="150" cy="74" r="50" fill="url(#gl)"/>
+  <path d="M120 50c10-6 22-2 26 6s-4 14 2 20 16 2 18 10-8 16-18 14M170 40c8 4 12 12 8 18s-12 4-14 10" stroke="#2f9d6b" stroke-width="10" stroke-linecap="round" fill="none" opacity=".85"/>
+  <g stroke="#cfefff" stroke-width="1" fill="none" opacity=".45"><ellipse cx="150" cy="74" rx="50" ry="18"/><ellipse cx="150" cy="74" rx="20" ry="50"/><path d="M100 74h100"/></g>
+  <g transform="translate(244 40)"><circle r="20" fill="#0a2236" stroke="#6cc8ff" stroke-width="2"/><path d="M0 -14 L5 0 L0 14 L-5 0Z" fill="#ff7a6b"/><path d="M0 0 L5 0 L0 14 L-5 0Z" fill="#e8f4fb"/></g></svg>`},
+ {id:"musikk",name:"Musikk",tag:"Spilleliste",desc:"30 spor · fra listetoppene til de dype kuttene",col:"#ffd36b",art:`
+  <svg viewBox="0 0 300 140" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="pa5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b1440"/><stop offset="1" stop-color="#6b2f6e"/></linearGradient></defs>
+  <rect width="300" height="140" fill="url(#pa5)"/><circle cx="90" cy="72" r="50" fill="#0e0710"/><g fill="none" stroke="#2c1a33" stroke-width="1.5"><circle cx="90" cy="72" r="42"/><circle cx="90" cy="72" r="34"/><circle cx="90" cy="72" r="26"/></g>
+  <circle cx="90" cy="72" r="14" fill="#ffd36b"/><circle cx="90" cy="72" r="2.5" fill="#0e0710"/>
+  <g fill="#ffd36b">${[18,34,52,40,62,30,48,70,44,26,56,36].map((h,i)=>`<rect x="${160+i*11}" y="${72-h/2}" width="6" height="${h}" rx="3" opacity="${.5+i%3*.2}"/>`).join("")}</g></svg>`},
+ {id:"norge",name:"Norge",tag:"Hjemmebane",desc:"30 turer · fra Lindesnes til Nordkapp",col:"#ff7a6b",art:`
+  <svg viewBox="0 0 300 140" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="pa6" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2c55"/><stop offset=".7" stop-color="#e59a7c"/><stop offset="1" stop-color="#ffd2a1"/></linearGradient></defs>
+  <rect width="300" height="140" fill="url(#pa6)"/><path d="M0 110 L40 60 L70 90 L110 40 L150 95 L190 55 L230 85 L270 50 L300 80 L300 140 L0 140Z" fill="#4e6090"/>
+  <path d="M110 40 L122 56 L98 56Z M270 50 L280 62 L260 62Z" fill="#eef2fb"/><path d="M0 120 L60 92 L120 118 L180 96 L240 116 L300 100 L300 140 L0 140Z" fill="#1a2644"/><rect y="124" width="300" height="16" fill="#2a8fb5"/>
+  <g transform="translate(222 18)"><path d="M0 0v52" stroke="#e8f4fb" stroke-width="2"/><rect x="1" y="2" width="44" height="30" fill="#ba0c2f"/><rect x="13" y="2" width="8" height="30" fill="#fff"/><rect x="1" y="13" width="44" height="8" fill="#fff"/><rect x="15" y="2" width="4" height="30" fill="#00205b"/><rect x="1" y="15" width="44" height="4" fill="#00205b"/></g></svg>`}
+];
+const STAR=`<svg viewBox="0 0 64 64"><path d="M32 6l7 16 17 2-13 11 4 17-15-9-15 9 4-17L8 24l17-2z" fill="#ff8fa3"/><circle cx="27" cy="28" r="2.4" fill="#3b0d26"/><circle cx="37" cy="28" r="2.4" fill="#3b0d26"/><path d="M28 35q4 3 8 0" stroke="#3b0d26" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`;
+const WHALE=`<svg viewBox="0 0 64 64"><path d="M6 36c0-12 14-20 28-18s22 10 22 18c0 6-6 12-20 12H18C10 48 6 42 6 36z" fill="#4b7bd6"/><path d="M56 34l6-8-1 10 2 8-7-6z" fill="#4b7bd6"/><path d="M10 40c8 6 26 6 40 0" stroke="#bcd3ff" stroke-width="3" fill="none"/><circle cx="18" cy="32" r="2.6" fill="#0b1c38"/><path d="M26 14c0-6 4-8 4-8M30 14c2-5 6-6 6-6" stroke="#9fd8ff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>`;
+const BUDDIES=[
+ {name:"Dykkeren",days:0,art:()=>DIVER},{name:"Reka",days:5,art:()=>ICONS[1]},{name:"Sjøstjerna",days:10,art:()=>STAR},
+ {name:"Makrellen",days:14,art:()=>ICONS[2]},{name:"Blekkspruten",days:30,art:()=>ICONS[3]},{name:"Breiflabben",days:60,art:()=>ICONS[4]},
+ {name:"Hvalen",days:75,art:()=>WHALE},{name:"Kjempeblekkspruten",days:100,art:()=>ICONS[5]},{name:"Tarekongen",days:150,art:()=>ICONS[0]}
+];
+const BOMB=`<svg viewBox="0 0 160 160"><defs><radialGradient id="bb" cx=".38" cy=".35"><stop offset="0" stop-color="#bff8ff"/><stop offset=".55" stop-color="#4fc3e8"/><stop offset="1" stop-color="#1b5e8a"/></radialGradient>
+ <radialGradient id="sp"><stop offset="0" stop-color="#fff6c8"/><stop offset="1" stop-color="#ffb347" stop-opacity="0"/></radialGradient></defs>
+ <circle cx="80" cy="92" r="52" fill="url(#bb)" opacity=".92"/><ellipse cx="62" cy="70" rx="14" ry="9" fill="#fff" opacity=".55" transform="rotate(-30 62 70)"/>
+ <path d="M104 50 C114 34 126 30 134 22" stroke="#ffd36b" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="6 4"/>
+ <circle cx="136" cy="20" r="14" fill="url(#sp)"><animate attributeName="r" values="10;16;10" dur=".6s" repeatCount="indefinite"/></circle>
+ <circle cx="66" cy="96" r="5" fill="#0b2a40"/><circle cx="94" cy="96" r="5" fill="#0b2a40"/><path d="M70 112q10 8 20 0" stroke="#0b2a40" stroke-width="3.5" fill="none" stroke-linecap="round"/></svg>`;
+const SOON=`<span class="soon">Kommer snart</span>`;
+const soonInline=`<span class="soon inline">Kommer snart</span>`;
+
+/* ============================================================
+   MENY
+   ============================================================ */
+function renderMenu(){
+  const tiles=[
+    ["dagens",UI.dive,"Dagens dykk","Sju nye spørsmål hver dag",false,true],
+    ["ovelse",UI.inf,"Uendelig dykk","Øv så mye du vil",false,false],
+    ["boblebomben",UI.party,"Boblebomben","Flerspiller: send boblen videre",true],
+    ["arkiv",UI.archive,"Arkiv","Ta tidligere dykk",true],
+    ["temapakker",UI.packs,"Temapakker","Film, sport, geografi …",true],
+    ["mitt-dypdykk",UI.user,"Mitt Dypdykk","Statistikk og kompiser",false],
+    ["venner",UI.friends,"Venner","Sammenlign dagens poeng",true],
+    ["innstillinger",UI.gear,"Innstillinger","Lyd, grafikk og svar",false]
+  ];
+  $("menu").innerHTML=`
+    <div class="mhead"><div class="mlogo">${DIVER}</div><div><b>DYPDYKK</b><small>Det daglige dykket</small></div><button class="x" id="mClose" aria-label="Lukk meny">${UI.x}</button></div>
+    <div class="mlabel">Dykk inn</div>
+    <div class="tiles">${tiles.map(([id,ic,n,s,soon,act])=>`<button class="tile${act?" active":""}" data-go="${id}">${soon?SOON:""}${ic}<b>${n}</b><small>${s}</small></button>`).join("")}
+      <button class="tile wide" data-go="hjelp">${UI.help}<div><b>Hvordan spille</b><br><small>Regler, sjeldenhet og svar som ikke godkjennes</small></div></button></div>
+    <div class="mlabel">Mer</div>
+    <div class="mlinks">
+      <button data-go="foresla">${UI.idea}<span>Foreslå et spørsmål<small>Har du en god idé?</small></span>${soonInline}</button>
+      <button data-go="garderobe">${UI.shirt}<span>Garderobe<small>Velg dykkekompis</small></span>${soonInline}</button>
+    </div>
+    <div class="mfoot">Sjeldne svar tar deg dypere</div>`;
+  $("mClose").onclick=closeMenu;
+  $("menu").querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{closeMenu();go(b.dataset.go);});
+}
+function openMenu(){renderMenu();$("menuWrap").classList.add("open");SFX.bubble();}
+function closeMenu(){$("menuWrap").classList.remove("open");}
+$("menuBtn").onclick=openMenu; $("menuWrap").querySelector(".scrim").onclick=closeMenu;
+$("profBtn").onclick=()=>go("mitt-dypdykk"); $("gearBtn").onclick=()=>go("innstillinger");
+addEventListener("keydown",e=>{if(e.key==="Escape")closeMenu();});
+
+/* ============================================================
+   RUTER OG SIDER
+   ============================================================ */
+function inGame(){return /s-(intro|countdown|answer|diving|reveal)/.test(document.body.className);}
+function go(id){
+  if(id==="dagens"){ location.hash=""; const done=store.get("dypdykk-"+todayKey()); if(done){game=done;showSummary(true);} else begin(true); return; }
+  if(id==="ovelse"){ location.hash=""; begin(false); return; }
+  if(id==="foresla"){ go("hjelp"); setTimeout(()=>{const el=$("forslag");if(el)el.scrollIntoView({behavior:"smooth"});},400); return; }
+  if(id==="garderobe"){ go("mitt-dypdykk"); return; }
+  if(location.hash!=="#"+id) location.hash=id; else route();
+}
+function route(){
+  const h=location.hash.replace("#","");
+  if(!h){ if(document.body.classList.contains("s-page")&&!window.__starting) startScreen(); return; }
+  if(inGame()) return; closeMenu();
+  const r=PAGES[h.startsWith("pakke-")?"pakke":h]; if(!r) return;
+  clearInterval(timerH); diverYTo(.6,1400); diveTo(0,1800);
+  $("page").innerHTML=r(h); setState("page"); $("page").scrollTop=0;
+  $("page").querySelectorAll("[data-back]").forEach(b=>b.onclick=()=>{location.hash="";});
+  if(PAGE_INIT[h.startsWith("pakke-")?"pakke":h]) PAGE_INIT[h.startsWith("pakke-")?"pakke":h](h);
+}
+addEventListener("hashchange",route);
+const head=(title,sub,narrow)=>`<div class="pg${narrow?" narrow":""}"><button class="back" data-back>← Til dykket</button><div class="ptitle">${title}</div><p class="psub">${sub}</p>`;
+const soonBanner=txt=>`<div class="banner">${UI.info}<span>${txt}</span></div>`;
+
+function allDailies(){ const out=[]; try{ for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i); if(/^dypdykk-\d{4}-\d\d-\d\d$/.test(k)) out.push(store.get(k));} }catch(e){} return out; }
+
+const PAGES={
+ temapakker:()=>head("Temapakker","Utover dagens dykk: hver pakke er en egen reise med 30 kapitler, bygd rundt ett tema.")+
+   soonBanner("Temapakkene er under arbeid. Du kan allerede se hvordan de blir seende ut.")+
+   `<div class="packs">${PACKS.map(p=>`<button class="pack" style="--pc:${p.col}" data-pack="${p.id}">
+     <div class="art">${p.art}${SOON}</div><div class="body"><span class="tag2">${p.tag}</span><b>${p.name}</b><small>${p.desc}</small><span class="cta">SE KAPITLENE →</span></div></button>`).join("")}</div>
+   <div class="panel glass" style="margin-top:16px"><h3>Flere pakker</h3><p class="psub" style="margin:0">Nye pakker kartlegges. Har du et tema du vil ha? Foreslå det under «Hvordan spille».</p></div></div>`,
+ pakke:(h)=>{ const p=PACKS.find(x=>"pakke-"+x.id===h)||PACKS[0];
+   const nodes=Array.from({length:30},(_,i)=>{const row=Math.floor(i/6), col=i%6, x=row%2?560-col*100:60+col*100, y=50+row*90; return {x,y,i};});
+   const path=nodes.map((n,k)=>(k?"L":"M")+n.x+" "+n.y).join(" ");
+   return head(p.name,p.desc.replace("·","–"))+
+   `<div class="panel glass" style="padding:0;overflow:hidden;margin-bottom:16px"><div style="height:230px">${p.art}</div></div>`+
+   soonBanner(`«${p.name}» kommer snart. Kapitlene låses opp ett for ett: fullfør et kapittel for å åpne neste.`)+
+   `<div class="legend"><span><i style="background:${p.col}"></i>Neste kapittel</span><span><i style="background:rgba(255,255,255,.18)"></i>Låst</span><span><i style="background:#ffd36b"></i>Milepæl (hvert 10.)</span></div>
+   <div class="panel glass"><h3>Kapittelkart · 30 kapitler</h3><svg class="chapters" viewBox="0 0 620 500">
+     <path d="${path}" fill="none" stroke="rgba(160,230,255,.18)" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>
+     ${nodes.map(n=>{const mile=(n.i+1)%10===0, first=n.i===0; return `<g class="node">
+       <circle cx="${n.x}" cy="${n.y}" r="${mile?26:21}" fill="${first?p.col:"rgba(10,30,50,.9)"}" stroke="${mile?"#ffd36b":first?p.col:"rgba(160,230,255,.25)"}" stroke-width="2" ${first?`style="filter:drop-shadow(0 0 12px ${p.col})"`:""}/>
+       ${first?`<text x="${n.x}" y="${n.y+5}" text-anchor="middle" font-family="JetBrains Mono" font-weight="700" font-size="14" fill="#04202c">1</text>`
+         :`<g transform="translate(${n.x-8} ${n.y-9}) scale(.68)" color="rgba(200,230,245,.45)">${UI.lock.replace('class="ti"','width="24" height="24"')}</g>`}
+       ${mile?`<text x="${n.x}" y="${n.y+44}" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#ffd36b">${n.i+1}</text>`:""}</g>`;}).join("")}
+   </svg></div>
+   <div class="panel glass"><h3>Slik fungerer en pakke</h3><ol class="steps"><li>Hvert kapittel er et dykk med sju spørsmål innenfor temaet.</li><li>Sjeldne svar gir mer dybde, akkurat som i dagens dykk.</li><li>Nå en minstedybde for å låse opp neste kapittel.</li><li>Milepæler (kapittel 10, 20 og 30) gir nye dykkekompiser.</li></ol></div>
+   <button class="btn btn-primary" disabled style="width:100%">Start kapittel 1 · kommer snart</button>
+   <button class="btn btn-ghost" style="width:100%;margin-top:10px" onclick="location.hash='temapakker'">← Alle temapakker</button></div>`;},
+ boblebomben:()=>head("Boblebomben","Flerspiller i sanntid. Svar på kategorien og send boblen videre før den sprekker. Sist igjen vinner.")+
+   soonBanner("Boblebomben er under utvikling. Slik blir lobbyen seende ut.")+
+   `<div class="party"><div class="panel glass"><h3>Hvem spiller</h3>
+       <div class="bomb">${BOMB}</div>
+       <label class="sect" style="display:block;text-align:left;margin-top:0">Ditt navn</label><input class="field" placeholder="Hva skal vi kalle deg?" disabled>
+       <div class="sect" style="text-align:left">Kompis</div><div class="buddies">${BUDDIES.slice(0,3).map((b,i)=>`<div class="buddy${i?" locked":" on"}"><div class="bi">${b.art()}</div><b>${b.name}</b><small>${b.days?b.days+" dager":"Klar"}</small></div>`).join("")}</div></div>
+     <div class="panel glass"><h3>Spill nå</h3>
+       <div class="chipsel dis"><span>1 mot 1</span><span>3 spillere</span><span>4–6</span><span class="on">8–10</span></div>
+       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px"><button class="btn btn-primary" disabled>Rangert</button><button class="btn btn-ghost" disabled>Hurtigspill</button></div>
+       <p class="psub" style="font-size:12.5px;margin:10px 0 18px">Rangert: møt spillere på ditt nivå, rangeringen din flytter seg. Hurtigspill: bare for moro.</p>
+       <h3>Lag et rom</h3><div class="chipsel dis"><span class="on">Offentlig</span><span>Privat</span></div>
+       <button class="btn btn-ghost" disabled style="width:100%;margin-top:12px">▼ Lag rom</button>
+       <h3 style="margin-top:18px">Bli med med kode</h3><div class="rowf"><input class="field" placeholder="F.eks. FJRD" maxlength="4" disabled><button class="btn btn-primary" disabled>Bli med</button></div></div>
+     <div class="panel glass full"><h3>Offentlige rom</h3><div class="empty">Ingen åpne rom ennå. Rommene vises her når Boblebomben er lansert.</div></div>
+     <div class="panel glass full"><h3>Slik spiller du</h3><ol class="steps">
+       <li>Alle i rommet får samme kategori, for eksempel «Nevn et land i Europa».</li>
+       <li>Har du boblen, skriver du et svar som ikke er brukt før. Da går boblen videre.</li>
+       <li>Lunta er skjult og tilfeldig. Sprekker boblen hos deg, mister du et liv.</li>
+       <li>Sjeldne svar gir bonuspoeng. Sist igjen med liv vinner runden.</li></ol></div></div></div>`,
+ arkiv:()=>{ const start=new Date(2026,10,18), today=new Date(); today.setHours(0,0,0,0);
+   const first=new Date(Math.min(start,today)); const end=new Date(first); end.setDate(end.getDate()+34);
+   const lead=(first.getDay()+6)%7; let cells=Array.from({length:lead},()=>`<div class="day blank"></div>`);
+   for(let d=new Date(first),n=1;d<=end;d.setDate(d.getDate()+1),n++){const k=d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+     const done=store.get("dypdykk-"+k), isT=d.getTime()===today.getTime(), fut=d>today;
+     cells.push(`<div class="day${done?" done":""}${isT?" today":""}${fut?" future":""}">${d.getDate()}<small>${done?fmt(done.score)+" p":"nr. "+n}</small></div>`);}
+   return head("Arkiv","Gikk du glipp av en dag? Her kan du ta tidligere dagens dykk. Arkivdykk teller ikke på rekken din.",true)+
+   soonBanner("Arkivet åpner når det finnes tidligere dykk å ta. Datoene du har dykket, er markert.")+
+   `<div class="panel glass"><h3>${today.toLocaleDateString("nb-NO",{month:"long",year:"numeric"})}</h3><div class="cal">${["Man","Tir","Ons","Tor","Fre","Lør","Søn"].map(d=>`<div class="dow">${d}</div>`).join("")}${cells.join("")}</div></div></div>`;},
+ "mitt-dypdykk":()=>{ const st=store.get("dypdykk-stats")||{}, ds=allDailies(); const avg=ds.length?Math.round(ds.reduce((a,b)=>a+b.score,0)/ds.length):0;
+   const streak=st.streak||0;
+   return head("Mitt Dypdykk","Dykkerloggen din: rekker, rekorder og dykkekompiser du låser opp ved å dykke hver dag.")+
+   `<div class="panel glass"><h3>Dagens dykk</h3><div class="records" style="grid-template-columns:repeat(4,1fr)">
+     <div><b>${streak}</b><span>Rekke nå</span></div><div><b>${Math.max(st.bestStreak||0,streak)}</b><span>Beste rekke</span></div><div><b>${ds.length}</b><span>Dagens dykk</span></div><div><b>${fmt(st.best||0)}</b><span>Beste poeng</span></div></div>
+     <p class="psub" style="font-size:12.5px;margin:14px 0 0">Snitt: ${fmt(avg)} p · Totalt antall dykk (inkl. øving): ${st.played||0}. En rekke teller dager på rad med dagens dykk. Ny dag starter ved midnatt.</p></div>
+   <div class="panel glass"><h3>Fullførte dykk</h3><ul class="lb">
+     <li><span class="nm">Dagens dykk og arkiv</span><span class="sc">${ds.length}</span></li>
+     <li><span class="nm">Uendelig dykk (øving)</span><span class="sc">${Math.max(0,(st.played||0)-ds.length)}</span></li>
+     ${PACKS.map(p=>`<li class="ghost"><span class="nm">${p.name}</span><span class="sc">–</span>${soonInline}</li>`).join("")}</ul></div>
+   <div class="panel glass"><h3>Dykkekompiser ${soonInline}</h3><p class="psub" style="font-size:13px;margin:0 0 12px">Lås opp nye kompiser med lange rekker. Snart kan du velge hvem som dykker med deg.</p>
+     <div class="buddies">${BUDDIES.map(b=>{const got=streak>=b.days;return `<div class="buddy${got?(b.days===0?" on":""):" locked"}"><div class="bi">${b.art()}</div><b>${b.name}</b><small>${b.days?b.days+" dager":"Opptjent"}</small></div>`;}).join("")}</div></div>
+   <div class="panel glass"><h3>Konto ${soonInline}</h3><p class="psub" style="font-size:13.5px;margin:0 0 12px">Logg inn for å ta med rekker og resultater mellom mobil og PC. Nå lagres alt bare i denne nettleseren.</p>
+     <button class="btn btn-ghost" disabled style="width:100%">Logg inn · kommer snart</button></div></div>`;},
+ venner:()=>{ const d=store.get("dypdykk-"+todayKey());
+   return head("Venner","Inviter vennene dine og sammenlign dagens poeng når alle har dykket.",true)+
+   soonBanner("Vennetavlen kommer snart. Slik blir den seende ut.")+
+   `<div class="panel glass"><h3>Dagens tavle · dykk nr. ${dayNumber()}</h3><ul class="lb">
+     <li><span class="pos">1</span><span class="av">${DIVER}</span><span class="nm">Deg</span><span class="sc">${d?fmt(d.score)+" p":"Ikke dykket ennå"}</span></li>
+     ${[2,3,4].map(i=>`<li class="ghost"><span class="pos">${i}</span><span class="av">${UI.user}</span><span class="nm">Venn ${i-1}</span><span class="sc">– p</span></li>`).join("")}</ul></div>
+   <div class="panel glass"><h3>Inviter</h3><div class="rowf"><input class="field" value="Invitasjonslenke kommer snart" disabled><button class="btn btn-primary" disabled>Kopier</button></div></div></div>`;},
+ innstillinger:()=>head("Innstillinger","Tilpass hvordan Dypdykk ser ut, høres ut og tar imot svar.",true)+
+   `<div class="panel glass">
+   ${[["sound","Lyd","Bobler, tikking og toner når du svarer."],["lite","Lett grafikk","Færre partikler og dyr i bakgrunnen. Bra for eldre mobiler."],
+      ["cb","Fargeblindmodus","Tydeligere forskjell mellom fargene på nivåene. Laster siden på nytt."],
+      ["corr","Bekreft rettelser","Spør «Mente du …?» før et rettet svar teller. Av: rettelsen godtas med en gang."],
+      ["clear","Tøm feltet ved feil svar","Skrivefeltet tømmes når et svar ikke godkjennes."],
+      ["link","Lenke i delt resultat","Legg til en lenke til spillet når du deler resultatet."]].map(([k,n,s])=>
+      `<div class="set"><div><b>${n}${k==="link"?soonInline:""}</b><small>${s}</small></div><button class="sw${(k==="sound"?!muted:SET[k])?" on":""}${k==="link"?" dis":""}" data-set="${k}" aria-label="${n}"></button></div>`).join("")}
+   </div><div class="panel glass"><h3>Data</h3><p class="psub" style="font-size:13.5px;margin:0 0 12px">Resultater og innstillinger lagres bare i denne nettleseren.</p>
+   <button class="btn btn-ghost" id="resetBtn" style="width:100%">Nullstill statistikk</button></div></div>`,
+ hjelp:()=>head("Hvordan spille","Alt om reglene, poengene og hvorfor noen svar ikke blir godkjent.",true)+
+   `<div class="panel glass"><h3>Kort fortalt</h3><ol class="steps"><li>Du får sju spørsmål med mange riktige svar.</li><li>Les spørsmålet, så starter klokka: 20 sekunder.</li><li>Skriv ett svar. Jo sjeldnere det er, desto dypere synker du.</li><li>Ikke godkjent? Prøv igjen så mange ganger du vil til tiden er ute.</li><li>Nytt dagens dykk hver dag ved midnatt.</li></ol></div>
+   <div class="panel glass"><h3>Nivåene</h3><ul class="alist">${TIERS.map((t,i)=>`<li>${ICONS[i]}<span class="q"><small style="color:${t.color}">${t.name}</small>${t.desc}</span><span class="t">${t.pts} p<br><span style="color:var(--muted)">${fmt(t.m)} m</span></span></li>`).join("")}</ul></div>
+   <div class="panel glass"><h3>Spørsmål og svar</h3>
+   ${[["Hvordan avgjøres sjeldenhet?","Akkurat nå er hvert svar plassert på et nivå ut fra hvor kjent det er. Når Dypdykk lanseres for alle, skal sjeldenheten regnes ut fra hva spillerne faktisk svarer."],
+      ["Hvorfor ble ikke svaret mitt godkjent?","Svaret finnes ikke i svarlisten for spørsmålet, eller det er stavet for langt unna. Svarlistene utvides hele tiden."],
+      ["Hvorfor foreslår spillet et annet svar?","Spillet tåler små skrivefeil. Er du én eller to bokstaver unna et godkjent svar, spør det «Mente du …?». Trykk Dykk igjen for å bekrefte. Dette kan slås av i innstillingene."],
+      ["Hva betyr dybdemerkene?","Langs høyre kant ser du ekte dybder fra havet: dykkerrekorder, Sognefjorden, Titanic og dyphavsgropene."],
+      ["Hva er Boblebomben?","En kommende flerspillermodus: send boblen videre med et svar før den sprekker. Sist igjen vinner."],
+      ["Hva er temapakker?","Kommende reiser med 30 kapitler innenfor ett tema, for eksempel film, sport eller Norge."],
+      ["Hvor kommer svarene fra?","Store svarlister hentes automatisk fra åpne datakilder: Wikidata (CC0) og Statistisk sentralbyrå (KLASS, NLOD 2.0). Sjeldenheten beregnes fra hvor kjent hvert svar er, for eksempel antall Wikipedia-utgaver og folketall."]
+     ].map(([q,a])=>`<details class="acc"><summary>${q}</summary><div class="ab">${a}</div></details>`).join("")}</div>
+   <div class="panel glass" id="forslag"><h3>Foreslå et spørsmål ${soonInline}</h3><p class="psub" style="font-size:13.5px;margin:0 0 12px">Har du en idé til et spørsmål med mange riktige svar?</p>
+     <div class="rowf"><input class="field" id="sugIn" placeholder="F.eks. «Nevn en norsk ost»"><button class="btn btn-primary" id="sugBtn">Send</button></div></div></div>`
+};
+const PAGE_INIT={
+  pakke:()=>{},
+  temapakker:()=>{ $("page").querySelectorAll("[data-pack]").forEach(b=>b.onclick=()=>{location.hash="pakke-"+b.dataset.pack;}); },
+  innstillinger:()=>{
+    $("page").querySelectorAll("[data-set]").forEach(b=>b.onclick=()=>{ const k=b.dataset.set; if(k==="link") return;
+      if(k==="sound"){ muted=!muted; store.set("dypdykk-muted",muted); drawMute(); b.classList.toggle("on",!muted); if(!muted)SFX.bubble(); return; }
+      SET[k]=!SET[k]; saveSet(); b.classList.toggle("on",SET[k]); SFX.count();
+      if(k==="cb"){ toast("Laster inn på nytt …"); setTimeout(()=>location.reload(),600); }
+      if(k==="lite") toast(SET.lite?"Lett grafikk på":"Full grafikk på"); });
+    $("resetBtn").onclick=()=>{ const b=$("resetBtn"); if(!b.dataset.sure){b.dataset.sure=1;b.textContent="Trykk igjen for å bekrefte";return;}
+      try{ Object.keys(localStorage).filter(k=>k.startsWith("dypdykk-")&&k!=="dypdykk-settings"&&k!=="dypdykk-muted").forEach(k=>localStorage.removeItem(k)); }catch(e){}
+      toast("Statistikken er nullstilt"); b.textContent="Nullstilt"; delete b.dataset.sure; };
+  },
+  hjelp:()=>{ $("sugBtn").onclick=()=>{ const v=$("sugIn").value.trim(); if(!v){toast("Skriv et forslag først");return;}
+      const l=store.get("dypdykk-forslag")||[]; l.push({q:v,d:todayKey()}); store.set("dypdykk-forslag",l); $("sugIn").value=""; toast("Takk! Lagret her. Innsending kommer snart."); }; }
+};
+
+/* ============================================================
+   EKSTRA DELER I OPPSUMMERINGEN
+   ============================================================ */
+function summaryExtras(){
+  const catchHTML=game.results.map((r,i)=>{ const q=QUESTIONS.find(x=>x.id===r.id); const all=q?parse(q):[];
+    return `<details class="acc"><summary><span class="ci">${r.tier>=0?ICONS[r.tier]:`<span class="miss" style="display:block;width:28px;height:28px;border-radius:50%;border:1.5px dashed rgba(255,122,107,.6)"></span>`}</span>
+      <span class="qq">${i+1}. ${esc(r.q)}<small style="color:${r.tier>=0?TIERS[r.tier].color:"#ff7a6b"}">${r.label?esc(r.label)+" · "+TIERS[r.tier].name:(r.reason==="pass"?"Hoppet over":"Tiden gikk ut")} · +${r.pts} p</small></span></summary>
+      <div class="ab"><p style="margin:0 0 10px;color:var(--muted);font-size:12.5px">Godkjente svar (${fmt(all.length)}), fra sjeldnest til vanligst.${q&&q.attr?" "+esc(q.attr)+".":""} Andel spillere per svar ${soonInline}</p>
+      <div class="tierlist">${[5,4,3,2,1,0].map(t=>{const as=all.filter(a=>a.tier===t); if(!as.length) return "";
+        return `<div><div class="th" style="color:${TIERS[t].color}"><b style="font-family:var(--head);font-size:16px;letter-spacing:.04em">${TIERS[t].name}</b> <span style="opacity:.7">· ${TIERS[t].desc} · ${TIERS[t].pts} p</span></div><div class="chips">${(()=>{const me=as.find(a=>a.label===r.label), lim=40, shown=as.slice(0,lim); if(me&&!shown.includes(me)) shown.push(me);
+          return shown.map(a=>`<span class="chip${a===me?" me":""}" style="${a===me?`color:${TIERS[t].color}`:""}">${esc(a.label)}</span>`).join("")+(as.length>shown.length?`<span class="chip" style="opacity:.6">+ ${fmt(as.length-shown.length)} flere</span>`:"");})()}</div></div>`;}).join("")}</div></div></details>`;}).join("");
+  const curve=`<svg viewBox="0 0 600 150"><defs><linearGradient id="cg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5ef2d6" stop-opacity=".6"/><stop offset="1" stop-color="#5ef2d6" stop-opacity="0"/></linearGradient></defs>
+    <path d="M0 140 C80 138 140 120 200 70 S280 10 320 30 S420 120 600 138 L600 150 L0 150Z" fill="url(#cg)"/><path d="M0 140 C80 138 140 120 200 70 S280 10 320 30 S420 120 600 138" fill="none" stroke="#5ef2d6" stroke-width="2"/>
+    <line x1="${clamp(game.score/700,0,1)*600}" x2="${clamp(game.score/700,0,1)*600}" y1="10" y2="150" stroke="#ff7a6b" stroke-width="2" stroke-dasharray="4 4"/></svg>`;
+  const rated=store.get("dypdykk-rating-"+(game.daily?game.date:"x"));
+  return `
+    <div class="panel glass"><h3>Sammenlign med andre ${soonInline}</h3><div class="ghostcurve">${curve}<div class="over">Her ser du hvordan du gjorde det mot alle andre som dykket i dag,<br>når Dypdykk har nok spillere.</div></div></div>
+    <div class="panel glass"><h3>Fangsten · trykk på et spørsmål for å se alle svar</h3>${catchHTML}</div>
+    ${game.daily?`<div class="panel glass" style="text-align:center"><h3>Neste dagens dykk om</h3><div class="countdown2" id="nextDive">--:--:--</div></div>`:""}
+    <div class="panel glass promo">${BOMB}<div><b>Boblebomben ${soonInline}</b><p>Flerspiller i sanntid: svar og send boblen videre før den sprekker.</p><button class="btn btn-ghost" onclick="location.hash='boblebomben'" style="padding:10px 18px;font-size:14px">Se lobbyen →</button></div></div>
+    <div class="panel glass"><h3>Hvordan var dykket?</h3><div class="stars" id="stars">${[1,2,3,4,5].map(n=>`<button data-r="${n}" class="${rated===n?"on":""}">${n}</button>`).join("")}</div>
+      <p class="psub" style="font-size:12px;margin:10px 0 0">1 = kjedelig · 5 = kjempegøy</p></div>
+    <div class="btnrow" style="margin-bottom:12px"><button class="btn btn-ghost" onclick="location.hash='temapakker'">Temapakker →</button><button class="btn btn-ghost" onclick="location.hash='arkiv'">Arkiv ↺</button></div>`;
+}
+let nextH=null;
+function initSummaryExtras(){
+  clearInterval(nextH);
+  if($("nextDive")){ const upd=()=>{const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);let s=Math.max(0,Math.floor((m-n)/1000));
+    const el=$("nextDive"); if(!el){clearInterval(nextH);return;} el.textContent=[Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(v=>String(v).padStart(2,"0")).join(":");};
+    upd(); nextH=setInterval(upd,1000); }
+  $("stars").querySelectorAll("button").forEach(b=>b.onclick=()=>{ $("stars").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));
+    store.set("dypdykk-rating-"+(game.daily?game.date:"x"),+b.dataset.r); SFX.count(); toast("Takk for vurderingen!"); });
+}
+
+/* ============================================================
+   SPILLMODUSER: Arkiv, Temapakker, Boblebomben, Venner, Garderobe
+   Bygger på eksisterende sider (PAGES/PAGE_INIT), design og svarsjekk.
+   ============================================================ */
+
+/* ---------- Kategorier for de håndlagde spørsmålene ---------- */
+const MANUAL_CAT={
+  Geografi:"kongehus afrika euhov asia soramerika oseania nordamerika usa tyskland eu middelhavet nato europa afrikahov sorhov russland kinagrense australia canada elver fjell sevensummits monarki spansk portugisisk norden nordamhov oseaniahov g20 euro stan fire land-s land-b land-m hov-b sverige fylke underverk asiahov g-landsby tysk-by spansk-by",
+  Sport:"kampsport ballspill vinterol sommerol vinterol-land sommerolidrett friidrett fotballposisjon svomming sjakk",
+  Natur:"insekter havdyr pelsdyr tre sopp norske-ord-havet fjorder planet grunnstoff organ bein pattedyr hunder maaner gasser enbokstav dino kattedyr ferskvannsfisk sjomat skyer vitamin frukt gronnsak krydder",
+  Underholdning:"dans kortspill bond sjanger strommetjeneste sosiale tvkanal radiokanal",
+  Kultur:"farger julemat pa-legg maleri-kunstner kjente-skip landemerker norske-merker stjernetegn kinesisk guder norrone romersk egyptisk apostler dodssynder ibsen nobel statsminister mat ost brettspill korps orkester gresk sprakfamilie",
+  Samfunn:"verktoy kjokken yrker bil programmering valuta"
+};
+for(const [cat,ids] of Object.entries(MANUAL_CAT)) for(const id of ids.split(" ")){ const q=QUESTIONS.find(x=>x.id===id); if(q&&!q.cat) q.cat=cat; }
+QUESTIONS.forEach(q=>{ if(!q.cat) q.cat="Annet"; });
+
+/* ---------- Temapakker ---------- */
+const PACK_RULES={
+  ord:   q=>["gresk","sprakfamilie","dodssynder","apostler","norrone","romersk","egyptisk","programmering","valuta","vitamin","stjernetegn","kinesisk","guder"].includes(q.id),
+  film:  q=>q.cat==="Underholdning"||["brettspill"].includes(q.id),
+  sport: q=>q.cat==="Sport",
+  geo:   q=>q.cat==="Geografi",
+  musikk:q=>["artister","norske-artister","band","norske-band","sanger","orkester","korps","instrumenter","komponister","sjanger","radiokanal"].includes(q.id),
+  norge: q=>!!q.norsk
+};
+const PACK_MIN=150, PACK_SIZE=7;
+function packPool(id){ return QUESTIONS.filter(PACK_RULES[id]||(()=>false)).sort((a,b)=>a.id<b.id?-1:1); }
+function packReady(id){ return packPool(id).length>=PACK_SIZE; }
+function packChapter(id,c){ const pool=shuffle(packPool(id),rng(id.length*977+13)); const out=[];
+  for(let j=0;out.length<PACK_SIZE&&j<pool.length*2;j++){ const q=pool[((c-1)*PACK_SIZE+j)%pool.length]; if(!out.includes(q)) out.push(q); }
+  return shuffle(out,rng(c*101+id.length)); }
+function packProg(id){ return store.get("dypdykk-pack-"+id)||{done:{}}; }
+function packUnlocked(id,c){ if(c===1) return true; const d=packProg(id).done[c-1]; return d!=null&&d>=PACK_MIN; }
+function packDone(g){ const pr=packProg(g.pack); const prev=pr.done[g.chapter]; pr.done[g.chapter]=Math.max(prev||0,g.score);
+  store.set("dypdykk-pack-"+g.pack,pr);
+  const passed=g.score>=PACK_MIN;
+  g.packMsg=passed?(g.chapter<30?`Kapittel ${g.chapter+1} er låst opp!`:"Du har fullført hele pakken!")
+                  :`Du trenger minst ${PACK_MIN} p for å låse opp neste kapittel. Prøv igjen!`;
+  if(passed&&[10,20,30].includes(g.chapter)){ const ex=store.get("dypdykk-buddies-extra")||[]; const b=["Sjøstjerna","Hvalen","Tarekongen"][g.chapter/10-1];
+    if(!ex.includes(b)){ ex.push(b); store.set("dypdykk-buddies-extra",ex); g.packMsg+=` Ny dykkekompis: ${b}!`; } }
+}
+function startChapter(id,c){ const p=PACKS.find(x=>x.id===id); location.hash="";
+  setTimeout(()=>begin("pack",{set:packChapter(id,c),pack:id,chapter:c,packName:p.name}),50); }
+
+PAGES.temapakker=()=>head("Temapakker","Reiser utover dagens dykk. Hver pakke har 30 kapitler med sju spørsmål innenfor ett tema.")+
+  `<div class="packs">${PACKS.map(p=>{ const ready=packReady(p.id), pr=packProg(p.id), done=Object.values(pr.done).filter(s=>s>=PACK_MIN).length;
+    return `<button class="pack" style="--pc:${p.col}" data-pack="${p.id}">
+     <div class="art">${p.art}${ready?"":SOON}</div><div class="body"><span class="tag2">${p.tag}</span><b>${p.name}</b>
+     <small>${ready?`${packPool(p.id).length} spørsmål · ${done}/30 kapitler fullført`:p.desc}</small><span class="cta">${ready?"ÅPNE PAKKEN →":"SE KAPITLENE →"}</span></div></button>`;}).join("")}</div>
+  <div class="panel glass" style="margin-top:16px"><h3>Slik fungerer det</h3><ol class="steps"><li>Hvert kapittel er et dykk med sju spørsmål fra temaet.</li><li>Nå minst ${PACK_MIN} p for å låse opp neste kapittel.</li><li>Kapittel 10, 20 og 30 gir nye dykkekompiser.</li></ol></div></div>`;
+
+PAGES.pakke=(h)=>{ const p=PACKS.find(x=>"pakke-"+x.id===h)||PACKS[0], ready=packReady(p.id), pr=packProg(p.id);
+  const nodes=Array.from({length:30},(_,i)=>{const row=Math.floor(i/6), col=i%6, x=row%2?560-col*100:60+col*100, y=50+row*90; return {x,y,i};});
+  const path=nodes.map((n,k)=>(k?"L":"M")+n.x+" "+n.y).join(" ");
+  return head(p.name,p.desc.replace("·","–"))+
+   `<div class="panel glass" style="padding:0;overflow:hidden;margin-bottom:16px"><div style="height:230px">${p.art}</div></div>`+
+   (ready?"":soonBanner(`«${p.name}» trenger flere spørsmål før den kan spilles. Den åpner når nok datasett er hentet.`))+
+   `<div class="legend"><span><i style="background:${p.col}"></i>Åpent</span><span><i style="background:#5ef2d6"></i>Fullført</span><span><i style="background:rgba(255,255,255,.18)"></i>Låst</span><span><i style="background:#ffd36b"></i>Milepæl</span></div>
+   <div class="panel glass"><h3>Kapittelkart · trykk på et åpent kapittel</h3><svg class="chapters" viewBox="0 0 620 500">
+     <path d="${path}" fill="none" stroke="rgba(160,230,255,.18)" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>
+     ${nodes.map(n=>{const c=n.i+1, mile=c%10===0, sc=pr.done[c], fin=sc!=null&&sc>=PACK_MIN, open=ready&&packUnlocked(p.id,c);
+       const fill=fin?"#5ef2d6":open?p.col:"rgba(10,30,50,.9)";
+       return `<g class="node" ${open?`data-ch="${c}" style="cursor:pointer"`:""}>
+       <circle cx="${n.x}" cy="${n.y}" r="${mile?26:21}" fill="${fill}" stroke="${mile?"#ffd36b":open?p.col:"rgba(160,230,255,.25)"}" stroke-width="2" ${open&&!fin?`style="filter:drop-shadow(0 0 12px ${p.col})"`:""}/>
+       ${open?`<text x="${n.x}" y="${n.y+5}" text-anchor="middle" font-family="JetBrains Mono" font-weight="700" font-size="14" fill="#04202c">${c}</text>`
+         :`<g transform="translate(${n.x-8} ${n.y-9}) scale(.68)" color="rgba(200,230,245,.45)">${UI.lock.replace('class="ti"','width="24" height="24"')}</g>`}
+       ${sc!=null?`<text x="${n.x}" y="${n.y+40}" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="${fin?"#5ef2d6":"#ff7a6b"}">${sc} p</text>`:mile?`<text x="${n.x}" y="${n.y+44}" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#ffd36b">${c}</text>`:""}</g>`;}).join("")}
+   </svg></div>
+   ${ready?`<div class="panel glass"><h3>Spørsmål i pakken (${packPool(p.id).length})</h3><div class="chips" style="justify-content:flex-start">${packPool(p.id).map(q=>`<span class="chip">${esc(q.q.replace(/^Nevn (en|et) /,""))}</span>`).join("")}</div></div>`:""}
+   <button class="btn btn-ghost" style="width:100%;margin-top:10px" onclick="location.hash='temapakker'">← Alle temapakker</button></div>`; };
+PAGE_INIT.pakke=(h)=>{ const id=h.replace("pakke-",""); $("page").querySelectorAll("[data-ch]").forEach(g=>g.addEventListener("click",()=>startChapter(id,+g.dataset.ch))); };
+
+/* ---------- Arkiv ---------- */
+PAGES.arkiv=()=>{ const today=dayNumber(), first=new Date(2026,10,1); const lead=(first.getDay()+6)%7;
+  const cells=Array.from({length:lead},()=>`<div class="day blank"></div>`);
+  for(let n=1;n<=today+(7-((lead+today)%7))%7;n++){ const k=dateOfDay(n), d=new Date(first); d.setDate(d.getDate()+n-1);
+    const dd=store.get("dypdykk-"+k), ar=store.get("dypdykk-arkiv-"+k), res=dd||ar, fut=n>today, isT=n===today;
+    cells.push(`<button class="day${res?" done":""}${isT?" today":""}${fut?" future":""}" ${fut?"disabled":`data-day="${n}"`}>${d.getDate()}<small>${res?fmt(res.score)+" p":"nr. "+n}</small></button>`); }
+  return head("Arkiv","Ta tidligere dagens dykk. Spørsmålene er de samme som alle fikk den dagen. Arkivdykk teller ikke på rekken din.",true)+
+   `<div class="panel glass"><h3>November–desember 2026 · trykk på en dag</h3><div class="cal">${["Man","Tir","Ons","Tor","Fre","Lør","Søn"].map(d=>`<div class="dow">${d}</div>`).join("")}${cells.join("")}</div></div>
+   <div class="panel glass"><h3>Dine arkivdykk</h3><p class="psub" style="margin:0;font-size:13.5px">${(()=>{let n=0,s=0;for(let i=1;i<today;i++){const a=store.get("dypdykk-arkiv-"+dateOfDay(i));if(a){n++;s+=a.score;}}return n?`${n} tatt · snitt ${fmt(s/n)} p`:"Ingen ennå. Velg en dag over.";})()}</p></div></div>`; };
+PAGE_INIT.arkiv=()=>{ $("page").querySelectorAll("[data-day]").forEach(b=>b.onclick=()=>{ const n=+b.dataset.day; location.hash="";
+  setTimeout(()=>{ if(n===dayNumber()){ const done=store.get("dypdykk-"+todayKey()); if(done){game=done;showSummary(true);} else begin("daily"); }
+    else begin("archive",{day:n}); },50); }); };
+
+/* ---------- Garderobe / dykkekompis ---------- */
+function buddyUnlocked(b){ const st=store.get("dypdykk-stats")||{}; const ex=store.get("dypdykk-buddies-extra")||[];
+  return Math.max(st.streak||0,st.bestStreak||0)>=b.days||ex.includes(b.name); }
+function renderBuddy(){ const sel=store.get("dypdykk-buddy"); let el=$("buddy");
+  if(!el){ el=document.createElement("div"); el.id="buddy"; $("diver").appendChild(el); }
+  const b=BUDDIES.find(x=>x.name===sel&&x.days>0);
+  el.innerHTML=b&&buddyUnlocked(b)?b.art():""; }
+const _profile=PAGES["mitt-dypdykk"];
+PAGES["mitt-dypdykk"]=()=>{ let h=_profile(); const sel=store.get("dypdykk-buddy")||"Dykkeren";
+  h=h.replace(/<div class="panel glass"><h3>Dykkekompiser[\s\S]*?<\/div><\/div>\s*<div class="panel glass"><h3>Konto/,
+   `<div class="panel glass" id="garderobe"><h3>Garderobe · velg dykkekompis</h3><p class="psub" style="font-size:13px;margin:0 0 12px">Lås opp kompiser med lange rekker og milepæler i temapakkene. Kompisen svømmer ved siden av dykkeren din.</p>
+     <div class="buddies">${BUDDIES.map(b=>{const got=b.days===0||buddyUnlocked(b);return `<button class="buddy${got?(b.name===sel?" on":""):" locked"}" ${got?`data-buddy="${b.name}"`:"disabled"}><div class="bi">${b.art()}</div><b>${b.name}</b><small>${got?(b.name===sel?"Valgt":"Velg"):b.days+" dager"}</small></button>`;}).join("")}</div></div>
+   <div class="panel glass"><h3>Konto`);
+  const eb=store.get("dypdykk-endless-best"); if(eb) h=h.replace("Snitt:",`Beste uendelige dykk: ${fmt(eb)} p · Snitt:`);
+  return h; };
+PAGE_INIT["mitt-dypdykk"]=()=>{ $("page").querySelectorAll("[data-buddy]").forEach(b=>b.onclick=()=>{ store.set("dypdykk-buddy",b.dataset.buddy); renderBuddy(); SFX.bubble(); route(); toast(b.dataset.buddy+" dykker med deg!"); }); };
+
+/* ---------- Venner (deling via kode/lenke, uten server) ---------- */
+function myName(){ return store.get("dypdykk-name")||""; }
+function encodeResult(g){ const o={d:g.day,s:g.score,t:g.results.map(r=>r.tier<0?"x":r.tier).join(""),n:myName()||"Venn"};
+  return btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
+function decodeResult(c){ try{ c=c.trim().replace(/^.*[?&]venn=/,"").replace(/-/g,"+").replace(/_/g,"/"); const o=JSON.parse(decodeURIComponent(escape(atob(c))));
+  if(typeof o.d==="number"&&typeof o.s==="number"&&/^[0-5x]{1,7}$/.test(o.t)&&o.s>=0&&o.s<=700) return {d:o.d,s:o.s,t:o.t,n:String(o.n||"Venn").slice(0,24)}; }catch(e){} return null; }
+function addFriend(r){ const l=store.get("dypdykk-venner")||[]; const i=l.findIndex(x=>x.n===r.n&&x.d===r.d); if(i>=0) l[i]=r; else l.push(r); store.set("dypdykk-venner",l); }
+function siteUrl(){ return location.origin&&location.origin.startsWith("http")&&!location.origin.includes("claude")?location.origin+"/":"https://dypdykk.netlify.app/"; }
+PAGES.venner=()=>{ const day=dayNumber(), mine=store.get("dypdykk-"+todayKey()), l=(store.get("dypdykk-venner")||[]).filter(x=>x.d===day);
+  const rows=[...(mine?[{n:(myName()||"Deg")+" (deg)",s:mine.score,t:mine.results.map(r=>r.tier<0?"x":r.tier).join(""),me:true}]:[]),...l].sort((a,b)=>b.s-a.s);
+  const sq=["⬜","🟧","🟦","🟪","🟨","🟩"], code=mine?encodeResult(mine):null;
+  return head("Venner","Sammenlign dagens dykk med vennene dine. Send lenken din, og lim inn lenker eller koder du får fra andre.",true)+
+   `<div class="panel glass"><h3>Ditt navn</h3><div class="rowf"><input class="field" id="nameIn" maxlength="24" placeholder="Hva skal vennene dine se?" value="${esc(myName())}"><button class="btn btn-ghost" id="nameBtn">Lagre</button></div></div>
+   <div class="panel glass"><h3>Dagens tavle · dykk nr. ${day}</h3>${rows.length?`<ul class="lb">${rows.map((r,i)=>`<li${r.me?' style="background:rgba(94,242,214,.06)"':""}><span class="pos">${i+1}</span><span class="nm">${esc(r.n)}<br><small style="color:var(--muted)">${[...r.t].map(c=>c==="x"?"⬛":sq[+c]).join("")}</small></span><span class="sc">${fmt(r.s)} p</span>${r.me?"":`<button class="chip" data-del="${esc(r.n)}" title="Fjern">✕</button>`}</li>`).join("")}</ul>`
+     :`<div class="empty">Ingen resultater ennå. Ta dagens dykk, og legg til venner under.</div>`}</div>
+   <div class="panel glass"><h3>Din lenke for i dag</h3>${code?`<div class="rowf"><input class="field" id="myLink" readonly value="${siteUrl()}?venn=${code}"><button class="btn btn-primary" id="copyLink">Kopier</button></div>
+     <p class="psub" style="font-size:12.5px;margin:10px 0 0">Når en venn åpner lenken, havner resultatet ditt på tavlen deres.</p>`:`<div class="empty">Ta dagens dykk først, så får du en lenke å dele.</div>`}</div>
+   <div class="panel glass"><h3>Legg til en venn</h3><div class="rowf"><input class="field" id="friendIn" placeholder="Lim inn lenke eller kode"><button class="btn btn-primary" id="friendBtn">Legg til</button></div></div></div>`; };
+PAGE_INIT.venner=()=>{
+  $("nameBtn").onclick=()=>{ store.set("dypdykk-name",$("nameIn").value.trim().slice(0,24)); toast("Navnet er lagret"); route(); };
+  if($("copyLink")) $("copyLink").onclick=async()=>{ try{await navigator.clipboard.writeText($("myLink").value);toast("Lenken er kopiert");}catch(e){$("myLink").select();toast("Marker og kopier lenken");} };
+  $("friendBtn").onclick=()=>{ const r=decodeResult($("friendIn").value); if(!r){toast("Fant ingen gyldig kode");return;}
+    addFriend(r); toast(`${r.n} er lagt til`+(r.d!==dayNumber()?` (dykk nr. ${r.d})`:"")); route(); };
+  $("page").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{ const l=(store.get("dypdykk-venner")||[]).filter(x=>!(x.n===b.dataset.del&&x.d===dayNumber())); store.set("dypdykk-venner",l); route(); });
+};
+(function readFriendLink(){ try{ const m=location.search.match(/[?&]venn=([^&]+)/); if(!m) return; const r=decodeResult(m[1]);
+  if(r){ addFriend(r); setTimeout(()=>{ toast(`${r.n} sitt resultat er lagt til`); location.hash="venner"; },600); }
+  history.replaceState(null,"",location.pathname+location.hash); }catch(e){} })();
+
+/* ---------- Boblebomben (lokal flerspiller på én enhet + datamotstandere) ---------- */
+const PARTY={players:[],bots:1,lives:3};
+let pg=null, pgTimer=null;
+function partyQuestions(){ return QUESTIONS.filter(q=>(!q.modes||q.modes.includes("party"))&&(q.src?q.n>=60:q.a.split(/[,|]/).length>=25)); }
+PAGES.boblebomben=()=>{ const names=store.get("dypdykk-party-names")||[myName()||"Spiller 1","Spiller 2"];
+  return head("Boblebomben","Send boblen videre før den sprekker! Svar på kategorien og gi boblen til neste spiller. Sjeldne svar slipper ut mer luft.")+
+   `<div class="party"><div class="panel glass"><h3>Hvem spiller</h3><div class="bomb">${BOMB}</div>
+       <div id="pNames">${names.map((n,i)=>`<div class="rowf" style="margin-bottom:8px"><input class="field pn" maxlength="16" value="${esc(n)}" placeholder="Navn"><button class="btn btn-ghost pdel" style="padding:10px 14px" data-i="${i}">✕</button></div>`).join("")}</div>
+       <button class="btn btn-ghost" id="pAdd" style="width:100%">+ Legg til spiller</button></div>
+     <div class="panel glass"><h3>Oppsett</h3>
+       <div class="sect" style="text-align:left;margin-top:0">Datamotstandere</div><div class="chipsel" id="pBots">${[0,1,2,3].map(n=>`<span data-b="${n}" class="${n===PARTY.bots?"on":""}" style="cursor:pointer">${n}</span>`).join("")}</div>
+       <div class="sect" style="text-align:left">Liv per spiller</div><div class="chipsel" id="pLives">${[1,2,3,5].map(n=>`<span data-l="${n}" class="${n===PARTY.lives?"on":""}" style="cursor:pointer">${n}</span>`).join("")}</div>
+       <button class="btn btn-primary" id="pStart" style="width:100%;margin-top:18px">Start Boblebomben</button>
+       <p class="psub" style="font-size:12px;margin:10px 0 0">Spill på samme enhet: send mobilen eller tastaturet videre. Online-rom med kode kommer når spillet får en server.</p></div>
+     <div class="panel glass full"><h3>Regler</h3><ol class="steps">
+       <li>Alle får samme kategori. Den som har boblen, skriver et svar som ikke er brukt i runden.</li>
+       <li>Boblen fylles hele tiden og sprekker på et skjult, tilfeldig tidspunkt.</li>
+       <li>Et godkjent svar sender boblen videre. Sjeldne svar slipper ut luft og gir neste spiller mer tid.</li>
+       <li>Sprekker boblen hos deg, mister du et liv. Sist igjen med liv vinner.</li></ol></div></div></div>`; };
+PAGE_INIT.boblebomben=()=>{
+  const save=()=>store.set("dypdykk-party-names",[...document.querySelectorAll(".pn")].map(i=>i.value.trim()).filter(Boolean));
+  $("pAdd").onclick=()=>{ save(); const l=store.get("dypdykk-party-names")||[]; if(l.length>=8){toast("Maks 8 spillere");return;} l.push("Spiller "+(l.length+1)); store.set("dypdykk-party-names",l); route(); };
+  document.querySelectorAll(".pdel").forEach(b=>b.onclick=()=>{ save(); const l=store.get("dypdykk-party-names")||[]; l.splice(+b.dataset.i,1); store.set("dypdykk-party-names",l); route(); });
+  document.querySelectorAll("#pBots span").forEach(s=>s.onclick=()=>{ PARTY.bots=+s.dataset.b; save(); route(); });
+  document.querySelectorAll("#pLives span").forEach(s=>s.onclick=()=>{ PARTY.lives=+s.dataset.l; save(); route(); });
+  $("pStart").onclick=async()=>{ save(); const names=store.get("dypdykk-party-names")||[];
+    const players=[...names.map(n=>({n,bot:false})),...Array.from({length:PARTY.bots},(_,i)=>({n:"Dykkebot "+(i+1),bot:true}))];
+    if(players.length<2){ toast("Dere må være minst to (legg til en datamotstander)"); return; }
+    if(players.every(p=>p.bot)){ toast("Minst én spiller må være et menneske"); return; }
+    ac(); await datasetsReady; partyStart(players); };
+};
+function partyStart(players){
+  pg={players:players.map(p=>({...p,lives:PARTY.lives,ans:0,rare:0})),turn:0,round:0,log:[]};
+  partyRound(); }
+// Velger og laster et spørsmål. Neste runde hentes i bakgrunnen mens denne spilles, så det blir ingen pause mellom rundene.
+async function partyPick(avoid){ const pool=partyQuestions(); let q=null;
+  for(let t=0;t<8&&!q;t++){ const c=pool[Math.floor(Math.random()*pool.length)]; if(avoid&&avoid.has(c.id)&&t<6) continue; if(await ensureLoaded(c)) q=c; }
+  return q||QUESTIONS.find(x=>!x.src); }
+async function partyRound(){
+  const mine=pg; pg.seen=pg.seen||new Set();
+  const q=await (pg._next||partyPick(pg.seen)); if(pg!==mine) return; pg._next=null; pg.seen.add(q.id);
+  pg._next=partyPick(pg.seen);
+  parse(q); pg.q=q; pg.used=new Set(); pg.round++; pg.pressure=0; pg.fuse=100+Math.random()*200; pg.answers=[];
+  while(pg.players[pg.turn].lives<=0) pg.turn=(pg.turn+1)%pg.players.length;
+  partyRender(); clearInterval(pgTimer); pgTimer=setInterval(partyTick,100); partyTurnStart(); }
+function partyAlive(){ return pg.players.filter(p=>p.lives>0); }
+function partyRender(msg){
+  const cur=pg.players[pg.turn], s=1+Math.min(pg.pressure/300,1)*.9;
+  $("page").innerHTML=`<div class="pg narrow" style="text-align:center"><button class="back" id="pQuit">← Avslutt Boblebomben</button>
+    <div class="kicker" style="color:var(--cyan)">Runde ${pg.round} · Boblebomben</div>
+    <div class="ptitle" style="font-size:clamp(26px,6vw,40px)">${esc(pg.q.q)}</div>
+    <div style="height:210px;display:grid;place-items:center"><div id="pBomb" style="width:150px;height:150px;transform:scale(${s});transition:transform .15s">${BOMB}</div></div>
+    <div class="banner" style="justify-content:center;background:rgba(94,242,214,.08);border-color:rgba(94,242,214,.35);color:#dffcf6">${cur.bot?"🤖 ":""}<b>${esc(cur.n)}</b>&nbsp;har boblen${cur.bot?" … tenker":""}</div>
+    ${cur.bot?"":`<form id="pForm" class="barrow glass" style="margin:0 auto 10px;max-width:520px" autocomplete="off"><input id="pInp" class="field" style="border:0;background:transparent;font-size:18px" placeholder="Skriv et svar …" autocapitalize="off" spellcheck="false"><button id="go" type="submit">SEND ▶</button></form>`}
+    <div id="pMsg" style="min-height:24px;font-size:14px;color:#ffc2ba">${msg||""}</div>
+    <div class="panel glass" style="text-align:left"><h3>Spillere</h3><ul class="lb">${pg.players.map((p,i)=>`<li style="${i===pg.turn?"background:rgba(94,242,214,.08)":""}${p.lives<=0?";opacity:.35":""}"><span class="pos">${i===pg.turn?"▶":""}</span><span class="nm">${esc(p.n)}</span><span class="sc" style="color:#ff7a6b">${"♥".repeat(Math.max(0,p.lives))||"ute"}</span><span class="sc">${p.ans} svar</span></li>`).join("")}</ul></div>
+    <div class="panel glass" style="text-align:left"><h3>Brukt denne runden (${pg.answers.length})</h3><div class="chips" style="justify-content:flex-start">${pg.answers.slice(-30).map(a=>`<span class="chip" style="border-color:${TIERS[a.tier].color}66;color:${TIERS[a.tier].color}">${esc(a.label)}</span>`).join("")||'<span style="color:var(--muted);font-size:13px">Ingen ennå</span>'}</div></div></div>`;
+  $("pQuit").onclick=()=>{ clearInterval(pgTimer); pg=null; location.hash="boblebomben"; route(); };
+  if($("pForm")){ const inp=$("pInp"); setTimeout(()=>inp.focus(),30);
+    $("pForm").onsubmit=e=>{ e.preventDefault(); partySubmit(inp.value); }; }
+}
+function partyTick(){ if(!pg) return clearInterval(pgTimer); pg.pressure+=1; const b=$("pBomb");
+  if(b) b.style.transform=`scale(${1+Math.min(pg.pressure/300,1)*.9}) rotate(${Math.sin(pg.pressure/3)*(pg.pressure/pg.fuse)*6}deg)`;
+  if(pg.pressure>=pg.fuse) partyPop(); }
+function partySubmit(v){ if(!pg) return; v=(v||"").trim(); if(!v) return;
+  const r=check(pg.q,v), cur=pg.players[pg.turn];
+  if(!r){ SFX.wrong(); return partyMsg(`«${esc(v)}» ble ikke godkjent`); }
+  if(!r.exact&&SET.corr!==false){ SFX.count(); return partyMsg(`Mente du «${esc(r.a.label)}»? Skriv det, så teller det.`); }
+  if(pg.used.has(r.a)){ SFX.wrong(); return partyMsg(`«${esc(r.a.label)}» er allerede brukt`); }
+  pg.used.add(r.a); pg.answers.push(r.a); cur.ans++; if(r.a.tier>=4) cur.rare++;
+  pg.pressure=Math.max(0,pg.pressure-(10+r.a.tier*9)); SFX.tier(r.a.tier);
+  partyNext(); }
+function partyMsg(m){ const el=$("pMsg"); if(el){ el.innerHTML=m; const f=$("pForm"); if(f){f.classList.remove("err");void f.offsetWidth;f.classList.add("err");} const i=$("pInp"); if(i){i.value="";i.focus();} } }
+function partyNext(){ do{ pg.turn=(pg.turn+1)%pg.players.length; }while(pg.players[pg.turn].lives<=0); partyRender(); partyTurnStart(); }
+function partyTurnStart(){ const cur=pg.players[pg.turn]; if(!cur.bot) return;
+  const r0=pg.round, t0=pg.turn, delay=1200+Math.random()*2800;
+  setTimeout(()=>{ if(!pg||pg.round!==r0||pg.turn!==t0) return;
+    const all=parse(pg.q).filter(a=>!pg.used.has(a)); if(!all.length||Math.random()<.06) return;   // boten står fast av og til
+    const w=all.map(a=>Math.pow(.45,a.tier)); let x=Math.random()*w.reduce((s,v)=>s+v,0), pick=all[0];
+    for(let i=0;i<all.length;i++){ x-=w[i]; if(x<=0){ pick=all[i]; break; } }
+    partySubmit(pick.label); },delay); }
+function partyPop(){ clearInterval(pgTimer); const cur=pg.players[pg.turn]; cur.lives--; SFX.boom(); fx.flash("#ff7a6b",.6,700); fx.shake(14,600);
+  const alive=partyAlive();
+  const box=$("page").querySelector(".pg"); if(box) box.insertAdjacentHTML("afterbegin",`<div class="banner" style="justify-content:center;font-size:16px">💥 Boblen sprakk hos <b>&nbsp;${esc(cur.n)}</b>!</div>`);
+  setTimeout(()=>{ if(!pg) return; if(alive.length<=1) partyEnd(alive[0]); else { pg.turn=(pg.turn+1)%pg.players.length; partyRound(); } },1800); }
+function partyEnd(winner){ const ps=[...pg.players].sort((a,b)=>b.lives-a.lives||b.ans-a.ans);
+  $("page").innerHTML=`<div class="pg narrow" style="text-align:center"><div class="kicker" style="color:var(--cyan)">Boblebomben ferdig etter ${pg.round} runder</div>
+    <div class="ptitle">🏆 ${esc(winner?winner.n:"Ingen")} vant!</div>
+    <div class="panel glass" style="text-align:left"><h3>Resultat</h3><ul class="lb">${ps.map((p,i)=>`<li><span class="pos">${i+1}</span><span class="nm">${esc(p.n)}</span><span class="sc">${p.ans} svar</span><span class="sc" style="color:#ffd36b">${p.rare} sjeldne</span></li>`).join("")}</ul></div>
+    <div class="btnrow"><button class="btn btn-primary" id="pAgain">Spill igjen</button><button class="btn btn-ghost" id="pBack">Til oppsett</button></div></div>`;
+  SFX.tier(5); const players=pg.players.map(p=>({n:p.n,bot:p.bot}));
+  $("pAgain").onclick=()=>partyStart(players); $("pBack").onclick=()=>{ pg=null; route(); }; }
+
+/* ---------- Menyen: oppdatert status ---------- */
+const _renderMenu=renderMenu;
+renderMenu=function(){ _renderMenu();
+  const set=(id,sub)=>{ const t=$("menu").querySelector(`[data-go="${id}"]`); if(!t) return; const s=t.querySelector(".soon"); if(s) s.remove(); if(sub) t.querySelector("small").textContent=sub; };
+  set("boblebomben","Flerspiller på én enhet"); set("arkiv","Ta tidligere dykk"); set("temapakker","Kapitler med temaer"); set("venner","Sammenlign med lenke");
+  const g=$("menu").querySelector('[data-go="garderobe"]'); if(g){ const s=g.querySelector(".soon"); if(s) s.remove(); }
+};
+renderBuddy();
+
+startScreen(); route();
+</script>
+</body>
+</html>

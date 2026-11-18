@@ -1,0 +1,12 @@
+{
+ "add": [
+  {
+   "id": "manuell:ntb",
+   "label": "NTB",
+   "aliases": [
+    "Norsk Telegrambyrå"
+   ],
+   "tier": 1
+  }
+ ]
+}

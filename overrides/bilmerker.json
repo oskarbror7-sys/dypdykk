@@ -1,0 +1,29 @@
+{
+ "add": [
+  {
+   "id": "manuell:tesla",
+   "label": "Tesla",
+   "aliases": [],
+   "tier": 0
+  },
+  {
+   "id": "manuell:lada",
+   "label": "Lada",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:mini",
+   "label": "Mini",
+   "aliases": [],
+   "tier": 2
+  },
+  {
+   "id": "manuell:peugeot",
+   "label": "Peugeot",
+   "aliases": [],
+   "tier": 2
+  }
+ ],
+ "_note": "Bilmerker som i Wikidata er registrert som vanlige selskaper, ikke bilprodusenter"
+}

@@ -1,0 +1,54 @@
+# Henter nye svar fra Wikidata og SSB hver natt og publiserer nettsiden.
+# Nettsiden legges i grenen «nettside», som Netlify publiserer automatisk.
+name: Nattlig dataimport
+on:
+  schedule: [{cron: "17 2 * * *"}]   # 03:17 norsk vintertid
+  workflow_dispatch: {}               # kan også startes for hånd under «Actions»
+permissions:
+  contents: write                     # boten må kunne lagre nettsiden og fremdriften
+concurrency: {group: dataimport, cancel-in-progress: false}
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 345
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - name: Gjenopprett hurtigbuffer
+        uses: actions/cache/restore@v4
+        with:
+          path: cache
+          key: dypdykk-cache-${{ github.run_id }}
+          restore-keys: dypdykk-cache-
+      - name: Hent nåværende nettside
+        run: python3 tools/bootstrap_site.py
+      - name: Lag spørsmålsoppsett
+        run: python3 tools/make_configs.py
+      - name: Tester
+        run: python3 -m unittest discover -s tests
+      - name: Publiser nettsiden før importen (første gang / nye spillfiler)
+        run: bash tools/push_site.sh
+        env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
+      - name: Import
+        run: timeout 290m python3 -m dypdykk_data queue --retry || true
+      - name: Rapport
+        if: always()
+        run: python3 -m dypdykk_data report || true
+      - name: Publiser nettsiden
+        if: always()
+        run: bash tools/push_site.sh
+        env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
+      - name: Lagre fremdrift
+        if: always()
+        run: |
+          git config user.name "dypdykk-bot"; git config user.email "bot@dypdykk.invalid"
+          git add state overrides
+          git commit -m "Fremdrift etter dataimport $(date +%F)" || echo "Ingen endringer"
+          git push || true
+      - name: Lagre hurtigbuffer
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: cache
+          key: dypdykk-cache-${{ github.run_id }}

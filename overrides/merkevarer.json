@@ -1,0 +1,8 @@
+{
+ "add": [
+  {"id": "manuell:nike", "label": "Nike", "aliases": [], "tier": 0},
+  {"id": "manuell:adidas", "label": "Adidas", "aliases": [], "tier": 0},
+  {"id": "manuell:freia", "label": "Freia", "aliases": [], "tier": 2}
+ ],
+ "_note": "Disse står som selskaper, ikke merkevarer, i Wikidata"
+}
