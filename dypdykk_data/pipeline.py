@@ -101,6 +101,12 @@ def _dedupe(entities, log):
     return [by_id[i] for i in order]
 
 
+def _lk(label):
+    """Nøkler en etikett kan treffes på i overstyringer: rå etikett og rensket etikett («X (opera)» -> «X»)."""
+    label = label or ""
+    return {k for k in (norm(label), norm(clean_label(label) or "")) if k}
+
+
 def _apply_overrides(entities, ov, log):
     # Etiketter som starter med liten bokstav (vanlig for arter: «gråspurv») vises med stor forbokstav i spillet
     for e in entities:
@@ -121,14 +127,14 @@ def _apply_overrides(entities, ov, log):
     if ov.get("remove_labels"):
         bad = {norm(x) for x in ov["remove_labels"]}
         before = len(entities)
-        entities = [e for e in entities if norm(e["label"]) not in bad]
+        entities = [e for e in entities if not (_lk(e["label"]) & bad)]
         log(f"Overstyring: fjernet {before - len(entities)} etter navn")
     # Navnebaserte rettelser (praktisk når Wikidata-ID-en ikke er kjent): ny etikett, fast nivå, alias-regler
     if ov.get("relabel"):
         rl = {norm(k): v for k, v in ov["relabel"].items()}
         n = 0
         for e in entities:
-            new = rl.get(norm(e["label"]))
+            new = next((rl[k] for k in _lk(e["label"]) if k in rl), None)
             if new:
                 e["aliases"] = list(e["aliases"]) + [e["label"]]
                 e["orig_label"] = e["label"]
@@ -138,14 +144,14 @@ def _apply_overrides(entities, ov, log):
     if ov.get("tier_labels"):
         tl = {norm(k): v for k, v in ov["tier_labels"].items()}
         for e in entities:
-            for k in (norm(e["label"]), norm(e.get("orig_label") or "")):
+            for k in _lk(e["label"]) | _lk(e.get("orig_label")):
                 if k in tl:
                     e["pinned_tier"] = tl[k]
                     break
     if ov.get("alias_labels"):
         al = {norm(k): v for k, v in ov["alias_labels"].items()}
         for e in entities:
-            extra = al.get(norm(e["label"]))
+            extra = next((al[k] for k in _lk(e["label"]) if k in al), None)
             if extra:
                 e["aliases"] = list(e["aliases"]) + [x for x in extra if x not in e["aliases"]]
                 e["manual_aliases"] = list(e.get("manual_aliases", [])) + extra

@@ -25,6 +25,15 @@
    "label": "Kaptein Sabeltann",
    "aliases": [],
    "tier": 1
+  },
+  {
+   "id": "manuell:veiviseren",
+   "label": "Veiviseren",
+   "aliases": [
+    "Ofelas",
+    "Pathfinder"
+   ],
+   "tier": 2
   }
  ],
  "_note": "Animasjonsfilmen har en annen type i Wikidata",

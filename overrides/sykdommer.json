@@ -54,5 +54,13 @@
    ],
    "tier": 1
   }
- ]
+ ],
+ "alias_labels": {
+  "Covid-19": [
+   "Korona",
+   "Koronavirus",
+   "Covid",
+   "Corona"
+  ]
+ }
 }

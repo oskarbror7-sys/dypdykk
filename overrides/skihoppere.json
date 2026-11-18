@@ -5,6 +5,14 @@
    "label": "Simon Ammann",
    "aliases": [],
    "tier": 2
+  },
+  {
+   "id": "manuell:jens-weiflog",
+   "label": "Jens Weißflog",
+   "aliases": [
+    "Jens Weissflog"
+   ],
+   "tier": 2
   }
  ]
 }

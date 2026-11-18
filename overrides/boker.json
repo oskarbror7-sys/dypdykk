@@ -56,5 +56,11 @@
   "USAs grunnlov": 4,
   "Encyclopædia Britannica": 4,
   "Guinness Rekordbok": 4
+ },
+ "alias_labels": {
+  "Dødslekene": [
+   "Hungerlekene",
+   "The Hunger Games"
+  ]
  }
 }

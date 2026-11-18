@@ -63,5 +63,13 @@
    "aliases": [],
    "tier": 3
   }
- ]
+ ],
+ "tier_labels": {
+  "Fantomet": 1
+ },
+ "alias_labels": {
+  "Fantomet": [
+   "The Phantom"
+  ]
+ }
 }
