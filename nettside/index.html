@@ -73,7 +73,7 @@ button{font:inherit;cursor:pointer;border:0;color:inherit;background:none}
 svg[shape-rendering="crispEdges"]{image-rendering:pixelated}
 .fade{transition:opacity .45s var(--ease), transform .55s var(--ease);opacity:0;pointer-events:none}
 /* svakt korn – trykt, ikke glatt */
-body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.32;mix-blend-mode:overlay;
+body::after{content:"";position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.07;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
 
 /* ---------- Plater (erstatter alle «kort») ---------- */
@@ -132,7 +132,7 @@ body.s-start #start .top, body.s-start #start .bottom{opacity:1;pointer-events:a
 .cta-wrap{display:flex;align-items:stretch;gap:0;filter:drop-shadow(0 0 22px rgba(255,122,61,.18))}
 .cta-wrap .btn{font-size:22px;padding:18px 30px}
 .cta-no{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:0 12px;margin-left:9px;background:var(--bone);color:#1b2a30;
-  font-family:var(--gauge);font-size:9px;line-height:1.3;box-shadow:var(--px-edge),0 6px 0 var(--line)}
+  font-family:var(--gauge);font-size:11px;line-height:1.3;box-shadow:var(--px-edge),0 6px 0 var(--line)}
 .cta-no b{font-family:var(--num);font-size:19px;line-height:1.1}
 .modes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;width:min(520px,100%)}
 .mode{display:flex;flex-direction:column;align-items:center;gap:7px;padding:12px 6px 10px;background:var(--plate);color:var(--ink);
@@ -143,23 +143,23 @@ body.s-start #start .top, body.s-start #start .bottom{opacity:1;pointer-events:a
 .mode:active{transform:translateY(4px);box-shadow:var(--px-edge),inset 0 0 0 3px var(--plate),0 1px 0 var(--line)}
 .donebox{font-size:15px;color:var(--ink);text-align:center;font-weight:500}
 .donebox b{color:var(--sea);font-family:var(--display)}
-.stats{font-family:var(--gauge);font-size:10px;color:var(--muted)}
+.stats{font-family:var(--gauge);font-size:11px;color:var(--muted)}
 /* sjeldenhetsstigen: fra tare i overflaten til kjempeblekksprut på bunnen */
 .tierrow{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:2px;width:100%;max-width:540px;padding:10px 8px 8px}
 .tierrow::before{content:"";position:absolute;left:8%;right:8%;top:28px;height:2px;background:repeating-linear-gradient(90deg,rgba(241,231,207,.3) 0 4px,transparent 4px 8px)}
 .tierrow div{position:relative;text-align:center;font-size:11px;color:var(--muted);line-height:1.25}
 .tierrow svg{position:relative;width:36px;height:36px;display:block;margin:0 auto 5px;filter:drop-shadow(2px 2px 0 rgba(0,0,0,.5))}
 .tierrow b{display:block;font-family:var(--display);font-size:13px;font-weight:600;color:var(--ink)}
-.tierrow .tm{font-family:var(--gauge);font-size:9px;color:var(--brass);opacity:.85}
+.tierrow .tm{font-family:var(--gauge);font-size:11px;color:var(--brass);opacity:.85}
 
 /* ---------- HUD: dybde, sone og poeng ---------- */
 #hud{position:fixed;top:0;left:0;right:0;z-index:6;display:flex;align-items:flex-start;justify-content:space-between;
   padding:max(14px,env(safe-area-inset-top)) 16px 0;transform:translateY(-10px)}
 body:not(.s-start) #hud{opacity:1;transform:none}
 .hbox{min-width:110px;padding:8px 12px 9px;background:rgba(6,18,28,.82);box-shadow:var(--px-edge),inset 0 0 0 1px var(--faint)}
-.hbox .lbl{display:block;font-family:var(--gauge);font-size:9px;color:var(--muted);margin-bottom:2px}
+.hbox .lbl{display:block;font-family:var(--gauge);font-size:11px;color:var(--muted);margin-bottom:2px}
 .hbox .val{font-family:var(--num);font-weight:400;font-size:22px;line-height:1;color:var(--sea);font-variant-numeric:tabular-nums;white-space:nowrap}
-.hbox .zone{display:block;font-family:var(--gauge);font-size:9px;margin-top:5px;color:var(--zc,var(--brass));white-space:nowrap}
+.hbox .zone{display:block;font-family:var(--gauge);font-size:11px;margin-top:5px;color:var(--zc,var(--brass));white-space:nowrap}
 .hbox.r{text-align:right}.hbox.r .val{color:var(--brass)}
 .pips{display:flex;gap:6px;margin-top:10px}
 .pips i{width:12px;height:12px;background:rgba(241,231,207,.16);transition:background .3s,transform .3s var(--spring);position:relative;box-shadow:0 0 0 2px var(--line)}
@@ -168,7 +168,7 @@ body:not(.s-start) #hud{opacity:1;transform:none}
 #zoneBanner{position:fixed;left:50%;top:calc(max(14px,env(safe-area-inset-top)) + 40px);z-index:6;transform:translate(-50%,-8px);pointer-events:none;opacity:0;text-align:center;
   transition:opacity .4s, transform .5s var(--ease)}
 #zoneBanner.on{opacity:1;transform:translate(-50%,0)}
-#zoneBanner small{display:block;font-family:var(--gauge);font-size:10px;color:var(--bone);opacity:.8}
+#zoneBanner small{display:block;font-family:var(--gauge);font-size:11px;color:var(--bone);opacity:.8}
 #zoneBanner b{display:block;font-family:var(--display);font-size:clamp(26px,5vw,40px);color:var(--zc,var(--brass));text-shadow:0 3px 0 var(--line)}
 #mute{position:fixed;right:16px;top:calc(max(14px,env(safe-area-inset-top)) + 64px);z-index:9;width:34px;height:34px;display:grid;place-items:center;color:var(--muted);
   background:rgba(6,18,28,.82);box-shadow:var(--px-edge)}
@@ -178,7 +178,7 @@ body.s-start #mute,body.s-page #mute,body.s-summary #mute{display:none}
 /* ---------- Spørsmålskort ---------- */
 #qcard{position:fixed;left:50%;top:clamp(84px,12vh,112px);width:min(600px,92vw);z-index:5;padding:20px 26px 22px;transform:translate(-50%,-18px)}
 body.s-countdown #qcard, body.s-answer #qcard{opacity:1;transform:translate(-50%,0)}
-#qcard .qn{font-family:var(--gauge);font-size:10px;color:var(--brass)}
+#qcard .qn{font-family:var(--gauge);font-size:11px;color:var(--brass)}
 #qcard h2{font-family:var(--body);font-weight:700;font-size:clamp(22px,4.2vw,31px);line-height:1.18;letter-spacing:-.005em;margin:8px 0 8px;text-wrap:balance}
 #qcard .hint{font-size:13px;color:var(--muted);font-weight:500}
 body.s-answer #qcard h2{animation:qin .5s var(--ease) both}
@@ -221,13 +221,13 @@ body.s-answer #bar{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 @keyframes sugpop{0%{transform:translateY(10px) scale(.85) rotate(-2deg);opacity:0}60%{transform:translateY(-2px) scale(1.04) rotate(.6deg);opacity:1}100%{transform:rotate(-.6deg)}}
 .pill.sug{display:inline-block;background:var(--bone);color:#1d2a30;padding:10px 16px 9px;text-align:left;cursor:pointer;transform:rotate(-.6deg);
   box-shadow:var(--px-edge),5px 7px 0 rgba(1,8,14,.55);animation:sugpop .38s var(--spring) both}
-.pill.sug .q{display:block;font-family:var(--gauge);font-size:9.5px;color:#5a6b70;margin-bottom:3px}
+.pill.sug .q{display:block;font-family:var(--gauge);font-size:11px;color:#5a6b70;margin-bottom:3px}
 .pill.sug b{color:#b8391c;font-family:var(--display);font-size:20px}
 .pill.sug small{display:block;margin-top:4px;color:#4c5d64;font-size:12px;font-weight:500}
 .pill small{display:block;font-size:11.5px;opacity:.8;margin-top:2px}
 .tried{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
 .tried span{font-size:12.5px;padding:3px 9px;background:rgba(58,16,16,.85);color:#ffbdb3;text-decoration:line-through;box-shadow:0 0 0 2px var(--line)}
-.skip{display:block;margin:14px auto 0;font-family:var(--gauge);font-size:10px;color:var(--muted);opacity:.8;padding:6px 10px}
+.skip{display:block;margin:14px auto 0;font-family:var(--gauge);font-size:11px;color:var(--muted);opacity:.8;padding:6px 10px}
 .skip:hover{opacity:1;color:var(--ink)}
 
 /* ---------- Dykkeeffekter ---------- */
@@ -256,7 +256,7 @@ body.s-reveal #reveal{opacity:1;transform:translate(-50%,0) scale(1);pointer-eve
 .tname{font-family:var(--display);font-weight:700;font-size:clamp(32px,8vw,50px);line-height:1;letter-spacing:.02em;overflow-wrap:anywhere;margin:2px 0 4px;color:var(--tc);
   text-shadow:0 3px 0 var(--line),0 6px 0 rgba(2,10,17,.45)}
 .tname.long{font-size:clamp(26px,6.4vw,42px);overflow-wrap:normal}
-.rword{display:inline-block;font-family:var(--gauge);font-size:10px;margin:4px 0 14px;padding:4px 8px;color:var(--line);background:var(--tc);transform:rotate(-1.5deg);
+.rword{display:inline-block;font-family:var(--gauge);font-size:11px;margin:4px 0 14px;padding:4px 8px;color:var(--line);background:var(--tc);transform:rotate(-1.5deg);
   box-shadow:0 0 0 2px var(--line)}
 .rquote{font-size:19px;font-weight:700;color:var(--ink);margin:0 0 6px}
 .rmeta{font-family:var(--num);font-size:14px;color:var(--tc);font-weight:700}
@@ -317,7 +317,7 @@ body.s-summary #summary{opacity:1;pointer-events:auto}
 .btnrow .btn{flex:1;min-width:160px}
 .records{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:center}
 .records b{display:block;font-family:var(--num);font-size:22px;color:var(--sea)}
-.records span{font-family:var(--gauge);font-size:9px;color:var(--muted)}
+.records span{font-family:var(--gauge);font-size:11px;color:var(--muted)}
 
 .toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,10px);z-index:70;padding:10px 16px;font-size:14px;font-weight:600;
   background:var(--bone);color:#1b2a30;box-shadow:var(--px-edge),0 5px 0 var(--line);opacity:0;transition:opacity .25s,transform .3s var(--spring);pointer-events:none}
@@ -350,9 +350,9 @@ body.s-summary #menuBtn,body.s-page #menuBtn{z-index:12}
 .mhead .mlogo{width:42px;height:42px}
 .mhead b{font-family:var(--display);font-size:26px;display:block;line-height:1}
 .mhead b .logo{height:22px;width:auto;display:block}
-.mhead small{font-family:var(--gauge);font-size:9px;color:var(--muted)}
+.mhead small{font-family:var(--gauge);font-size:11px;color:var(--muted)}
 .mhead .x{margin-left:auto;width:38px;height:38px;display:grid;place-items:center;background:var(--plate);box-shadow:var(--px-edge)}
-.mlabel{font-family:var(--gauge);font-size:10px;color:var(--brass);margin:18px 2px 12px;display:flex;align-items:center;gap:10px}
+.mlabel{font-family:var(--gauge);font-size:11px;color:var(--brass);margin:18px 2px 12px;display:flex;align-items:center;gap:10px}
 .mlabel::after{content:"";flex:1;height:2px;background:repeating-linear-gradient(90deg,rgba(236,194,97,.3) 0 4px,transparent 4px 8px)}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .tile{position:relative;text-align:left;padding:14px 14px 13px;background:var(--plate);min-height:96px;display:flex;flex-direction:column;gap:8px;overflow:hidden;
@@ -364,21 +364,21 @@ body.s-summary #menuBtn,body.s-page #menuBtn{z-index:12}
 .tile small{font-size:12px;color:var(--muted);line-height:1.3;font-weight:500}
 .tile.active{background:#14382f;box-shadow:var(--px-edge),inset 0 0 0 3px #14382f,inset 0 0 0 4px rgba(127,232,207,.55),0 5px 0 var(--line)}
 .tile.wide{grid-column:span 2;flex-direction:row;align-items:center;min-height:0}
-.soon{position:absolute;top:9px;right:9px;font-family:var(--gauge);font-size:8px;padding:3px 6px;background:var(--brass);color:var(--line)}
+.soon{position:absolute;top:9px;right:9px;font-family:var(--gauge);font-size:11px;padding:3px 6px;background:var(--brass);color:var(--line)}
 .soon.inline{position:static;display:inline-block;vertical-align:middle;margin-left:6px}
 .mlinks{display:flex;flex-direction:column;gap:12px}
 .mlinks button{display:flex;align-items:center;gap:12px;text-align:left;padding:12px 14px;background:var(--plate);box-shadow:var(--px-edge)}
 .mlinks button:hover{background:var(--plate-hi)}
 .mlinks svg{width:18px;height:18px;color:var(--muted);flex:none}
-.mlinks span{flex:1;font-size:14.5px;font-weight:600}.mlinks span.soon{flex:none;font-size:8px}.mlinks small{display:block;color:var(--muted);font-size:12px;font-weight:500}
-.mfoot{margin-top:20px;font-family:var(--gauge);font-size:9px;color:var(--muted);text-align:center;opacity:.7}
+.mlinks span{flex:1;font-size:14.5px;font-weight:600}.mlinks span.soon{flex:none;font-size:11px}.mlinks small{display:block;color:var(--muted);font-size:12px;font-weight:500}
+.mfoot{margin-top:20px;font-family:var(--gauge);font-size:11px;color:var(--muted);text-align:center;opacity:.7}
 
 /* ---------- Sider ---------- */
 #page{position:fixed;inset:0;z-index:11;overflow:auto;background:linear-gradient(180deg,rgba(3,10,18,.6),rgba(3,10,18,.92))}
 body.s-page #page{opacity:1;pointer-events:auto}
 .pg{max-width:780px;margin:0 auto;padding:calc(max(14px,env(safe-area-inset-top)) + 64px) 18px 80px}
 .pg.narrow{max-width:640px}
-.back{font-family:var(--gauge);font-size:10px;color:var(--muted);padding:6px 0;margin-bottom:8px}
+.back{font-family:var(--gauge);font-size:11px;color:var(--muted);padding:6px 0;margin-bottom:8px}
 .back:hover{color:var(--ink)}
 .ptitle{font-family:var(--display);font-weight:700;font-size:clamp(36px,7vw,56px);line-height:1;margin:6px 0 10px;letter-spacing:.01em;text-shadow:0 4px 0 #17627e,0 8px 0 var(--line)}
 .psub{color:#c4d4da;font-size:16px;line-height:1.5;margin:0 0 24px;max-width:36em;font-weight:500}
@@ -393,7 +393,7 @@ body.s-page #page{opacity:1;pointer-events:auto}
 .pack .art{height:140px;position:relative;border-bottom:3px solid var(--line)}
 .pack .art svg{width:100%;height:100%;display:block;filter:url(#pxl)}
 .pack .body{padding:14px 16px 16px}
-.pack .tag2{font-family:var(--gauge);font-size:9px;color:var(--pc)}
+.pack .tag2{font-family:var(--gauge);font-size:11px;color:var(--pc)}
 .pack b{display:block;font-family:var(--display);font-size:21px;margin:4px 0 2px}
 .pack small{color:var(--muted);font-size:13px;font-weight:500}
 .pack .cta{display:block;margin-top:12px;font-family:var(--display);font-size:14px;color:var(--pc)}
@@ -426,15 +426,15 @@ body.s-page #page{opacity:1;pointer-events:auto}
 .buddy .bi{width:46px;height:46px;margin:0 auto 6px}
 .buddy .bi svg{width:100%;height:100%}
 .buddy b{display:block;font-family:var(--display);font-size:14px;margin-bottom:2px}
-.buddy small{color:var(--muted);font-size:8px;font-family:var(--gauge)}
+.buddy small{color:var(--muted);font-size:11px;font-family:var(--gauge)}
 .buddy.locked .bi{filter:brightness(0) invert(.25);opacity:.7}
 .buddy.on{background:#14382f;box-shadow:var(--px-edge),inset 0 0 0 2px var(--sea)}
 
 /* Arkiv */
 .cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:9px}
-.cal .dow{font-family:var(--gauge);font-size:9px;color:var(--muted);text-align:center}
+.cal .dow{font-family:var(--gauge);font-size:11px;color:var(--muted);text-align:center}
 .cal .day{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--num);font-size:14px;background:var(--plate);box-shadow:0 0 0 2px var(--line),inset 0 0 0 1px var(--faint)}
-.cal .day small{font-family:var(--body);font-size:10px;color:var(--muted);font-weight:600}
+.cal .day small{font-family:var(--body);font-size:11px;color:var(--muted);font-weight:600}
 .cal .day.done{background:#14382f;box-shadow:0 0 0 2px var(--line),inset 0 0 0 2px rgba(127,232,207,.6)}
 .cal .day.done small{color:var(--sea)}
 .cal .day.today{box-shadow:0 0 0 2px var(--line),inset 0 0 0 2px var(--signal)}
@@ -476,7 +476,7 @@ details.acc summary .qq{flex:1;font-weight:500}
 details.acc summary .qq small{display:block;font-weight:700;font-size:14.5px}
 .tierlist{margin:4px 0 0}
 .tierlist div{margin-bottom:12px}
-.tierlist .th{font-family:var(--gauge);font-size:10px;margin-bottom:8px}
+.tierlist .th{font-family:var(--gauge);font-size:11px;margin-bottom:8px}
 .tierlist .chips{justify-content:flex-start}
 .ghostcurve{position:relative}
 .ghostcurve svg{width:100%;height:auto;opacity:.35}
@@ -505,15 +505,15 @@ body.s-page #hud,body.s-summary #hud{opacity:0;pointer-events:none}
   .cta-wrap .btn{font-size:19px;padding:16px 20px}
   .cta-no{padding:0 9px}
   .modes{gap:10px}.mode{font-size:12.5px;padding:10px 2px 8px}
-  .tierrow div{font-size:9.5px}.tierrow b{font-size:11px}.tierrow svg{width:28px;height:28px}.tierrow::before{top:24px}
+  .tierrow div{font-size:11px}.tierrow b{font-size:11px}.tierrow svg{width:28px;height:28px}.tierrow::before{top:24px}
   .hbox{min-width:84px;padding:6px 9px 7px}.hbox .val{font-size:19px}
   #go{padding:13px 14px;font-size:15px}
   #inp{font-size:18px}
   .tile b{font-size:14.5px}
-  .cal{gap:5px}.cal .day{font-size:13px}.cal .day small{font-size:8.5px}.cal .dow{font-size:8px}
+  .cal{gap:5px}.cal .day{font-size:13px}.cal .day small{font-size:11px}.cal .dow{font-size:11px}
   #mute{top:calc(max(14px,env(safe-area-inset-top)) + 58px)}
   body.s-answer #mute,body.s-countdown #mute{opacity:0;pointer-events:none}
-  #qcard{top:calc(max(14px,env(safe-area-inset-top)) + 66px);padding:16px 18px 16px}
+  #qcard{top:calc(max(14px,env(safe-area-inset-top)) + 74px);padding:16px 18px 16px}
   #qcard h2{font-size:22px}
 }
 @media (max-width:380px){.modes{grid-template-columns:repeat(2,1fr)}}
@@ -850,10 +850,12 @@ QUESTIONS.push(...Q_EKSTRA2);
    PIKSELKUNST – alle figurer tegnes fra små piksel-kart.
    Hvert tegn i kartet er én piksel; «.» er gjennomsiktig. Fargene står i pal.
    ============================================================ */
-function pxSvg(map,pal,extra){ const h=map.length, w=Math.max(...map.map(r=>r.length)); let rects="";
+function pxSvg(map,pal,extra){ const h=map.length, w=Math.max(...map.map(r=>r.length)), paths={};
+  // Én <path> per farge (i stedet for én <rect> per bit) – langt færre elementer i siden
   map.forEach((row,y)=>{ let x=0; while(x<row.length){ const c=row[x]; if(c==="."||!pal[c]){ x++; continue; } let n=1; while(row[x+n]===c) n++;
-      rects+=`<rect x="${x}" y="${y}" width="${n}" height="1" fill="${pal[c]}"/>`; x+=n; } });
-  return `<svg viewBox="0 0 ${w} ${h}" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">${extra||""}${rects}</svg>`; }
+      (paths[c]=paths[c]||[]).push(`M${x} ${y}h${n}v1h-${n}z`); x+=n; } });
+  const body=Object.keys(paths).map(c=>`<path fill="${pal[c]}" d="${paths[c].join("")}"/>`).join("");
+  return `<svg viewBox="0 0 ${w} ${h}" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">${extra||""}${body}</svg>`; }
 // Tegner kartet på et lite lerret (for havscenen); skaleres opp uten utjevning
 function pxCanvas(map,pal){ const h=map.length, w=Math.max(...map.map(r=>r.length)), c=document.createElement("canvas"); c.width=w; c.height=h;
   const x=c.getContext("2d"); map.forEach((row,yy)=>{ for(let xx=0;xx<row.length;xx++){ const ch=row[xx]; if(ch!=="."&&pal[ch]){ x.fillStyle=pal[ch]; x.fillRect(xx,yy,1,1); } } }); return c; }
@@ -1096,19 +1098,17 @@ const LOGO_GLYPH={
   K:["11...11","11..11.","11.11..","11111..","1111...","11111..","11.11..","11..11.","11...11"]};
 function logoSVG(word){ word=word||"DYPDYKK"; const SP=9, GH=9, W=word.length*SP-2, WL=5, EXT=[["#2d93ad",1],["#0f4a66",2]];
   const px=[]; [...word].forEach((ch,i)=>LOGO_GLYPH[ch].forEach((row,y)=>[...row].forEach((c,x)=>{ if(c==="1") px.push([i*SP+x,y]); })));
-  const r=(x,y,f,w=1,h=1)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${f}"/>`;
-  let s=`<svg class="logo" viewBox="-1.5 -1.5 ${W+3} ${GH+2+3}" shape-rendering="crispEdges" role="img" aria-label="Dypdykk"><g>`;
-  // kontur (mørk) rundt alt, inkludert dybden
-  for(const [x,y] of px) for(let k=0;k<=2;k++) s+=r(x-.6,y-.6+k,"#03101a",2.2,2.2);
-  // dybde: bokstavene trekkes nedover i stadig mørkere blått
-  for(let k=EXT.length-1;k>=0;k--){ const [c,o]=EXT[k]; for(const [x,y] of px) s+=r(x,y+o,c); }
-  // forsiden: over vannlinja benhvit, under vannlinja sjøglass
-  for(const [x,y] of px) s+=r(x,y,y<WL?"#f6f0e1":"#9ff0dc");
-  // vannlinja: lys stripe og skygge rett under
-  s+=`</g><g class="lg-wl">`; for(const [x,y] of px) if(y===WL) s+=r(x,y,"#ffffff",1,.34);
-  s+=`</g><g class="lg-sh">`; for(const [x,y] of px) if(y===0) s+=r(x,y,"#ffffff",1,.3);
-  s+=`</g><g class="lg-bub">${r(W-1.4,-.2,"#bff6ff",.6,.6)}${r(W-2.6,1,"#bff6ff",.45,.45)}${r(9.2,0,"#bff6ff",.5,.5)}</g></svg>`;
-  return s; }
+  const R=(x,y,w=1,h=1)=>`M${x} ${y}h${w}v${h}h-${w}z`, P=(f,d,cls)=>`<path${cls?` class="${cls}"`:""} fill="${f}" d="${d}"/>`;
+  let out=""; let d="";
+  for(const [x,y] of px) for(let k=0;k<=2;k++) d+=R(x-.6,y-.6+k,2.2,2.2);          // kontur rundt alt, inkludert dybden
+  out+=P("#03101a",d);
+  for(let k=EXT.length-1;k>=0;k--){ const [c,o]=EXT[k]; out+=P(c,px.map(([x,y])=>R(x,y+o)).join("")); }   // dybde nedover
+  out+=P("#f6f0e1",px.filter(p=>p[1]<WL).map(([x,y])=>R(x,y)).join(""));             // over vannlinja
+  out+=P("#9ff0dc",px.filter(p=>p[1]>=WL).map(([x,y])=>R(x,y)).join(""));            // under vannlinja
+  out+=P("#ffffff",px.filter(p=>p[1]===WL).map(([x,y])=>R(x,y,1,.34)).join(""),"lg-wl");
+  out+=P("#ffffff",px.filter(p=>p[1]===0).map(([x,y])=>R(x,y,1,.3)).join(""),"lg-sh");
+  const b=(x,y,s)=>`<rect x="${x}" y="${y}" width="${s}" height="${s}" fill="#bff6ff"/>`;
+  return `<svg class="logo" viewBox="-1.5 -1.5 ${W+3} ${GH+2+3}" shape-rendering="crispEdges" role="img" aria-label="Dypdykk">${out}<g class="lg-bub">${b(W-1.4,-.2,.6)}${b(W-2.6,1,.45)}${b(9.2,0,.5)}</g></svg>`; }
 
 
 /* ============================================================
@@ -1323,13 +1323,19 @@ const PROPS=[
   {k:"jelly",d:1500,x:.15,s:3,glow:"#ff9de2"},{k:"jelly",d:1900,x:.82,s:4,glow:"#ff9de2"},{k:"jelly",d:2600,x:.3,s:3,glow:"#ff9de2"},
   {k:"angler",d:3800,x:.78,s:4,lure:[10,2]},{k:"angler",d:5200,x:.18,s:3,lure:[10,2]},{k:"angler",d:7400,x:.7,s:4,lure:[10,2]},
   {k:"vent",d:10600,x:.22,s:5,smoke:1},{k:"vent",d:10900,x:.75,s:6,smoke:1}];
-let lastT=performance.now(), lastCam=0;
+let lastT=performance.now(), lastCam=0, lastDiverY=-1;
+let frameN=0;
 function frame(now){
+  // Når ingenting beveger seg raskt (rolig hav, ingen bobler), tegnes havet i 30 bilder/s for å spare batteri
+  const busy=now-cam.t0<cam.dur+200||now-dy.t0<dy.dur+200||bubbles.length>0;
+  if(!busy&&(frameN++&1)){ requestAnimationFrame(frame); return; }
   const dt=Math.min(.05,(now-lastT)/1000); lastT=now;
   // tweens
   let p=clamp((now-cam.t0)/cam.dur,0,1); cam.d=cam.from+(cam.to-cam.from)*(cam.ez||ease)(p);
   p=clamp((now-dy.t0)/dy.dur,0,1); dy.v=dy.from+(dy.to-dy.from)*ease(p);
-  const diverY=H*dy.v; $("diver").style.top=diverY+"px"; document.documentElement.style.setProperty("--dy",(dy.v*100)+"%");
+  const diverY=H*dy.v;
+  // Bare skriv til DOM når verdien faktisk endrer seg – en CSS-variabel på :root hvert bilde tvinger stilberegning for hele siden
+  if(Math.abs(diverY-lastDiverY)>.25){ lastDiverY=diverY; $("diver").style.top=diverY+"px"; document.documentElement.style.setProperty("--dy",(dy.v*100).toFixed(2)+"%"); }
   const surfY=diverY+18-cam.d*PPM;                 // overflatens y på skjermen
   const dAt=y=>(y-surfY)/PPM;                       // dybde ved skjermposisjon y
   const camMove=(cam.d-lastCam)*PPM; lastCam=cam.d;
@@ -1726,8 +1732,8 @@ if(SET.cb){ ["#d9d9d9","#E69F00","#56B4E9","#CC79A7","#F0E442","#009E73"].forEac
    ============================================================ */
 const I=(p,extra="")=>`<svg class="ti" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" ${extra}>${p}</svg>`;
 // Pikselikoner (12×12) i samme stil som figurene – fargen følger teksten rundt
-const PI=rows=>{let r="";rows.forEach((row,y)=>[...row].forEach((c,x)=>{if(c!==".")r+=`<rect x="${x}" y="${y}" width="1" height="1"${c==="o"?' opacity=".45"':""}/>`;}));
-  return `<svg class="ti" viewBox="0 0 12 12" fill="currentColor" shape-rendering="crispEdges">${r}</svg>`;};
+const PI=rows=>{let d="",o="";rows.forEach((row,y)=>[...row].forEach((c,x)=>{const q=`M${x} ${y}h1v1h-1z`; if(c==="o")o+=q; else if(c!==".")d+=q;}));
+  return `<svg class="ti" viewBox="0 0 12 12" fill="currentColor" shape-rendering="crispEdges"><path d="${d}"/>${o?`<path opacity=".45" d="${o}"/>`:""}</svg>`;};
 const UI={
   menu:PI(["............","............","1111111111..","1111111111..","............","11111111....","11111111....","............","111111......","111111......","............","............"]),
   gear:PI(["....11......","..1.11.1....",".11111111...","..11..11....","1111..1111..","1111..1111..","..11..11....",".11111111...","..1.11.1....","....11......","............","............"].map(r=>(".."+r).slice(0,12))),
