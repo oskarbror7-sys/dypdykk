@@ -563,6 +563,13 @@ body.kbopen #bar{bottom:calc(8px + var(--kb,0px))} body.kbopen .skip{display:non
 @media (max-width:380px){.tierrow .tm{font-size:11px!important}}
 .tierrow b,.tierrow .tm,.kicker,#countdown,#zoneBanner small,.hbox .lbl,.skip,.hbox .zone,#bigDepth .bd-l,.cta-no,.mday-top,.mstreak,.mgo,.mhead small{font-size:12px}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important;transition-duration:.01s!important}}
+/* Smutthull: gyldige svar fra folk/ting som er kjent for noe annet */
+.smutt{display:inline-block;margin:0 0 8px;padding:3px 9px;font-size:12px;font-weight:700;color:var(--tc,#F0E442);box-shadow:0 0 0 2px currentColor;animation:smuttIn .5s .35s both}
+@keyframes smuttIn{from{opacity:0;transform:translateY(4px) scale(.96)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.smutt{animation:none}}
+.chip.odd{position:relative;padding-left:20px}
+.chip.odd::before{content:"";position:absolute;left:8px;top:50%;width:6px;height:6px;margin-top:-3px;background:currentColor}
+.smuttnote{font-size:12px;color:var(--muted);margin-top:6px}
 </style>
 </head>
 <body class="s-start">
@@ -1195,7 +1202,9 @@ function lev(a,b){ if(Math.abs(a.length-b.length)>2) return 9;
     d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+(a[i-1]===b[j-1]?0:1));
   return d[a.length][b.length]; }
 function parse(q){ if(q._p) return q._p; const out=[];
-  if(q.src){ const pre=q._data&&q._data.k; (q._data?q._data.e:[]).forEach(r=>out.push({label:r[0],tier:Math.max(0,Math.min(5,r[1]|0)),keys:pre?null:[r[0],...r.slice(2)].map(norm)})); }
+  if(q.src){ const pre=q._data&&q._data.k; (q._data?q._data.e:[]).forEach(r=>out.push({label:r[0],tier:Math.max(0,Math.min(5,r[1]|0)),keys:pre?null:[r[0],...r.slice(2)].map(norm)}));
+    if(q._data&&q._data.x) q._data.x.forEach(i=>{ if(out[i]) out[i].odd=true; });
+    if(q._data&&q._data.h) q._data.h.forEach(i=>{ if(out[i]) out[i].hide=true; }); }
   else q.a.split("|").forEach((g,ti)=>g.split(",").forEach(it=>{const n=it.split("/").map(s=>s.trim()).filter(Boolean);
     if(n.length) out.push({label:n[0],tier:Math.min(ti,5),keys:n.map(norm)});}));
   if(q.src&&!q._data) return out;
@@ -1215,6 +1224,7 @@ function buildLoose(q){ if(q._looseB||!q._map) return; q._looseB=true; const key
       if(!lm.has(l)) { lm.set(l,q._map.get(k)); let b=lb.get(l.length); if(!b) lb.set(l.length,b=[]); b.push(l); } }
     if(i<keys.length) setTimeout(step,0); else { q._loose=lm; q._looseByLen=lb; } };
   step(); }
+function isOdd(q,label){ if(!q||!q._data||!q._data.x) return false; return parse(q).some(a=>a.odd&&a.label===label); }
 function check(q,input){ const n=norm(input); if(!n) return null; parse(q); const map=q._map; if(!map) return null;
   const hit=map.get(n); if(hit) return {a:hit,exact:true};
   if(!q._looseB) buildLoose(q);
@@ -1652,15 +1662,16 @@ function showReveal(){
   const q=curQ(), r=game.results[game.i], all=parse(q);
   if(game.mode==="endless"&&r.tier<0) game.lives--;
   const last=game.mode==="endless"?game.lives<=0:game.i===game.rounds-1;
-  const common=all.filter(a=>a.tier===0).slice(0,4).map(a=>a.label);
-  const rare=shuffle(all.filter(a=>a.tier>=4&&a.label!==r.label),Math.random).slice(0,5);
+  const common=all.filter(a=>a.tier===0&&!a.hide).slice(0,4).map(a=>a.label);
+  const odd=shuffle(all.filter(a=>a.odd&&a.label!==r.label),Math.random).slice(0,2);
+  const rare=odd.concat(shuffle(all.filter(a=>a.tier>=4&&!a.odd&&!a.hide&&a.label!==r.label),Math.random).slice(0,5-odd.length));
   let top;
   if(r.tier>=0){ const t=TIERS[r.tier];
     top=`<div style="--tc:${t.color}">
       <div class="ricon"><div class="glow"></div><div class="burst"></div><div class="burst b2"></div>${ICONS[r.tier]}</div>
       <div class="tname${t.name.length>12?" long":""}">${t.name.toUpperCase()}</div>
       <div class="rword">${t.desc} svar</div>
-      <div class="rquote">${esc(r.label)}</div>
+      <div class="rquote">${esc(r.label)}</div>${isOdd(q,r.label)?`<div class="smutt">Smutthull – riktig, men langt fra det de fleste tenker på</div>`:""}
       <div class="rmeta">+${t.pts} p <span>· sank ${fmt(t.m)} m</span></div>
       <div class="rbar">${TIERS.map((x,k)=>`<i style="${k<=r.tier?`background:${t.color};box-shadow:0 0 10px ${t.color};animation-delay:${k*.08}s`:""}"></i>`).join("")}</div>
       <div class="rscale"><span>Vanlig</span><span>Sjeldent</span></div>
@@ -1675,7 +1686,7 @@ function showReveal(){
   }
   $("reveal").innerHTML=top+`
     <div class="sect">Vanligste svar</div><div class="chips">${common.map(c=>`<span class="chip">${esc(c)}</span>`).join("")}</div>
-    <div class="sect">Sjeldne svar du kunne gitt</div><div class="chips">${rare.map(a=>`<span class="chip" style="border-color:${TIERS[a.tier].color}66;color:${TIERS[a.tier].color}">${esc(a.label)}</span>`).join("")}</div>
+    <div class="sect">Sjeldne svar du kunne gitt</div><div class="chips">${rare.map(a=>`<span class="chip${a.odd?" odd":""}" style="border-color:${TIERS[a.tier].color}66;color:${TIERS[a.tier].color}"${a.odd?` title="Smutthull: riktig, men ikke opplagt"`:""}>${esc(a.label)}</span>`).join("")}</div>${odd.length?`<div class="smuttnote">Prikk = smutthull: riktig, men langt fra det man først tenker på</div>`:""}
     <div class="rfoot"><button class="btn btn-primary" id="next">${last?"Fullfør dykket":"Dykk videre <span class='arrow'>▼</span>"}</button></div>`;
   const rv=$("reveal"); rv.className="glass fade t"+(r.tier>=0?r.tier:"x");
   if(r.tier>=3&&!matchMedia("(prefers-reduced-motion:reduce)").matches){ const ic=rv.querySelector(".ricon"); const n=r.tier===5?18:r.tier===4?12:7;
@@ -2068,9 +2079,9 @@ function summaryExtras(){
     return `<details class="acc"><summary><span class="ci">${r.tier>=0?ICONS[r.tier]:`<span class="miss" style="display:block;width:28px;height:28px;border-radius:50%;border:1.5px dashed rgba(255,122,107,.6)"></span>`}</span>
       <span class="qq">${i+1}. ${esc(r.q)}<small style="color:${r.tier>=0?TIERS[r.tier].color:"#ff7a6b"}">${r.label?esc(r.label)+" · "+TIERS[r.tier].name:(r.reason==="pass"?"Hoppet over":"Tiden gikk ut")} · +${r.pts} p</small></span></summary>
       <div class="ab"><p style="margin:0 0 10px;color:var(--muted);font-size:12.5px">Godkjente svar (${fmt(all.length)}), fra sjeldnest til vanligst.${q&&q.attr?" "+esc(q.attr)+".":""} Andel spillere per svar ${soonInline}</p>
-      <div class="tierlist">${[5,4,3,2,1,0].map(t=>{const as=all.filter(a=>a.tier===t); if(!as.length) return "";
+      <div class="tierlist">${[5,4,3,2,1,0].map(t=>{const as=all.filter(a=>a.tier===t&&(!a.hide||a.label===r.label)).sort((a,b)=>(b.odd?1:0)-(a.odd?1:0)); if(!as.length) return "";
         return `<div><div class="th" style="color:${TIERS[t].color}"><b style="font-family:var(--head);font-size:16px;letter-spacing:.04em">${TIERS[t].name}</b> <span style="opacity:.7">· ${TIERS[t].desc} · ${TIERS[t].pts} p</span></div><div class="chips">${(()=>{const me=as.find(a=>a.label===r.label), lim=40, shown=as.slice(0,lim); if(me&&!shown.includes(me)) shown.push(me);
-          return shown.map(a=>`<span class="chip${a===me?" me":""}" style="${a===me?`color:${TIERS[t].color}`:""}">${esc(a.label)}</span>`).join("")+(as.length>shown.length?`<span class="chip" style="opacity:.6">+ ${fmt(as.length-shown.length)} flere</span>`:"");})()}</div></div>`;}).join("")}</div></div></details>`;}).join("");
+          return shown.map(a=>`<span class="chip${a===me?" me":""}${a.odd?" odd":""}" style="${a===me?`color:${TIERS[t].color}`:""}"${a.odd?` title="Smutthull: riktig, men ikke opplagt"`:""}>${esc(a.label)}</span>`).join("")+(as.length>shown.length?`<span class="chip" style="opacity:.6">+ ${fmt(as.length-shown.length)} flere</span>`:"");})()}</div></div>`;}).join("")}</div></div></details>`;}).join("");
   const rated=store.get("dypdykk-rating-"+(game.daily?game.date:"x"));
   return `
     <div class="panel glass"><h3>Fangsten</h3><p class="psub" style="font-size:12.5px;margin:-4px 0 6px">Trykk på et spørsmål for å se alle godkjente svar.</p>${catchHTML}</div>
