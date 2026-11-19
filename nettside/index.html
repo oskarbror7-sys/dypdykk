@@ -3010,6 +3010,75 @@ netClientData=function(d){ if(d&&d.t==="bb"){ bbMe=NET.myId; if(!$("bbArena")){ 
   if(d&&d.t==="lobby"){ _netClientData(d); const v=$("netLobby"); if(v&&d.set){ const ps=v.querySelector(".psub:last-child"); if(ps) ps.textContent=`${d.set.lives} liv · minste tur ${d.set.minTurn} s · hjertetak ${d.set.cap} · ${d.set.pph} poeng per hjerte`; } return; }
   return _netClientData(d); };
 
+/* ---------- Boblebomben: chat for alle i samme lobby ----------
+   Gjestene sender meldingen til verten, som setter på riktig navn og sender den videre til alle.
+   Ingenting lagres: chatten finnes bare så lenge lobbyen er åpen. */
+const CHAT={log:[],open:false,unread:0,last:new Map()};
+(function(){ const css=document.createElement("style"); css.textContent=`
+#chatBtn{position:fixed;right:16px;bottom:16px;z-index:60;display:none;align-items:center;gap:8px;padding:11px 15px;border:0;cursor:pointer;
+  font:700 15px var(--body);color:var(--abyss);background:var(--sea);box-shadow:var(--px-edge),0 6px 0 rgba(1,7,12,.5)}
+#chatBtn:focus-visible,#chatBox button:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+#chatBtn .n{min-width:20px;padding:1px 6px;background:var(--signal);color:#fff;font-size:12px;line-height:18px;text-align:center}
+#chatPeek{position:fixed;right:16px;bottom:70px;z-index:60;max-width:min(300px,80vw);padding:8px 12px;background:var(--plate);color:var(--ink);
+  box-shadow:var(--px-edge),0 6px 0 rgba(1,7,12,.5);font:500 14px var(--body);display:none;cursor:pointer}
+#chatPeek b{color:var(--sea)}
+#chatBox{position:fixed;right:16px;bottom:16px;z-index:61;width:min(340px,calc(100vw - 32px));height:min(420px,60vh)}
+@media (max-width:700px){#chatBox{height:min(360px,46vh)};display:none;flex-direction:column;
+  background:var(--plate);box-shadow:var(--px-edge),inset 0 0 0 3px var(--plate),inset 0 0 0 4px var(--faint),0 9px 0 rgba(1,7,12,.5)}
+#chatBox header{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 8px 14px;font:700 15px var(--body);color:var(--bone)}
+#chatBox header button{border:0;background:none;color:var(--muted);font:700 20px var(--body);cursor:pointer;padding:2px 8px}
+#chatLog{flex:1;overflow-y:auto;padding:4px 14px 8px;font:500 14px/1.4 var(--body);overflow-wrap:anywhere}
+#chatLog p{margin:0 0 6px}#chatLog b{color:var(--sea)}#chatLog .me b{color:var(--brass)}#chatLog .sys{color:var(--muted);font-size:13px}
+#chatLog .tom{color:var(--muted);font-size:13px}
+#chatForm{display:flex;gap:6px;padding:8px 10px 10px}
+#chatInp{flex:1;min-width:0;padding:9px 10px;border:0;background:var(--abyss);color:var(--ink);font:500 15px var(--body);box-shadow:inset 0 0 0 1px var(--faint)}
+#chatForm button{border:0;padding:0 12px;background:var(--sea);color:var(--abyss);font:700 14px var(--body);cursor:pointer}
+@media (prefers-reduced-motion:no-preference){#chatPeek{animation:chatIn .18s ease-out}@keyframes chatIn{from{transform:translateY(6px);opacity:0}}}`;
+  document.head.appendChild(css);
+  document.body.insertAdjacentHTML("beforeend",`<button id="chatBtn" type="button" aria-label="Åpne chatten">Chat<span class="n" id="chatN" style="display:none"></span></button>
+<div id="chatPeek" role="status" aria-live="polite"></div>
+<section id="chatBox" aria-label="Chat i lobbyen"><header>Chat i lobbyen<button type="button" id="chatX" aria-label="Lukk chatten">×</button></header>
+<div id="chatLog"></div><form id="chatForm" autocomplete="off"><input id="chatInp" maxlength="200" placeholder="Skriv til de andre …" autocapitalize="sentences" enterkeyhint="send" aria-label="Chatmelding"><button type="submit">Send</button></form></section>`);
+  $("chatBtn").onclick=()=>chatOpen(true); $("chatPeek").onclick=()=>chatOpen(true); $("chatX").onclick=()=>chatOpen(false);
+  $("chatInp").addEventListener("keydown",e=>{ if(e.key==="Escape") chatOpen(false); e.stopPropagation(); });
+  $("chatForm").onsubmit=e=>{ e.preventDefault(); const i=$("chatInp"), m=i.value.trim().slice(0,200); if(!m) return; i.value=""; chatSend(m); };
+  setInterval(chatShow,700); })();
+
+function chatActive(){ return !!(NET.peer&&(NET.host?NET.code:(NET.hostConn&&NET.hostConn.open))); }
+function chatShow(){ const on=chatActive();
+  if(!on&&CHAT.log.length){ CHAT.log=[]; CHAT.unread=0; CHAT.last.clear(); chatRender(); }
+  $("chatBtn").style.display=on&&!CHAT.open?"flex":"none"; $("chatBox").style.display=on&&CHAT.open?"flex":"none";
+  if(!on){ CHAT.open=false; $("chatPeek").style.display="none"; }
+  // På mobil dekker chatten spillet: lukk den når det blir din tur
+  const t=typeof bbLast!=="undefined"&&bbLast, cur=t&&t.phase==="play"&&t.players[t.turn];
+  if(on&&CHAT.open&&innerWidth<700&&cur&&cur.id===bbMe&&!CHAT._myTurn){ CHAT.open=false; chatShow(); chatRender(); }
+  CHAT._myTurn=!!(cur&&cur.id===bbMe); }
+function chatOpen(o){ CHAT.open=o; if(o){ CHAT.unread=0; $("chatPeek").style.display="none"; } chatShow(); chatRender();
+  if(o) setTimeout(()=>{ $("chatInp").focus(); const l=$("chatLog"); l.scrollTop=l.scrollHeight; },20); else $("chatBtn").focus(); }
+function chatMyName(){ return NET.host?(NET.lobby[0]&&NET.lobby[0].n)||"Verten":NET.me; }
+function chatSend(m){ if(!chatActive()) return;
+  if(NET.host){ chatHostPost(chatMyName(),m,"host"); }
+  else NET.hostConn.send({t:"chat",m}); }
+// Verten: sjekker lengde og tempo, setter navnet fra lobbyen og sender til alle
+function chatHostPost(n,m,from){ const now=Date.now(), prev=CHAT.last.get(from)||0; if(now-prev<600) return; CHAT.last.set(from,now);
+  const msg={t:"chat",n:String(n).slice(0,16),m:String(m).replace(/\s+/g," ").trim().slice(0,200),from}; if(!msg.m) return;
+  NET.all(msg); chatAdd(msg); }
+function chatAdd(d){ CHAT.log.push(d); if(CHAT.log.length>60) CHAT.log.shift();
+  const mine=NET.host?d.from==="host":d.from===NET.myId;
+  if(!CHAT.open&&!mine&&!d.sys){ CHAT.unread++; const p=$("chatPeek"); p.innerHTML=`<b>${esc(d.n)}:</b> ${esc(d.m)}`; p.style.display="block";
+    clearTimeout(p._h); p._h=setTimeout(()=>p.style.display="none",4500); SFX.bubble&&SFX.bubble(); }
+  chatRender(); }
+function chatRender(){ const n=$("chatN"); n.textContent=CHAT.unread>9?"9+":CHAT.unread; n.style.display=CHAT.unread?"":"none";
+  $("chatBtn").setAttribute("aria-label",CHAT.unread?`Åpne chatten, ${CHAT.unread} nye meldinger`:"Åpne chatten");
+  const l=$("chatLog"); if(!l) return; const atEnd=l.scrollHeight-l.scrollTop-l.clientHeight<40;
+  l.innerHTML=CHAT.log.length?CHAT.log.map(d=>d.sys?`<p class="sys">${esc(d.m)}</p>`:`<p class="${(NET.host?d.from==="host":d.from===NET.myId)?"me":""}"><b>${esc(d.n)}:</b> ${esc(d.m)}</p>`).join("")
+    :'<p class="tom">Ingen meldinger ennå. Si hei!</p>';
+  if(atEnd) l.scrollTop=l.scrollHeight; }
+
+// Kobler chatten inn i meldingene mellom vert og gjester
+{ const hd=netHostData; netHostData=function(id,d){ if(d&&d.t==="chat"){ const p=NET.lobby.find(x=>x.id===id); if(p) chatHostPost(p.n,d.m,id); return; } return hd(id,d); };
+  const cd=netClientData; netClientData=function(d){ if(d&&d.t==="chat"){ chatAdd({n:String(d.n||"?").slice(0,16),m:String(d.m||"").slice(0,200),from:d.from}); return; } return cd(d); }; }
+
 startScreen(); route();
 </script>
 </body>
