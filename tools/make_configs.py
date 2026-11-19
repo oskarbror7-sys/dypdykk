@@ -170,7 +170,8 @@ KATALOG = [
      "?item wdt:P31/wdt:P279? wd:Q4830453 ; wdt:P571 ?d . FILTER(YEAR(?d) < 2000)", 15, "l", NB, rank(10000),
      ["Apple", "IKEA", "Coca-Cola", "Telenor"], ["Facebook", "Spotify"], 1000),
     ("merkevarer", "Nevn et merke (brand)", "Samfunn", False,
-     "?item wdt:P31/wdt:P279* wd:Q431289 .", 5, "l", NB, rank(8000),
+     # Merker (brand) + motehus, butikk- og restaurantkjeder, og alt som står oppført som merket til et produkt (P1716)
+     "{ ?item wdt:P31/wdt:P279* wd:Q431289 . } UNION { VALUES ?mt { wd:Q1941779 wd:Q137183855 wd:Q3661311 wd:Q1618899 wd:Q18534 wd:Q1751429 wd:Q507619 wd:Q2004751 } ?item wdt:P31 ?mt . } UNION { [] wdt:P1716 ?item . VALUES ?ct { wd:Q4830453 wd:Q783794 wd:Q891723 wd:Q6881511 wd:Q43229 wd:Q167037 wd:Q786820 wd:Q1589009 } ?item wdt:P31 ?ct . }", 5, "l", NB, rank(8000),
      ["Coca-Cola", "Nike", "Freia", "Adidas"], ["Norge", "Lionel Messi"], 500),
     ("norske-politikere", "Nevn en norsk politiker", "Samfunn", True,
      "?item p:P106/ps:P106 wd:Q82955 ; wdt:P27 wd:Q20 .", 0, "l", NB, rank(10000),
@@ -630,7 +631,8 @@ EXTRA.update({
     "komponister": _nor("?item p:P106/ps:P106 wd:Q36834 ; wdt:P27 wd:Q20 ; wdt:P31 wd:Q5 ."),
     "regissorer": _nor("?item p:P106/ps:P106 wd:Q2526255 ; wdt:P27 wd:Q20 ; wdt:P31 wd:Q5 ."),
     "band": _nor("VALUES ?t { wd:Q215380 wd:Q5741069 wd:Q9212979 } ?item wdt:P31 ?t ; wdt:P495 wd:Q20 ."),
-    "sanger": _nor("?item wdt:P31 wd:Q7366 ; wdt:P495 wd:Q20 ."),
+    # Norske sanger: sang/singel (også «musikkverk» med form sang) fra Norge, av norsk artist/band eller på norsk
+    "sanger": _nor("VALUES ?t { wd:Q7366 wd:Q134556 } ?item wdt:P31|wdt:P7937 ?t . { ?item wdt:P495 wd:Q20 } UNION { ?item wdt:P175 ?p . ?p wdt:P27 wd:Q20 } UNION { ?item wdt:P175 ?p . ?p wdt:P495 wd:Q20 } UNION { ?item wdt:P407 wd:Q25167 } UNION { ?item wdt:P407 wd:Q9043 } UNION { ?item wdt:P407 wd:Q25164 }"),
     "tv-serier": _nor("?item wdt:P31 wd:Q5398426 ; wdt:P495 wd:Q20 ."),
     "filmer": _nor("?item wdt:P31 wd:Q11424 ; wdt:P495 wd:Q20 ."),
     "boker": _nor("?item wdt:P31 wd:Q7725634 ; wdt:P495 wd:Q20 ."),
