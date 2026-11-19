@@ -662,7 +662,9 @@ def make():
             "question": q, "category": cat, "norsk": norsk, "status": "godkjent",
             "modes": ["daily", "endless", "packs", "party"], "attribution": WD,
             "source": {"type": "wikidata", "where": where_full, "bands": bands(size), "min_sitelinks": minsl,
-                       "label_langs": langs, "alias_langs": ["nb", "nn", "mul", "en"]},
+                       "label_langs": langs, "alias_langs": ["nb", "nn", "mul", "en"],
+                       # Svenske, danske og tyske navn godtas også (bare som alternative navn, aldri som visningsnavn)
+                       "extra_alias_langs": ["sv", "da", "de"]},
             "rarity": {"weights": {"sitelinks": 1.0}, "cuts": cuts},
             "validate": {"min_count": minc, "max_shrink": 0.10, "must_include": inn, "must_exclude": ut},
         }

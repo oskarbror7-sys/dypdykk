@@ -29,7 +29,8 @@ def _langs(langs):
 
 def _query(cfg, lo, hi, kind, qr=None):
     pred = "rdfs:label" if kind == "label" else "skos:altLabel"
-    langs = cfg["label_langs"] if kind == "label" else cfg["alias_langs"]
+    langs = cfg["label_langs"] + cfg.get("extra_alias_langs", []) if kind == "label" \
+        else cfg["alias_langs"] + cfg.get("extra_alias_langs", [])
     qfilter = ""
     if qr:
         qfilter = (f'BIND(xsd:integer(STRAFTER(STR(?item), "/entity/Q")) AS ?qn) '
