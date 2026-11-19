@@ -24,5 +24,26 @@
    "tier": 2
   }
  ],
- "min_count_after_cleanup": 6000
+ "min_count_after_cleanup": 6000,
+ "remove_labels": [
+  "Carmina Burana",
+  "Messias",
+  "Mozarts rekviem",
+  "Måneskinnssonaten",
+  "Solsangen",
+  "Svanesjøen",
+  "Symfoni nr. 5",
+  "Symfoni nr. 9",
+  "Til Elise",
+  "Turandot",
+  "Vårofferet"
+ ],
+ "skjul_forslag": [
+  "Erika",
+  "Horst-Wessel-Lied"
+ ],
+ "tier_labels": {
+  "Horst-Wessel-Lied": 5,
+  "Erika": 5
+ }
 }
