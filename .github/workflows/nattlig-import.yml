@@ -41,11 +41,20 @@ jobs:
         if: always()
         run: bash tools/push_site.sh
         env: {GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"}
+      - name: Hent avviste svar (anonym telling)
+        if: always()
+        continue-on-error: true
+        run: |
+          mkdir -p review
+          curl -sf -m 60 "https://dypdykk.net/api/avvist-sammendrag?dager=31" -o review/avviste.json.tmp \
+            && python3 -c "import json;json.load(open('review/avviste.json.tmp'))" \
+            && mv review/avviste.json.tmp review/avviste.json || echo "Kunne ikke hente avviste svar"
       - name: Lagre fremdrift
         if: always()
         run: |
           git config user.name "dypdykk-bot"; git config user.email "bot@dypdykk.invalid"
           git add state overrides
+          git add -f review/avviste.json 2>/dev/null || true
           git commit -m "Fremdrift etter dataimport $(date +%F)" || echo "Ingen endringer"
           git push || true
       - name: Lagre hurtigbuffer
