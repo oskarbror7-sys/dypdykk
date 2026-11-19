@@ -46,7 +46,7 @@ jobs:
         continue-on-error: true
         run: |
           mkdir -p review
-          curl -sf -m 60 "https://dypdykk.net/api/avvist-sammendrag?dager=31" -o review/avviste.json.tmp \
+          curl -sf -m 60 "https://dypdykk.net/api/avvist?dager=31" -o review/avviste.json.tmp \
             && python3 -c "import json;json.load(open('review/avviste.json.tmp'))" \
             && mv review/avviste.json.tmp review/avviste.json || echo "Kunne ikke hente avviste svar"
       - name: Lagre fremdrift
