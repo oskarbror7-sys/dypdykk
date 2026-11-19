@@ -23,5 +23,6 @@
    "aliases": [],
    "tier": 2
   }
- ]
+ ],
+ "min_count_after_cleanup": 6000
 }
