@@ -56,7 +56,12 @@ jobs:
           git add state overrides
           git add -f review/avviste.json 2>/dev/null || true
           git commit -m "Fremdrift etter dataimport $(date +%F)" || echo "Ingen endringer"
-          git push || true
+          # Hvis noen har pushet til main mens importen kjørte: hent det inn og prøv igjen
+          for i in 1 2 3; do
+            git push && break
+            git pull --rebase || { git rebase --abort; git pull --no-rebase -X ours --no-edit || true; }
+            sleep 3
+          done
       - name: Lagre hurtigbuffer
         if: always()
         uses: actions/cache/save@v4
