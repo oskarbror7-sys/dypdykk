@@ -1253,7 +1253,13 @@ function check(q,input){ const n=norm(input); if(!n) return null; parse(q); cons
   const r2=scan(n,q._byLen,k=>map.get(k)); if(r2&&(!r||r2.d<r.d)) r=r2;
   return r?{a:r.a,exact:false,d:r.d,f:r.f}:null; }
 // Godtas uten «Mente du …?»: ett tegn feil (fra 4 bokstaver) eller to tegn feil i lange svar (fra 9 bokstaver)
-function autoOK(r,v){ const L=norm(v).length; return r&&!r.exact&&r.f!==false&&(r.d<=1&&L>=4||r.d<=2&&L>=9); }   // første bokstav må stemme for å godta uten å spørre
+// Korte svar som bare ligner et sjeldent svar («Barca» → «CD Barco») godtas ikke automatisk: da spør vi heller «Mente du …?»
+function autoOK(r,v){ const L=norm(v).length; return r&&!r.exact&&r.f!==false&&(r.d<=1&&L>=4||r.d<=2&&L>=9)&&!(L<8&&r.a.tier>=3); }
+// Avviste svar sendes anonymt (spørsmål + tekst, ingen bruker) så manglende svar og stavemåter kan legges til
+const _rejSent=new Set();
+function logRejected(q,v){ try{ v=String(v||"").trim(); if(!q||v.length<2||v.length>40||/^(localhost|127\.)/.test(location.hostname)||location.protocol==="file:") return;
+  const k=q.id+"|"+norm(v); if(_rejSent.has(k)) return; _rejSent.add(k);
+  fetch("/api/avvist",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({q:q.id,a:v}),keepalive:true}).catch(()=>{}); }catch(e){} }   // første bokstav må stemme for å godta uten å spørre
 /* Datasett fra innsamlingssystemet (data/index.json). Lastes først når spørsmålet trengs. */
 const EMB_SRC={bil:"bilmerker",programmering:"programmeringssprak",sjanger:"musikksjangere",ost:"oster-verden",grunnstoff:"grunnstoffer",
   usa:"delstater-usa",fylke:"fylker",afrika:"land-afrika",asia:"land-asia",europa:"land-europa",soramerika:"land-sor-amerika",
@@ -1644,7 +1650,7 @@ $("bar").onsubmit=e=>{ e.preventDefault(); if(answered) return;
   const shake=()=>{row.classList.remove("err");void row.offsetWidth;row.classList.add("err");};
   if(!v){shake();return;}
   const r=check(curQ(),v);
-  if(!r){ tried.push(v); pending=null; shake(); SFX.wrong(); if(SET.clear) inp.value=""; else inp.select();
+  if(!r){ tried.push(v); logRejected(curQ(),v); pending=null; shake(); SFX.wrong(); if(SET.clear) inp.value=""; else inp.select();
     renderMsg(`<div class="pill bad">«${esc(v)}» ble ikke godkjent – prøv igjen!</div>`); return; }
   // Én bokstav feil i et langt svar godtas direkte; ellers spør vi «mente du …?» og Enter én gang til bekrefter
   if(!r.exact && SET.corr && pending!==norm(v) && !autoOK(r,v)){ pending=norm(v);

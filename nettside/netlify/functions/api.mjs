@@ -71,6 +71,28 @@ export default async (req) => {
     try { body = JSON.parse(txt || "{}"); } catch { return json(400, { error: "Ugyldig forespørsel" }); }
   }
 
+  // Avviste svar (anonymt): bare spørsmåls-id, svarteksten og en teller per dag. Ingen bruker, IP eller tidspunkt lagres.
+  // Brukes til å finne riktige svar og stavemåter som mangler.
+  if (path === "avvist" && req.method === "POST") {
+    const q = String(body.q || ""), a = String(body.a || "").replace(/[\u0000-\u001f<>]/g, "").trim().toLowerCase().slice(0, 40);
+    if (!/^[a-z0-9-]{1,40}$/.test(q) || a.length < 2) return json(400, { error: "Ugyldig" });
+    const key = "avvist/" + new Date().toISOString().slice(0, 10);
+    const d = (await s.get(key, { type: "json" })) || { n: 0, q: {} };
+    const m = d.q[q] || (d.q[q] = {});
+    if (m[a] || d.n < 20000) { if (!m[a]) d.n++; m[a] = (m[a] || 0) + 1; await s.setJSON(key, d); }
+    if (d.n === 1) await s.delete("avvist/" + new Date(Date.now() - 91 * 864e5).toISOString().slice(0, 10));   // tellinger eldre enn 90 dager slettes
+    return json(200, { ok: true });
+  }
+  if (path === "avvist-sammendrag" && req.method === "GET") {
+    const days = Math.min(31, Math.max(1, +new URL(req.url).searchParams.get("dager") || 7)), out = {};
+    for (let i = 0; i < days; i++) {
+      const key = "avvist/" + new Date(Date.now() - i * 864e5).toISOString().slice(0, 10);
+      const d = await s.get(key, { type: "json" }); if (!d) continue;
+      for (const [q, m] of Object.entries(d.q)) { const o = out[q] || (out[q] = {}); for (const [a, c] of Object.entries(m)) o[a] = (o[a] || 0) + c; }
+    }
+    return json(200, { dager: days, avvist: out });
+  }
+
   if (path === "register" && req.method === "POST") {
     const name = String(body.user || "").trim(), u = norm(name), pw = String(body.pass || "");
     if (!USER_RE.test(name)) return json(400, { error: "Brukernavnet må ha 3–20 tegn: bokstaver, tall, punktum, bindestrek eller understrek." });
