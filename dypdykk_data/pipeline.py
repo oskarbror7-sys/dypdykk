@@ -227,6 +227,29 @@ def _derive(entities, cfg):
                 e.setdefault("derived", []).append(last)
 
 
+_V_PRE = re.compile(r"^(the|slaget|kampen|beleiringen)\s+((ved|om|i|på|av|of|at)\s+)?", re.I)
+_V_GEO = re.compile(r"^(mount|mt\.?|lake|monte|mont)\s+", re.I)
+_V_SUF = re.compile(r"\s+(nasjonalpark|national park|stasjon|jernbanestasjon|station|lufthavn|airport|stadion|stadium|arena|festning|fortress)$", re.I)
+
+
+def _derive_variants(entities):
+    """Vanlige kortformer for alle kategorier: «The Beatles» -> «Beatles», «Slaget ved Waterloo» -> «Waterloo»,
+    «Lerkendal stadion» -> «Lerkendal», «Mount Everest» -> «Everest», «Simon & Garfunkel» -> «Simon og Garfunkel».
+    Legges inn som avledede navn: de gjelder bare når de ikke krasjer med et annet svar."""
+    for e in entities:
+        out = []
+        for n in [e["label"]] + list(e.get("aliases", [])):
+            for v in (_V_PRE.sub("", n), _V_GEO.sub("", n), _V_SUF.sub("", n)):
+                v = v.strip()
+                if v and v != n and len(norm(v)) >= 3:
+                    out.append(v)
+            if " & " in n:
+                out += [n.replace(" & ", " og "), n.replace(" & ", " and ")]
+        if out:
+            have = {norm(x) for x in [e["label"]] + list(e.get("aliases", []))}
+            e.setdefault("derived", []).extend(x for x in dict.fromkeys(out) if norm(x) not in have)
+
+
 def build(qid, offline=False, refresh=False, quiet=False):
     cfg = load_json(p("config", "questions", qid + ".json"))
     if not cfg:
@@ -295,6 +318,7 @@ def build(qid, offline=False, refresh=False, quiet=False):
     rcfg = {**rarity.DEFAULT, **cfg.get(rkey, {})}
     rarity.score(entities, rcfg)
     _derive(entities, cfg)
+    _derive_variants(entities)
 
     # 3) Bygg nøkkel -> kandidater og løs kollisjoner
     keymap = {}
