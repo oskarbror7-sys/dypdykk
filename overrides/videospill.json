@@ -3,5 +3,139 @@
   "Dataspelet Portal": "Portal",
   "Dataspelet The Legend of Zelda": "The Legend of Zelda",
   "2005 God of War": "God of War"
- }
+ },
+ "alias_labels": {
+  "Grand Theft Auto V": [
+   "GTA V",
+   "GTA 5",
+   "GTA5",
+   "GTA"
+  ],
+  "Grand Theft Auto VI": [
+   "GTA VI",
+   "GTA 6",
+   "GTA6"
+  ],
+  "Grand Theft Auto: San Andreas": [
+   "GTA San Andreas",
+   "San Andreas",
+   "GTA SA"
+  ],
+  "Grand Theft Auto IV": [
+   "GTA IV",
+   "GTA 4"
+  ],
+  "Grand Theft Auto: Vice City": [
+   "GTA Vice City",
+   "Vice City"
+  ],
+  "Grand Theft Auto III": [
+   "GTA III",
+   "GTA 3"
+  ],
+  "The Elder Scrolls V: Skyrim": [
+   "Skyrim"
+  ],
+  "Red Dead Redemption 2": [
+   "RDR2",
+   "Red Dead 2"
+  ],
+  "Red Dead Redemption": [
+   "RDR",
+   "Red Dead"
+  ],
+  "World of Warcraft": [
+   "WoW",
+   "Warcraft"
+  ],
+  "Call of Duty 4: Modern Warfare": [
+   "CoD 4",
+   "Modern Warfare"
+  ],
+  "Call of Duty": [
+   "CoD",
+   "COD"
+  ],
+  "Counter-Strike": [
+   "CS",
+   "Counter Strike",
+   "CS:GO",
+   "CS2",
+   "Counter-Strike 2"
+  ],
+  "League of Legends": [
+   "LoL",
+   "League"
+  ],
+  "The Legend of Zelda: Breath of the Wild": [
+   "Breath of the Wild",
+   "BotW",
+   "Zelda BotW"
+  ],
+  "The Legend of Zelda: Ocarina of Time": [
+   "Ocarina of Time",
+   "OoT"
+  ],
+  "The Witcher 3: Wild Hunt": [
+   "Witcher 3",
+   "The Witcher 3",
+   "Witcher"
+  ],
+  "Super Mario Bros.": [
+   "Super Mario",
+   "Mario",
+   "Super Mario Bros"
+  ],
+  "PUBG: Battlegrounds": [
+   "PUBG",
+   "PlayerUnknown's Battlegrounds"
+  ],
+  "Baldur’s Gate 3": [
+   "Baldur's Gate 3",
+   "BG3"
+  ],
+  "Fortnite": [
+   "Fortnite Battle Royale"
+  ],
+  "Minecraft": [
+   "MC"
+  ],
+  "Rocket League": [
+   "RL"
+  ],
+  "Apex Legends": [
+   "Apex"
+  ],
+  "The Last of Us": [
+   "TLOU"
+  ],
+  "Valorant": [
+   "Valo"
+  ],
+  "Genshin Impact": [
+   "Genshin"
+  ],
+  "Among Us": [
+   "Amogus"
+  ],
+  "Mario Kart 8": [
+   "Mario Kart"
+  ],
+  "Super Smash Bros.": [
+   "Smash",
+   "Smash Bros"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:fifa",
+   "label": "FIFA",
+   "aliases": [
+    "EA Sports FC",
+    "EA FC",
+    "Fifa"
+   ],
+   "tier": 0
+  }
+ ]
 }

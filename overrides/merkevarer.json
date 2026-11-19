@@ -125,11 +125,82 @@
     "Rema"
    ],
    "tier": 2
+  },
+  {
+   "id": "manuell:kfc",
+   "label": "KFC",
+   "aliases": [
+    "Kentucky Fried Chicken"
+   ],
+   "tier": 1
   }
  ],
  "_note": "Disse står som selskaper, ikke merkevarer, i Wikidata",
  "remove_labels": [
   "Platemerke",
   "Stiftemaskin"
- ]
+ ],
+ "alias_labels": {
+  "McDonald’s": [
+   "McDonald's",
+   "Mekken",
+   "McD"
+  ],
+  "Hennes & Mauritz": [
+   "H&M",
+   "HM",
+   "H og M"
+  ],
+  "Coca-Cola": [
+   "Cola",
+   "Coca Cola",
+   "Coke"
+  ],
+  "KFC": [
+   "Kentucky Fried Chicken"
+  ],
+  "Rubiks kube": [
+   "Rubik's Cube",
+   "Rubiks"
+  ],
+  "Red Bull": [
+   "Redbull"
+  ],
+  "Volvo Personvagnar": [
+   "Volvo"
+  ],
+  "Toyota Motor Corporation": [
+   "Toyota"
+  ],
+  "Hyundai Motor Company": [
+   "Hyundai"
+  ],
+  "Apple Macintosh": [
+   "Macintosh",
+   "Mac"
+  ],
+  "Mercedes-Benz": [
+   "Mercedes",
+   "Merc"
+  ],
+  "Burger King": [
+   "BK"
+  ],
+  "7-Eleven": [
+   "Seven Eleven",
+   "7-11",
+   "Sjuern"
+  ],
+  "Louis Vuitton": [
+   "LV"
+  ],
+  "Victoria's Secret": [
+   "Victoria’s Secret"
+  ],
+  "Levi Strauss & Co.": [
+   "Levis",
+   "Levi's",
+   "Levi’s"
+  ]
+ }
 }

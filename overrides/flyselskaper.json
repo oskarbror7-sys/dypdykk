@@ -2,5 +2,76 @@
  "tier_labels": {
   "VietJet Air": 4,
   "Bamboo Airways": 4
+ },
+ "alias_labels": {
+  "Scandinavian Airlines": [
+   "SAS"
+  ],
+  "KLM Royal Dutch Airlines": [
+   "KLM"
+  ],
+  "Norwegian": [
+   "Norwegian Air Shuttle",
+   "Norwegian Air"
+  ],
+  "Delta Air Lines": [
+   "Delta"
+  ],
+  "Etihad Airways": [
+   "Etihad"
+  ],
+  "Iberia Airlines": [
+   "Iberia"
+  ],
+  "Pan American World Airways": [
+   "Pan Am",
+   "PanAm"
+  ],
+  "Swiss International Air Lines": [
+   "Swiss",
+   "Swiss Air"
+  ],
+  "Thai Airways International": [
+   "Thai Airways",
+   "Thai"
+  ],
+  "TAP Portugal": [
+   "TAP",
+   "TAP Air Portugal"
+  ],
+  "Virgin Atlantic Airways": [
+   "Virgin Atlantic"
+  ],
+  "LOT Polish Airlines": [
+   "LOT"
+  ],
+  "Vueling Airlines": [
+   "Vueling"
+  ],
+  "Wizz Air": [
+   "Wizz",
+   "Wizzair"
+  ],
+  "Turkish Airlines": [
+   "Turkish",
+   "THY"
+  ],
+  "British Airways": [
+   "BA"
+  ],
+  "American Airlines": [
+   "AA"
+  ],
+  "United Airlines": [],
+  "Qatar Airways": [
+   "Qatar"
+  ],
+  "Singapore Airlines": [
+   "SIA"
+  ],
+  "Widerøe": [
+   "Widerøes Flyveselskap",
+   "Wideroe"
+  ]
  }
 }

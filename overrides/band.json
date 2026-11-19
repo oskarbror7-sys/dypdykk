@@ -16,5 +16,143 @@
    ],
    "tier": 2
   }
- ]
+ ],
+ "alias_labels": {
+  "The Beatles": [
+   "Beatles",
+   "Beatlene"
+  ],
+  "The Rolling Stones": [
+   "Rolling Stones",
+   "Stones",
+   "The Stones"
+  ],
+  "A-ha": [
+   "Aha"
+  ],
+  "AC/DC": [
+   "ACDC",
+   "AC DC"
+  ],
+  "Guns N' Roses": [
+   "Guns N Roses",
+   "Guns and Roses",
+   "GNR"
+  ],
+  "Red Hot Chili Peppers": [
+   "RHCP",
+   "Chili Peppers"
+  ],
+  "The Prodigy": [
+   "Prodigy"
+  ],
+  "Eagles": [
+   "The Eagles"
+  ],
+  "Creedence Clearwater Revival": [
+   "CCR",
+   "Creedence"
+  ],
+  "Boney M": [
+   "Boney M."
+  ],
+  "Backstreet Boys": [
+   "BSB"
+  ],
+  "One Direction": [
+   "1D"
+  ],
+  "BTS": [
+   "Bangtan Boys",
+   "Bangtan Sonyeondan"
+  ],
+  "Blackpink": [
+   "Black Pink"
+  ],
+  "Pink Floyd": [
+   "Floyd"
+  ],
+  "Led Zeppelin": [
+   "Zeppelin"
+  ],
+  "Arctic Monkeys": [
+   "Arctic"
+  ],
+  "Simon & Garfunkel": [
+   "Simon and Garfunkel",
+   "Simon og Garfunkel"
+  ],
+  "Kaizers Orchestra": [
+   "Kaizers"
+  ],
+  "DumDum Boys": [
+   "Dum Dum Boys",
+   "DDB"
+  ],
+  "DeLillos": [
+   "De Lillos"
+  ],
+  "Wig Wam": [
+   "Wigwam"
+  ],
+  "Tears for Fears": [
+   "TFF"
+  ],
+  "The Who": [
+   "Who"
+  ],
+  "The Doors": [
+   "Doors"
+  ],
+  "The Clash": [
+   "Clash"
+  ],
+  "The Police": [
+   "Police"
+  ],
+  "The Cure": [
+   "Cure"
+  ],
+  "The Killers": [
+   "Killers"
+  ],
+  "The Smiths": [
+   "Smiths"
+  ],
+  "The Strokes": [
+   "Strokes"
+  ],
+  "The White Stripes": [
+   "White Stripes"
+  ],
+  "Gorillaz": [
+   "Gorillas"
+  ],
+  "My Chemical Romance": [
+   "MCR"
+  ],
+  "Twenty One Pilots": [
+   "21 Pilots",
+   "TOP"
+  ],
+  "System of a Down": [
+   "SOAD"
+  ],
+  "Rage Against the Machine": [
+   "RATM"
+  ],
+  "Foo Fighters": [
+   "Foo"
+  ],
+  "ZZ Top": [
+   "ZZTop"
+  ],
+  "Earth, Wind & Fire": [
+   "Earth Wind and Fire",
+   "EWF"
+  ],
+  "Turboneger": [
+   "Turbonegro"
+  ]
+ }
 }

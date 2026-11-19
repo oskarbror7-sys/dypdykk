@@ -2,7 +2,42 @@
  "alias_labels": {
   "Lightning McQueen": [
    "Lynet McQueen",
-   "McQueen"
+   "McQueen",
+   "Lynet"
+  ],
+  "Buzz Lightyear": [
+   "Buzz"
+  ],
+  "Woody": [
+   "Sheriff Woody"
+  ],
+  "Bill": [
+   "Mater",
+   "Slepebilen Bill"
+  ],
+  "Mr. Utrolig": [
+   "Mr. Incredible",
+   "Bob Parr"
+  ],
+  "Elastijenta": [
+   "Elastigirl",
+   "Helen Parr"
+  ],
+  "Potetmannen": [
+   "Mr. Potato Head",
+   "Herr Potet"
+  ],
+  "Glede": [
+   "Joy"
+  ],
+  "Sinne": [
+   "Anger"
+  ],
+  "Tristhet": [
+   "Sadness"
+  ],
+  "Jessie": [
+   "Cowgirl Jessie"
   ]
  },
  "add": [

@@ -170,5 +170,77 @@
  ],
  "smutthull": {
   "Kermit the Frog": 5
+ },
+ "alias_labels": {
+  "Donald Duck": [
+   "Donald",
+   "Donald Duck & Co"
+  ],
+  "Mikke Mus": [
+   "Mikke",
+   "Mickey Mouse",
+   "Mickey",
+   "Mikkemus"
+  ],
+  "Langbein": [
+   "Goofy"
+  ],
+  "Skrue McDuck": [
+   "Onkel Skrue",
+   "Skrue",
+   "Scrooge McDuck"
+  ],
+  "Dolly Duck": [
+   "Dolly",
+   "Daisy Duck"
+  ],
+  "Minni Mus": [
+   "Minni",
+   "Minnie Mouse",
+   "Minnie"
+  ],
+  "Svarte-Petter": [
+   "Black Pete",
+   "Svarte Petter"
+  ],
+  "Nasse Nøff": [
+   "Piglet"
+  ],
+  "Ole Brumm": [
+   "Winnie the Pooh",
+   "Brumm",
+   "Pooh"
+  ],
+  "Ole, Dole og Doffen": [
+   "Ole",
+   "Dole",
+   "Doffen",
+   "Ole Dole og Doffen",
+   "Ole Dole Doffen"
+  ],
+  "Jack Sparrow": [
+   "Captain Jack Sparrow",
+   "Kaptein Jack Sparrow"
+  ],
+  "Askepott": [
+   "Cinderella"
+  ],
+  "Tingeling": [
+   "Tinker Bell"
+  ],
+  "Elsa": [
+   "Dronning Elsa"
+  ],
+  "Storeulv": [
+   "Store stygge ulv",
+   "Big Bad Wolf"
+  ],
+  "Professor Rottenikken": [
+   "Rottenikken",
+   "Ludwig Von Drake"
+  ],
+  "Mortimer Mus": [
+   "Mortimer"
+  ]
  }
 }

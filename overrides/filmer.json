@@ -18,5 +18,117 @@
    "aliases": [],
    "tier": 0
   }
- ]
+ ],
+ "alias_labels": {
+  "Frihetens regn": [
+   "The Shawshank Redemption",
+   "Shawshank"
+  ],
+  "Gudfaren": [
+   "The Godfather"
+  ],
+  "Gjøkeredet": [
+   "One Flew Over the Cuckoo's Nest"
+  ],
+  "Nattsvermeren": [
+   "The Silence of the Lambs",
+   "Silence of the Lambs"
+  ],
+  "Ondskapens hotell": [
+   "The Shining",
+   "Shining"
+  ],
+  "Alene hjemme": [
+   "Hjem alene",
+   "Home Alone",
+   "Alene hjemme 1"
+  ],
+  "Tatt av vinden": [
+   "Gone with the Wind"
+  ],
+  "Danser med ulver": [
+   "Dances with Wolves"
+  ],
+  "Den grønne mil": [
+   "The Green Mile",
+   "Green Mile"
+  ],
+  "Hjortejegeren": [
+   "The Deer Hunter"
+  ],
+  "Broen over Kwai": [
+   "The Bridge on the River Kwai"
+  ],
+  "Schindlers liste": [
+   "Schindler's List"
+  ],
+  "Den fabelaktige Amélie fra Montmartre": [
+   "Amélie",
+   "Amelie",
+   "Den fabelaktige Amélie"
+  ],
+  "Charlie og sjokoladefabrikken": [
+   "Charlie and the Chocolate Factory"
+  ],
+  "Harry Potter og de vises stein": [
+   "Harry Potter 1",
+   "Harry Potter",
+   "De vises stein"
+  ],
+  "Ringenes herre: Ringens brorskap": [
+   "Ringenes herre 1",
+   "Ringens brorskap",
+   "Fellowship of the Ring",
+   "Ringenes herre"
+  ],
+  "Avengers: Endgame": [
+   "Endgame",
+   "Avengers Endgame"
+  ],
+  "Avengers: Infinity War": [
+   "Infinity War"
+  ],
+  "The Terminator": [
+   "Terminator"
+  ],
+  "Star Wars Episode IV: Et nytt håp": [
+   "Star Wars",
+   "Et nytt håp",
+   "A New Hope",
+   "Stjernekrigen"
+  ],
+  "Star Wars Episode V: Imperiet slår tilbake": [
+   "Imperiet slår tilbake",
+   "The Empire Strikes Back"
+  ],
+  "Haisommer": [
+   "Jaws",
+   "Haisommer 1"
+  ],
+  "Tilbake til fremtiden": [
+   "Back to the Future"
+  ],
+  "Jurassic Park": [
+   "Dinosaurparken"
+  ],
+  "The Matrix": [
+   "Matrix"
+  ],
+  "Se7en": [
+   "Seven"
+  ],
+  "Mamma Mia!": [
+   "Mamma Mia"
+  ],
+  "Grinchen": [
+   "The Grinch",
+   "Grinch"
+  ],
+  "Terminator II – Dommens dag": [
+   "Terminator 2",
+   "T2",
+   "Judgment Day",
+   "Terminator 2: Dommens dag"
+  ]
+ }
 }

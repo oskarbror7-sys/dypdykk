@@ -33,5 +33,63 @@
    "aliases": [],
    "tier": 2
   }
- ]
+ ],
+ "alias_labels": {
+  "One World Trade Centre": [
+   "One World Trade Center",
+   "Freedom Tower",
+   "World Trade Center",
+   "WTC",
+   "1 WTC"
+  ],
+  "Empire State Building": [
+   "Empire State"
+  ],
+  "Petronas Towers": [
+   "Petronas",
+   "Petronas-tårnene"
+  ],
+  "Willis Tower": [
+   "Sears Tower"
+  ],
+  "The Shard": [
+   "Shard"
+  ],
+  "30 St Mary Axe": [
+   "The Gherkin",
+   "Gherkin",
+   "Agurken"
+  ],
+  "Kultur- og vitenskapspalasset i Warszawa": [
+   "Kulturpalasset",
+   "Kultur- og vitenskapspalasset"
+  ],
+  "Fjernsynstårnet Østens Perle": [
+   "Oriental Pearl Tower",
+   "Østens Perle"
+  ],
+  "Transamericapyramiden": [
+   "Transamerica Pyramid"
+  ],
+  "Abraj Al Bait": [
+   "Mecca Clock Tower",
+   "Klokketårnet i Mekka"
+  ],
+  "Burj Khalifa": [
+   "Burj Dubai",
+   "Burj"
+  ],
+  "Chrysler Building": [
+   "Chrysler"
+  ],
+  "Turning Torso": [
+   "Torso"
+  ],
+  "Postgirobygget": [
+   "Postgiro"
+  ],
+  "Taipei 101": [
+   "Taipei"
+  ]
+ }
 }

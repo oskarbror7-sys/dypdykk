@@ -80,6 +80,101 @@
    "label": "Chernobyl",
    "aliases": [],
    "tier": 2
+  },
+  {
+   "id": "manuell:the-office",
+   "label": "The Office",
+   "aliases": [
+    "Office",
+    "Kontoret"
+   ],
+   "tier": 0
   }
- ]
+ ],
+ "alias_labels": {
+  "Venner": [
+   "Friends"
+  ],
+  "Venner for livet": [
+   "Friends"
+  ],
+  "Frustrerte fruer": [
+   "Desperate Housewives"
+  ],
+  "Sopranos": [
+   "The Sopranos"
+  ],
+  "Huset på prærien": [
+   "Little House on the Prairie"
+  ],
+  "Game of Thrones": [
+   "GoT",
+   "Game of Thrones (TV-serie)"
+  ],
+  "Breaking Bad": [
+   "BB"
+  ],
+  "The Big Bang Theory": [
+   "Big Bang Theory",
+   "TBBT"
+  ],
+  "Grey's Anatomy": [
+   "Greys Anatomy",
+   "Grey's"
+  ],
+  "How I Met Your Mother": [
+   "HIMYM"
+  ],
+  "Hotell i særklasse": [
+   "Fawlty Towers"
+  ],
+  "Teletubbiene": [
+   "Teletubbies"
+  ],
+  "'Allo 'allo!": [
+   "Allo Allo",
+   "'Allo 'Allo"
+  ],
+  "The X-Files": [
+   "X-Files",
+   "X-filene"
+  ],
+  "Forbrytelsen": [
+   "The Killing"
+  ],
+  "SvampeBob Firkant": [
+   "Svampebob",
+   "SpongeBob",
+   "SpongeBob SquarePants"
+  ],
+  "Papirhuset": [
+   "Money Heist",
+   "La casa de papel"
+  ],
+  "Squid Game": [
+   "Blekksprutspillet"
+  ],
+  "The Walking Dead": [
+   "Walking Dead",
+   "TWD"
+  ],
+  "Paw Patrol": [
+   "Valpepatruljen"
+  ],
+  "Peppa Gris": [
+   "Peppa Pig",
+   "Peppa"
+  ],
+  "The Last of Us": [
+   "TLOU"
+  ],
+  "The Simpsons": [
+   "Simpsons-familien",
+   "Simpsons"
+  ],
+  "House": [
+   "House M.D.",
+   "Dr. House"
+  ]
+ }
 }

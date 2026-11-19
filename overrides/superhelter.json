@@ -73,6 +73,25 @@
    ],
    "tier": 5,
    "smutthull": true
+  },
+  {
+   "id": "manuell:captain-america",
+   "label": "Captain America",
+   "aliases": [
+    "Kaptein Amerika",
+    "Steve Rogers",
+    "Cap"
+   ],
+   "tier": 0
+  },
+  {
+   "id": "manuell:the-flash",
+   "label": "The Flash",
+   "aliases": [
+    "Flash",
+    "Lynet"
+   ],
+   "tier": 1
   }
  ],
  "tier_labels": {
@@ -80,7 +99,73 @@
  },
  "alias_labels": {
   "Fantomet": [
-   "The Phantom"
+   "The Phantom",
+   "Den vandrende vålmannen"
+  ],
+  "Spider-Man": [
+   "Spiderman",
+   "Edderkoppmannen",
+   "Spider Man",
+   "Peter Parker"
+  ],
+  "Supermann": [
+   "Superman",
+   "Clark Kent",
+   "Stålmannen"
+  ],
+  "Batman": [
+   "Bruce Wayne",
+   "Flaggermusmannen"
+  ],
+  "Iron Man": [
+   "Ironman",
+   "Tony Stark",
+   "Jernmannen"
+  ],
+  "Wonder Woman": [
+   "Diana Prince"
+  ],
+  "Wolverine": [
+   "Logan"
+  ],
+  "Hulk": [
+   "The Hulk",
+   "Bruce Banner",
+   "Den utrolige Hulk"
+  ],
+  "Black Widow": [
+   "Natasha Romanoff",
+   "Svarte enke"
+  ],
+  "Scarlet Witch": [
+   "Wanda",
+   "Wanda Maximoff"
+  ],
+  "Barry Allen": [
+   "Flash",
+   "The Flash"
+  ],
+  "Hal Jordan": [
+   "Green Lantern"
+  ],
+  "Doctor Strange": [
+   "Dr. Strange",
+   "Doktor Strange"
+  ],
+  "Black Panther": [
+   "T'Challa",
+   "Svarte panter"
+  ],
+  "Captain Marvel": [
+   "Carol Danvers"
+  ],
+  "Ant-Man": [
+   "Antman",
+   "Maurmannen"
+  ],
+  "Fantonald": [
+   "Stålanka",
+   "Paperinik"
   ]
  }
 }

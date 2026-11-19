@@ -7,11 +7,146 @@
  "alias_labels": {
   "Fotballklubben Bodø/Glimt": [
    "Glimt",
-   "Bodø Glimt"
+   "Bodø Glimt",
+   "Bodø/Glimt",
+   "FK Bodø/Glimt"
   ],
   "Odds Ballklubb": [
    "Odd",
    "Odd BK"
+  ],
+  "Viking Fotballklubb": [
+   "Viking",
+   "Viking FK"
+  ],
+  "Rosenborg Ballklub": [
+   "RBK",
+   "Rosenborg",
+   "Troillongan"
+  ],
+  "Lillestrøm Sportsklubb": [
+   "LSK",
+   "Lillestrøm",
+   "Kanarifuglene"
+  ],
+  "Sportsklubben Brann": [
+   "Brann",
+   "SK Brann"
+  ],
+  "Vålerenga Fotball": [
+   "Vålerenga",
+   "VIF",
+   "Vålerenga IF"
+  ],
+  "Strømsgodset Toppfotball": [
+   "Godset",
+   "Strømsgodset",
+   "SIF"
+  ],
+  "Molde Fotballklubb": [
+   "Molde",
+   "MFK",
+   "Molde FK"
+  ],
+  "Fredrikstad Fotballklubb": [
+   "FFK",
+   "Fredrikstad",
+   "Plankebyen"
+  ],
+  "Lyn 1896 Fotballklubb": [
+   "Lyn",
+   "Lyn Oslo"
+  ],
+  "Stabæk Fotball": [
+   "Stabæk"
+  ],
+  "Sarpsborg 08 Fotballforening": [
+   "Sarpsborg 08",
+   "Sarpsborg",
+   "S08"
+  ],
+  "Tromsø Idrettslag": [
+   "TIL",
+   "Tromsø",
+   "Tromsø IL"
+  ],
+  "Idrettsklubben Start": [
+   "IK Start"
+  ],
+  "Fotballklubben Haugesund": [
+   "FKH",
+   "Haugesund",
+   "FK Haugesund"
+  ],
+  "KFUM-Kameratene Oslo": [
+   "KFUM",
+   "KFUM Oslo"
+  ],
+  "Aalesunds Fotballklubb": [
+   "AaFK",
+   "Aalesund",
+   "Ålesund",
+   "AAFK"
+  ],
+  "Hamarkameratene": [
+   "HamKam",
+   "Hamkam"
+  ],
+  "Skeid Fotball": [
+   "Skeid"
+  ],
+  "Sogndal Fotball": [
+   "Sogndal"
+  ],
+  "Sandefjord Fotball": [
+   "Sandefjord"
+  ],
+  "Mjøndalen IF Fotball": [
+   "Mjøndalen",
+   "MIF"
+  ],
+  "Sandnes Ulf": [
+   "Ulf",
+   "Sandnes"
+  ],
+  "Kongsvinger IL Toppfotball": [
+   "Kongsvinger",
+   "KIL"
+  ],
+  "Bryne Fotballklubb": [
+   "Bryne",
+   "Bryne FK"
+  ],
+  "Moss Fotballklubb": [
+   "Moss",
+   "Moss FK"
+  ],
+  "Kristiansund Ballklubb": [
+   "KBK",
+   "Kristiansund"
+  ],
+  "Fotballklubben Jerv": [
+   "Jerv"
+  ],
+  "Hønefoss Ballklubb": [
+   "HBK",
+   "Hønefoss"
+  ],
+  "Ranheim Fotball": [
+   "Ranheim"
+  ],
+  "Åsane Fotball": [
+   "Åsane"
+  ],
+  "Raufoss Fotball": [
+   "Raufoss"
+  ],
+  "Egersunds IK": [
+   "Egersund",
+   "EIK"
+  ],
+  "IL Hødd": [
+   "Hødd"
   ]
  },
  "add": [

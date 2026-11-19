@@ -6,13 +6,83 @@
   ],
   "Borgen i Praha": [
    "Praha borg",
-   "Pražský hrad"
+   "Pražský hrad",
+   "Prague Castle"
   ],
   "Himejiborgen": [
-   "Himeji"
+   "Himeji",
+   "Himeji-slottet"
   ],
   "Frederiksborg slott": [
    "Frederiksborg"
+  ],
+  "Det kongelige slott": [
+   "Slottet",
+   "Kongeslottet",
+   "The Royal Palace",
+   "Royal Palace",
+   "Slottet i Oslo"
+  ],
+  "Slottet i Versailles": [
+   "Versailles",
+   "Château de Versailles",
+   "Versaillesslottet"
+  ],
+  "Akershus slott og festning": [
+   "Akershus",
+   "Akershus festning",
+   "Akershus slott"
+  ],
+  "Buckingham Palace": [
+   "Buckingham",
+   "Buckingham-palasset",
+   "Buckinghampalasset"
+  ],
+  "Kronborg slott": [
+   "Kronborg",
+   "Hamlets slott"
+  ],
+  "Windsor Castle": [
+   "Windsor",
+   "Windsor slott"
+  ],
+  "Edinburgh Castle": [
+   "Edinburgh slott"
+  ],
+  "Tower of London": [],
+  "Bran slott": [
+   "Draculas slott",
+   "Bran Castle",
+   "Draculaslottet"
+  ],
+  "Neuschwanstein": [
+   "Schloss Neuschwanstein",
+   "Neuschwanstein slott",
+   "Disneyslottet"
+  ],
+  "Schönbrunn": [
+   "Schönbrunn slott",
+   "Schloss Schönbrunn"
+  ],
+  "Kreml": [
+   "Kremlin",
+   "Moskva Kreml"
+  ],
+  "Christiansborg": [
+   "Christiansborg slott"
+  ],
+  "Amalienborg": [
+   "Amalienborg slott"
+  ],
+  "Drottningholm": [
+   "Drottningholm slott"
+  ],
+  "Oscarshall": [
+   "Oscarshall slott"
+  ],
+  "Bergenhus festning": [
+   "Bergenhus",
+   "Håkonshallen"
   ]
  },
  "add": [

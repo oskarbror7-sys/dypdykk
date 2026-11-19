@@ -39,5 +39,63 @@
   "Stellantis North America": 4,
   "Volkswagen Group": 4,
   "Daimler AG": 4
+ },
+ "alias_labels": {
+  "Volkswagen": [
+   "VW",
+   "Folkevogn",
+   "Wolkswagen"
+  ],
+  "BMW": [
+   "Bimmer",
+   "Bayerische Motoren Werke"
+  ],
+  "BYD Auto": [
+   "BYD"
+  ],
+  "MG Car Company Limited": [
+   "MG",
+   "Morris Garages"
+  ],
+  "General Motors": [
+   "GM"
+  ],
+  "Land Rover": [
+   "Range Rover",
+   "Landrover"
+  ],
+  "Alfa Romeo": [
+   "Alfa"
+  ],
+  "Lamborghini": [
+   "Lambo"
+  ],
+  "Chevrolet": [
+   "Chevy"
+  ],
+  "Rolls-Royce Motor Cars": [
+   "Rolls-Royce",
+   "Rolls Royce",
+   "Rolls"
+  ],
+  "Tesla": [
+   "Tesla Motors"
+  ],
+  "Volvo": [
+   "Volvo Cars"
+  ],
+  "Peugeot": [],
+  "Hyundai": [
+   "Hyundai Motor"
+  ],
+  "Aston Martin": [
+   "Aston"
+  ],
+  "Mercedes": [
+   "Merc",
+   "Benz",
+   "Mersedes",
+   "Mercedes-Benz"
+  ]
  }
 }

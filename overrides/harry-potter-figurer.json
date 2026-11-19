@@ -1,0 +1,121 @@
+{
+ "alias_labels": {
+  "Albus Humlesnurr": [
+   "Humlesnurr",
+   "Dumbledore",
+   "Albus Dumbledore"
+  ],
+  "Hermine Grang": [
+   "Hermine",
+   "Hermione",
+   "Hermione Granger"
+  ],
+  "Ronny Wiltersen": [
+   "Ronny",
+   "Ron",
+   "Ron Weasley"
+  ],
+  "Severus Slur": [
+   "Slur",
+   "Snape",
+   "Severus Snape"
+  ],
+  "Gygrid": [
+   "Hagrid",
+   "Rubeus Gygrid",
+   "Rubeus Hagrid"
+  ],
+  "Draco Malfang": [
+   "Malfang",
+   "Draco",
+   "Draco Malfoy",
+   "Malfoy"
+  ],
+  "Voldemort": [
+   "Lord Voldemort",
+   "Han-som-ikke-må-nevnes",
+   "Tom Venster",
+   "Tom Riddle"
+  ],
+  "Sirius Svaart": [
+   "Sirius",
+   "Sirius Black"
+  ],
+  "Minerva McSnurp": [
+   "McSnurp",
+   "McGonagall",
+   "Minerva McGonagall"
+  ],
+  "Nilus Langballe": [
+   "Nilus",
+   "Neville",
+   "Neville Longbottom"
+  ],
+  "Gulla Wiltersen": [
+   "Gulla",
+   "Ginny",
+   "Ginny Weasley"
+  ],
+  "Lulla Lunekjær": [
+   "Lulla",
+   "Luna",
+   "Luna Lovegood"
+  ],
+  "Venke Dolorosa Uffert": [
+   "Uffert",
+   "Umbridge",
+   "Dolores Umbridge"
+  ],
+  "Remus Lupus": [
+   "Lupus",
+   "Lupin",
+   "Remus Lupin"
+  ],
+  "Bellatrix DeMons": [
+   "Bellatrix",
+   "Bellatrix Lestrange"
+  ],
+  "Lucifus Malfang": [
+   "Lucius Malfoy",
+   "Lucifus"
+  ],
+  "Harry Potter": [
+   "Harry"
+  ],
+  "Gyldeprinz Gulmedal": [
+   "Gulmedal",
+   "Lockhart",
+   "Gilderoy Lockhart"
+  ],
+  "Fredrik Djervell": [
+   "Djervell",
+   "Cedric Diggory",
+   "Cedric"
+  ],
+  "Alastor Bister": [
+   "Bister",
+   "Mad-Eye Moody",
+   "Moody"
+  ],
+  "Petter Pittelpytt": [
+   "Pittelpytt",
+   "Peter Pettigrew",
+   "Ormehale"
+  ],
+  "Nymfadora Dult": [
+   "Dult",
+   "Tonks",
+   "Nymphadora Tonks"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:dobby",
+   "label": "Dobby",
+   "aliases": [
+    "Dobby husalf"
+   ],
+   "tier": 0
+  }
+ ]
+}

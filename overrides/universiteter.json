@@ -49,6 +49,112 @@
     "LSE"
    ],
    "tier": 2
+  },
+  {
+   "id": "manuell:university-of-california-los-angeles",
+   "label": "University of California, Los Angeles",
+   "aliases": [
+    "UCLA"
+   ],
+   "tier": 2
   }
- ]
+ ],
+ "alias_labels": {
+  "Massachusetts Institute of Technology": [
+   "MIT"
+  ],
+  "University of Oxford": [
+   "Oxford",
+   "Oxford University"
+  ],
+  "University of Cambridge": [
+   "Cambridge",
+   "Cambridge University"
+  ],
+  "Harvard University": [
+   "Harvard"
+  ],
+  "Yale University": [
+   "Yale"
+  ],
+  "Stanford University": [
+   "Stanford"
+  ],
+  "Princeton University": [
+   "Princeton"
+  ],
+  "Columbia University": [
+   "Columbia"
+  ],
+  "Cornell University": [
+   "Cornell"
+  ],
+  "University of California, Berkeley": [
+   "Berkeley",
+   "UC Berkeley"
+  ],
+  "Universitetet i Oslo": [
+   "UiO",
+   "Blindern"
+  ],
+  "Universitetet i Bergen": [
+   "UiB"
+  ],
+  "NTNU": [
+   "Norges teknisk-naturvitenskapelige universitet",
+   "Gløshaugen"
+  ],
+  "Universitetet i Paris, Sorbonne": [
+   "Sorbonne",
+   "Sorbonne-universitetet"
+  ],
+  "Eidgenössische Technische Hochschule Zürich": [
+   "ETH",
+   "ETH Zürich"
+  ],
+  "Johns Hopkins University": [
+   "Johns Hopkins"
+  ],
+  "University of Pennsylvania": [
+   "UPenn",
+   "Penn"
+  ],
+  "Karolinska Institutet": [
+   "Karolinska"
+  ],
+  "Imperial College London": [
+   "Imperial"
+  ],
+  "New York University": [
+   "NYU"
+  ],
+  "California Institute of Technology": [
+   "Caltech"
+  ],
+  "Carnegie Mellon University": [
+   "CMU",
+   "Carnegie Mellon"
+  ],
+  "Norges Handelshøyskole": [
+   "NHH"
+  ],
+  "Handelshøyskolen BI": [
+   "BI"
+  ],
+  "Tsinghuauniversitetet": [
+   "Tsinghua"
+  ],
+  "Statsuniversitetet i Moskva": [
+   "MGU",
+   "Moscow State University"
+  ],
+  "Universitetet i Tromsø": [
+   "UiT",
+   "Universitetet i Tromsø – Norges arktiske universitet"
+  ],
+  "London School of Economics": [
+   "LSE",
+   "London School of Economics and Political Science"
+  ]
+ }
 }

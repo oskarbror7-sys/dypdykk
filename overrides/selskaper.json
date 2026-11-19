@@ -21,5 +21,72 @@
    "tier": 0
   }
  ],
- "_note": "IKEA er registrert som merkevare/møbelkjede, ikke som selskap, i Wikidata"
+ "_note": "IKEA er registrert som merkevare/møbelkjede, ikke som selskap, i Wikidata",
+ "alias_labels": {
+  "Apple Inc.": [
+   "Apple"
+  ],
+  "Meta": [
+   "Meta Platforms",
+   "Facebook Inc."
+  ],
+  "Alphabet Inc.": [
+   "Alphabet"
+  ],
+  "Microsoft": [
+   "MSFT"
+  ],
+  "McDonald’s": [
+   "McDonald's",
+   "Mekken"
+  ],
+  "Hennes & Mauritz": [
+   "H&M",
+   "HM"
+  ],
+  "Volvo Personvagnar": [
+   "Volvo"
+  ],
+  "BMW Group": [
+   "BMW"
+  ],
+  "Škoda Auto": [
+   "Skoda",
+   "Škoda"
+  ],
+  "Toyota Motor Corporation": [
+   "Toyota"
+  ],
+  "Ford Motor Company": [
+   "Ford"
+  ],
+  "Volkswagen Group": [
+   "VW",
+   "Volkswagen",
+   "VW Group"
+  ],
+  "Bugatti Automobiles S.A.S.": [
+   "Bugatti"
+  ],
+  "Palantir Technologies": [
+   "Palantir"
+  ],
+  "National Hockey League": [
+   "NHL"
+  ],
+  "Primera División": [
+   "La Liga",
+   "LaLiga"
+  ],
+  "OpenAI": [
+   "Open AI"
+  ],
+  "Anthropic": [],
+  "Samsung Electronics": [
+   "Samsung"
+  ],
+  "Amazon.com": [
+   "Amazon"
+  ]
+ }
 }

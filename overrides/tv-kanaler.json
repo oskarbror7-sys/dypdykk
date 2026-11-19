@@ -2,6 +2,53 @@
  "alias_labels": {
   "Al Jazeera English": [
    "Al Jazeera"
+  ],
+  "Fox News Channel": [
+   "Fox News"
+  ],
+  "National Geographic Channel": [
+   "National Geographic",
+   "Nat Geo",
+   "NatGeo"
+  ],
+  "BBC World News": [
+   "BBC World"
+  ],
+  "Amazon Prime Video": [
+   "Prime Video",
+   "Amazon Prime"
+  ],
+  "Disney Jr.": [
+   "Disney Junior"
+  ],
+  "Nick Jr.": [
+   "Nick Junior"
+  ],
+  "Turner Classic Movies": [
+   "TCM"
+  ],
+  "Rossija 1": [
+   "Russia 1"
+  ],
+  "Das Erste": [
+   "ARD"
+  ],
+  "Cartoon Network": [
+   "CN"
+  ],
+  "Nickelodeon": [],
+  "NRK1": [
+   "NRK 1",
+   "NRK"
+  ],
+  "TV 2": [
+   "TV2",
+   "TV 2 Norge"
+  ],
+  "TVNorge HD": [
+   "TV Norge",
+   "TVN",
+   "TVNorge"
   ]
  },
  "add": [

@@ -624,5 +624,184 @@
   "Zendaya",
   "«Weird Al» Yankovic",
   "Édith Piaf"
- ]
+ ],
+ "alias_labels": {
+  "Michael Jackson": [
+   "MJ",
+   "Jacko",
+   "King of Pop"
+  ],
+  "Elvis Presley": [
+   "Elvis",
+   "Kongen"
+  ],
+  "Freddie Mercury": [
+   "Freddie"
+  ],
+  "Céline Dion": [
+   "Celine"
+  ],
+  "Taylor Swift": [
+   "Taylor",
+   "Swift",
+   "Tay Tay"
+  ],
+  "Rihanna": [
+   "RiRi"
+  ],
+  "Lady Gaga": [
+   "Gaga"
+  ],
+  "Ed Sheeran": [
+   "Sheeran"
+  ],
+  "Justin Bieber": [
+   "Bieber",
+   "JB"
+  ],
+  "Ariana Grande": [
+   "Ariana"
+  ],
+  "Billie Eilish": [
+   "Billie"
+  ],
+  "The Weeknd": [
+   "Weeknd",
+   "Abel Tesfaye"
+  ],
+  "Drake": [
+   "Drizzy"
+  ],
+  "Eminem": [
+   "Slim Shady",
+   "Marshall Mathers"
+  ],
+  "Tupac Shakur": [
+   "2Pac",
+   "Tupac",
+   "Pac"
+  ],
+  "Snoop Dogg": [
+   "Snoop",
+   "Snoop Doggy Dogg",
+   "Snoop Lion"
+  ],
+  "Kanye West": [
+   "Ye",
+   "Kanye"
+  ],
+  "Jay-Z": [
+   "Jay Z",
+   "Hova",
+   "Jigga"
+  ],
+  "Elton John": [
+   "Elton"
+  ],
+  "David Bowie": [
+   "Bowie",
+   "Ziggy Stardust"
+  ],
+  "Prince": [
+   "The Artist Formerly Known as Prince"
+  ],
+  "Madonna": [
+   "Madge"
+  ],
+  "Whitney Houston": [
+   "Whitney"
+  ],
+  "Mariah Carey": [
+   "Mariah"
+  ],
+  "Bob Marley": [
+   "Marley"
+  ],
+  "John Lennon": [
+   "Lennon"
+  ],
+  "Paul McCartney": [
+   "McCartney",
+   "Macca"
+  ],
+  "Ringo Starr": [
+   "Ringo"
+  ],
+  "Bruce Springsteen": [
+   "The Boss",
+   "Springsteen",
+   "Bossen"
+  ],
+  "Frank Sinatra": [
+   "Sinatra",
+   "Ol' Blue Eyes"
+  ],
+  "Kurt Cobain": [
+   "Cobain"
+  ],
+  "Amy Winehouse": [
+   "Winehouse"
+  ],
+  "Avicii": [
+   "Tim Bergling"
+  ],
+  "Kygo": [
+   "Kyrre Gørvell-Dahll"
+  ],
+  "Sigrid": [
+   "Sigrid Raabe"
+  ],
+  "AURORA": [
+   "Aurora Aksnes"
+  ],
+  "Dua Lipa": [
+   "Dua"
+  ],
+  "Harry Styles": [
+   "Styles"
+  ],
+  "Pitbull": [
+   "Mr. Worldwide",
+   "Mr Worldwide"
+  ],
+  "Post Malone": [
+   "Posty"
+  ],
+  "Lana Del Rey": [
+   "Lana"
+  ],
+  "Olivia Rodrigo": [
+   "Olivia"
+  ],
+  "Sabrina Carpenter": [
+   "Sabrina"
+  ],
+  "Doja Cat": [
+   "Doja"
+  ],
+  "Nicki Minaj": [
+   "Nicki"
+  ],
+  "Cardi B": [
+   "Cardi"
+  ],
+  "Travis Scott": [
+   "La Flame"
+  ],
+  "Ozzy Osbourne": [
+   "Ozzy"
+  ],
+  "Dolly Parton": [
+   "Dolly"
+  ],
+  "Johnny Cash": [
+   "The Man in Black"
+  ],
+  "Beyoncé Knowles": [
+   "Beyonce",
+   "Queen B",
+   "Queen Bey",
+   "Beyoncé"
+  ]
+ }
 }

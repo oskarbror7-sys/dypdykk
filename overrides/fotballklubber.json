@@ -15,5 +15,317 @@
  "relabel": {
   "Coritiba Foot Ball Club": "Coritiba",
   "Nea Salamis Famagusta FC": "Nea Salamis"
- }
+ },
+ "alias_labels": {
+  "Manchester United": [
+   "Man Utd",
+   "Man United",
+   "MUFC",
+   "Manchester U"
+  ],
+  "Manchester City FC": [
+   "Man City",
+   "Manchester City",
+   "MCFC"
+  ],
+  "Liverpool FC": [
+   "Liverpool",
+   "LFC"
+  ],
+  "Arsenal FC": [
+   "Arsenal",
+   "Gunners",
+   "The Gunners"
+  ],
+  "Tottenham Hotspur FC": [
+   "Tottenham",
+   "Spurs",
+   "Tottenham Hotspur"
+  ],
+  "Chelsea FC": [
+   "Chelsea",
+   "CFC"
+  ],
+  "FC Bayern München": [
+   "Bayern",
+   "Bayern München",
+   "Bayern Munich",
+   "FC Bayern"
+  ],
+  "Real Madrid CF": [
+   "Real Madrid",
+   "Los Blancos"
+  ],
+  "Paris Saint-Germain FC": [
+   "PSG",
+   "Paris SG",
+   "Paris Saint Germain"
+  ],
+  "Atlético de Madrid": [
+   "Atletico",
+   "Atlético",
+   "Atletico Madrid",
+   "Atlético Madrid"
+  ],
+  "Juventus": [
+   "Juve",
+   "Juventus FC",
+   "Juventus Torino"
+  ],
+  "A.C. Milan": [
+   "AC Milan",
+   "ACM"
+  ],
+  "SSC Napoli": [
+   "Napoli"
+  ],
+  "Borussia Dortmund": [
+   "Dortmund",
+   "BVB"
+  ],
+  "Borussia Mönchengladbach": [
+   "Gladbach",
+   "Mönchengladbach"
+  ],
+  "RB Leipzig": [
+   "Leipzig"
+  ],
+  "Leeds United AFC": [
+   "Leeds",
+   "Leeds United"
+  ],
+  "West Ham United FC": [
+   "West Ham",
+   "Hammers"
+  ],
+  "Aston Villa FC": [
+   "Villa",
+   "Aston Villa"
+  ],
+  "Everton FC": [
+   "Everton",
+   "Toffees"
+  ],
+  "Leicester City FC": [
+   "Leicester",
+   "Foxes"
+  ],
+  "Wolverhampton Wanderers FC": [
+   "Wolves",
+   "Wolverhampton"
+  ],
+  "Nottingham Forest FC": [
+   "Forest",
+   "Nottingham Forest"
+  ],
+  "Brighton & Hove Albion FC": [
+   "Brighton"
+  ],
+  "West Bromwich Albion FC": [
+   "West Brom",
+   "WBA"
+  ],
+  "Sheffield Wednesday FC": [
+   "Sheffield Wednesday",
+   "Wednesday"
+  ],
+  "Sheffield United FC": [
+   "Sheffield United",
+   "Blades"
+  ],
+  "Celtic FC": [
+   "Celtic"
+  ],
+  "Rangers FC": [
+   "Rangers",
+   "Glasgow Rangers"
+  ],
+  "PSV Eindhoven": [
+   "PSV"
+  ],
+  "SL Benfica": [
+   "Benfica"
+  ],
+  "Fenerbahçe SK": [
+   "Fenerbahce",
+   "Fener"
+  ],
+  "Beşiktaş JK": [
+   "Besiktas",
+   "Beşiktaş"
+  ],
+  "FC København": [
+   "FCK",
+   "København",
+   "Copenhagen"
+  ],
+  "Brøndby IF": [
+   "Brøndby"
+  ],
+  "Malmö FF": [
+   "Malmö",
+   "MFF"
+  ],
+  "IFK Göteborg": [
+   "Göteborg",
+   "Blåvitt"
+  ],
+  "Olympique de Marseille": [
+   "Marseille",
+   "OM"
+  ],
+  "Olympique lyonnais": [
+   "Lyon",
+   "OL"
+  ],
+  "AS Monaco FC": [
+   "Monaco"
+  ],
+  "AS Roma": [
+   "Roma"
+  ],
+  "SS Lazio": [
+   "Lazio"
+  ],
+  "ACF Fiorentina": [
+   "Fiorentina"
+  ],
+  "Atalanta BC": [
+   "Atalanta"
+  ],
+  "Sevilla FC": [
+   "Sevilla"
+  ],
+  "Valencia CF": [
+   "Valencia"
+  ],
+  "Real Betis": [
+   "Betis"
+  ],
+  "Real Sociedad": [
+   "Sociedad"
+  ],
+  "Villarreal CF": [
+   "Villarreal"
+  ],
+  "Club Atlético River Plate": [
+   "River Plate"
+  ],
+  "Clube de Regatas do Flamengo": [
+   "Flamengo"
+  ],
+  "Al-Nassr FC": [
+   "Al Nassr",
+   "Al-Nassr"
+  ],
+  "Al-Hilal SFC": [
+   "Al Hilal",
+   "Al-Hilal"
+  ],
+  "Inter Miami CF": [
+   "Inter Miami"
+  ],
+  "Rosenborg Ballklub": [
+   "RBK",
+   "Rosenborg",
+   "Troillongan"
+  ],
+  "Fotballklubben Bodø/Glimt": [
+   "Glimt",
+   "Bodø/Glimt",
+   "Bodø Glimt"
+  ],
+  "Sportsklubben Brann": [
+   "Brann",
+   "SK Brann"
+  ],
+  "Molde Fotballklubb": [
+   "Molde",
+   "MFK"
+  ],
+  "Viking Fotballklubb": [
+   "Viking",
+   "Viking FK"
+  ],
+  "Vålerenga Fotball": [
+   "Vålerenga",
+   "VIF",
+   "VIF Fotball"
+  ],
+  "Lillestrøm Sportsklubb": [
+   "LSK",
+   "Lillestrøm"
+  ],
+  "Internazionale": [
+   "Inter Milan",
+   "Inter Milano",
+   "FC Internazionale",
+   "Inter"
+  ],
+  "Bayer Leverkusen": [
+   "Leverkusen",
+   "Bayer 04 Leverkusen"
+  ],
+  "Newcastle United": [
+   "Newcastle",
+   "Magpies",
+   "Newcastle United FC"
+  ],
+  "Queens Park Rangers": [
+   "QPR",
+   "Queens Park Rangers FC"
+  ],
+  "Ajax Amsterdam": [
+   "Ajax",
+   "AFC Ajax"
+  ],
+  "Feyenoord Rotterdam": [
+   "Feyenoord"
+  ],
+  "Futebol Clube do Porto": [
+   "Porto",
+   "FC Porto"
+  ],
+  "Sporting Clube de Portugal": [
+   "Sporting Lisboa",
+   "Sporting Lisbon",
+   "Sporting CP"
+  ],
+  "Galatasaray": [
+   "Galatasaray SK"
+  ],
+  "AIK Fotboll": [
+   "AIK Solna",
+   "AIK"
+  ],
+  "Athletic Bilbao": [
+   "Bilbao",
+   "Athletic Club"
+  ],
+  "Boca Juniors F.C.": [
+   "Boca",
+   "Boca Juniors",
+   "Club Atlético Boca Juniors"
+  ],
+  "Santos Futebol Clube": [
+   "Santos",
+   "Santos FC"
+  ],
+  "Los Angeles Galaxy": [
+   "LA Galaxy"
+  ]
+ },
+ "add": [
+  {
+   "id": "manuell:fc-barcelona",
+   "label": "FC Barcelona",
+   "aliases": [
+    "Barca",
+    "Barça",
+    "Barcelona",
+    "FCB"
+   ],
+   "tier": 0
+  }
+ ]
 }

@@ -58,5 +58,71 @@
    "aliases": [],
    "tier": 2
   }
- ]
+ ],
+ "alias_labels": {
+  "DNB Bank": [
+   "DNB",
+   "Den norske bank"
+  ],
+  "Orkla ASA": [
+   "Orkla"
+  ],
+  "Posten Bring": [
+   "Posten",
+   "Bring",
+   "Posten Norge"
+  ],
+  "Coop Norge SA": [
+   "Coop",
+   "Coop Norge"
+  ],
+  "Kiwi Norge": [
+   "Kiwi"
+  ],
+  "Kongsberg Gruppen": [
+   "Kongsberg",
+   "KOG"
+  ],
+  "Yara International": [
+   "Yara"
+  ],
+  "Gyldendal Norsk Forlag": [
+   "Gyldendal"
+  ],
+  "Peppes Pizza": [
+   "Peppes"
+  ],
+  "Kristiansand Dyrepark": [
+   "Dyreparken"
+  ],
+  "Norse Atlantic Airways": [
+   "Norse",
+   "Norse Atlantic"
+  ],
+  "Norsk Hydro": [
+   "Hydro"
+  ],
+  "Equinor": [
+   "Statoil"
+  ],
+  "Vy": [
+   "NSB",
+   "Norges Statsbaner"
+  ],
+  "NRK": [
+   "Norsk rikskringkasting",
+   "Statskanalen"
+  ],
+  "Telenor": [
+   "Televerket"
+  ],
+  "Vinmonopolet": [
+   "Polet",
+   "Pol'n",
+   "Polen"
+  ],
+  "Rema 1000": [
+   "Rema"
+  ]
+ }
 }
