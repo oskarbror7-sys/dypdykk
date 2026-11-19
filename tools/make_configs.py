@@ -210,7 +210,7 @@ KATALOG = [
      "?item wdt:P31 wd:Q23442 .", 10, "l", NB, rank(4000),
      ["Grønland", "Madagaskar", "Island", "Sicilia"], ["Australia", "Norge"], 500),
     ("verdens-innsjoer", "Nevn en innsjø (i hele verden)", "Geografi", False,
-     "?item wdt:P31 wd:Q23397 .", 12, "s", NB, PCT,
+     "?item wdt:P31/wdt:P279? wd:Q23397 .", 12, "s", NB, PCT,
      ["Bajkalsjøen", "Mjøsa", "Victoriasjøen", "Vänern"], ["Nilen", "Norge"], 300),
     ("fjell-4000", "Nevn et fjell over 4000 meter", "Geografi", False,
      "?item wdt:P31/wdt:P279* wd:Q8502 ; wdt:P2044 ?h . FILTER(?h >= 4000)", 2, "s", NB, PCT,

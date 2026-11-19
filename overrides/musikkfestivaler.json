@@ -124,6 +124,14 @@
     "Quartfestivalen"
    ],
    "tier": 3
+  },
+  {
+   "id": "manuell:flow-festival",
+   "label": "Flow Festival",
+   "aliases": [
+    "Flow"
+   ],
+   "tier": 3
   }
  ]
 }

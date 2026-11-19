@@ -40,6 +40,16 @@
     "Enare"
    ],
    "tier": 3
+  },
+  {
+   "id": "manuell:bodensjen",
+   "label": "Bodensjøen",
+   "aliases": [
+    "Bodensee",
+    "Lake Constance",
+    "Konstanzsjøen"
+   ],
+   "tier": 1
   }
  ],
  "smutthull": {
