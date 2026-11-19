@@ -128,6 +128,21 @@ def collect(cfg, log, refresh=False, fixture=None):
     for qid in demote:
         if qid in items:
             items[qid]["demoted"] = True
+    ex = cfg.get("exclude_types")
+    if fixture is None and ex:
+        # Fjern objekter med en «feil» type, sjekket i små bolker i stedet for et tungt FILTER i hovedspørringen
+        props = "|".join("wdt:" + p_ for p_ in ex.get("props", ["P31"]))
+        vals_t = " ".join("wd:" + t for t in ex["values"])
+        cand = list(items)
+        bad = set()
+        for i in range(0, len(cand), 300):
+            vals = " ".join("wd:" + c for c in cand[i:i + 300])
+            for r in _run(f"SELECT DISTINCT ?item WHERE {{ VALUES ?item {{ {vals} }} VALUES ?bad {{ {vals_t} }} ?item {props} ?bad . }}",
+                          log, refresh):
+                bad.add(r["item"]["value"].rsplit("/", 1)[-1])
+        for q in bad:
+            items.pop(q, None)
+        log(f"Fjernet {len(bad)} objekter av ekskluderte typer")
     return items
 
 

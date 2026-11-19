@@ -135,7 +135,7 @@ KATALOG = [
      "VALUES ?t { wd:Q215380 wd:Q5741069 wd:Q9212979 wd:Q641066 wd:Q216337 } ?item wdt:P31 ?t .", 5, "xl", NB, rank(30000),
      ["The Beatles", "ABBA", "a-ha", "Queen"], ["Michael Jackson", "Norge"], 3000),
     ("sanger", "Nevn en sang (tittel)", "Underholdning", False,
-     "VALUES ?t { wd:Q7366 wd:Q134556 wd:Q105543609 } ?item wdt:P31 ?t . FILTER NOT EXISTS { VALUES ?klassisk { wd:Q1344 wd:Q9734 wd:Q9748 wd:Q11423 wd:Q217295 wd:Q41425 wd:Q15079786 wd:Q85477 wd:Q131269 wd:Q170384 wd:Q174873 wd:Q202287 wd:Q203005 wd:Q207338 wd:Q210675 wd:Q271802 wd:Q633441 wd:Q1746028 wd:Q9730 wd:Q58483083 } ?item wdt:P31|wdt:P7937|wdt:P136 ?klassisk . }", 8, "xl", NB, rank(20000),
+     "VALUES ?t { wd:Q7366 wd:Q134556 wd:Q105543609 } ?item wdt:P31 ?t .", 8, "xl", NB, rank(20000),
      ["Take On Me", "Bohemian Rhapsody", "Yesterday"], ["The Beatles", "Norge"], 3000),
     ("videospill", "Nevn et videospill", "Underholdning", False,
      "?item wdt:P31 wd:Q7889 .", 5, "xl", NB, rank(30000),
@@ -691,6 +691,11 @@ def make():
             cfg["rarity"]["weights"] = {"sitelinks": 0.2, "population": 0.45, "nowiki_views": 0.35}
         if qid in EXTRA:
             cfg["source"]["extra"] = EXTRA[qid]
+        if qid == "sanger":
+            # Symfonier, operaer, balletter, messer o.l. er musikkverk, men ikke sanger
+            cfg["source"]["exclude_types"] = {"props": ["P31", "P7937", "P136"], "values": [
+                "Q1344", "Q9734", "Q9748", "Q11423", "Q217295", "Q41425", "Q15079786", "Q85477", "Q131269", "Q170384",
+                "Q174873", "Q202287", "Q203005", "Q207338", "Q210675", "Q271802", "Q633441", "Q1746028", "Q9730", "Q58483083"]}
         if qid in DEMOTE:
             cfg["source"]["demote"] = DEMOTE[qid]
         if qid in ("historiske-personer", "malerier", "pattedyr"):
