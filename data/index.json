@@ -1,0 +1,2866 @@
+{
+ "datasets": [
+  {
+   "id": "alpinister",
+   "q": "Nevn en alpinist",
+   "norsk": false,
+   "n": 4549,
+   "v": "20261127161717",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/alpinister.json",
+   "from": 1
+  },
+  {
+   "id": "animasjonsfilmer",
+   "q": "Nevn en animasjonsfilm",
+   "norsk": false,
+   "n": 1792,
+   "v": "20261127161913",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/animasjonsfilmer.json",
+   "from": 19
+  },
+  {
+   "id": "arkitekter",
+   "q": "Nevn en arkitekt",
+   "norsk": false,
+   "n": 5730,
+   "v": "20261127162121",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/arkitekter.json",
+   "from": 19
+  },
+  {
+   "id": "artister",
+   "q": "Nevn en sanger eller artist",
+   "norsk": false,
+   "n": 23200,
+   "v": "20261127191332",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/artister.json",
+   "from": 1
+  },
+  {
+   "id": "astronauter",
+   "q": "Nevn en astronaut eller kosmonaut",
+   "norsk": false,
+   "n": 886,
+   "v": "20261127163741",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Vitenskap",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/astronauter.json",
+   "from": 1
+  },
+  {
+   "id": "aviser",
+   "q": "Nevn en norsk avis",
+   "norsk": true,
+   "n": 822,
+   "v": "20261127163826",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/aviser.json",
+   "from": 1
+  },
+  {
+   "id": "ballondor",
+   "q": "Nevn en vinner av Ballon d'Or",
+   "norsk": false,
+   "n": 51,
+   "v": "20261127164058",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/ballondor.json",
+   "from": 19
+  },
+  {
+   "id": "band",
+   "q": "Nevn et band eller en musikkgruppe",
+   "norsk": false,
+   "n": 14469,
+   "v": "20261127191422",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/band.json",
+   "from": 1
+  },
+  {
+   "id": "basketballspillere",
+   "q": "Nevn en basketballspiller",
+   "norsk": false,
+   "n": 15501,
+   "v": "20261127164933",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/basketballspillere.json",
+   "from": 1
+  },
+  {
+   "id": "bilmerker",
+   "q": "Nevn et bilmerke",
+   "norsk": false,
+   "n": 3564,
+   "v": "20261127165020",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/bilmerker.json",
+   "from": 1
+  },
+  {
+   "id": "bilmodeller",
+   "q": "Nevn en bilmodell",
+   "norsk": false,
+   "n": 3142,
+   "v": "20261127165132",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/bilmodeller.json",
+   "from": 19
+  },
+  {
+   "id": "boker",
+   "q": "Nevn en bok, roman eller et skuespill (tittel)",
+   "norsk": false,
+   "n": 6070,
+   "v": "20261127191609",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/boker.json",
+   "from": 1
+  },
+  {
+   "id": "boksere",
+   "q": "Nevn en bokser",
+   "norsk": false,
+   "n": 5028,
+   "v": "20261127172642",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/boksere.json",
+   "from": 1
+  },
+  {
+   "id": "brettspill",
+   "q": "Nevn et brettspill",
+   "norsk": false,
+   "n": 1025,
+   "v": "20261127172925",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/brettspill.json",
+   "from": 19
+  },
+  {
+   "id": "britiske-byer",
+   "q": "Nevn en by i Storbritannia",
+   "norsk": false,
+   "n": 1600,
+   "v": "20261127173016",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/britiske-byer.json",
+   "from": 19
+  },
+  {
+   "id": "britiske-statsministre",
+   "q": "Nevn en britisk statsminister",
+   "norsk": false,
+   "n": 60,
+   "v": "20261127173049",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/britiske-statsministre.json",
+   "from": 1
+  },
+  {
+   "id": "cl-vinnere",
+   "q": "Nevn en klubb som har vunnet Champions League eller Europacupen",
+   "norsk": false,
+   "n": 25,
+   "v": "20261127173052",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 3,
+   "file": "data/cl-vinnere.json",
+   "from": 19
+  },
+  {
+   "id": "cocktailer",
+   "q": "Nevn en cocktail",
+   "norsk": false,
+   "n": 281,
+   "v": "20261127173059",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/cocktailer.json",
+   "from": 1
+  },
+  {
+   "id": "delstater-usa",
+   "q": "Nevn en amerikansk delstat",
+   "norsk": false,
+   "n": 50,
+   "v": "20261127173117",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/delstater-usa.json",
+   "from": 19
+  },
+  {
+   "id": "disney-figurer",
+   "q": "Nevn en Disney-figur",
+   "norsk": false,
+   "n": 267,
+   "v": "20261127173234",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/disney-figurer.json",
+   "from": 19
+  },
+  {
+   "id": "eddik",
+   "q": "Nevn en type eddik",
+   "norsk": false,
+   "n": 38,
+   "v": "20261119091249",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Mat",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 3,
+   "file": "data/eddik.json",
+   "from": 19
+  },
+  {
+   "id": "f1-forere",
+   "q": "Nevn en Formel 1-fører",
+   "norsk": false,
+   "n": 1082,
+   "v": "20261127173316",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/f1-forere.json",
+   "from": 1
+  },
+  {
+   "id": "filmer-1990",
+   "q": "Nevn en film fra 1990-tallet",
+   "norsk": false,
+   "n": 11117,
+   "v": "20261127191723",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/filmer-1990.json",
+   "from": 1
+  },
+  {
+   "id": "filmer",
+   "q": "Nevn en film",
+   "norsk": false,
+   "n": 35997,
+   "v": "20261127174008",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/filmer.json",
+   "from": 1
+  },
+  {
+   "id": "filosofer",
+   "q": "Nevn en filosof",
+   "norsk": false,
+   "n": 5108,
+   "v": "20261127175226",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/filosofer.json",
+   "from": 1
+  },
+  {
+   "id": "fjell-4000",
+   "q": "Nevn et fjell over 4000 meter",
+   "norsk": false,
+   "n": 4918,
+   "v": "20261127175309",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/fjell-4000.json",
+   "from": 1
+  },
+  {
+   "id": "flyplasser-norge",
+   "q": "Nevn en flyplass i Norge",
+   "norsk": true,
+   "n": 104,
+   "v": "20261118233533",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/flyplasser-norge.json",
+   "from": 1
+  },
+  {
+   "id": "flyselskaper",
+   "q": "Nevn et flyselskap",
+   "norsk": false,
+   "n": 3535,
+   "v": "20261127175444",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/flyselskaper.json",
+   "from": 19
+  },
+  {
+   "id": "fobier",
+   "q": "Nevn en fobi",
+   "norsk": false,
+   "n": 103,
+   "v": "20261127175502",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Vitenskap",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/fobier.json",
+   "from": 19
+  },
+  {
+   "id": "forfattere",
+   "q": "Nevn en forfatter",
+   "norsk": false,
+   "n": 13535,
+   "v": "20261127192346",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/forfattere.json",
+   "from": 1
+  },
+  {
+   "id": "fotballklubber",
+   "q": "Nevn en fotballklubb",
+   "norsk": false,
+   "n": 16031,
+   "v": "20261127182645",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/fotballklubber.json",
+   "from": 1
+  },
+  {
+   "id": "fotballspillere",
+   "q": "Nevn en fotballspiller",
+   "norsk": false,
+   "n": 225203,
+   "v": "20261128131234",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Annet",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/fotballspillere.json",
+   "from": 1
+  },
+  {
+   "id": "fotballstadioner",
+   "q": "Nevn en fotballstadion",
+   "norsk": false,
+   "n": 2562,
+   "v": "20261127182955",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/fotballstadioner.json",
+   "from": 1
+  },
+  {
+   "id": "fotballtrenere",
+   "q": "Nevn en fotballtrener",
+   "norsk": false,
+   "n": 31758,
+   "v": "20261127183437",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/fotballtrenere.json",
+   "from": 1
+  },
+  {
+   "id": "franske-byer",
+   "q": "Nevn en by i Frankrike",
+   "norsk": false,
+   "n": 2331,
+   "v": "20261127192508",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/franske-byer.json",
+   "from": 1
+  },
+  {
+   "id": "friidrettsutovere",
+   "q": "Nevn en friidrettsutøver",
+   "norsk": false,
+   "n": 8177,
+   "v": "20261127192523",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/friidrettsutovere.json",
+   "from": 19
+  },
+  {
+   "id": "fugler",
+   "q": "Nevn en fugl",
+   "norsk": false,
+   "n": 11403,
+   "v": "20261127192813",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Natur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/fugler.json",
+   "from": 1
+  },
+  {
+   "id": "fylker",
+   "q": "Nevn et norsk fylke",
+   "norsk": true,
+   "n": 15,
+   "v": "20261118222655",
+   "src": "Kilde: Statistisk sentralbyrå (KLASS, NLOD 2.0) og Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 3,
+   "file": "data/fylker.json",
+   "from": 1
+  },
+  {
+   "id": "fysikere",
+   "q": "Nevn en fysiker",
+   "norsk": false,
+   "n": 5220,
+   "v": "20261127192920",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Vitenskap",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/fysikere.json",
+   "from": 1
+  },
+  {
+   "id": "golfspillere",
+   "q": "Nevn en golfspiller",
+   "norsk": false,
+   "n": 3679,
+   "v": "20261127193001",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/golfspillere.json",
+   "from": 19
+  },
+  {
+   "id": "grunnstoffer",
+   "q": "Nevn et grunnstoff",
+   "norsk": false,
+   "n": 118,
+   "v": "20261127193011",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Vitenskap",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/grunnstoffer.json",
+   "from": 1
+  },
+  {
+   "id": "handballspillere",
+   "q": "Nevn en håndballspiller",
+   "norsk": false,
+   "n": 6141,
+   "v": "20261127193113",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/handballspillere.json",
+   "from": 1
+  },
+  {
+   "id": "harry-potter-figurer",
+   "q": "Nevn en figur fra Harry Potter",
+   "norsk": false,
+   "n": 241,
+   "v": "20261127193138",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/harry-potter-figurer.json",
+   "from": 19
+  },
+  {
+   "id": "hav",
+   "q": "Nevn et hav",
+   "norsk": false,
+   "n": 181,
+   "v": "20261127193147",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/hav.json",
+   "from": 19
+  },
+  {
+   "id": "hesteraser",
+   "q": "Nevn en hesterase",
+   "norsk": false,
+   "n": 638,
+   "v": "20261127193157",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Natur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/hesteraser.json",
+   "from": 1
+  },
+  {
+   "id": "hovedsteder",
+   "q": "Nevn en hovedstad",
+   "norsk": false,
+   "n": 205,
+   "v": "20261127193211",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/hovedsteder.json",
+   "from": 1
+  },
+  {
+   "id": "hunderaser",
+   "q": "Nevn en hunderase",
+   "norsk": false,
+   "n": 921,
+   "v": "20261127193234",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Natur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/hunderaser.json",
+   "from": 1
+  },
+  {
+   "id": "idretter",
+   "q": "Nevn en idrett",
+   "norsk": false,
+   "n": 561,
+   "v": "20261127193251",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/idretter.json",
+   "from": 1
+  },
+  {
+   "id": "instrumenter",
+   "q": "Nevn et musikkinstrument",
+   "norsk": false,
+   "n": 1565,
+   "v": "20261127193323",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/instrumenter.json",
+   "from": 1
+  },
+  {
+   "id": "ishockeyspillere",
+   "q": "Nevn en ishockeyspiller",
+   "norsk": false,
+   "n": 14298,
+   "v": "20261127193421",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/ishockeyspillere.json",
+   "from": 1
+  },
+  {
+   "id": "italienske-byer",
+   "q": "Nevn en by i Italia (kommune)",
+   "norsk": false,
+   "n": 7825,
+   "v": "20261127193523",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/italienske-byer.json",
+   "from": 1
+  },
+  {
+   "id": "japanske-byer",
+   "q": "Nevn en by i Japan",
+   "norsk": false,
+   "n": 318,
+   "v": "20261127193545",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/japanske-byer.json",
+   "from": 19
+  },
+  {
+   "id": "katteraser",
+   "q": "Nevn en katterase",
+   "norsk": false,
+   "n": 136,
+   "v": "20261127193551",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Natur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/katteraser.json",
+   "from": 1
+  },
+  {
+   "id": "kjemikere",
+   "q": "Nevn en kjemiker",
+   "norsk": false,
+   "n": 2338,
+   "v": "20261127193634",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Vitenskap",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/kjemikere.json",
+   "from": 19
+  },
+  {
+   "id": "komikere",
+   "q": "Nevn en komiker",
+   "norsk": false,
+   "n": 3511,
+   "v": "20261127193722",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/komikere.json",
+   "from": 19
+  },
+  {
+   "id": "kommuner",
+   "q": "Nevn en norsk kommune",
+   "norsk": true,
+   "n": 357,
+   "v": "20261126141800",
+   "src": "Kilde: Statistisk sentralbyrå (KLASS, NLOD 2.0) og Wikidata (CC0)",
+   "cat": "Annet",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/kommuner.json",
+   "from": 1
+  },
+  {
+   "id": "komponister",
+   "q": "Nevn en komponist",
+   "norsk": false,
+   "n": 6144,
+   "v": "20261127193951",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/komponister.json",
+   "from": 1
+  },
+  {
+   "id": "kortspill",
+   "q": "Nevn et kortspill",
+   "norsk": false,
+   "n": 1263,
+   "v": "20261127194008",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/kortspill.json",
+   "from": 19
+  },
+  {
+   "id": "kriger",
+   "q": "Nevn en krig",
+   "norsk": false,
+   "n": 1125,
+   "v": "20261127194040",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Historie",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/kriger.json",
+   "from": 19
+  },
+  {
+   "id": "kunstmuseer",
+   "q": "Nevn et kunstmuseum",
+   "norsk": false,
+   "n": 1790,
+   "v": "20261127194104",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/kunstmuseer.json",
+   "from": 19
+  },
+  {
+   "id": "land-afrika",
+   "q": "Nevn et land i Afrika",
+   "norsk": false,
+   "n": 54,
+   "v": "20261127194120",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/land-afrika.json",
+   "from": 19
+  },
+  {
+   "id": "land-asia",
+   "q": "Nevn et land i Asia",
+   "norsk": false,
+   "n": 48,
+   "v": "20261127194125",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/land-asia.json",
+   "from": 19
+  },
+  {
+   "id": "land-europa",
+   "q": "Nevn et land i Europa",
+   "norsk": false,
+   "n": 54,
+   "v": "20261127194129",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/land-europa.json",
+   "from": 19
+  },
+  {
+   "id": "land-sor-amerika",
+   "q": "Nevn et land i Sør-Amerika",
+   "norsk": false,
+   "n": 12,
+   "v": "20261127194131",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 3,
+   "file": "data/land-sor-amerika.json",
+   "from": 19
+  },
+  {
+   "id": "land",
+   "q": "Nevn et land",
+   "norsk": false,
+   "n": 203,
+   "v": "20261127194116",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/land.json",
+   "from": 1
+  },
+  {
+   "id": "langrenn",
+   "q": "Nevn en norsk langrennsløper",
+   "norsk": true,
+   "n": 752,
+   "v": "20261127194207",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/langrenn.json",
+   "from": 1
+  },
+  {
+   "id": "maaner",
+   "q": "Nevn en måne i solsystemet",
+   "norsk": false,
+   "n": 318,
+   "v": "20261127194220",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Vitenskap",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/maaner.json",
+   "from": 19
+  },
+  {
+   "id": "malere",
+   "q": "Nevn en maler",
+   "norsk": false,
+   "n": 10334,
+   "v": "20261127194432",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/malere.json",
+   "from": 1
+  },
+  {
+   "id": "matematikere",
+   "q": "Nevn en matematiker",
+   "norsk": false,
+   "n": 4874,
+   "v": "20261127194537",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Vitenskap",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/matematikere.json",
+   "from": 19
+  },
+  {
+   "id": "merkevarer",
+   "q": "Nevn et merke (brand)",
+   "norsk": false,
+   "n": 5441,
+   "v": "20261128072859",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/merkevarer.json",
+   "from": 1
+  },
+  {
+   "id": "museer-norge",
+   "q": "Nevn et museum i Norge",
+   "norsk": true,
+   "n": 626,
+   "v": "20261127194653",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/museer-norge.json",
+   "from": 1
+  },
+  {
+   "id": "musikkfestivaler",
+   "q": "Nevn en musikkfestival",
+   "norsk": false,
+   "n": 3948,
+   "v": "20261127194723",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/musikkfestivaler.json",
+   "from": 19
+  },
+  {
+   "id": "musikksjangere",
+   "q": "Nevn en musikksjanger",
+   "norsk": false,
+   "n": 1751,
+   "v": "20261127194803",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/musikksjangere.json",
+   "from": 19
+  },
+  {
+   "id": "nettlesere",
+   "q": "Nevn en nettleser",
+   "norsk": false,
+   "n": 182,
+   "v": "20261127194808",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Vitenskap",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/nettlesere.json",
+   "from": 19
+  },
+  {
+   "id": "nobelprisvinnere",
+   "q": "Nevn en nobelprisvinner",
+   "norsk": false,
+   "n": 901,
+   "v": "20261127194829",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Vitenskap",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/nobelprisvinnere.json",
+   "from": 1
+  },
+  {
+   "id": "norske-artister",
+   "q": "Nevn en norsk sanger eller artist",
+   "norsk": true,
+   "n": 4826,
+   "v": "20261127195216",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-artister.json",
+   "from": 1
+  },
+  {
+   "id": "norske-band",
+   "q": "Nevn et norsk band",
+   "norsk": true,
+   "n": 1840,
+   "v": "20261127195329",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-band.json",
+   "from": 1
+  },
+  {
+   "id": "norske-elver",
+   "q": "Nevn en norsk elv",
+   "norsk": true,
+   "n": 2602,
+   "v": "20261127195530",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-elver.json",
+   "from": 1
+  },
+  {
+   "id": "norske-filmer",
+   "q": "Nevn en norsk film",
+   "norsk": true,
+   "n": 1339,
+   "v": "20261127195635",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-filmer.json",
+   "from": 1
+  },
+  {
+   "id": "norske-fjell",
+   "q": "Nevn et norsk fjell",
+   "norsk": true,
+   "n": 16461,
+   "v": "20261127195929",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-fjell.json",
+   "from": 1
+  },
+  {
+   "id": "norske-fjorder",
+   "q": "Nevn en norsk fjord",
+   "norsk": true,
+   "n": 1219,
+   "v": "20261127200039",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-fjorder.json",
+   "from": 19
+  },
+  {
+   "id": "norske-forfattere",
+   "q": "Nevn en norsk forfatter",
+   "norsk": true,
+   "n": 4445,
+   "v": "20261127200328",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-forfattere.json",
+   "from": 1
+  },
+  {
+   "id": "norske-fosser",
+   "q": "Nevn en norsk foss",
+   "norsk": true,
+   "n": 2412,
+   "v": "20261127200355",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-fosser.json",
+   "from": 19
+  },
+  {
+   "id": "norske-fotballklubber",
+   "q": "Nevn en norsk fotballklubb",
+   "norsk": true,
+   "n": 516,
+   "v": "20261127200429",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-fotballklubber.json",
+   "from": 1
+  },
+  {
+   "id": "norske-fotballspillere",
+   "q": "Nevn en norsk fotballspiller",
+   "norsk": true,
+   "n": 5896,
+   "v": "20261127200736",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-fotballspillere.json",
+   "from": 1
+  },
+  {
+   "id": "norske-handballspillere",
+   "q": "Nevn en norsk håndballspiller",
+   "norsk": true,
+   "n": 647,
+   "v": "20261127200810",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-handballspillere.json",
+   "from": 19
+  },
+  {
+   "id": "norske-innsjoer",
+   "q": "Nevn en norsk innsjø",
+   "norsk": true,
+   "n": 4579,
+   "v": "20261127201040",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-innsjoer.json",
+   "from": 1
+  },
+  {
+   "id": "norske-isbreer",
+   "q": "Nevn en norsk isbre",
+   "norsk": true,
+   "n": 1433,
+   "v": "20261127201116",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-isbreer.json",
+   "from": 19
+  },
+  {
+   "id": "norske-jernbanestasjoner",
+   "q": "Nevn en norsk jernbanestasjon",
+   "norsk": true,
+   "n": 436,
+   "v": "20261119001111",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-jernbanestasjoner.json",
+   "from": 19
+  },
+  {
+   "id": "norske-journalister",
+   "q": "Nevn en norsk journalist",
+   "norsk": true,
+   "n": 2713,
+   "v": "20261127201422",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-journalister.json",
+   "from": 19
+  },
+  {
+   "id": "norske-kirker",
+   "q": "Nevn en norsk kirke",
+   "norsk": true,
+   "n": 2087,
+   "v": "20261127201721",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-kirker.json",
+   "from": 19
+  },
+  {
+   "id": "norske-komikere",
+   "q": "Nevn en norsk komiker",
+   "norsk": true,
+   "n": 251,
+   "v": "20261127201725",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/norske-komikere.json",
+   "from": 19
+  },
+  {
+   "id": "norske-komponister",
+   "q": "Nevn en norsk komponist",
+   "norsk": true,
+   "n": 1523,
+   "v": "20261127201837",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-komponister.json",
+   "from": 19
+  },
+  {
+   "id": "norske-malere",
+   "q": "Nevn en norsk maler",
+   "norsk": true,
+   "n": 1976,
+   "v": "20261127202009",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-malere.json",
+   "from": 19
+  },
+  {
+   "id": "norske-nasjonalparker",
+   "q": "Nevn en norsk nasjonalpark",
+   "norsk": true,
+   "n": 51,
+   "v": "20261127202015",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/norske-nasjonalparker.json",
+   "from": 19
+  },
+  {
+   "id": "norske-oyer",
+   "q": "Nevn en norsk øy",
+   "norsk": true,
+   "n": 9354,
+   "v": "20261127202131",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-oyer.json",
+   "from": 1
+  },
+  {
+   "id": "norske-partier",
+   "q": "Nevn et norsk politisk parti",
+   "norsk": true,
+   "n": 189,
+   "v": "20261127202141",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/norske-partier.json",
+   "from": 19
+  },
+  {
+   "id": "norske-politikere",
+   "q": "Nevn en norsk politiker",
+   "norsk": true,
+   "n": 14688,
+   "v": "20261127202419",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-politikere.json",
+   "from": 1
+  },
+  {
+   "id": "norske-programledere",
+   "q": "Nevn en norsk TV-programleder",
+   "norsk": true,
+   "n": 532,
+   "v": "20261127202434",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-programledere.json",
+   "from": 19
+  },
+  {
+   "id": "norske-rappere",
+   "q": "Nevn en norsk rapper",
+   "norsk": true,
+   "n": 159,
+   "v": "20261127202445",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/norske-rappere.json",
+   "from": 19
+  },
+  {
+   "id": "norske-selskaper",
+   "q": "Nevn et norsk selskap",
+   "norsk": true,
+   "n": 2545,
+   "v": "20261127202741",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-selskaper.json",
+   "from": 1
+  },
+  {
+   "id": "norske-skuespillere",
+   "q": "Nevn en norsk skuespiller",
+   "norsk": true,
+   "n": 2682,
+   "v": "20261127202930",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-skuespillere.json",
+   "from": 1
+  },
+  {
+   "id": "norske-tv-serier",
+   "q": "Nevn en norsk TV-serie",
+   "norsk": true,
+   "n": 525,
+   "v": "20261127203030",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/norske-tv-serier.json",
+   "from": 1
+  },
+  {
+   "id": "nyhetsbyraer",
+   "q": "Nevn et nyhetsbyrå",
+   "norsk": false,
+   "n": 551,
+   "v": "20261127203039",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/nyhetsbyraer.json",
+   "from": 1
+  },
+  {
+   "id": "operaer",
+   "q": "Nevn en opera",
+   "norsk": false,
+   "n": 1062,
+   "v": "20261127203058",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/operaer.json",
+   "from": 19
+  },
+  {
+   "id": "oppdagelsesreisende",
+   "q": "Nevn en oppdagelsesreisende",
+   "norsk": false,
+   "n": 3555,
+   "v": "20261127203139",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Historie",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/oppdagelsesreisende.json",
+   "from": 19
+  },
+  {
+   "id": "oppfinnere",
+   "q": "Nevn en oppfinner",
+   "norsk": false,
+   "n": 2530,
+   "v": "20261127203211",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Vitenskap",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/oppfinnere.json",
+   "from": 1
+  },
+  {
+   "id": "orkener",
+   "q": "Nevn en ørken",
+   "norsk": false,
+   "n": 191,
+   "v": "20261127203218",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/orkener.json",
+   "from": 19
+  },
+  {
+   "id": "oscarfilmer",
+   "q": "Nevn en film som har vunnet Oscar for beste film",
+   "norsk": false,
+   "n": 98,
+   "v": "20261127203250",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/oscarfilmer.json",
+   "from": 1
+  },
+  {
+   "id": "oster-verden",
+   "q": "Nevn en ostesort",
+   "norsk": false,
+   "n": 926,
+   "v": "20261127203301",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/oster-verden.json",
+   "from": 1
+  },
+  {
+   "id": "pastatyper",
+   "q": "Nevn en pastatype",
+   "norsk": false,
+   "n": 194,
+   "v": "20261127203309",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Mat",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/pastatyper.json",
+   "from": 19
+  },
+  {
+   "id": "paver",
+   "q": "Nevn en pave",
+   "norsk": false,
+   "n": 269,
+   "v": "20261127203323",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/paver.json",
+   "from": 1
+  },
+  {
+   "id": "pixar-figurer",
+   "q": "Nevn en Pixar-figur",
+   "norsk": false,
+   "n": 59,
+   "v": "20261127203330",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/pixar-figurer.json",
+   "from": 19
+  },
+  {
+   "id": "programmeringssprak",
+   "q": "Nevn et programmeringsspråk",
+   "norsk": false,
+   "n": 634,
+   "v": "20261127203347",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Vitenskap",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/programmeringssprak.json",
+   "from": 19
+  },
+  {
+   "id": "rappere",
+   "q": "Nevn en rapper",
+   "norsk": false,
+   "n": 3683,
+   "v": "20261119010544",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/rappere.json",
+   "from": 19
+  },
+  {
+   "id": "regissorer",
+   "q": "Nevn en filmregissør",
+   "norsk": false,
+   "n": 7924,
+   "v": "20261127203645",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/regissorer.json",
+   "from": 19
+  },
+  {
+   "id": "religioner",
+   "q": "Nevn en religion",
+   "norsk": false,
+   "n": 769,
+   "v": "20261127203716",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/religioner.json",
+   "from": 19
+  },
+  {
+   "id": "retter",
+   "q": "Nevn en matrett",
+   "norsk": false,
+   "n": 4178,
+   "v": "20261127203821",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Mat",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/retter.json",
+   "from": 19
+  },
+  {
+   "id": "romerske-keisere",
+   "q": "Nevn en romersk keiser",
+   "norsk": false,
+   "n": 105,
+   "v": "20261127203829",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/romerske-keisere.json",
+   "from": 1
+  },
+  {
+   "id": "sanger",
+   "q": "Nevn en sang (tittel)",
+   "norsk": false,
+   "n": 11827,
+   "v": "20261127204124",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/sanger.json",
+   "from": 1
+  },
+  {
+   "id": "selskaper-for-2000",
+   "q": "Nevn et selskap grunnlagt før 2000",
+   "norsk": false,
+   "n": 3287,
+   "v": "20261127204336",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/selskaper-for-2000.json",
+   "from": 1
+  },
+  {
+   "id": "selskaper",
+   "q": "Nevn et selskap",
+   "norsk": false,
+   "n": 9189,
+   "v": "20261127204305",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/selskaper.json",
+   "from": 1
+  },
+  {
+   "id": "simpsons-figurer",
+   "q": "Nevn en figur fra The Simpsons",
+   "norsk": false,
+   "n": 211,
+   "v": "20261127204347",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/simpsons-figurer.json",
+   "from": 19
+  },
+  {
+   "id": "sjakkapninger",
+   "q": "Nevn en sjakkåpning",
+   "norsk": false,
+   "n": 269,
+   "v": "20261127204354",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/sjakkapninger.json",
+   "from": 19
+  },
+  {
+   "id": "sjakkspillere",
+   "q": "Nevn en sjakkspiller",
+   "norsk": false,
+   "n": 7038,
+   "v": "20261127204424",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/sjakkspillere.json",
+   "from": 1
+  },
+  {
+   "id": "skihoppere",
+   "q": "Nevn en skihopper",
+   "norsk": false,
+   "n": 2540,
+   "v": "20261127204534",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/skihoppere.json",
+   "from": 1
+  },
+  {
+   "id": "skiskyttere",
+   "q": "Nevn en skiskytter",
+   "norsk": false,
+   "n": 3956,
+   "v": "20261127204627",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/skiskyttere.json",
+   "from": 1
+  },
+  {
+   "id": "skoyteloper",
+   "q": "Nevn en skøyteløper",
+   "norsk": false,
+   "n": 2104,
+   "v": "20261127204727",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/skoyteloper.json",
+   "from": 19
+  },
+  {
+   "id": "skuespillere",
+   "q": "Nevn en skuespiller",
+   "norsk": false,
+   "n": 16868,
+   "v": "20261127205147",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/skuespillere.json",
+   "from": 1
+  },
+  {
+   "id": "skyskrapere",
+   "q": "Nevn en skyskraper",
+   "norsk": false,
+   "n": 2184,
+   "v": "20261127205203",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/skyskrapere.json",
+   "from": 19
+  },
+  {
+   "id": "slag",
+   "q": "Nevn et kjent slag",
+   "norsk": false,
+   "n": 3441,
+   "v": "20261127205241",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Historie",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/slag.json",
+   "from": 19
+  },
+  {
+   "id": "slott",
+   "q": "Nevn et slott eller en borg",
+   "norsk": false,
+   "n": 4161,
+   "v": "20261119003216",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/slott.json",
+   "from": 19
+  },
+  {
+   "id": "sosiale-medier",
+   "q": "Nevn et sosialt medium",
+   "norsk": false,
+   "n": 329,
+   "v": "20261127205315",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/sosiale-medier.json",
+   "from": 19
+  },
+  {
+   "id": "spanske-byer",
+   "q": "Nevn en by i Spania",
+   "norsk": false,
+   "n": 6239,
+   "v": "20261127205355",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/spanske-byer.json",
+   "from": 19
+  },
+  {
+   "id": "spillfigurer",
+   "q": "Nevn en figur fra et videospill",
+   "norsk": false,
+   "n": 1379,
+   "v": "20261127205419",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/spillfigurer.json",
+   "from": 1
+  },
+  {
+   "id": "spillkonsoller",
+   "q": "Nevn en spillkonsoll",
+   "norsk": false,
+   "n": 373,
+   "v": "20261127205429",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/spillkonsoller.json",
+   "from": 19
+  },
+  {
+   "id": "sprak",
+   "q": "Nevn et språk",
+   "norsk": false,
+   "n": 3846,
+   "v": "20261127205519",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/sprak.json",
+   "from": 1
+  },
+  {
+   "id": "stavkirker",
+   "q": "Nevn en norsk stavkirke",
+   "norsk": true,
+   "n": 99,
+   "v": "20261127205535",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Kultur",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/stavkirker.json",
+   "from": 1
+  },
+  {
+   "id": "stjernebilder",
+   "q": "Nevn et stjernebilde",
+   "norsk": false,
+   "n": 95,
+   "v": "20261127205543",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Vitenskap",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/stjernebilder.json",
+   "from": 19
+  },
+  {
+   "id": "storbyer",
+   "q": "Nevn en by med over 100 000 innbyggere",
+   "norsk": false,
+   "n": 3211,
+   "v": "20261127205659",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/storbyer.json",
+   "from": 1
+  },
+  {
+   "id": "superhelter",
+   "q": "Nevn en superhelt",
+   "norsk": false,
+   "n": 633,
+   "v": "20261127205707",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/superhelter.json",
+   "from": 19
+  },
+  {
+   "id": "svommere",
+   "q": "Nevn en svømmer",
+   "norsk": false,
+   "n": 4896,
+   "v": "20261127205813",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/svommere.json",
+   "from": 19
+  },
+  {
+   "id": "sykdommer",
+   "q": "Nevn en sykdom",
+   "norsk": false,
+   "n": 2854,
+   "v": "20261127205905",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Vitenskap",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/sykdommer.json",
+   "from": 19
+  },
+  {
+   "id": "syklister",
+   "q": "Nevn en syklist",
+   "norsk": false,
+   "n": 15080,
+   "v": "20261127210028",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/syklister.json",
+   "from": 19
+  },
+  {
+   "id": "tennisspillere",
+   "q": "Nevn en tennisspiller",
+   "norsk": false,
+   "n": 10625,
+   "v": "20261127210137",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Sport",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/tennisspillere.json",
+   "from": 1
+  },
+  {
+   "id": "tv-kanaler",
+   "q": "Nevn en TV-kanal",
+   "norsk": false,
+   "n": 2180,
+   "v": "20261127210207",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/tv-kanaler.json",
+   "from": 19
+  },
+  {
+   "id": "tv-serier",
+   "q": "Nevn en TV-serie",
+   "norsk": false,
+   "n": 20542,
+   "v": "20261127210318",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/tv-serier.json",
+   "from": 1
+  },
+  {
+   "id": "tyske-byer",
+   "q": "Nevn en by i Tyskland",
+   "norsk": false,
+   "n": 2096,
+   "v": "20261127210359",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/tyske-byer.json",
+   "from": 1
+  },
+  {
+   "id": "universiteter",
+   "q": "Nevn et universitet",
+   "norsk": false,
+   "n": 3224,
+   "v": "20261127210444",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/universiteter.json",
+   "from": 1
+  },
+  {
+   "id": "us-presidenter",
+   "q": "Nevn en amerikansk president",
+   "norsk": false,
+   "n": 45,
+   "v": "20261127210448",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/us-presidenter.json",
+   "from": 1
+  },
+  {
+   "id": "usa-byer",
+   "q": "Nevn en by i USA",
+   "norsk": false,
+   "n": 10100,
+   "v": "20261127210603",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/usa-byer.json",
+   "from": 1
+  },
+  {
+   "id": "valutaer",
+   "q": "Nevn en valuta",
+   "norsk": false,
+   "n": 674,
+   "v": "20261127210619",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Samfunn",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/valutaer.json",
+   "from": 1
+  },
+  {
+   "id": "verdens-elver",
+   "q": "Nevn en elv (minst 1000 km lang)",
+   "norsk": false,
+   "n": 328,
+   "v": "20261127210649",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 2,
+   "file": "data/verdens-elver.json",
+   "from": 1
+  },
+  {
+   "id": "verdens-innsjoer",
+   "q": "Nevn en innsjø (i hele verden)",
+   "norsk": false,
+   "n": 5158,
+   "v": "20261127210722",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/verdens-innsjoer.json",
+   "from": 1
+  },
+  {
+   "id": "verdens-oyer",
+   "q": "Nevn en øy (i hele verden)",
+   "norsk": false,
+   "n": 3935,
+   "v": "20261127210815",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/verdens-oyer.json",
+   "from": 1
+  },
+  {
+   "id": "verdensarv",
+   "q": "Nevn et sted på UNESCOs verdensarvliste",
+   "norsk": false,
+   "n": 1788,
+   "v": "20261127210857",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/verdensarv.json",
+   "from": 19
+  },
+  {
+   "id": "videospill",
+   "q": "Nevn et videospill",
+   "norsk": false,
+   "n": 13056,
+   "v": "20261127211016",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/videospill.json",
+   "from": 1
+  },
+  {
+   "id": "vulkaner",
+   "q": "Nevn en vulkan",
+   "norsk": false,
+   "n": 1532,
+   "v": "20261127211037",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Geografi",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/vulkaner.json",
+   "from": 1
+  },
+  {
+   "id": "youtubere",
+   "q": "Nevn en YouTuber",
+   "norsk": false,
+   "n": 1829,
+   "v": "20261127211100",
+   "src": "Kilde: Wikidata (CC0)",
+   "cat": "Underholdning",
+   "modes": [
+    "daily",
+    "endless",
+    "packs",
+    "party"
+   ],
+   "diff": 1,
+   "file": "data/youtubere.json",
+   "from": 19
+  }
+ ]
+}
